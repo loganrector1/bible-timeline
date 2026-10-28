@@ -37,7 +37,7 @@ Steps:
 5. Deepen era by era. Candidates, roughly in order of value:
    - ~~Journeys~~ (branch `feature/journeys`): Paul's three journeys and voyage to Rome, with seven events along them; the deportations to Assyria and Babylon; Zerubbabel's and Ezra's returns; Bethlehem and the flight to Egypt. Stops can now have `via` points, so sea legs go round islands. Stop numbers, hidden under place dots since the first map version, show again.
    - Kings and prophets: the remaining kings of Israel and Judah and the minor prophets, probably with the kings and prophets lanes from key_features.md, so you can see which prophets spoke under which kings.
-   - More of the Gospels and Acts, the remaining letters (dated by their writing), and the wisdom books.
+   - ~~More of the Gospels and Acts, and the letters~~ (branch `feature/nt-content`): fourteen more Gospel events, four more from Acts, and the letters and Gospels dated by their writing. Still to come: Jude, the wisdom books.
    - Region outlines: tribal allotments, the two kingdoms, and the empires (key_features.md's empire layer may be the better home for these).
 
 ## Next candidates
