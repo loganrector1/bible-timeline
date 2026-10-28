@@ -520,5 +520,187 @@
     "dateNote": "The ark then stays twenty years at Kiriath-jearim before Samuel gathers Israel at Mizpah (1 Samuel 7:2).",
     "people": ["eli", "samuel"], "locations": ["aphek", "shiloh"],
     "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 6 }]
+  },
+  {
+    "id": "saul-king", "title": "Saul becomes king", "type": "reign", "major": true,
+    "summary": "Israel asks Samuel for a king like the other nations. God gives them Saul, whom Samuel anoints and the people acclaim.",
+    "dates": { "early": { "start": { "year": -1049 }, "confidence": "approx" } },
+    "dateNote": "Acts 13:21 gives Saul forty years; the numbers in 1 Samuel 13:1 are damaged in the Hebrew text.",
+    "people": ["saul", "samuel"], "locations": ["ramah", "gibeah"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 8, "endChapter": 11 }]
+  },
+  {
+    "id": "david-anointed", "title": "Samuel anoints David", "type": "other",
+    "summary": "God rejects Saul and sends Samuel to Bethlehem, where he anoints Jesse's youngest son, the shepherd David.",
+    "dates": { "early": { "start": { "year": -1024 }, "confidence": "approx" } },
+    "dateNote": "Not dated in Scripture; David is the youngest son, still keeping the sheep (1 Samuel 16:11).",
+    "people": ["david", "samuel", "jesse"], "locations": ["bethlehem"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 16, "verse": 1, "endVerse": 13 }]
+  },
+  {
+    "id": "david-goliath", "title": "David and Goliath", "type": "battle", "major": true,
+    "summary": "The young David faces the Philistine champion Goliath with a sling and five stones, trusting the Lord, and kills him.",
+    "dates": { "early": { "start": { "year": -1022 }, "confidence": "approx" } },
+    "dateNote": "Not dated in Scripture; David is still a youth (1 Samuel 17:33).",
+    "people": ["david", "goliath", "saul"], "locations": ["valley-of-elah"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 17 }]
+  },
+  {
+    "id": "saul-dies", "title": "Death of Saul and Jonathan", "type": "death",
+    "summary": "The Philistines defeat Israel on Mount Gilboa. Jonathan is killed and the wounded Saul falls on his own sword.",
+    "dates": { "early": { "start": { "year": -1009 }, "confidence": "approx" } },
+    "people": ["saul", "jonathan", "david"], "locations": ["mount-gilboa"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 31 }, { "book": "2 Samuel", "chapter": 1 }]
+  },
+  {
+    "id": "david-reign", "title": "David's reign", "type": "reign", "major": true,
+    "summary": "David rules seven and a half years from Hebron over Judah, then thirty-three years from Jerusalem over all Israel.",
+    "dates": { "early": { "start": { "year": -1009 }, "end": { "year": -969 }, "confidence": "approx" } },
+    "dateNote": "Forty years in all (2 Samuel 5:4–5).",
+    "people": ["david"], "locations": ["hebron", "jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }]
+  },
+  {
+    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "major": true, "partOf": "david-reign",
+    "summary": "David captures the Jebusite stronghold of Zion and makes Jerusalem his capital, then brings the ark there.",
+    "dates": { "early": { "start": { "year": -1002 }, "confidence": "approx" } },
+    "dateNote": "After seven and a half years reigning in Hebron (2 Samuel 5:5).",
+    "people": ["david"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 5, "verse": 6, "endChapter": 6, "endVerse": 19 }]
+  },
+  {
+    "id": "davidic-covenant", "title": "God's covenant with David", "type": "covenant", "major": true, "partOf": "david-reign",
+    "summary": "Through Nathan, God promises David a house and a kingdom that will last forever: a promise the New Testament sees fulfilled in Jesus.",
+    "dates": { "early": { "start": { "year": -999 }, "confidence": "approx" } },
+    "dateNote": "Not dated; it comes once David is settled in his palace in Jerusalem (2 Samuel 7:1).",
+    "people": ["david", "nathan"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 7 }]
+  },
+  {
+    "id": "david-bathsheba", "title": "David and Bathsheba", "type": "judgment", "partOf": "david-reign",
+    "summary": "David takes Bathsheba and has her husband Uriah killed. Nathan confronts him, and David repents (Psalm 51), but trouble follows his house.",
+    "dates": { "early": { "start": { "year": -992 }, "confidence": "approx" } },
+    "dateNote": "Not dated; it happens while Israel's army besieges Rabbah of the Ammonites (2 Samuel 11:1).",
+    "people": ["david", "bathsheba", "nathan"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 11, "endChapter": 12 }]
+  },
+  {
+    "id": "solomon-reign", "title": "Solomon's reign", "type": "reign", "major": true,
+    "summary": "Solomon asks God for wisdom, rules Israel at the height of its wealth and peace, and builds the temple, but his many foreign wives turn his heart to other gods.",
+    "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
+    "dateNote": "Forty years (1 Kings 11:42).",
+    "people": ["solomon"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 1, "endChapter": 11 }]
+  },
+  {
+    "id": "temple-built", "title": "Solomon builds the temple", "type": "worship", "major": true, "partOf": "solomon-reign",
+    "summary": "Solomon builds the house of the Lord on Mount Moriah; at its dedication God's glory fills the temple.",
+    "dates": { "early": { "start": { "year": -965, "month": 5, "label": "Ziv, 2nd month" }, "end": { "year": -958, "month": 11, "label": "Bul, 8th month" }, "confidence": "approx" } },
+    "dateNote": "Begun in Solomon's fourth year, 480 years after the Exodus (1 Kings 6:1), and finished seven years later (1 Kings 6:37–38).",
+    "people": ["solomon"], "locations": ["jerusalem", "moriah"],
+    "scripture": [{ "book": "1 Kings", "chapter": 6, "endChapter": 8 }]
+  },
+  {
+    "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
+    "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan.",
+    "dates": { "early": { "start": { "year": -930 }, "confidence": "approx" } },
+    "people": ["rehoboam", "jeroboam"], "locations": ["shechem", "bethel", "dan"],
+    "scripture": [{ "book": "1 Kings", "chapter": 12 }]
+  },
+  {
+    "id": "elijah-carmel", "title": "Elijah on Mount Carmel", "type": "miracle", "major": true,
+    "summary": "After three years of drought Elijah challenges the prophets of Baal. God answers with fire from heaven, then sends rain.",
+    "dates": { "early": { "start": { "year": -859 }, "confidence": "approx" } },
+    "dateNote": "During Ahab's reign (874–853 BC); the year isn't given.",
+    "people": ["elijah", "ahab", "jezebel"], "locations": ["mount-carmel", "kishon"],
+    "scripture": [{ "book": "1 Kings", "chapter": 18 }]
+  },
+  {
+    "id": "elijah-taken", "title": "Elijah taken up to heaven", "type": "miracle",
+    "summary": "Elijah parts the Jordan and is taken up in a whirlwind as chariots of fire appear. Elisha takes up his cloak and his ministry.",
+    "dates": { "early": { "start": { "year": -849 }, "confidence": "approx" } },
+    "dateNote": "Not dated; Elisha is already prophet while Jehoshaphat still reigns in Judah (2 Kings 3), before about 848 BC.",
+    "people": ["elijah", "elisha"], "locations": ["jericho", "jordan-river"],
+    "scripture": [{ "book": "2 Kings", "chapter": 2, "verse": 1, "endVerse": 18 }]
+  },
+  {
+    "id": "jonah-nineveh", "title": "Jonah preaches to Nineveh", "type": "prophecy",
+    "summary": "Jonah runs from God's call, is swallowed by a great fish, and finally warns Nineveh, which repents and is spared.",
+    "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
+    "dateNote": "Jonah prophesied under Jeroboam II of Israel (793–753 BC, 2 Kings 14:25); the year of his mission isn't given.",
+    "people": ["jonah"], "locations": ["joppa", "nineveh"],
+    "scripture": [{ "book": "Jonah", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "amos-ministry", "title": "Amos warns Israel", "type": "ministry",
+    "summary": "A shepherd from Judah denounces the northern kingdom's injustice and hollow worship at Bethel, and foretells its fall.",
+    "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
+    "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
+    "people": ["amos"], "locations": ["tekoa", "bethel"],
+    "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
+    "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
+    "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
+    "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
+    "people": ["isaiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
+  },
+  {
+    "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "major": true,
+    "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
+    "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
+    "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
+    "locations": ["samaria", "nineveh"],
+    "scripture": [{ "book": "2 Kings", "chapter": 17 }]
+  },
+  {
+    "id": "sennacherib-siege", "title": "Sennacherib threatens Jerusalem", "type": "miracle",
+    "summary": "Assyria's king takes Lachish and surrounds Jerusalem. Hezekiah prays, Isaiah promises deliverance, and the angel of the Lord strikes the Assyrian camp.",
+    "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
+    "dateNote": "Sennacherib's own annals and the reliefs of Lachish from his palace record this campaign of 701 BC.",
+    "people": ["hezekiah", "isaiah"], "locations": ["jerusalem", "lachish"],
+    "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }]
+  },
+  {
+    "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant",
+    "summary": "The Book of the Law is found in the temple. Josiah renews the covenant, destroys the idols and celebrates the Passover.",
+    "dates": { "early": { "start": { "year": -621 }, "confidence": "approx" } },
+    "dateNote": "In Josiah's eighteenth year (2 Kings 22:3).",
+    "people": ["josiah"], "locations": ["jerusalem", "bethel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 22, "endChapter": 23 }]
+  },
+  {
+    "id": "jeremiah-ministry", "title": "Jeremiah's ministry", "type": "ministry", "major": true,
+    "summary": "For four decades Jeremiah warns Judah to repent and submit to Babylon, weeps over Jerusalem's fall, and promises a new covenant.",
+    "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
+    "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
+    "people": ["jeremiah"], "locations": ["anathoth", "jerusalem"],
+    "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
+  },
+  {
+    "id": "daniel-taken", "title": "Daniel taken to Babylon", "type": "journey",
+    "summary": "Nebuchadnezzar takes young nobles from Jerusalem to serve in his court, among them Daniel, Hananiah, Mishael and Azariah.",
+    "dates": { "early": { "start": { "year": -604 }, "confidence": "approx" } },
+    "dateNote": "In the third year of Jehoiakim (Daniel 1:1), when Nebuchadnezzar first took Jerusalem in 605 BC.",
+    "people": ["daniel", "nebuchadnezzar"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 1 }]
+  },
+  {
+    "id": "jehoiachin-exiled", "title": "King Jehoiachin taken to Babylon", "type": "judgment",
+    "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
+    "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
+    "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
+    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "fall-of-jerusalem", "title": "Fall of Jerusalem", "type": "judgment", "major": true,
+    "summary": "Babylon besieges Jerusalem for a year and a half, breaks through the walls, burns the temple and takes the people into exile.",
+    "dates": { "early": { "start": { "year": -587, "month": 1, "label": "10th of 10th month" }, "end": { "year": -585, "month": 8, "label": "10th of 5th month" }, "confidence": "approx" } },
+    "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
+    "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
   }
 ]
