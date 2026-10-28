@@ -2,7 +2,7 @@ import { data, datesFor, journeysById } from "../../data";
 import { CHRONOLOGIES } from "../../data/chronologies";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
-import { eventMidpoint, eventsInOrder, entityBounds } from "../../lib/entities";
+import { childEvents, eventMidpoint, eventsInOrder, entityBounds, parentEvent } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { Chip, Chips, Note, ScriptureList, Section } from "./parts";
 
@@ -23,6 +23,8 @@ export default function EventDetail({ ev }: { ev: Event }) {
   const prev = ordered[index - 1];
   const next = ordered[index + 1];
   const journey = ev.journeyId ? journeysById.get(ev.journeyId) : undefined;
+  const parent = parentEvent(ev);
+  const children = childEvents(ev, chron);
   const mapShown = useStore((s) => s.mode !== "timeline");
   const select = useStore((s) => s.select);
 
@@ -45,6 +47,12 @@ export default function EventDetail({ ev }: { ev: Event }) {
 
       <p className="mt-4 leading-relaxed">{ev.summary}</p>
       {ev.description && <p className="mt-2 leading-relaxed text-ink/90">{ev.description}</p>}
+
+      {parent && (
+        <Section title="Part of">
+          <Chips refs={[{ kind: "event", id: parent.id }]} />
+        </Section>
+      )}
 
       {ev.people.length > 0 && (
         <Section title="People">
@@ -78,6 +86,12 @@ export default function EventDetail({ ev }: { ev: Event }) {
               </li>
             ))}
           </ol>
+        </Section>
+      )}
+
+      {children.length > 0 && (
+        <Section title="Along the way">
+          <Chips refs={children.map((c) => ({ kind: "event", id: c.id }))} />
         </Section>
       )}
 

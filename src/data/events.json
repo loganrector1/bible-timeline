@@ -270,7 +270,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 12, "verse": 31, "endChapter": 19, "endVerse": 2 }]
   },
   {
-    "id": "red-sea", "title": "Crossing the Red Sea", "type": "miracle", "major": true,
+    "id": "red-sea", "title": "Crossing the Red Sea", "type": "miracle", "major": true, "partOf": "exodus",
     "summary": "God parts the sea, Israel crosses on dry ground, and the waters return over Pharaoh's chariots. Moses and Miriam lead a song of praise.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
@@ -280,7 +280,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 14, "endChapter": 15, "endVerse": 21 }]
   },
   {
-    "id": "manna", "title": "Manna and quail", "type": "miracle",
+    "id": "manna", "title": "Manna and quail", "type": "miracle", "partOf": "exodus",
     "summary": "When Israel grumbles for food, God sends quail in the evening and bread from heaven each morning.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 5, "day": 15, "label": "15th of 2nd month" }, "confidence": "approx" },
@@ -290,7 +290,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 16 }]
   },
   {
-    "id": "amalek", "title": "Battle with Amalek", "type": "battle",
+    "id": "amalek", "title": "Battle with Amalek", "type": "battle", "partOf": "exodus",
     "summary": "At Rephidim God gives water from the rock; Joshua defeats Amalek while Aaron and Hur hold up Moses' hands.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "confidence": "approx" },
@@ -366,7 +366,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 14, "verse": 26, "endVerse": 35 }, { "book": "Numbers", "chapter": 33 }]
   },
   {
-    "id": "miriam-dies", "title": "Death of Miriam", "type": "death",
+    "id": "miriam-dies", "title": "Death of Miriam", "type": "death", "partOf": "to-moab",
     "summary": "Miriam dies and is buried at Kadesh.",
     "dates": {
       "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
@@ -376,7 +376,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 1 }]
   },
   {
-    "id": "aaron-dies", "title": "Death of Aaron", "type": "death",
+    "id": "aaron-dies", "title": "Death of Aaron", "type": "death", "partOf": "to-moab",
     "summary": "Aaron dies on Mount Hor at 123, and his son Eleazar becomes high priest.",
     "dates": {
       "early": { "start": { "year": -1406, "month": 8, "day": 1, "label": "1st of 5th month, 40th year" }, "confidence": "approx" },

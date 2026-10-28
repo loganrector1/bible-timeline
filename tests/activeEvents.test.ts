@@ -47,3 +47,25 @@ describe("selected event", () => {
     expect(ids(-4113, "creation")).toHaveLength(NEAREST_COUNT);
   });
 });
+
+describe("date order", () => {
+  const order = eventsInOrder(DEFAULT_CHRONOLOGY).map((ev) => ev.id);
+  const before = (a: string, b: string) => expect(order.indexOf(a), `${a} before ${b}`).toBeLessThan(order.indexOf(b));
+
+  test("a span sorts by its start, so a journey comes before what happens along it", () => {
+    before("exodus", "red-sea");
+    before("exodus", "amalek");
+  });
+
+  test("a moment known only to the month sorts mid-month", () => {
+    before("manna", "amalek"); // 15th of the 2nd month, then Rephidim later that month
+  });
+});
+
+describe("events along a journey", () => {
+  test("come after the journey, in order", () => {
+    const order = eventsInOrder(DEFAULT_CHRONOLOGY).map((ev) => ev.id);
+    const i = order.indexOf("exodus");
+    expect(order.slice(i, i + 4)).toEqual(["exodus", "red-sea", "manna", "amalek"]);
+  });
+});
