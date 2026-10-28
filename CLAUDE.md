@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for working in this repo. The product vision is in [key_features.md](key_features.md); setup and content conventions for humans are in [README.md](README.md).
+Guidance for working in this repo. The product vision is in [key_features.md](key_features.md), what's built and what could come next in [ROADMAP.md](ROADMAP.md) (update it when a milestone finishes); setup and content conventions for humans are in [README.md](README.md).
 
 ## Commands
 
