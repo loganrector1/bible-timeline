@@ -39,6 +39,20 @@ export function findProblems(d: Dataset): string[] {
     check(owner, "location", ev.locations);
     check(owner, "region", ev.regions);
     if (ev.journeyId) check(owner, "journey", [ev.journeyId]);
+    if (ev.partOf) check(owner, "event", [ev.partOf]);
+  }
+
+  // Parent events are one level deep, and a child happens at a stop on its parent's journey.
+  const events = new Map(d.events.map((ev) => [ev.id, ev]));
+  const journeys = new Map(d.journeys.map((j) => [j.id, j]));
+  for (const ev of d.events) {
+    const parent = ev.partOf ? events.get(ev.partOf) : undefined;
+    if (!parent) continue;
+    if (parent.partOf) problems.push(`event ${ev.id} is part of ${parent.id}, which is itself part of another event`);
+    const stops = parent.journeyId ? journeys.get(parent.journeyId)?.stops.map((s) => s.locationId) : undefined;
+    if (stops && !ev.locations.some((l) => stops.includes(l))) {
+      problems.push(`event ${ev.id} is part of ${parent.id} but none of its places is a stop on that journey`);
+    }
   }
 
   for (const p of d.people) {

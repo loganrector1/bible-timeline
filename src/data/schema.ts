@@ -57,6 +57,8 @@ export const Event = z.object({
   locations: ids,
   regions: ids,
   journeyId: id.optional(),
+  /** The larger event this happens within, e.g. the Red Sea crossing during the Exodus. */
+  partOf: id.optional(),
   scripture: z.array(ScriptureRef).default([]),
 });
 

@@ -24,7 +24,25 @@ export function eventMidpoint(ev: Event, chron: string): number | undefined {
  */
 export function eventOrderKey(ev: Event, chron: string): number {
   const spec = datesFor(ev, chron)!;
-  return spec.end ? specBounds(spec)[0] : specMidpoint(spec);
+  const own = spec.end ? specBounds(spec)[0] : specMidpoint(spec);
+  // Never before the event it's part of.
+  const parent = parentEvent(ev);
+  return parent && datesFor(parent, chron) ? Math.max(own, eventOrderKey(parent, chron)) : own;
+}
+
+/** The larger event this one is part of, if any. */
+export function parentEvent(ev: Event): Event | undefined {
+  return ev.partOf ? eventsById.get(ev.partOf) : undefined;
+}
+
+/** The events that are part of this one, in date order. */
+export function childEvents(ev: Event, chron: string): Event[] {
+  return eventsInOrder(chron).filter((c) => c.partOf === ev.id);
+}
+
+/** The journey an event draws on the map: its own, or else its parent's. */
+export function journeyOf(ev: Event): string | undefined {
+  return ev.journeyId ?? parentEvent(ev)?.journeyId;
 }
 
 /** Events sorted by date under a chronology, longer first on ties. Undated events are left out. */

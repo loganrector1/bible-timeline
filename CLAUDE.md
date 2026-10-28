@@ -31,6 +31,7 @@ npm run build      # typecheck + production build to dist/
 - Dates are keyed by chronology id (`early` is the default, `late` holds alternates); a missing entry falls back to the default. Which default to use is still an open decision.
 - Region outlines in `regions.json` are the shapes of places: each feature id must match a location id.
 - Don't invent precision Scripture doesn't give. Leave journey stops untimed rather than guessing days, and mark uncertain dates and sites as such, with a note.
+- `partOf` links an event to the larger event it happens within (Red Sea → Exodus). Children stay full events (type, people, Scripture); one level deep; the date's midpoint falls within the parent's, and a parent's journey must have a stop at one of the child's places (`validate.ts`, `data.test.ts`).
 - Coordinates and outlines are hand-entered approximations, not yet checked against a dataset like OpenBible.info.
 
 ## Design decisions (agreed with the user)

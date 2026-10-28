@@ -61,3 +61,11 @@ describe("date order", () => {
     before("manna", "amalek"); // 15th of the 2nd month, then Rephidim later that month
   });
 });
+
+describe("events along a journey", () => {
+  test("come after the journey, in order", () => {
+    const order = eventsInOrder(DEFAULT_CHRONOLOGY).map((ev) => ev.id);
+    const i = order.indexOf("exodus");
+    expect(order.slice(i, i + 4)).toEqual(["exodus", "red-sea", "manna", "amalek"]);
+  });
+});
