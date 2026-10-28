@@ -9,18 +9,20 @@ npm run dev        # dev server at http://localhost:5173
 npm test           # vitest: date math + data integrity
 npm run typecheck  # tsc --noEmit
 npm run build      # typecheck + production build to dist/
+node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the dev server in Edge
 ```
 
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
 - Before committing, gate on `npm test`'s exit code, not on grepping its output. Any failure blocks the commit.
 - `npm test` runs Vitest through `scripts/vitest.mjs`, which restarts it from an upper-case drive letter. When the working directory is `c:\...` (VS Code terminals and Claude Code's shell often are), plain `vitest` loads itself twice and every suite fails at its first `describe` with `TypeError: Cannot read properties of undefined (reading 'config')`. Call `npm test`, not `npx vitest`. This was the "flake" of 2026-10-27/28: it came and went with the shell's drive-letter case, not with screenshots or caches.
+- `scripts/shot.mjs` (playwright-core driving the installed Edge; the dev server must be running) is how UI changes get checked; its header lists the actions (`mode`, `select` via Browse, `zoomIn`, click, hover, drag, eval…). Save screenshots outside the repo. Driving the app: don't `import()` app modules in `eval` (that loads a second store, which the app ignores); use the UI. At phone width, `select` via Browse can fail to select; pick from the Nearest events list instead.
 - On Windows, stopping a background task doesn't kill the Node process behind it. Free a port with `Get-NetTCPConnection -LocalPort 5173` + `Stop-Process`.
 
 ## Architecture
 
 - Static React 19 + TypeScript + Vite + Tailwind v4 site. No backend; all content is JSON in `src/data/`, validated with zod (`schema.ts`) and checked for broken links by `validate.ts`.
 - `src/state/store.ts` (zustand) is the single source of truth: `currentYear` (fractional astronomical year), `pxPerYear` (time zoom), `selection`, `mode`, `chronologyId`. Timeline and map only read and write the store; they never talk to each other.
-- `src/lib/`: `dates.ts` (year math and formatting), `entities.ts` (cross-entity queries), `journeys.ts`, `activeEvents.ts` (which events the map shows), `timeScale.ts`.
+- `src/lib/`: `dates.ts` (year math and formatting), `entities.ts` (cross-entity queries), `journeys.ts`, `activeEvents.ts` (which events the map shows), `timeScale.ts`. Event order and parent/child links live in `entities.ts` (`eventsInOrder`, `eventOrderKey`, `adjacentEvent`, `parentEvent`, `childEvents`, `journeyOf`).
 - The timeline is virtual: no native scrolling. Gestures change `currentYear` directly, and the cursor is fixed at the vertical center. Native scrolling can't reach day-level zoom across thousands of years.
 - Map: MapLibre GL 6 via `react-map-gl/maplibre`, on OpenFreeMap tiles stripped down to relief and water (`baseStyle.ts`). Terrain is a MapLibre hillshade from AWS open-data Terrarium elevation tiles (no key; the `elevation-tiles-prod.s3.amazonaws.com` host sends CORS headers on GET, not HEAD), over a faint Natural Earth colour wash that's only sharp to zoom 6. Modern roads, labels and OSM land cover are left out; land cover is today's land use, mapped unevenly by country. Its worker URL must be set explicitly (`setWorkerUrl` in MapView), and `mapLib` must be passed so only one MapLibre instance exists.
 
@@ -46,9 +48,18 @@ npm run build      # typecheck + production build to dist/
 - **Play** steps through events one by one, resting longer while a journey draws. It doesn't sweep time linearly.
 - **The map shows the 5 nearest events** to the cursor (`NEAREST_COUNT` in `activeEvents.ts`), whatever the time zoom. Time zoom affects only the timeline, so the map has no time-zoom controls. The panel is titled "Nearest events" and lists dates, because in quiet stretches the nearest event can be years away. Distance is the gap to the event plus 1/20 of its length, so a specific event beats a long span that covers the cursor (Moses flees over a century of slavery), while the span wins when nothing specific is within a few years. The list always holds the selected event (or else the nearest) with the events just before and after it (`adjacentEvent`, the same order as the step buttons), so it doubles as a way to step through events; the nearest fill the rest.
 - **Phone details sheet** opens as a short peek (kind, title, date, start of summary); tap or swipe up to expand, swipe down or tap the handle to shrink. It keeps its size as the selection changes (so play doesn't cover the map), and it always stops above the bottom controls: mark any control it must not cover with `data-sheet-floor`.
-- **Crowded timeline:** spans shorter than 14px draw as dots (a shorter bar is hard to click). Dots too close to stack sit side by side in time order, at most 5; the rest fold into a "+N" badge that zooms in until they spread out. Which dots stay and which labels win is ranked: selected, then highlighted, then `major` events (a flag in `events.json`), then earliest. All labels, span labels included, sit in one column after the dots, so a label never covers a dot. A span's label slides down its bar when its start is taken. Events with `partOf` fold into their parent (hidden) until the parent is long enough to draw as a bar, unless selected.
+- **Crowded timeline:** spans shorter than 14px draw as dots (a shorter bar is hard to click). Dots too close to stack sit side by side in time order, at most 5; the rest fold into a "+N" badge that zooms in until they spread out. Which dots stay and which labels win is ranked: selected, then highlighted, then `major` events (a flag in `events.json`), then earliest. All labels, span labels included, sit in one column after the dots, so a label never covers a dot. A span's label slides down its bar when its start is taken. Events with `partOf` fold into their parent (hidden) until the parent is long enough to draw as a bar, unless selected. Hovering a span's bar or its label highlights both (`group/event`), as hovering a dot's label highlights the dot.
 - Hover cards are custom and instant; never rely on the browser's `title` tooltip.
 - Approachable for lay readers and small groups; honest about uncertainty without being academic.
+
+## Open questions and known issues
+
+- Which chronology is the default (early vs late Exodus) is undecided.
+- On the map, a child event's stop label can nearly repeat the place name ("Crossing the Red Sea" beside "Red Sea crossing (Yam Suph)?").
+- "The twelve spies" isn't `partOf` anything: "Israel leaves Sinai" is a single date, not a span covering the journey to Kadesh.
+- The wandering (`-1444` start) sorts before the tabernacle, departure from Sinai and the spies, which Scripture places before it; its start date may need revisiting.
+- In Both view on a phone, the details peek covers much of the small map.
+- Three events have no places, so they get no map popup or dots: Creation, Birth of Ishmael, Birth of Jacob and Esau.
 
 ## Working style
 
