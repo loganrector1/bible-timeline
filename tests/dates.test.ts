@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
-  formatDateSpec, formatTimePoint, formatYear, fromHistorical,
+  formatDateSpec, formatTimePoint, formatYear, fromFractional, fromHistorical,
   pointBounds, precisionOf, specBounds, toHistorical,
 } from "../src/lib/dates";
 
@@ -45,6 +45,13 @@ describe("fractional years", () => {
       .toEqual([-1525, -1404]);
   });
 
+  test("fromFractional inverts pointBounds", () => {
+    for (const tp of [{ year: -1445 }, { year: -1445, month: 4 }, { year: -1445, month: 4, day: 14 }, { year: 30, month: 12, day: 31 }]) {
+      const [lo, hi] = pointBounds(tp);
+      expect(fromFractional((lo + hi) / 2, precisionOf(tp))).toEqual(tp);
+    }
+  });
+
   test("precision comes from which fields are set", () => {
     expect(precisionOf({ year: 1 })).toBe("year");
     expect(precisionOf({ year: 1, month: 3 })).toBe("month");
@@ -55,8 +62,8 @@ describe("fractional years", () => {
 describe("formatting", () => {
   test("points at each precision", () => {
     expect(formatTimePoint({ year: -1445 })).toBe("1446 BC");
-    expect(formatTimePoint({ year: -1445, month: 4 })).toBe("Apr, 1446 BC");
-    expect(formatTimePoint({ year: -1445, month: 4, day: 14 })).toBe("14 Apr, 1446 BC");
+    expect(formatTimePoint({ year: -1445, month: 4 })).toBe("Apr 1446 BC");
+    expect(formatTimePoint({ year: -1445, month: 4, day: 14 })).toBe("14 Apr 1446 BC");
     expect(formatTimePoint({ year: -1445, month: 4, day: 14, label: "14 Nisan" }))
       .toBe("14 Nisan, 1446 BC");
   });

@@ -27,8 +27,8 @@ export type Precision = "year" | "month" | "day";
 
 export type EraStyle = "BC" | "BCE";
 
-const MONTH_START_DAY = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
-const MONTH_NAMES = [
+export const MONTH_START_DAY = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365];
+export const MONTH_NAMES = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
@@ -48,6 +48,16 @@ export function pointBounds(tp: TimePoint): [number, number] {
   }
   const lo = tp.year + (monthStart + tp.day - 1) / 365;
   return [lo, lo + 1 / 365];
+}
+
+/** The TimePoint containing a fractional year, at the given precision. */
+export function fromFractional(f: number, precision: Precision): TimePoint {
+  const year = Math.floor(f);
+  if (precision === "year") return { year };
+  const dayOfYear = Math.min(364, Math.floor((f - year) * 365));
+  const month = MONTH_START_DAY.findIndex((start) => start > dayOfYear);
+  if (precision === "month") return { year, month };
+  return { year, month, day: dayOfYear - MONTH_START_DAY[month - 1] + 1 };
 }
 
 /** Fractional-year interval covered by a DateSpec, from the start of `start` to the end of `end`. */
@@ -96,9 +106,10 @@ function formatSubYear(tp: TimePoint): string | null {
 }
 
 export function formatTimePoint(tp: TimePoint, style: EraStyle = "BC"): string {
-  const sub = formatSubYear(tp);
   const year = formatYear(tp.year, style);
-  return sub ? `${sub}, ${year}` : year;
+  if (tp.label) return `${tp.label}, ${year}`;
+  const sub = formatSubYear(tp);
+  return sub ? `${sub} ${year}` : year;
 }
 
 function formatYearRange(a: number, b: number, style: EraStyle): string {
