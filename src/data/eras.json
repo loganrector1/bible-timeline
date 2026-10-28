@@ -45,10 +45,10 @@
     "color": "#6f8a3c",
     "summary": "Under Joshua, Israel crosses the Jordan, takes Jericho and settles the land promised to Abraham (Joshua).",
     "dates": {
-      "early": { "start": { "year": -1405 }, "end": { "year": -1374 }, "confidence": "approx" },
-      "late": { "start": { "year": -1219 }, "end": { "year": -1199 }, "confidence": "approx" }
+      "early": { "start": { "year": -1405 }, "end": { "year": -1389 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219 }, "end": { "year": -1203 }, "confidence": "approx" }
     },
-    "dateNote": "Forty years after the Exodus (Joshua 5:6). Joshua's death is placed about thirty years later."
+    "dateNote": "From the Jordan crossing, forty years after the Exodus (Joshua 5:6), to Joshua's death at 110 (Joshua 24:29)."
   },
   {
     "id": "judges",
@@ -56,8 +56,8 @@
     "color": "#9a6b4f",
     "summary": "A repeating cycle of turning from God, oppression and rescue through judges such as Deborah, Gideon and Samson, ending with Samuel (Judges, Ruth, 1 Samuel 1–7).",
     "dates": {
-      "early": { "start": { "year": -1374 }, "end": { "year": -1049 }, "confidence": "approx" },
-      "late": { "start": { "year": -1199 }, "end": { "year": -1049 }, "confidence": "approx" }
+      "early": { "start": { "year": -1389 }, "end": { "year": -1049 }, "confidence": "approx" },
+      "late": { "start": { "year": -1203 }, "end": { "year": -1049 }, "confidence": "approx" }
     },
     "dateNote": "The judges' years added together come to more than the time available, so many of them probably overlapped in different parts of the land."
   },

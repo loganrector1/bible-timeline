@@ -407,5 +407,118 @@
     "dateNote": "Moses spoke Deuteronomy in the 11th month of the 40th year (Deuteronomy 1:3).",
     "people": ["moses", "joshua"], "locations": ["nebo", "plains-of-moab"],
     "scripture": [{ "book": "Deuteronomy", "chapter": 34 }]
+  },
+  {
+    "id": "conquest", "title": "Conquest of Canaan", "type": "battle", "major": true,
+    "summary": "Joshua leads Israel across the Jordan and through campaigns in the center, south and north of Canaan, breaking the power of its kings.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4 }, "end": { "year": -1399 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4 }, "end": { "year": -1213 }, "confidence": "approx" }
+    },
+    "dateNote": "About seven years: Caleb was 40 when sent as a spy and 85 when the land was divided (Joshua 14:7–10).",
+    "people": ["joshua", "caleb"], "locations": ["jericho", "gibeon"], "regions": ["canaan"],
+    "scripture": [{ "book": "Joshua", "chapter": 1, "endChapter": 12 }]
+  },
+  {
+    "id": "cross-jordan", "title": "Crossing the Jordan", "type": "miracle", "partOf": "conquest",
+    "summary": "The Jordan stops flowing when the priests carrying the ark step into it, and Israel crosses into the Promised Land on dry ground.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" }
+    },
+    "dateNote": "Joshua 4:19, forty years after the Exodus.",
+    "people": ["joshua"], "locations": ["jordan-river", "gilgal"],
+    "scripture": [{ "book": "Joshua", "chapter": 3, "endChapter": 4 }]
+  },
+  {
+    "id": "fall-of-jericho", "title": "The fall of Jericho", "type": "battle", "major": true, "partOf": "conquest",
+    "summary": "Israel marches around Jericho for seven days; at the trumpet blast and shout its walls fall. Rahab and her family are spared.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4 }, "confidence": "approx" }
+    },
+    "people": ["joshua", "rahab"], "locations": ["jericho"],
+    "scripture": [{ "book": "Joshua", "chapter": 6 }]
+  },
+  {
+    "id": "sun-stands-still", "title": "The sun stands still at Gibeon", "type": "miracle", "partOf": "conquest",
+    "summary": "Joshua defends Gibeon against five Amorite kings, and the sun stands still until Israel has won.",
+    "dates": {
+      "early": { "start": { "year": -1405 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219 }, "confidence": "approx" }
+    },
+    "people": ["joshua"], "locations": ["gibeon"],
+    "scripture": [{ "book": "Joshua", "chapter": 10, "verse": 1, "endVerse": 15 }]
+  },
+  {
+    "id": "land-divided", "title": "The land divided among the tribes", "type": "covenant",
+    "summary": "Joshua divides the land among the tribes by lot, and the tabernacle is set up at Shiloh.",
+    "dates": {
+      "early": { "start": { "year": -1399 }, "confidence": "approx" },
+      "late": { "start": { "year": -1213 }, "confidence": "approx" }
+    },
+    "dateNote": "Caleb is 85, forty-five years after the spies (Joshua 14:7–10).",
+    "people": ["joshua", "caleb"], "locations": ["gilgal", "shiloh"], "regions": ["canaan"],
+    "scripture": [{ "book": "Joshua", "chapter": 13, "endChapter": 21 }]
+  },
+  {
+    "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant",
+    "summary": "Near the end of his life Joshua gathers Israel at Shechem: \"As for me and my house, we will serve the Lord.\" He dies at 110.",
+    "dates": {
+      "early": { "start": { "year": -1390 }, "confidence": "approx" },
+      "late": { "start": { "year": -1204 }, "confidence": "approx" }
+    },
+    "people": ["joshua"], "locations": ["shechem"],
+    "scripture": [{ "book": "Joshua", "chapter": 23, "endChapter": 24 }]
+  },
+  {
+    "id": "deborah-barak", "title": "Deborah and Barak defeat Sisera", "type": "battle",
+    "summary": "At Deborah's word Barak leads ten thousand men from Mount Tabor; the Kishon sweeps away Sisera's chariots, and Jael kills Sisera.",
+    "dates": {
+      "early": { "start": { "year": -1208 }, "confidence": "approx" },
+      "late": { "start": { "year": -1179 }, "confidence": "approx" }
+    },
+    "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["deborah", "barak"], "locations": ["mount-tabor", "kishon"],
+    "scripture": [{ "book": "Judges", "chapter": 4, "endChapter": 5 }]
+  },
+  {
+    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle", "major": true,
+    "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches.",
+    "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
+    "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["gideon"], "locations": ["harod"],
+    "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 8 }]
+  },
+  {
+    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family", "major": true,
+    "summary": "Ruth the Moabite returns with Naomi to Bethlehem, gleans in Boaz's field, and marries him. Their son Obed is David's grandfather.",
+    "dates": { "early": { "start": { "year": -1099 }, "confidence": "approx" } },
+    "dateNote": "Set \"in the days when the judges ruled\" (Ruth 1:1). Boaz is David's great-grandfather, which points to the late 1100s BC.",
+    "people": ["ruth", "naomi", "boaz"], "locations": ["moab", "bethlehem"],
+    "scripture": [{ "book": "Ruth", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "samuel-born", "title": "Birth of Samuel", "type": "birth",
+    "summary": "Hannah prays at Shiloh for a son; when Samuel is born she gives him to serve the Lord under Eli.",
+    "dates": { "early": { "start": { "year": -1104 }, "confidence": "approx" } },
+    "people": ["samuel", "hannah", "eli"], "locations": ["ramah", "shiloh"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 1, "verse": 1, "endChapter": 2, "endVerse": 11 }]
+  },
+  {
+    "id": "samson-judges", "title": "Samson fights the Philistines", "type": "battle", "major": true,
+    "summary": "Samson, set apart from birth, fights the Philistines alone for twenty years, until Delilah betrays him; he dies pulling down the temple of Dagon at Gaza.",
+    "dates": { "early": { "start": { "year": -1074 }, "end": { "year": -1054 }, "confidence": "approx" } },
+    "dateNote": "He judged Israel twenty years (Judges 16:31), during the Philistine oppression that runs into Samuel's day. Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["samson"], "locations": ["zorah", "gaza"],
+    "scripture": [{ "book": "Judges", "chapter": 13, "endChapter": 16 }]
+  },
+  {
+    "id": "ark-captured", "title": "The ark captured", "type": "judgment",
+    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news.",
+    "dates": { "early": { "start": { "year": -1079 }, "confidence": "approx" } },
+    "dateNote": "The ark then stays twenty years at Kiriath-jearim before Samuel gathers Israel at Mizpah (1 Samuel 7:2).",
+    "people": ["eli", "samuel"], "locations": ["aphek", "shiloh"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 6 }]
   }
 ]
