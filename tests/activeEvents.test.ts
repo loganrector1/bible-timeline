@@ -12,3 +12,15 @@ describe("activeEvents", () => {
     }
   });
 });
+
+describe("nearest event", () => {
+  const nearest = (year: number) => activeEvents(year, DEFAULT_CHRONOLOGY, 1)[0].id;
+
+  test("a specific event beats a long span that covers the cursor", () => {
+    expect(nearest(-1484.5)).toBe("moses-flees"); // 1486 BC, during the oppression
+  });
+
+  test("a long span still wins when nothing specific is near", () => {
+    expect(nearest(-1425)).toBe("wandering");
+  });
+});
