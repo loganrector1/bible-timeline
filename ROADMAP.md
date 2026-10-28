@@ -32,9 +32,13 @@ Steps:
 
 1. ~~Check places against OpenBible.info.~~
 2. ~~Eras from the Conquest to the Early Church.~~
-3. Skeleton events, people and places, era by era: Conquest and Judges; United Kingdom; Divided Kingdom and the prophets; Exile and Return; Between the Testaments; Life of Christ; Early Church and the letters, through Revelation.
-4. Check the UI at full scale: crowding, the overview strip, play across the whole span, the map's framing for Paul's journeys and Rome.
-5. Deepen era by era, with more events, journeys (Paul's missionary journeys, the deportations) and region outlines.
+3. ~~Skeleton events, people and places, era by era, from the Conquest to Revelation.~~ The dataset now has 123 events (about a third `major`), 87 people and 92 places. Two event types were added for it: `ministry` (prophets, Jesus) and `writing` (letters, the Septuagint); and an `island` place type.
+4. ~~Check the UI at full scale.~~ Crowding, play, the overview strip and the map's framing out to Rome and the seven churches all hold up. Fixed along the way: eras overlapping at their boundaries (now tested), the event's own place labels losing to background labels in crowded Jerusalem, and the map credits covering the Modern borders button.
+5. Deepen era by era. Candidates, roughly in order of value:
+   - Journeys: Paul's three journeys and voyage to Rome, the deportations to Assyria and Babylon, the returns, the flight to Egypt.
+   - Kings and prophets: the remaining kings of Israel and Judah and the minor prophets, probably with the kings and prophets lanes from key_features.md, so you can see which prophets spoke under which kings.
+   - More of the Gospels and Acts, the remaining letters (dated by their writing), and the wisdom books.
+   - Region outlines: tribal allotments, the two kingdoms, and the empires (key_features.md's empire layer may be the better home for these).
 
 ## Next candidates
 

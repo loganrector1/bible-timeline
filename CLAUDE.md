@@ -16,6 +16,7 @@ node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
 - Before committing, gate on `npm test`'s exit code, not on grepping its output. Any failure blocks the commit.
 - `npm test` runs Vitest through `scripts/vitest.mjs`, which restarts it from an upper-case drive letter. When the working directory is `c:\...` (VS Code terminals and Claude Code's shell often are), plain `vitest` loads itself twice and every suite fails at its first `describe` with `TypeError: Cannot read properties of undefined (reading 'config')`. Call `npm test`, not `npx vitest`. This was the "flake" of 2026-10-27/28: it came and went with the shell's drive-letter case, not with screenshots or caches.
+- Map labels: MapLibre places symbols from the top layer down, so the layer that must win collisions (the focus event's places) goes last in `EventLayer`.
 - `scripts/shot.mjs` (playwright-core driving the installed Edge; the dev server must be running) is how UI changes get checked; its header lists the actions (`mode`, `select` via Browse, `zoomIn`, click, hover, drag, eval…). Save screenshots outside the repo. Driving the app: don't `import()` app modules in `eval` (that loads a second store, which the app ignores); use the UI. At phone width, `select` via Browse can fail to select; pick from the Nearest events list instead.
 - On Windows, stopping a background task doesn't kill the Node process behind it. Free a port with `Get-NetTCPConnection -LocalPort 5173` + `Stop-Process`.
 
@@ -63,6 +64,8 @@ node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places
 - The wandering (`-1444` start) sorts before the tabernacle, departure from Sinai and the spies, which Scripture places before it; its start date may need revisiting.
 - In Both view on a phone, the details peek covers much of the small map.
 - Three events have no places, so they get no map popup or dots: Creation, Birth of Ishmael, Birth of Jacob and Esau.
+- Some events between the Testaments (Alexander, the Septuagint, the Maccabees, Pompey, Herod) are history, not Scripture; for now only their `dateNote` says so. key_features.md's world-history lane would set them apart visually.
+- At the map's closest framing (zoom 7.5), places a few hundred metres apart in Jerusalem (Golgotha, Gethsemane, Moriah) hide each other's labels.
 
 ## Working style
 
