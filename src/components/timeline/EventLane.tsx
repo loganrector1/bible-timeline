@@ -50,7 +50,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
   type Row = Placed & {
     top: number; bottom: number; asSpan: boolean; labelY: number; nudge: number; labelShift: number;
   };
-  const rows: Row[] = [];
+  const all: Row[] = [];
   for (const p of placed) {
     const top = yearToPx(scale, p.lo);
     const bottom = yearToPx(scale, p.hi);
@@ -58,11 +58,19 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
     const asSpan = p.spec.end !== undefined && bottom - top >= MIN_SPAN_PX;
     const mid = yearToPx(scale, specMidpoint(p.spec));
     const labelY = asSpan ? Math.min(Math.max(top, 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
-    rows.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
+    all.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
   }
 
-  // Which events win when space is short: the selection, then highlighted, then major events.
+  // Events within a larger event (the Red Sea in the Exodus) fold into it until it's long
+  // enough to draw as a bar; a selected one always shows.
   const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
+  const byId = new Map(all.map((r) => [r.ev.id, r]));
+  const rows = all.filter((r) => {
+    const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
+    return !parent || parent.asSpan || isSelected(r.ev);
+  });
+
+  // Which events win when space is short: the selection, then highlighted, then major events.
   const isLit = (ev: Event) => !highlight || highlight.events.has(ev.id);
   const rank = (r: Row) => 4 * Number(isSelected(r.ev)) + 2 * Number(isLit(r.ev)) + Number(r.ev.major);
   const byRank = (a: Row, b: Row) => rank(b) - rank(a) || a.labelY - b.labelY;
@@ -91,6 +99,24 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
     start = end;
   }
 
+  // Greedy label placement, best-ranked first. A span's label can slide down its bar to
+  // find room, so a journey stays labelled beside the events at its start.
+  const visible = rows.filter((r) => !hidden.has(r));
+  const taken: number[] = [];
+  const showLabel = new Set<string>();
+  const free = (y: number) => !taken.some((t) => Math.abs(t - y) < LABEL_HEIGHT);
+  for (const r of [...visible].sort(byRank)) {
+    let y = r.labelY;
+    if (r.asSpan) {
+      const last = Math.min(r.bottom, scale.height) - LABEL_HEIGHT / 2;
+      while (!free(y) && y + LABEL_HEIGHT <= last) y += LABEL_HEIGHT;
+    }
+    if (!free(y)) continue;
+    r.labelY = y;
+    taken.push(y);
+    showLabel.add(r.ev.id);
+  }
+
   // Span labels line up with the dot labels, after any cluster beside them.
   for (const r of rows) {
     if (!r.asSpan) continue;
@@ -98,16 +124,6 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
       (c) => c.top - DOT_SIZE / 2 < r.labelY + LABEL_HEIGHT / 2 && c.bottom + DOT_SIZE / 2 > r.labelY - LABEL_HEIGHT / 2,
     );
     r.labelShift = Math.max(DOT_STEP, ...beside.map((c) => c.width)) + 4;
-  }
-
-  // Greedy label placement, best-ranked first.
-  const visible = rows.filter((r) => !hidden.has(r));
-  const taken: number[] = [];
-  const showLabel = new Set<string>();
-  for (const r of [...visible].sort(byRank)) {
-    if (taken.some((y) => Math.abs(y - r.labelY) < LABEL_HEIGHT)) continue;
-    taken.push(r.labelY);
-    showLabel.add(r.ev.id);
   }
 
   // Zoom in on a folded cluster until its dots spread out.
