@@ -177,5 +177,68 @@
       { "locationId": "puteoli", "via": [[14.15, 40.6]] },
       { "locationId": "rome", "at": { "year": 60, "month": 3 } }
     ]
+  },
+  {
+    "id": "to-assyria",
+    "name": "Israel deported to Assyria",
+    "summary": "After Samaria falls, the Assyrians carry the people of Israel north around the desert and settle them in Halah, on the Habor, and in the cities of the Medes.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "samaria", "at": { "year": -721 } },
+      { "locationId": "gozan", "via": [[36.3, 33.51], [36.75, 35.14], [37.16, 36.2]], "note": "On the Habor, the river of Gozan (2 Kings 17:6)." },
+      { "locationId": "halah" }
+    ]
+  },
+  {
+    "id": "to-babylon",
+    "name": "Judah taken to Babylon",
+    "summary": "After Jerusalem falls, its people are marched north to Nebuchadnezzar at Riblah and on down the Euphrates to Babylon.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "jerusalem", "at": { "year": -585, "month": 8 } },
+      { "locationId": "riblah", "via": [[36.3, 33.51]], "note": "Zedekiah sees his sons killed, and is blinded (2 Kings 25:6–7)." },
+      { "locationId": "babel", "via": [[36.75, 35.14], [37.16, 36.2], [38.1, 35.98], [39, 35.95], [40.15, 35.33], [40.89, 34.55], [41.98, 34.37], [42.82, 33.64]] }
+    ]
+  },
+  {
+    "id": "zerubbabel-return",
+    "name": "The first exiles return",
+    "summary": "Zerubbabel leads about fifty thousand exiles from Babylon back up the Euphrates and down to Judah.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "babel" },
+      { "locationId": "jerusalem", "via": [[42.82, 33.64], [41.98, 34.37], [40.89, 34.55], [40.15, 35.33], [39, 35.95], [38.1, 35.98], [37.16, 36.2], [36.75, 35.14], [36.3, 33.51]], "note": "By the seventh month they rebuild the altar (Ezra 3:1–2)." }
+    ]
+  },
+  {
+    "id": "ezra-return",
+    "name": "Ezra's return",
+    "summary": "Ezra leads a second group home, a four-month journey trusting God for protection instead of asking the king for soldiers.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "babel", "at": { "year": -457, "month": 4, "label": "1st of 1st month" } },
+      { "locationId": "jerusalem", "via": [[42.82, 33.64], [41.98, 34.37], [40.89, 34.55], [40.15, 35.33], [39, 35.95], [38.1, 35.98], [37.16, 36.2], [36.75, 35.14], [36.3, 33.51]], "at": { "year": -457, "month": 8, "label": "1st of 5th month" } }
+    ]
+  },
+  {
+    "id": "to-bethlehem",
+    "name": "Joseph and Mary go to Bethlehem",
+    "summary": "For the census, Joseph goes up from Nazareth to Bethlehem, the town of David, with Mary.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "nazareth" },
+      { "locationId": "bethlehem", "note": "No room in the inn (Luke 2:7)." }
+    ]
+  },
+  {
+    "id": "flight-to-egypt",
+    "name": "The flight to Egypt",
+    "summary": "Down the coast road to Egypt, and back after Herod's death to Nazareth in Galilee.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "bethlehem" },
+      { "locationId": "egypt", "via": [[34.46, 31.5], [32.55, 31.04]], "note": "\"Out of Egypt I called my son\" (Matthew 2:15)." },
+      { "locationId": "nazareth", "via": [[32.55, 31.04], [34.46, 31.5]], "note": "Archelaus rules Judea, so Joseph goes to Galilee (Matthew 2:22–23)." }
+    ]
   }
 ]

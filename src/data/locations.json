@@ -114,5 +114,8 @@
   { "id": "fair-havens", "name": "Fair Havens", "modernName": "Kaloi Limenes, Crete", "type": "site", "coords": [24.8, 34.93], "openbible": "Fair Havens", "summary": "Small harbor on Crete's south coast where Paul warned against sailing on." },
   { "id": "syracuse", "name": "Syracuse", "type": "city", "coords": [15.293, 37.064], "openbible": "Syracuse", "summary": "Great city of Sicily, where Paul's ship put in for three days." },
   { "id": "rhegium", "name": "Rhegium", "modernName": "Reggio Calabria, Italy", "type": "city", "coords": [15.644, 38.109], "openbible": "Rhegium", "summary": "Port at the toe of Italy, on the strait facing Sicily." },
-  { "id": "puteoli", "name": "Puteoli", "modernName": "Pozzuoli, Italy", "type": "city", "coords": [14.121, 40.826], "openbible": "Puteoli", "summary": "Italy's great port on the Bay of Naples, where Paul landed and found believers." }
+  { "id": "puteoli", "name": "Puteoli", "modernName": "Pozzuoli, Italy", "type": "city", "coords": [14.121, 40.826], "openbible": "Puteoli", "summary": "Italy's great port on the Bay of Naples, where Paul landed and found believers." },
+  { "id": "gozan", "name": "Gozan", "modernName": "Tell Halaf, Syria", "type": "city", "coords": [40.04, 36.827], "openbible": "Gozan", "summary": "Town on the Habor River where Assyria resettled exiles from Israel." },
+  { "id": "halah", "name": "Halah", "modernName": "Near Mosul, Iraq", "type": "region", "coords": [43.195, 36.432], "openbible": "Halah", "summary": "District in the Assyrian heartland where exiles from Israel were settled." },
+  { "id": "riblah", "name": "Riblah", "modernName": "Ribla, Syria", "type": "city", "coords": [36.573, 34.46], "openbible": "Riblah 1", "summary": "Nebuchadnezzar's headquarters in Syria, where Zedekiah was judged and blinded." }
 ]

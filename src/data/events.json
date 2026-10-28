@@ -652,7 +652,8 @@
     "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
     "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
     "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
-    "locations": ["samaria", "nineveh"],
+    "locations": ["samaria", "gozan", "halah"],
+    "journeyId": "to-assyria",
     "scripture": [{ "book": "2 Kings", "chapter": 17 }]
   },
   {
@@ -700,7 +701,8 @@
     "summary": "Babylon besieges Jerusalem for a year and a half, breaks through the walls, burns the temple and takes the people into exile.",
     "dates": { "early": { "start": { "year": -587, "month": 1, "label": "10th of 10th month" }, "end": { "year": -585, "month": 8, "label": "10th of 5th month" }, "confidence": "approx" } },
     "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
-    "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "babel"],
+    "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "riblah", "babel"],
+    "journeyId": "to-babylon",
     "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
   },
   {
@@ -741,6 +743,7 @@
     "dates": { "early": { "start": { "year": -536 }, "confidence": "approx" } },
     "dateNote": "The temple's foundation was laid in the second month of the second year after their return (Ezra 3:8).",
     "people": ["zerubbabel"], "locations": ["babel", "jerusalem"],
+    "journeyId": "zerubbabel-return",
     "scripture": [{ "book": "Ezra", "chapter": 2, "endChapter": 3 }]
   },
   {
@@ -765,6 +768,7 @@
     "dates": { "early": { "start": { "year": -457, "month": 4, "label": "1st of 1st month" }, "end": { "year": -457, "month": 8, "label": "1st of 5th month" }, "confidence": "approx" } },
     "dateNote": "In Artaxerxes's seventh year, 458 BC (Ezra 7:7–9).",
     "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
+    "journeyId": "ezra-return",
     "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
   },
   {
@@ -827,6 +831,7 @@
     "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
     "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
     "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "nazareth"],
+    "journeyId": "to-bethlehem",
     "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 20 }]
   },
   {
@@ -1088,5 +1093,14 @@
     "dateNote": "Some two weeks after leaving Crete late in the sailing season (Acts 27:9, 27).",
     "people": ["paul"], "locations": ["malta"],
     "scripture": [{ "book": "Acts", "chapter": 27, "verse": 13, "endChapter": 28, "endVerse": 10 }]
+  },
+  {
+    "id": "flight-to-egypt", "title": "The flight to Egypt", "type": "journey",
+    "summary": "Warned in a dream that Herod will seek the child's life, Joseph takes Mary and Jesus to Egypt by night. After Herod dies they return and settle in Nazareth.",
+    "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
+    "dateNote": "Soon after the magi's visit; they stayed until Herod died in 4 BC (Matthew 2:15, 19).",
+    "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "egypt", "nazareth"],
+    "journeyId": "flight-to-egypt",
+    "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 13, "endVerse": 23 }]
   }
 ]
