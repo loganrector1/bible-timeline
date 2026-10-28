@@ -48,3 +48,4 @@ npm run build      # typecheck + production build to dist/
 - Commit each logical change with a clear message; push only when asked.
 - Verify UI changes in a real browser (screenshots at desktop and phone widths, light and dark), not just by type-checking.
 - Ask before making product or design calls the user hasn't decided; recommend an option.
+- Keep this file current: when a decision is made, a convention changes or a new gotcha turns up, update CLAUDE.md in the same commit as the change.
