@@ -6,4 +6,13 @@ See [key_features.md](key_features.md) for the full feature vision.
 
 ## Getting started
 
-_Coming soon, once the tech stack is chosen._
+Built with React, TypeScript, Vite, Tailwind CSS and MapLibre GL. It's a static site: all content lives as JSON/GeoJSON in `src/data/`.
+
+Requires [Node.js](https://nodejs.org/) 22 or later.
+
+```sh
+npm install      # once
+npm run dev      # start the dev server at http://localhost:5173
+npm test         # run tests (date math + data integrity)
+npm run build    # type-check and build static files into dist/
+```
