@@ -4,7 +4,7 @@ import { datesFor, locationsById } from "../../data";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { eventLocations } from "../../lib/entities";
-import { routeCoords } from "../../lib/journeys";
+import { routePath } from "../../lib/journeys";
 import { useStore } from "../../state/store";
 import { arrowToward, centroid, inView, useMapRedraw, type Point } from "./useMapView";
 
@@ -19,7 +19,7 @@ function eventPoints(map: MapLibreMap, ev: Event): Point[] {
   const project = (c: number[]) => map.project(c as [number, number]);
   const points: Point[] = [...eventLocations(ev), ...ev.regions.map((id) => locationsById.get(id)!)].map((l) => project(l.coords));
   if (ev.journeyId) {
-    const route = routeCoords(ev.journeyId).map(project);
+    const route = routePath(ev.journeyId).map(project);
     for (let i = 1; i < route.length; i++) {
       const [a, b] = [route[i - 1], route[i]];
       const n = Math.min(100, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / SAMPLE_PX));

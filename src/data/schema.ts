@@ -103,6 +103,8 @@ export const Location = z.object({
 
 export const JourneyStop = z.object({
   locationId: id,
+  /** Points the route passes on its way to this stop, such as a sea lane around an island. */
+  via: z.array(Coords).optional(),
   at: TimePoint.optional(),
   note: z.string().optional(),
 });

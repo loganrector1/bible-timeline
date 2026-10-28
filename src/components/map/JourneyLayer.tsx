@@ -4,7 +4,7 @@ import { journeysById } from "../../data";
 import type { Event } from "../../data/schema";
 import { childEvents } from "../../lib/entities";
 import {
-  eventForJourney, JOURNEY_DELAY_MS, journeyDuration, journeyLegs, routeCoords, stopIndexOf, type Coord, type Leg,
+  drawnLegs, eventForJourney, JOURNEY_DELAY_MS, journeyDuration, journeyLegs, routeCoords, stopIndexOf, type Coord, type Leg,
 } from "../../lib/journeys";
 import { useStore } from "../../state/store";
 import { ARROW_IMAGE } from "./arrowImage";
@@ -12,35 +12,12 @@ import type { MapColors } from "./mapColors";
 
 export const JOURNEY_HIT_LAYER = "journey-hit";
 
-const lengthOf = (l: Leg) => Math.hypot(l.to[0] - l.from[0], l.to[1] - l.from[1]);
-
-/** Legs drawn so far at `progress` (0–1, by length): whole legs, then a partial one. */
-function drawnLegs(legs: Leg[], progress: number): { legs: Leg[]; head?: Coord } {
-  const total = legs.reduce((a, l) => a + lengthOf(l), 0);
-  if (progress >= 1 || total === 0) return { legs };
-  let remaining = progress * total;
-  const out: Leg[] = [];
-  for (const leg of legs) {
-    const len = lengthOf(leg);
-    if (remaining >= len) {
-      out.push(leg);
-      remaining -= len;
-      continue;
-    }
-    const f = len === 0 ? 1 : remaining / len;
-    const head: Coord = [leg.from[0] + (leg.to[0] - leg.from[0]) * f, leg.from[1] + (leg.to[1] - leg.from[1]) * f];
-    if (f > 0) out.push({ ...leg, to: head });
-    return { legs: out, head };
-  }
-  return { legs: out };
-}
-
 const legFeatures = (legs: Leg[], journeyId: string): GeoJSON.FeatureCollection => ({
   type: "FeatureCollection",
   features: legs.map((l) => ({
     type: "Feature",
     properties: { offset: l.offset, journeyId },
-    geometry: { type: "LineString", coordinates: [l.from, l.to] },
+    geometry: { type: "LineString", coordinates: l.path },
   })),
 });
 
@@ -83,7 +60,9 @@ export default function JourneyLayer({
 
   const legs = useMemo(() => (journeyId ? journeyLegs(journeyId) : []), [journeyId]);
   const alongStop = journeyId && along ? stopIndexOf(journeyId, along) : -1;
-  const { legs: drawn, head } = alongStop >= 0 ? { legs: legs.slice(0, alongStop), head: undefined } : drawnLegs(legs, progress);
+  const { legs: drawn, head, reached } = alongStop >= 0
+    ? { legs: legs.slice(0, alongStop), head: undefined, reached: alongStop + 1 }
+    : drawnLegs(legs, progress);
 
   // Events along the way, by the place they happen.
   const eventsAt = useMemo(() => {
@@ -102,7 +81,6 @@ export default function JourneyLayer({
   const stops = useMemo<GeoJSON.FeatureCollection>(() => {
     if (!journeyId) return EMPTY;
     const coords = routeCoords(journeyId);
-    const reached = alongStop >= 0 ? alongStop + 1 : Math.floor(progress * (coords.length - 1) + 1e-9) + 1;
     const byPlace = new Map<string, { coord: Coord; numbers: number[] }>();
     journeysById.get(journeyId)!.stops.slice(0, reached).forEach((s, i) => {
       const entry = byPlace.get(s.locationId) ?? { coord: coords[i], numbers: [] };
@@ -122,7 +100,7 @@ export default function JourneyLayer({
         geometry: { type: "Point", coordinates: coord },
       })),
     };
-  }, [journeyId, progress, alongStop, eventsAt, along]);
+  }, [journeyId, reached, eventsAt, along]);
 
   const headPoint: GeoJSON.FeatureCollection = head
     ? { type: "FeatureCollection", features: [{ type: "Feature", properties: {}, geometry: { type: "Point", coordinates: head } }] }
