@@ -97,7 +97,6 @@ export default function MapView() {
 
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
-  const pxPerYear = useStore((s) => s.pxPerYear);
   const selection = useStore((s) => s.selection);
   const selectionNonce = useStore((s) => s.selectionNonce);
   const select = useStore((s) => s.select);
@@ -113,7 +112,7 @@ export default function MapView() {
     };
   }, [dark]);
 
-  const active = activeEvents(currentYear, pxPerYear, chron);
+  const active = activeEvents(currentYear, chron);
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),

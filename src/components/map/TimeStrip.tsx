@@ -1,18 +1,16 @@
 import { useEffect, useState, type PointerEvent } from "react";
 import { data, datesFor } from "../../data";
-import { formatWindow } from "../../lib/activeEvents";
 import { formatTimePoint, fromFractional, specBounds } from "../../lib/dates";
 import { adjacentEvent, datasetRange } from "../../lib/entities";
 import { JOURNEY_DELAY_MS, journeyDuration } from "../../lib/journeys";
 import { cursorPrecision } from "../../lib/timeScale";
 import { useStore } from "../../state/store";
-import { zoomBy } from "../timeline/useTimelineGestures";
 
 const SPEEDS = [1, 2, 4];
 /** At 1×, how long play rests on each event before moving to the next. */
 const DWELL_MS = 3000;
 
-/** Under the map: eras and the cursor, play/step through events, and the time window ("now" = ± this much). */
+/** Under the map: eras and the cursor, and play/step through events. */
 export default function TimeStrip() {
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
@@ -58,7 +56,9 @@ export default function TimeStrip() {
   };
 
   const label = formatTimePoint(fromFractional(currentYear, cursorPrecision(pxPerYear)), eraStyle);
-  const btn = "flex size-8 shrink-0 items-center justify-center rounded-md border border-line bg-paper hover:bg-paper-2";
+  // Background classes stay out of the shared base so a variant never has two competing ones.
+  const base = "flex size-8 shrink-0 items-center justify-center rounded-md border";
+  const btn = `${base} border-line bg-paper hover:bg-paper-2`;
 
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
@@ -67,7 +67,7 @@ export default function TimeStrip() {
         <button
           onClick={() => setPlaying(!playing)}
           aria-label={playing ? "Pause" : "Play through events"}
-          className={`${btn} ${playing ? "bg-accent text-paper hover:bg-accent" : ""}`}
+          className={playing ? `${base} border-accent bg-accent text-paper hover:opacity-90` : btn}
         >
           {playing ? "❚❚" : "▶"}
         </button>
@@ -116,14 +116,7 @@ export default function TimeStrip() {
         <div className="absolute top-0 h-7 w-0.5 -translate-x-1/2 rounded bg-accent" style={{ left: `${frac(currentYear)}%` }} />
       </div>
 
-      <span className="w-28 shrink-0 text-right text-xs font-semibold tabular-nums">{label}</span>
-
-      {/* Time zoom, which also sets how far from the cursor counts as "now" on the map. */}
-      <div className="flex shrink-0 items-center gap-1" title="How far from the current moment counts as “now”">
-        <button onClick={() => zoomBy(0.6)} aria-label="Widen time window" className={`${btn} size-7`}>−</button>
-        <span className="w-20 text-center text-xs text-ink-muted tabular-nums">{formatWindow(pxPerYear)}</span>
-        <button onClick={() => zoomBy(1 / 0.6)} aria-label="Narrow time window" className={`${btn} size-7`}>+</button>
-      </div>
+      <span className="w-28 shrink-0 pr-1 text-right text-xs font-semibold tabular-nums">{label}</span>
     </div>
   );
 }

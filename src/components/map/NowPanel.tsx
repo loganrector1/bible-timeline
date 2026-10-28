@@ -6,7 +6,7 @@ import { eventMidpoint } from "../../lib/entities";
 import { useStore } from "../../state/store";
 
 /**
- * What's happening around the current moment, in date order. The list scrolls when
+ * The events nearest the current moment, in date order. The list scrolls when
  * long, keeping the focus event (the one drawn on the map) in view.
  */
 export default function NowPanel({
@@ -31,7 +31,7 @@ export default function NowPanel({
         aria-expanded={open}
         className="flex w-full items-center justify-between px-3 py-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase"
       >
-        Happening now{events.length > 0 ? ` (${events.length})` : ""}
+        Nearest events
         <span aria-hidden>{open ? "▴" : "▾"}</span>
       </button>
       {open && (
