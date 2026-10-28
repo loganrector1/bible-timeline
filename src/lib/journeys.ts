@@ -46,3 +46,8 @@ export function journeyDuration(journeyId: string): number {
 export function eventForJourney(journeyId: string): Event | undefined {
   return data.events.find((ev) => ev.journeyId === journeyId);
 }
+
+/** The first stop on the journey at one of the event's places, or -1. */
+export function stopIndexOf(journeyId: string, ev: Event): number {
+  return journeysById.get(journeyId)!.stops.findIndex((s) => ev.locations.includes(s.locationId));
+}

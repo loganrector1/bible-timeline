@@ -7,7 +7,7 @@ import { datesFor, eventsById, journeysById, locationsById, regionsById } from "
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
-import { entityLocations, eventLocations } from "../../lib/entities";
+import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { eventForJourney } from "../../lib/journeys";
 import { usePrefersDark } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
@@ -211,7 +211,8 @@ export default function MapView() {
             <NavigationControl position="top-right" showCompass={false} />
             <RegionLayer selected={strongRegions} focus={focusRegions} hovered={hoveredRegion} colors={colors} />
             <JourneyLayer
-              journeyId={focus?.journeyId}
+              journeyId={focus && journeyOf(focus)}
+              along={focus?.partOf ? focus : undefined}
               animateKey={focus && focus === selectedEvent ? selectionNonce : null}
               hovered={hover?.layer === JOURNEY_HIT_LAYER}
               colors={colors}

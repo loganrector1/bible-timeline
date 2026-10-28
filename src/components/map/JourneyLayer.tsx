@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Layer, Source } from "react-map-gl/maplibre";
 import { journeysById } from "../../data";
+import type { Event } from "../../data/schema";
+import { childEvents } from "../../lib/entities";
 import {
-  JOURNEY_DELAY_MS, journeyDuration, journeyLegs, routeCoords, type Coord, type Leg,
+  eventForJourney, JOURNEY_DELAY_MS, journeyDuration, journeyLegs, routeCoords, stopIndexOf, type Coord, type Leg,
 } from "../../lib/journeys";
+import { useStore } from "../../state/store";
 import { ARROW_IMAGE } from "./arrowImage";
 import type { MapColors } from "./mapColors";
 
@@ -47,16 +50,20 @@ const EMPTY: GeoJSON.FeatureCollection = { type: "FeatureCollection", features: 
  * One journey at a time: the focus event's route. Arrows show direction, legs that
  * retrace earlier ones sit beside them, and stops are numbered in order. When the
  * journey's event is freshly selected (`animateKey` changes) it draws in leg by leg
- * behind a moving dot; otherwise it appears complete.
+ * behind a moving dot; otherwise it appears complete. For an event along the way
+ * (`along`, e.g. the Red Sea in the Exodus) it's drawn up to that event's stop. Stops
+ * where such events happen are labelled with them once the route reaches them.
  */
 export default function JourneyLayer({
-  journeyId, animateKey, hovered, colors,
+  journeyId, along, animateKey, hovered, colors,
 }: {
   journeyId?: string;
+  along?: Event;
   animateKey: number | null;
   hovered: boolean;
   colors: MapColors;
 }) {
+  const chron = useStore((s) => s.chronologyId);
   const [progress, setProgress] = useState(1);
 
   useEffect(() => {
@@ -75,13 +82,27 @@ export default function JourneyLayer({
   }, [journeyId, animateKey]);
 
   const legs = useMemo(() => (journeyId ? journeyLegs(journeyId) : []), [journeyId]);
-  const { legs: drawn, head } = drawnLegs(legs, progress);
+  const alongStop = journeyId && along ? stopIndexOf(journeyId, along) : -1;
+  const { legs: drawn, head } = alongStop >= 0 ? { legs: legs.slice(0, alongStop), head: undefined } : drawnLegs(legs, progress);
+
+  // Events along the way, by the place they happen.
+  const eventsAt = useMemo(() => {
+    const parent = journeyId ? eventForJourney(journeyId) : undefined;
+    const byPlace = new Map<string, Event[]>();
+    for (const ev of parent ? childEvents(parent, chron) : []) {
+      const i = stopIndexOf(journeyId!, ev);
+      if (i < 0) continue;
+      const id = journeysById.get(journeyId!)!.stops[i].locationId;
+      byPlace.set(id, [...(byPlace.get(id) ?? []), ev]);
+    }
+    return byPlace;
+  }, [journeyId, chron]);
 
   // Stop numbers, merged where a journey revisits a place ("2·6").
   const stops = useMemo<GeoJSON.FeatureCollection>(() => {
     if (!journeyId) return EMPTY;
     const coords = routeCoords(journeyId);
-    const reached = Math.floor(progress * (coords.length - 1) + 1e-9) + 1;
+    const reached = alongStop >= 0 ? alongStop + 1 : Math.floor(progress * (coords.length - 1) + 1e-9) + 1;
     const byPlace = new Map<string, { coord: Coord; numbers: number[] }>();
     journeysById.get(journeyId)!.stops.slice(0, reached).forEach((s, i) => {
       const entry = byPlace.get(s.locationId) ?? { coord: coords[i], numbers: [] };
@@ -90,13 +111,18 @@ export default function JourneyLayer({
     });
     return {
       type: "FeatureCollection",
-      features: [...byPlace.values()].map(({ coord, numbers }) => ({
+      features: [...byPlace].map(([place, { coord, numbers }]) => ({
         type: "Feature",
-        properties: { label: numbers.join("·"), wide: numbers.length > 1 },
+        properties: {
+          label: numbers.join("·"),
+          wide: numbers.length > 1,
+          events: (eventsAt.get(place) ?? []).map((ev) => ev.title).join("\n"),
+          current: along !== undefined && along.locations.includes(place),
+        },
         geometry: { type: "Point", coordinates: coord },
       })),
     };
-  }, [journeyId, progress]);
+  }, [journeyId, progress, alongStop, eventsAt, along]);
 
   const headPoint: GeoJSON.FeatureCollection = head
     ? { type: "FeatureCollection", features: [{ type: "Feature", properties: {}, geometry: { type: "Point", coordinates: head } }] }
@@ -139,11 +165,19 @@ export default function JourneyLayer({
         <Layer id="journey-stops" type="circle"
           paint={{
             "circle-radius": ["case", ["get", "wide"], 12, 9],
-            "circle-color": colors.accent, "circle-stroke-color": colors.halo, "circle-stroke-width": 2,
+            "circle-color": colors.accent, "circle-stroke-color": colors.halo,
+            "circle-stroke-width": ["case", ["get", "current"], 4, 2],
           }} />
         <Layer id="journey-stop-numbers" type="symbol"
           layout={{ "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-allow-overlap": true }}
           paint={{ "text-color": colors.halo }} />
+        {/* What happened at the stop, beside it. */}
+        <Layer id="journey-stop-events" type="symbol"
+          layout={{
+            "text-field": ["get", "events"], "text-font": ["Noto Sans Bold"], "text-size": 12,
+            "text-anchor": "left", "text-offset": [1.3, 0], "text-justify": "left", "text-max-width": 10,
+          }}
+          paint={{ "text-color": colors.accent, "text-halo-color": colors.halo, "text-halo-width": 1.5 }} />
       </Source>
     </>
   );
