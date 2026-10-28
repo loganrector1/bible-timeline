@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { useStore, type ViewMode } from "../state/store";
 import DetailPanel from "./DetailPanel";
+import Onboarding from "./Onboarding";
 import Timeline from "./timeline/Timeline";
 
 // The map library is large; load it only when the map is first shown.
@@ -21,7 +22,7 @@ export default function AppShell() {
   const showMap = mode !== "timeline";
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="relative flex h-full flex-col">
       <header className="flex items-center justify-between gap-3 border-b border-line bg-paper-2 px-4 py-2">
         <h1 className="font-serif text-lg font-semibold tracking-tight sm:text-xl">Bible Timeline</h1>
         <div role="radiogroup" aria-label="View" className="flex rounded-lg border border-line bg-paper p-0.5 text-sm">
@@ -61,6 +62,7 @@ export default function AppShell() {
         </main>
         {hasSelection && <DetailPanel />}
       </div>
+      <Onboarding />
     </div>
   );
 }

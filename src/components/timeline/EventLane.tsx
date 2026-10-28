@@ -93,6 +93,7 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
         const dateText = formatDateSpec(spec, eraStyle);
         const dim = lit ? "" : "opacity-35";
         const fuzzy = spec.confidence !== "exact";
+        const left = r.asSpan ? r.column * SPAN_COLUMN + 14 : dotX - 6 + r.nudge;
 
         return (
           <div key={ev.id} className={dim}>
@@ -116,8 +117,8 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
               title={`${ev.title} · ${dateText}`}
               aria-label={`${ev.title}, ${dateText}`}
               aria-pressed={selected}
-              className="group absolute flex max-w-full -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"
-              style={{ top: r.labelY, left: r.asSpan ? r.column * SPAN_COLUMN + 14 : dotX - 6 + r.nudge }}
+              className="group absolute flex -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"
+              style={{ top: r.labelY, left, maxWidth: `calc(100% - ${left}px)` }}
             >
               {!r.asSpan && (
                 <span

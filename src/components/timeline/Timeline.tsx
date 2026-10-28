@@ -50,7 +50,6 @@ export default function Timeline() {
       "+": () => zoomBy(1.25),
       "=": () => zoomBy(1.25),
       "-": () => zoomBy(0.8),
-      Escape: () => s.select(null),
     };
     // Let keys reach the buttons inside the timeline, except for moving through time.
     if (e.target !== e.currentTarget && !e.key.startsWith("Arrow") && !e.key.startsWith("Page")) return;

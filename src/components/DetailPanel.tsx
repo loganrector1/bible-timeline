@@ -25,6 +25,15 @@ export default function DetailPanel() {
     headingRef.current?.focus({ preventScroll: true });
   }, [selectionNonce]);
 
+  // Escape closes the panel from anywhere.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") select(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [select]);
+
   if (!selection) return null;
 
   const body = (() => {

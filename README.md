@@ -4,6 +4,16 @@ An interactive, visual Bible timeline for personal and church study. Explore the
 
 See [key_features.md](key_features.md) for the full feature vision.
 
+## Status
+
+Milestone 1 is a working vertical slice covering **Creation through the death of Moses**:
+
+- A vertical timeline (earliest at the top) that zooms from millennia down to individual days. It has era bands, events, lifespans, and an overview strip.
+- A time-aware map: places light up as their events come into range, regions are highlighted, and journeys animate stop by stop.
+- One shared "current moment" and selection drive both views, shown side by side or one at a time.
+- Detail panels for events, people, places and eras, linked to each other and to Scripture.
+- Disputed dates (early vs. late Exodus) and disputed sites (Mount Sinai, the Red Sea crossing) carry alternates and notes.
+
 ## Getting started
 
 Built with React, TypeScript, Vite, Tailwind CSS and MapLibre GL. It's a static site: all content lives as JSON/GeoJSON in `src/data/`.
@@ -16,3 +26,26 @@ npm run dev      # start the dev server at http://localhost:5173
 npm test         # run tests (date math + data integrity)
 npm run build    # type-check and build static files into dist/
 ```
+
+## Content
+
+| File | Holds |
+| --- | --- |
+| `src/data/eras.json` | Eras with colors and date ranges |
+| `src/data/events.json` | Events with dates, people, places, regions, journey and Scripture |
+| `src/data/people.json` | People with lifespans and family links |
+| `src/data/locations.json` | Places with coordinates, modern names and alternate sites |
+| `src/data/journeys.json` | Ordered routes between places, with optional stop dates |
+| `src/data/regions.json` | GeoJSON outlines (approximate) |
+
+Conventions:
+
+- **Years are astronomical:** 1 BC is `0`, 1446 BC is `-1445`, and AD 30 is `30`. Add `month` and `day` (approximate Julian placement) when Scripture gives them, plus a `label` for the biblical form, e.g. `"14 Nisan"`.
+- **Dates are keyed by chronology:** `early` is the working default and `late` holds late-Exodus alternates. Anything without its own entry falls back to the default.
+- `npm test` checks that every file matches its schema and that every id it references exists.
+
+Dates follow the early-Exodus chronology (1 Kings 6:1; Exodus 12:40) and the ages given in Genesis. Genesis 1–11 is placed using the Masoretic genealogies but marked as "date unknown." Coordinates and region outlines are hand-entered approximations and should be checked against a dataset such as [OpenBible.info's Bible geocoding](https://www.openbible.info/geo/) before being relied on.
+
+## Credits
+
+Base map tiles: [OpenFreeMap](https://openfreemap.org/), © [OpenMapTiles](https://www.openmaptiles.org/), data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, with Natural Earth relief. Scripture links open the World English Bible (public domain) on Bible Gateway.
