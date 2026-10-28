@@ -45,7 +45,8 @@ npm run build      # typecheck + production build to dist/
 
 ## Working style
 
-- Commit each logical change with a clear message; push only when asked.
+- Commit each logical change with a clear message, and push after committing (the user has OK'd pushing without asking).
+- Small fixes and single-commit changes go straight to `main`. Larger or experimental features that take several commits get a short-lived branch (`feature/<name>`), which is merged into `main` and deleted when done. Revisit this once `main` deploys somewhere automatically.
 - Verify UI changes in a real browser (screenshots at desktop and phone widths, light and dark), not just by type-checking.
 - Ask before making product or design calls the user hasn't decided; recommend an option.
 - Keep this file current: when a decision is made, a convention changes or a new gotcha turns up, update CLAUDE.md in the same commit as the change.
