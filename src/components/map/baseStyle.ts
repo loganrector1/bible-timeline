@@ -1,4 +1,4 @@
-import type { LayerSpecification, StyleSpecification } from "maplibre-gl";
+import type { LayerSpecification, RasterDEMSourceSpecification, StyleSpecification } from "maplibre-gl";
 
 // OpenFreeMap: free vector tiles, no API key. Attribution is kept by the map control.
 const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
@@ -11,6 +11,35 @@ const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
 const KEEP = /^(background|natural_earth|water$|waterway_river|water_name)/;
 /** Modern borders are kept but hidden; the map offers a toggle. */
 export const BORDER_LAYER = /^boundary_/;
+
+/**
+ * Elevation tiles (Terrarium encoding) from the AWS open-data terrain set: free, no key.
+ * MapLibre shades them itself, so terrain stays sharp at every zoom, unlike the Natural
+ * Earth relief image, which only exists down to zoom 6 and is stretched beyond that.
+ */
+const TERRAIN_SOURCE: RasterDEMSourceSpecification = {
+  type: "raster-dem",
+  tiles: ["https://elevation-tiles-prod.s3.amazonaws.com/terrarium/{z}/{x}/{y}.png"],
+  encoding: "terrarium",
+  tileSize: 256,
+  maxzoom: 12,
+  attribution: '<a href="https://registry.opendata.aws/terrain-tiles/">Terrain Tiles</a>',
+};
+
+/** Hillshade fades in as the Natural Earth image starts to blur. */
+function hillshadeLayer(dark: boolean): LayerSpecification {
+  return {
+    id: "hillshade",
+    type: "hillshade",
+    source: "terrain",
+    paint: {
+      "hillshade-exaggeration": ["interpolate", ["linear"], ["zoom"], 4, 0, 6.5, dark ? 0.45 : 0.35],
+      "hillshade-shadow-color": dark ? "#0b0906" : "#6b5a45",
+      "hillshade-highlight-color": dark ? "#6a604f" : "#ffffff",
+      "hillshade-accent-color": dark ? "#0b0906" : "#6b5a45",
+    },
+  };
+}
 
 let cached: Promise<StyleSpecification> | undefined;
 
@@ -29,10 +58,10 @@ export async function loadBaseStyle(dark: boolean): Promise<StyleSpecification> 
     .filter((l) => KEEP.test(l.id) || BORDER_LAYER.test(l.id))
     .map((l): LayerSpecification => {
       if (BORDER_LAYER.test(l.id)) return { ...l, layout: { ...l.layout, visibility: "none" } } as LayerSpecification;
-      // The style fades relief out and hides it past zoom 7, for land cover to take over.
-      // With no land cover here, keep the terrain visible instead.
+      // The style hides the relief image past zoom 7. Keep it as a faint colour wash
+      // (desert vs. green) under the sharp hillshade instead.
       if (l.type === "raster") {
-        l = { ...l, maxzoom: 24, paint: { ...l.paint, "raster-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.6, 8, 0.45] } };
+        l = { ...l, maxzoom: 24, paint: { ...l.paint, "raster-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.6, 7, 0.3] } };
       }
       if (!dark) return l;
       if (l.type === "background") return { ...l, paint: { "background-color": "#27231d" } };
@@ -45,5 +74,8 @@ export async function loadBaseStyle(dark: boolean): Promise<StyleSpecification> 
       }
       return l;
     });
+  style.sources.terrain = TERRAIN_SOURCE;
+  const relief = style.layers.findIndex((l) => l.id === "natural_earth");
+  style.layers.splice(relief + 1, 0, hillshadeLayer(dark));
   return style;
 }
