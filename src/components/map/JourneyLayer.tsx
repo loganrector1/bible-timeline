@@ -11,6 +11,8 @@ import { ARROW_IMAGE } from "./arrowImage";
 import type { MapColors } from "./mapColors";
 
 export const JOURNEY_HIT_LAYER = "journey-hit";
+/** The journey's lowest layer, for drawing beneath the route. */
+export const JOURNEY_BASE_LAYER = "journey-full";
 
 const legFeatures = (legs: Leg[], journeyId: string): GeoJSON.FeatureCollection => ({
   type: "FeatureCollection",
@@ -112,7 +114,7 @@ export default function JourneyLayer({
     <>
       <Source id="journey-full" type="geojson" data={journeyId ? legFeatures(legs, journeyId) : EMPTY}>
         {/* The whole route, faint, so you can see where it's heading while it draws. */}
-        <Layer id="journey-full" type="line" layout={{ "line-cap": "round" }}
+        <Layer id={JOURNEY_BASE_LAYER} type="line" layout={{ "line-cap": "round" }}
           paint={{ "line-color": colors.accent, "line-width": 2, "line-opacity": 0.25, "line-dasharray": [1, 2], "line-offset": ["get", "offset"] }} />
         {/* Wide, invisible line that makes the route easy to hover and click. */}
         <Layer id={JOURNEY_HIT_LAYER} type="line" paint={{ "line-color": "#000", "line-width": 16, "line-opacity": 0 }} />

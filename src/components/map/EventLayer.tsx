@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Layer, Source } from "react-map-gl/maplibre";
 import { data, regionsById } from "../../data";
+import { JOURNEY_BASE_LAYER } from "./JourneyLayer";
 import type { MapColors } from "./mapColors";
 
 export const LOCATION_LAYER = "locations-circle";
@@ -58,6 +59,8 @@ export default function EventLayer({
       <Layer
         id={LOCATION_LAYER}
         type="circle"
+        // Beneath the journey, so a stop's number isn't hidden by the place's own dot.
+        beforeId={JOURNEY_BASE_LAYER}
         filter={["==", ["get", "kind"], "site"]}
         layout={{ "circle-sort-key": ["get", "state"] }}
         paint={{
