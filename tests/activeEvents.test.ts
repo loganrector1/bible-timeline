@@ -1,6 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
+import { eventsById } from "../src/data";
 import { activeEvents, distanceFrom, NEAREST_COUNT } from "../src/lib/activeEvents";
+import { eventsInOrder } from "../src/lib/entities";
 
 describe("activeEvents", () => {
   test("returns a fixed number of events, nearest first", () => {
@@ -14,7 +16,7 @@ describe("activeEvents", () => {
 });
 
 describe("nearest event", () => {
-  const nearest = (year: number) => activeEvents(year, DEFAULT_CHRONOLOGY, 1)[0].id;
+  const nearest = (year: number) => activeEvents(year, DEFAULT_CHRONOLOGY)[0].id;
 
   test("a specific event beats a long span that covers the cursor", () => {
     expect(nearest(-1484.5)).toBe("moses-flees"); // 1486 BC, during the oppression
@@ -22,5 +24,26 @@ describe("nearest event", () => {
 
   test("a long span still wins when nothing specific is near", () => {
     expect(nearest(-1425)).toBe("wandering");
+  });
+});
+
+describe("selected event", () => {
+  const ids = (year: number, id: string) =>
+    activeEvents(year, DEFAULT_CHRONOLOGY, eventsById.get(id)).map((ev) => ev.id);
+
+  test("is always listed, with the events just before and after it", () => {
+    // Forty years in the wilderness, viewed at its start, where shorter events crowd in.
+    const list = ids(-1444, "wandering");
+    expect(list).toHaveLength(NEAREST_COUNT);
+    expect(list).toContain("wandering");
+    const order = eventsInOrder(DEFAULT_CHRONOLOGY).map((ev) => ev.id);
+    const i = order.indexOf("wandering");
+    expect(list).toContain(order[i - 1]);
+    expect(list).toContain(order[i + 1]);
+  });
+
+  test("at the ends of time, there's only one neighbour", () => {
+    expect(ids(-4113, "creation")).toContain("creation");
+    expect(ids(-4113, "creation")).toHaveLength(NEAREST_COUNT);
   });
 });

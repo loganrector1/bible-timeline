@@ -116,7 +116,8 @@ export default function MapView() {
     };
   }, [dark]);
 
-  const active = activeEvents(currentYear, chron);
+  const selectedEvent = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
+  const active = activeEvents(currentYear, chron, selectedEvent);
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),
@@ -125,7 +126,6 @@ export default function MapView() {
 
   // One focus event gets its journey and regions drawn: the selected event, or the
   // nearest event happening now (among the selection's events, if something else is selected).
-  const selectedEvent = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
   const focus: Event | undefined = selectedEvent
     ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
   const focusHighlight = useMemo(
