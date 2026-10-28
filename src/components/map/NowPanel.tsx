@@ -44,12 +44,14 @@ export default function NowPanel({
                 const selected = selection?.kind === "event" && selection.id === ev.id;
                 const isFocus = ev.id === focusId;
                 const spec = datesFor(ev, chron);
+                // Events along a journey sit under it when it's listed too.
+                const nested = ev.partOf !== undefined && ordered.some((p) => p.id === ev.partOf);
                 return (
                   <li key={ev.id} data-focus={isFocus || undefined}>
                     <button
                       onClick={() => select({ kind: "event", id: ev.id })}
                       aria-pressed={selected}
-                      className={`flex w-full items-baseline gap-2 rounded px-1 py-0.5 text-left ${
+                      className={`flex w-full items-baseline gap-2 rounded py-0.5 pr-1 text-left ${nested ? "pl-4" : "pl-1"} ${
                         selected ? "bg-accent text-paper" : isFocus ? "bg-accent-soft" : "hover:bg-paper-2"
                       }`}
                     >
