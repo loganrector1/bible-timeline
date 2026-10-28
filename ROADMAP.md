@@ -17,11 +17,29 @@ Built:
 
 What changed from the original plan, as it was built: the map shows a fixed number of nearest events rather than a time window, there are no "Show on map/timeline" buttons (chips appear only when the selection is out of view), and events can be part of a larger event (`partOf`). CLAUDE.md has the reasons.
 
+## Milestone 2: the whole Bible (in progress)
+
+Goal: extend the dataset from Genesis to Revelation, so the timeline and map cover the whole biblical story, not just Creation to Moses. Work happens on the `feature/whole-bible` branch.
+
+Decided:
+
+- **Skeleton first.** One pass across every era with its key events (about 5–10 each), people and places, so the whole Bible is on screen early and the UI is tested at full scale (AD years, the map out to Rome, crowding). Then deepen era by era.
+- **Places from OpenBible.info.** Coordinates follow OpenBible.info's Bible geocoding data (CC BY 4.0), checked by `scripts/openbible.mjs`. The existing places were checked and corrected first.
+- **Dating:** kings by Thiele's chronology (the one most study Bibles use); Jesus born c. 6–4 BC, crucifixion AD 30 with AD 33 noted as the alternative. Early vs late Exodus stays an open question.
+- **Non-narrative books** appear as events of their writing or ministry: Revelation is John's vision on Patmos (c. AD 95), with the seven churches as places, and its visions aren't dated as history. Prophets show when and where they ministered, letters when and where they were written.
+
+Steps:
+
+1. ~~Check places against OpenBible.info.~~
+2. ~~Eras from the Conquest to the Early Church.~~
+3. Skeleton events, people and places, era by era: Conquest and Judges; United Kingdom; Divided Kingdom and the prophets; Exile and Return; Between the Testaments; Life of Christ; Early Church and the letters, through Revelation.
+4. Check the UI at full scale: crowding, the overview strip, play across the whole span, the map's framing for Paul's journeys and Rome.
+5. Deepen era by era, with more events, journeys (Paul's missionary journeys, the deportations) and region outlines.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
-- **More content:** extend the dataset past Moses (Conquest, Judges, Kings, Exile, Return, Gospels, Acts). Check coordinates against a dataset such as OpenBible.info first.
 - **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`).
 - **Search and filters:** the Browse panel has search; filters by person, book, type, era and theme, applied to both views, are still to come.
 - **Shareable links:** encode the mode, time, selection and filters in the URL, so a teacher can send a class straight to a moment. Include a passage link (`?passage=Exod.12-14`) that selects the events whose Scripture covers it; this is the contract the reading-plans app will link through, so keep it stable once published.

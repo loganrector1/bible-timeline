@@ -38,5 +38,95 @@
       "early": { "start": { "year": -1445, "month": 5 }, "end": { "year": -1405 }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 5 }, "end": { "year": -1219 }, "confidence": "approx" }
     }
+  },
+  {
+    "id": "conquest",
+    "name": "Conquest",
+    "color": "#6f8a3c",
+    "summary": "Under Joshua, Israel crosses the Jordan, takes Jericho and settles the land promised to Abraham (Joshua).",
+    "dates": {
+      "early": { "start": { "year": -1405 }, "end": { "year": -1374 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219 }, "end": { "year": -1199 }, "confidence": "approx" }
+    },
+    "dateNote": "Forty years after the Exodus (Joshua 5:6). Joshua's death is placed about thirty years later."
+  },
+  {
+    "id": "judges",
+    "name": "The Judges",
+    "color": "#9a6b4f",
+    "summary": "A repeating cycle of turning from God, oppression and rescue through judges such as Deborah, Gideon and Samson, ending with Samuel (Judges, Ruth, 1 Samuel 1–7).",
+    "dates": {
+      "early": { "start": { "year": -1374 }, "end": { "year": -1049 }, "confidence": "approx" },
+      "late": { "start": { "year": -1199 }, "end": { "year": -1049 }, "confidence": "approx" }
+    },
+    "dateNote": "The judges' years added together come to more than the time available, so many of them probably overlapped in different parts of the land."
+  },
+  {
+    "id": "united-kingdom",
+    "name": "United Kingdom",
+    "color": "#6a4c8c",
+    "summary": "Israel asks for a king: Saul, then David, who makes Jerusalem his capital, then Solomon, who builds the temple (1 Samuel 8 – 1 Kings 11).",
+    "dates": {
+      "early": { "start": { "year": -1049 }, "end": { "year": -930 }, "confidence": "approx" }
+    },
+    "dateNote": "Counted back from the kingdom's division in 931 BC: Solomon and David reigned forty years each (1 Kings 11:42; 2 Samuel 5:4), and Acts 13:21 gives Saul forty."
+  },
+  {
+    "id": "divided-kingdom",
+    "name": "Divided Kingdom",
+    "color": "#8c4a6a",
+    "summary": "The kingdom splits into Israel in the north and Judah in the south. Prophets call both back to God; Israel falls to Assyria in 722 BC and Judah to Babylon in 586 BC (1 Kings 12 – 2 Kings 25).",
+    "dates": {
+      "early": { "start": { "year": -930 }, "end": { "year": -585, "month": 7 }, "confidence": "approx" }
+    },
+    "dateNote": "Kings are dated by Edwin Thiele's chronology, the one most study Bibles use; others differ by a few years. Some date Jerusalem's fall to 587 BC."
+  },
+  {
+    "id": "exile",
+    "name": "Exile",
+    "color": "#4f6b8a",
+    "summary": "Judah lives in exile in Babylon, where Daniel and Ezekiel serve, until Persia conquers Babylon and Cyrus lets the exiles go home (Daniel, Ezekiel, Lamentations).",
+    "dates": {
+      "early": { "start": { "year": -585, "month": 7 }, "end": { "year": -537 }, "confidence": "approx" }
+    }
+  },
+  {
+    "id": "return",
+    "name": "Return & Rebuilding",
+    "color": "#3f8a7a",
+    "summary": "Exiles return to Judah, rebuild the temple and Jerusalem's walls, and renew the covenant under Zerubbabel, Ezra and Nehemiah (Ezra, Nehemiah, Esther, Haggai, Zechariah, Malachi).",
+    "dates": {
+      "early": { "start": { "year": -537 }, "end": { "year": -429 }, "confidence": "approx" }
+    },
+    "dateNote": "Ends around Nehemiah's second visit and Malachi, c. 430 BC, where the Old Testament's history closes."
+  },
+  {
+    "id": "between-testaments",
+    "name": "Between the Testaments",
+    "color": "#7d7d6b",
+    "summary": "About four hundred years with no new Scripture, as Persia, Alexander the Great's successors and finally Rome rule Judea. The Maccabees win a brief independence.",
+    "dates": {
+      "early": { "start": { "year": -429 }, "end": { "year": -5 }, "confidence": "approx" }
+    }
+  },
+  {
+    "id": "life-of-christ",
+    "name": "Life of Christ",
+    "color": "#b8862e",
+    "summary": "Jesus' birth, ministry, death and resurrection (Matthew, Mark, Luke, John).",
+    "dates": {
+      "early": { "start": { "year": -5 }, "end": { "year": 30, "month": 5 }, "confidence": "approx" }
+    },
+    "dateNote": "Jesus was born before Herod the Great died in 4 BC, probably about 6–4 BC. The crucifixion is dated AD 30 here; AD 33 is the main alternative."
+  },
+  {
+    "id": "early-church",
+    "name": "Early Church",
+    "color": "#b0563c",
+    "summary": "From Pentecost, the apostles carry the gospel from Jerusalem to Rome. Paul's journeys, the letters, and John's Revelation close the New Testament (Acts – Revelation).",
+    "dates": {
+      "early": { "start": { "year": 30, "month": 5 }, "end": { "year": 96 }, "confidence": "approx" }
+    },
+    "dateNote": "Ends with Revelation, usually dated about AD 95, late in Domitian's reign."
   }
 ]

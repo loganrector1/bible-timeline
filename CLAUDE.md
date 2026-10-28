@@ -31,7 +31,9 @@ node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places
 
 - Years are astronomical: 1 BC = `0`, 1446 BC = `-1445`. Never display a year 0.
 - Optional `month`/`day` are approximate Julian placement; `label` keeps the biblical form ("14 Nisan"). Precision comes from which fields are present; there is no separate precision field.
-- Dates are keyed by chronology id (`early` is the default, `late` holds alternates); a missing entry falls back to the default. Which default to use is still an open decision.
+- Dates are keyed by chronology id (`early` is the default, `late` holds alternates); a missing entry falls back to the default. Which default to use is still an open decision. The chronologies differ only on the Exodus, so only dates before Saul need a `late` entry.
+- Kings follow Thiele's chronology (division 931 BC, Samaria 722, Jerusalem 586). Jesus is born c. 6–4 BC and crucified in AD 30; mention AD 33 in a `dateNote` where it matters.
+- Non-narrative books are events of their writing or ministry, not of their contents: Revelation is John's vision on Patmos (c. AD 95), prophets are dated by their ministry, letters by when and where they were written. Don't date prophetic visions as history.
 - Region outlines in `regions.json` are the shapes of places: each feature id must match a location id.
 - Don't invent precision Scripture doesn't give. Leave journey stops untimed rather than guessing days, and mark uncertain dates and sites as such, with a note.
 - `partOf` links an event to the larger event it happens within (Red Sea → Exodus). Children stay full events (type, people, Scripture); one level deep; the date's midpoint falls within the parent's, and a parent's journey must have a stop at one of the child's places (`validate.ts`, `data.test.ts`).
