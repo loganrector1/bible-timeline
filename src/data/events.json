@@ -915,5 +915,123 @@
     "dateNote": "Acts 1:3. Luke places it near Bethany, on the Mount of Olives (Luke 24:50; Acts 1:12).",
     "people": ["jesus", "peter"], "locations": ["mount-of-olives", "bethany"],
     "scripture": [{ "book": "Acts", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 24, "verse": 50, "endVerse": 53 }]
+  },
+  {
+    "id": "pentecost", "title": "Pentecost", "type": "miracle", "major": true,
+    "summary": "The Holy Spirit comes on the disciples with wind and fire, and they speak in other languages. Peter preaches, and about three thousand are baptized.",
+    "dates": { "early": { "start": { "year": 30, "month": 5, "day": 28, "label": "Pentecost" }, "confidence": "approx" } },
+    "dateNote": "Fifty days after the resurrection (Acts 2:1).",
+    "people": ["peter"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 2 }]
+  },
+  {
+    "id": "stephen-martyred", "title": "Stephen is stoned", "type": "death",
+    "summary": "Stephen is stoned after his defense before the council, with a young man named Saul approving. Persecution scatters the believers beyond Jerusalem.",
+    "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
+    "dateNote": "Not dated; a short time after Pentecost and before Paul's conversion.",
+    "people": ["stephen", "paul"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 6, "verse": 8, "endChapter": 8, "endVerse": 3 }]
+  },
+  {
+    "id": "paul-conversion", "title": "Paul meets Jesus on the road to Damascus", "type": "miracle", "major": true,
+    "summary": "On his way to arrest believers in Damascus, Saul is blinded by a light from heaven and hears the risen Jesus. He is baptized and begins to preach Christ.",
+    "dates": { "early": { "start": { "year": 32 }, "confidence": "approx" } },
+    "dateNote": "Paul counts three years and then fourteen years to his visits to Jerusalem (Galatians 1:18; 2:1), placing his conversion about AD 31–33.",
+    "people": ["paul"], "locations": ["jerusalem", "damascus"],
+    "scripture": [{ "book": "Acts", "chapter": 9, "verse": 1, "endVerse": 22 }]
+  },
+  {
+    "id": "cornelius", "title": "Peter and Cornelius", "type": "covenant",
+    "summary": "A vision teaches Peter not to call any person unclean. He preaches to the Roman centurion Cornelius, and the Spirit falls on Gentiles for the first time.",
+    "dates": { "early": { "start": { "year": 40 }, "confidence": "approx" } },
+    "dateNote": "Not dated; between Paul's conversion and Herod Agrippa I's death in AD 44 (Acts 12).",
+    "people": ["peter", "cornelius"], "locations": ["joppa", "caesarea"],
+    "scripture": [{ "book": "Acts", "chapter": 10, "verse": 1, "endChapter": 11, "endVerse": 18 }]
+  },
+  {
+    "id": "first-journey", "title": "Paul's first missionary journey", "type": "journey", "major": true,
+    "summary": "Sent out by the church at Antioch, Paul and Barnabas preach through Cyprus and the cities of southern Galatia, then return strengthening the new churches.",
+    "dates": { "early": { "start": { "year": 46 }, "end": { "year": 48 }, "confidence": "approx" } },
+    "dateNote": "Before the Jerusalem council of about AD 49.",
+    "people": ["paul", "barnabas"], "locations": ["antioch-syria", "cyprus", "pisidian-antioch", "iconium", "lystra", "derbe"],
+    "scripture": [{ "book": "Acts", "chapter": 13, "endChapter": 14 }]
+  },
+  {
+    "id": "jerusalem-council", "title": "The council at Jerusalem", "type": "covenant",
+    "summary": "The apostles and elders decide that Gentile believers don't need to be circumcised or keep the Law of Moses to be saved.",
+    "dates": { "early": { "start": { "year": 49 }, "confidence": "approx" } },
+    "people": ["peter", "paul", "barnabas", "james-brother-of-jesus"], "locations": ["jerusalem", "antioch-syria"],
+    "scripture": [{ "book": "Acts", "chapter": 15, "verse": 1, "endVerse": 35 }]
+  },
+  {
+    "id": "second-journey", "title": "Paul's second missionary journey", "type": "journey",
+    "summary": "Paul and Silas revisit Galatia, then cross into Europe at God's call: Philippi, Thessalonica, Athens, and eighteen months in Corinth.",
+    "dates": { "early": { "start": { "year": 50 }, "end": { "year": 52 }, "confidence": "approx" } },
+    "dateNote": "Paul's time in Corinth overlaps Gallio's term as proconsul (Acts 18:12), which an inscription at Delphi dates to AD 51–52.",
+    "people": ["paul", "silas", "timothy"], "locations": ["philippi", "thessalonica", "athens", "corinth"],
+    "scripture": [{ "book": "Acts", "chapter": 15, "verse": 36, "endChapter": 18, "endVerse": 22 }]
+  },
+  {
+    "id": "third-journey", "title": "Paul's third missionary journey", "type": "journey",
+    "summary": "Paul spends over two years teaching in Ephesus, where the gospel spreads through all Asia, then visits the churches of Macedonia and Greece.",
+    "dates": { "early": { "start": { "year": 53 }, "end": { "year": 57, "month": 5 }, "confidence": "approx" } },
+    "people": ["paul", "timothy"], "locations": ["ephesus", "corinth"],
+    "scripture": [{ "book": "Acts", "chapter": 18, "verse": 23, "endChapter": 21, "endVerse": 16 }]
+  },
+  {
+    "id": "romans", "title": "Paul writes to the Romans", "type": "writing",
+    "summary": "From Corinth Paul writes his fullest account of the gospel to the church in Rome, which he hopes to visit on his way to Spain.",
+    "dates": { "early": { "start": { "year": 57, "month": 2 }, "confidence": "approx" } },
+    "dateNote": "Written during his three months in Greece, as he prepared to take a gift to Jerusalem (Acts 20:2–3; Romans 15:25–26).",
+    "people": ["paul"], "locations": ["corinth", "rome"],
+    "scripture": [{ "book": "Romans", "chapter": 1, "verse": 1, "endVerse": 17 }]
+  },
+  {
+    "id": "paul-arrested", "title": "Paul arrested in Jerusalem", "type": "other",
+    "summary": "A riot breaks out when Paul visits the temple. Roman soldiers take him into custody, and he is held at Caesarea for two years.",
+    "dates": { "early": { "start": { "year": 57, "month": 6 }, "confidence": "approx" } },
+    "dateNote": "Paul hurried to reach Jerusalem by Pentecost (Acts 20:16).",
+    "people": ["paul"], "locations": ["jerusalem", "caesarea"],
+    "scripture": [{ "book": "Acts", "chapter": 21, "verse": 27, "endChapter": 26, "endVerse": 32 }]
+  },
+  {
+    "id": "voyage-to-rome", "title": "Paul's voyage to Rome", "type": "journey", "major": true,
+    "summary": "Having appealed to Caesar, Paul sails for Rome under guard. The ship is wrecked on Malta, and he reaches Rome the next spring.",
+    "dates": { "early": { "start": { "year": 59, "month": 9 }, "end": { "year": 60, "month": 3 }, "confidence": "approx" } },
+    "dateNote": "Festus took over from Felix about AD 59 (Acts 24:27). They sailed after the autumn fast and wintered three months on Malta (Acts 27:9; 28:11).",
+    "people": ["paul"], "locations": ["caesarea", "malta", "rome"],
+    "scripture": [{ "book": "Acts", "chapter": 27, "endChapter": 28 }]
+  },
+  {
+    "id": "prison-letters", "title": "Paul's letters from prison", "type": "writing",
+    "summary": "Under house arrest in Rome, Paul welcomes visitors and writes to the Ephesians, Philippians, Colossians and Philemon.",
+    "dates": { "early": { "start": { "year": 60 }, "end": { "year": 62 }, "confidence": "approx" } },
+    "dateNote": "Two years in Rome (Acts 28:30). Some place one or more of these letters earlier, in Ephesus or Caesarea.",
+    "people": ["paul", "timothy"], "locations": ["rome"],
+    "scripture": [{ "book": "Ephesians", "chapter": 3, "verse": 1 }, { "book": "Philippians", "chapter": 1, "verse": 12, "endVerse": 14 }]
+  },
+  {
+    "id": "second-timothy", "title": "Paul's last letter", "type": "writing",
+    "summary": "Imprisoned again in Rome and expecting to die, Paul writes to Timothy: \"I have fought the good fight, I have finished the race, I have kept the faith.\"",
+    "dates": { "early": { "start": { "year": 67 }, "confidence": "approx" } },
+    "dateNote": "Tradition says Paul was beheaded in Rome under Nero, about AD 64–67, and that Peter was crucified there too.",
+    "people": ["paul", "timothy"], "locations": ["rome"],
+    "scripture": [{ "book": "2 Timothy", "chapter": 4, "verse": 6, "endVerse": 8 }]
+  },
+  {
+    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "major": true,
+    "summary": "Rome crushes a Jewish revolt. Titus's army takes Jerusalem and burns the temple, as Jesus had foretold.",
+    "dates": { "early": { "start": { "year": 70, "month": 8, "label": "10 Av" }, "confidence": "approx" } },
+    "dateNote": "History, not narrated in Scripture: Josephus describes the siege and the burning of the temple in August AD 70. Jesus foretold it (Luke 21:20–24).",
+    "locations": ["jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 24, "verse": 1, "endVerse": 2 }, { "book": "Luke", "chapter": 21, "verse": 20, "endVerse": 24 }]
+  },
+  {
+    "id": "revelation", "title": "John's vision on Patmos", "type": "prophecy", "major": true,
+    "summary": "Exiled on Patmos, John sees the risen Christ, receives letters for seven churches of Asia, and is shown the defeat of evil and the new heaven and new earth.",
+    "dates": { "early": { "start": { "year": 95 }, "confidence": "approx" } },
+    "dateNote": "Irenaeus (about AD 180) places John's vision late in Domitian's reign, about AD 95; some date it before AD 70, under Nero. The visions themselves aren't events in time and aren't placed on the timeline.",
+    "people": ["john-apostle"], "locations": ["patmos", "ephesus", "smyrna", "pergamum", "thyatira", "sardis", "philadelphia", "laodicea"],
+    "scripture": [{ "book": "Revelation", "chapter": 1, "verse": 9, "endChapter": 3, "endVerse": 22 }, { "book": "Revelation", "chapter": 21, "verse": 1, "endChapter": 22, "endVerse": 5 }]
   }
 ]
