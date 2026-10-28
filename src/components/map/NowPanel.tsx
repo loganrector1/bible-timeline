@@ -25,7 +25,7 @@ export default function NowPanel({
   }, [focusId, open]);
 
   return (
-    <div className="absolute top-3 left-3 z-10 w-64 max-w-[calc(100%-5rem)] rounded-lg border border-line bg-paper/90 text-sm shadow-md backdrop-blur">
+    <div data-map-obstacle className={`absolute top-3 left-3 z-10 max-w-[calc(100%-5rem)] rounded-lg border border-line bg-paper/90 text-sm shadow-md backdrop-blur ${open ? "w-64" : ""}`}>
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}

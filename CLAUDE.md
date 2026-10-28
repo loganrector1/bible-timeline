@@ -35,7 +35,9 @@ npm run build      # typecheck + production build to dist/
 
 ## Design decisions (agreed with the user)
 
-- **Selecting moves time only when needed.** Events jump to their moment. People and eras move the cursor only if it's outside their span, to the nearest edge. Places never move time. Selection never changes zoom; "Show on timeline" deliberately centers and fits.
+- **Selecting moves time only when needed.** Events jump to their moment. People and eras move the cursor only if it's outside their span, to the nearest edge. Places never move time. Selection never changes zoom.
+- **No "Show on…" buttons.** Each view shows a "Show ‹name›" chip, with an arrow toward the selection, only while the selection is out of frame; clicking it centers and fits (timeline) or re-frames (map). The details panel offers "Open on map/timeline" only when that view is hidden, and "Replay journey" for events with journeys.
+- **Event popup on the map** for the focus event when it isn't the selection (the details panel covers that case). It never moves the map: it sits beside the visible part of the event, avoiding the event's own places, labels and route and the map's controls (`data-map-obstacle`), or at the nearest edge with an arrow when it's all off screen. Events with no places get no popup.
 - **One focus event on the map:** the selected event, or else the nearest event to the cursor. Only it draws a journey and region outlines; other nearby events show as place dots.
 - **Journeys:** direction arrows, retraced legs drawn side by side (line-offset), a moving head dot while drawing, merged stop numbers ("4·6").
 - **Play** steps through events one by one, resting longer while a journey draws. It doesn't sweep time linearly.

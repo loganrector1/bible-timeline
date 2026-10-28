@@ -6,6 +6,7 @@ import Axis from "./Axis";
 import EraBands from "./EraBands";
 import EventLane from "./EventLane";
 import { HoverCard, type TimelineHover } from "./hover";
+import OffscreenSelection from "./OffscreenSelection";
 import Overview from "./Overview";
 import PeopleLane from "./PeopleLane";
 import TimeCursor from "./TimeCursor";
@@ -80,6 +81,7 @@ export default function Timeline() {
       </div>
       <TimeCursor scale={scale} />
       <Overview scale={scale} />
+      <OffscreenSelection scale={scale} left={AXIS_WIDTH + 8} />
       {hover && ref.current && <HoverCard hover={hover} container={ref.current} />}
 
       <div data-no-pan data-sheet-floor className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">

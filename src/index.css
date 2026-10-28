@@ -12,6 +12,15 @@
   --color-line: #ddd2bf;
   --color-accent: #9a3b1b;
   --color-accent-soft: #f3d9c9;
+
+  /* "Show <name>" chips: appear only after a beat, so they don't flash while the view
+     is still animating toward a new selection. */
+  --animate-appear-late: appear 180ms ease-out 700ms both;
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

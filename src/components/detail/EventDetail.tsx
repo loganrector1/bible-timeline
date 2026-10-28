@@ -23,6 +23,8 @@ export default function EventDetail({ ev }: { ev: Event }) {
   const prev = ordered[index - 1];
   const next = ordered[index + 1];
   const journey = ev.journeyId ? journeysById.get(ev.journeyId) : undefined;
+  const mapShown = useStore((s) => s.mode !== "timeline");
+  const select = useStore((s) => s.select);
 
   return (
     <>
@@ -56,7 +58,18 @@ export default function EventDetail({ ev }: { ev: Event }) {
       )}
       {journey && (
         <Section title="Journey">
-          <p className="mb-1.5 text-sm">{journey.name}</p>
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <p className="text-sm">{journey.name}</p>
+            {mapShown && (
+              // Re-selecting frames the map and draws the journey again.
+              <button
+                onClick={() => select({ kind: "event", id: ev.id })}
+                className="flex shrink-0 items-center gap-1 rounded-md border border-line px-2 py-0.5 text-xs hover:border-accent hover:text-accent"
+              >
+                <span aria-hidden>↻</span> Replay journey
+              </button>
+            )}
+          </div>
           <ol className="flex flex-wrap items-center gap-1 text-sm">
             {journey.stops.map((stop, i) => (
               <li key={i} className="flex items-center gap-1">

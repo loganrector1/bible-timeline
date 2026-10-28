@@ -17,7 +17,9 @@ import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
 import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
+import EventPopup from "./EventPopup";
 import NowPanel from "./NowPanel";
+import OffscreenSelection from "./OffscreenSelection";
 import RegionLayer, { REGION_FILL_LAYER } from "./RegionLayer";
 import TimeStrip from "./TimeStrip";
 
@@ -37,8 +39,8 @@ const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGI
 
 type Hover = { layer: string; id: string; x: number; y: number };
 
-/** Fly to fit the given places, leaving room for the "Happening now" panel when it's open. */
-function frame(map: MapRef, coords: [number, number][], panelOpen: boolean) {
+/** Fly to fit the given places, leaving room for the "Nearest events" panel when it's open. */
+function frame(map: MapRef | maplibregl.Map, coords: [number, number][], panelOpen: boolean) {
   if (coords.length === 0) return;
   const { clientWidth: w, clientHeight: h } = map.getContainer();
   if (w < 80 || h < 80) return; // Not laid out yet; fitting now would zoom out to the whole world.
@@ -92,6 +94,8 @@ export default function MapView() {
   const [error, setError] = useState<string | null>(null);
   const [showBorders, setShowBorders] = useState(false);
   const [hover, setHover] = useState<Hover | null>(null);
+  /** The map instance once loaded, for overlays positioned in screen space. */
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
   // Start collapsed on phones, where the panel would cover much of the map.
   const [nowOpen, setNowOpen] = useState(() => window.innerWidth >= 768);
 
@@ -196,7 +200,10 @@ export default function MapView() {
             // The arrow image must exist before the journey layer first draws, so add it as
             // soon as style data arrives (and again whenever the style reloads).
             onStyleData={(e) => addArrowImage(e.target)}
-            onLoad={applyBorders}
+            onLoad={(e) => {
+              setMap(e.target);
+              applyBorders();
+            }}
             cursor={hover ? "pointer" : "grab"}
             attributionControl={{ compact: true }}
             style={{ width: "100%", height: "100%" }}
@@ -218,7 +225,14 @@ export default function MapView() {
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
         <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
+        {/* The details panel already describes a selected event. */}
+        {focus && focus !== selectedEvent && <EventPopup map={map} ev={focus} />}
+        <OffscreenSelection
+          map={map}
+          onShow={() => map && selection && frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen)}
+        />
         <button
+          data-map-obstacle
           onClick={() => setShowBorders(!showBorders)}
           aria-pressed={showBorders}
           className={`absolute bottom-3 left-3 z-10 rounded-md border border-line px-2 py-1 text-xs shadow-sm ${

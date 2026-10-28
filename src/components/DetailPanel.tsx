@@ -135,15 +135,15 @@ export default function DetailPanel() {
     }
   })();
 
-  // "Show on timeline" centers and fits the selection; "Show on map" re-selects,
-  // which re-frames the map and replays any journey.
-  const showOn = (view: "map" | "timeline") => {
-    if (mode !== "split" && mode !== view) setMode(view);
+  // Only offered when that view is hidden. Each view shows its own "Show <name>"
+  // chip when the selection is out of frame. Phones get the one view; wider screens
+  // get both side by side.
+  const hidden = mode === "map" ? "timeline" : mode === "timeline" ? "map" : null;
+  const openOn = (view: "map" | "timeline") => {
+    setMode(isPhone ? view : "split");
     if (view === "timeline") showOnTimeline(selection);
-    else select(selection);
+    else select(selection); // Re-selecting frames the map and replays any journey.
   };
-
-  const btn = "flex-1 rounded-md border border-line px-3 py-1.5 text-sm hover:border-accent hover:text-accent";
 
   return (
     <aside
@@ -188,10 +188,14 @@ export default function DetailPanel() {
 
       <div className="px-5 pb-6">
         {body}
-        <div className="mt-6 flex gap-2">
-          <button onClick={() => showOn("timeline")} className={btn}>Show on timeline</button>
-          <button onClick={() => showOn("map")} className={btn}>Show on map</button>
-        </div>
+        {hidden && (
+          <button
+            onClick={() => openOn(hidden)}
+            className="mt-6 w-full rounded-md border border-line px-3 py-1.5 text-sm hover:border-accent hover:text-accent"
+          >
+            Open on {hidden}
+          </button>
+        )}
       </div>
       {peek && <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-paper" />}
     </aside>
