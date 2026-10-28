@@ -90,6 +90,16 @@ describe("formatting", () => {
     })).toBe("1st month – 3rd month, 1446 BC");
   });
 
+  test("years only drops months and days", () => {
+    const opts = { yearsOnly: true };
+    expect(formatDateSpec({ start: { year: -1406, month: 5, day: 1, label: "1st of 5th month, 40th year" }, confidence: "exact" }, "BC", opts))
+      .toBe("1407 BC");
+    expect(formatDateSpec({ start: { year: -1406, month: 4 }, end: { year: -1406, month: 11 }, confidence: "approx" }, "BC", opts))
+      .toBe("c. 1407 BC");
+    expect(formatDateSpec({ start: { year: -1444, month: 6 }, end: { year: -1406, month: 1 }, confidence: "range" }, "BC", opts))
+      .toBe("1445–1407 BC");
+  });
+
   test("never shows a year 0", () => {
     for (let y = -5; y <= 5; y++) expect(formatYear(y)).not.toMatch(/\b0\b/);
   });

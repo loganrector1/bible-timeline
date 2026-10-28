@@ -120,10 +120,12 @@ function formatYearRange(a: number, b: number, style: EraStyle): string {
   return `${ha.n}–${hb.n} ${eraLabel(ha.bc, style)}`;
 }
 
-export function formatDateSpec(spec: DateSpec, style: EraStyle = "BC"): string {
+/** `yearsOnly` drops months and days, for tight spaces ("1407 BC", "1445–1407 BC"). */
+export function formatDateSpec(spec: DateSpec, style: EraStyle = "BC", { yearsOnly = false } = {}): string {
   if (spec.confidence === "unknown") return "Date unknown";
   const prefix = spec.confidence === "approx" ? "c. " : "";
-  const { start, end } = spec;
+  const start = yearsOnly ? { year: spec.start.year } : spec.start;
+  const end = spec.end && (yearsOnly ? { year: spec.end.year } : spec.end);
 
   if (!end) return prefix + formatTimePoint(start, style);
 

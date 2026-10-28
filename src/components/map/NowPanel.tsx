@@ -56,7 +56,7 @@ export default function NowPanel({
                       <span className="min-w-0 flex-1 truncate">{ev.title}</span>
                       {spec && (
                         <span className={`shrink-0 text-[11px] tabular-nums ${selected ? "text-paper/80" : "text-ink-muted"}`}>
-                          {formatDateSpec(spec, eraStyle).replace(/^c\. /, "")}
+                          {formatDateSpec(spec, eraStyle, { yearsOnly: true }).replace(/^c\. /, "")}
                         </span>
                       )}
                     </button>
