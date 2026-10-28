@@ -12,8 +12,8 @@ npm run build      # typecheck + production build to dist/
 ```
 
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
-- Before committing, gate on `npm test`'s exit code, not on grepping its output.
-- Known flake: now and then every suite fails at collection with `TypeError: Cannot read properties of undefined (reading 'config')` at the first `describe` (the worker's runner isn't set up, so it's inside Vitest's worker startup), "no tests" run, and the timing shows `worker 96%` with no import time. Seen about 8 times on 2026-10-27/28, usually soon after browser screenshots, sometimes failing repeatedly for over a minute. Ruled out: Vitest's on-disk module cache (`fsModuleCache`, still off in vite.config.ts), editing files, and a screenshot alone (didn't reproduce on demand). Gate on the exit code with retries, keeping the log: `npm test > <scratchpad>/test.log 2>&1 || { sleep 30; npm test > … ; }` and commit only if the last run passed. With exactly that signature, retrying is acceptable; any other failure blocks the commit.
+- Before committing, gate on `npm test`'s exit code, not on grepping its output. Any failure blocks the commit.
+- `npm test` runs Vitest through `scripts/vitest.mjs`, which restarts it from an upper-case drive letter. When the working directory is `c:\...` (VS Code terminals and Claude Code's shell often are), plain `vitest` loads itself twice and every suite fails at its first `describe` with `TypeError: Cannot read properties of undefined (reading 'config')`. Call `npm test`, not `npx vitest`. This was the "flake" of 2026-10-27/28: it came and went with the shell's drive-letter case, not with screenshots or caches.
 - On Windows, stopping a background task doesn't kill the Node process behind it. Free a port with `Get-NetTCPConnection -LocalPort 5173` + `Stop-Process`.
 
 ## Architecture

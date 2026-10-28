@@ -145,14 +145,15 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
         const left = r.asSpan ? dotX - 6 + r.labelShift : dotX - 6 + r.nudge;
 
         return (
-          <div key={ev.id} className={dim}>
+          // Hovering the bar or the label highlights both.
+          <div key={ev.id} className={`group/event ${dim}`}>
             {r.asSpan && (
               <button
                 tabIndex={-1}
                 aria-hidden
                 onClick={() => select({ kind: "event", id: ev.id })}
                 {...hoverProps({ kind: "event", id: ev.id }, onHover)}
-                className={`absolute w-1.5 rounded-full ${selected ? "bg-accent" : "bg-ink/60 hover:bg-accent"}`}
+                className={`absolute w-1.5 rounded-full ${selected ? "bg-accent" : "bg-ink/60 group-hover/event:bg-accent"}`}
                 style={{
                   left: r.column * SPAN_COLUMN + 6,
                   top: r.top,
@@ -167,7 +168,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
               {...hoverProps({ kind: "event", id: ev.id }, onHover)}
               aria-label={`${ev.title}, ${dateText}`}
               aria-pressed={selected}
-              className="group absolute flex -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"
+              className="absolute flex -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"
               style={{ top: r.labelY, left, maxWidth: `calc(100% - ${left}px)` }}
             >
               {!r.asSpan && (
@@ -175,7 +176,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
                   className={`size-3 shrink-0 rounded-full border-2 ${
                     selected ? "border-accent bg-accent ring-4 ring-accent/25"
                     : spec.confidence === "unknown" ? "border-dashed border-ink/60 bg-paper"
-                    : "border-ink/70 bg-paper group-hover:border-accent"
+                    : "border-ink/70 bg-paper group-hover/event:border-accent"
                   }`}
                 />
               )}
@@ -183,7 +184,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
                 <span
                   style={{ marginLeft: r.asSpan ? 0 : r.labelShift }}
                   className={`truncate rounded px-1 text-[13px] leading-[18px] ${
-                    selected ? "bg-accent text-paper" : "bg-paper/75 group-hover:text-accent"
+                    selected ? "bg-accent text-paper" : "bg-paper/75 group-hover/event:text-accent"
                   }`}
                 >
                   {ev.title}
