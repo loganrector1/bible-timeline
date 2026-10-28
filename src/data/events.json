@@ -1026,12 +1026,27 @@
     "scripture": [{ "book": "Acts", "chapter": 2 }]
   },
   {
+    "id": "temple-gate-healing", "title": "A lame man healed at the temple", "type": "miracle",
+    "summary": "\"In the name of Jesus Christ of Nazareth, rise up and walk!\" Peter and John heal a man lame from birth, preach to the crowd, and are arrested and warned by the council.",
+    "dates": { "early": { "start": { "year": 30 }, "confidence": "approx" } },
+    "dateNote": "Not dated; soon after Pentecost.",
+    "people": ["peter", "john-apostle"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 3, "verse": 1, "endChapter": 4, "endVerse": 22 }]
+  },
+  {
     "id": "stephen-martyred", "title": "Stephen is stoned", "type": "death",
     "summary": "Stephen is stoned after his defense before the council, with a young man named Saul approving. Persecution scatters the believers beyond Jerusalem.",
     "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
     "dateNote": "Not dated; a short time after Pentecost and before Paul's conversion.",
     "people": ["stephen", "paul"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Acts", "chapter": 6, "verse": 8, "endChapter": 8, "endVerse": 3 }]
+  },
+  {
+    "id": "philip-ethiopian", "title": "Philip and the Ethiopian", "type": "ministry",
+    "summary": "Scattered by persecution, Philip preaches in Samaria, then on the desert road to Gaza explains Isaiah to an Ethiopian official, who believes and is baptized.",
+    "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
+    "people": ["philip-evangelist"], "locations": ["samaria", "gaza"],
+    "scripture": [{ "book": "Acts", "chapter": 8, "verse": 4, "endVerse": 40 }]
   },
   {
     "id": "paul-conversion", "title": "Paul meets Jesus on the road to Damascus", "type": "miracle", "major": true,
@@ -1206,5 +1221,116 @@
     "dateNote": "About nine months before Jesus' birth, probably about 6–5 BC.",
     "people": ["mary"], "locations": ["nazareth"],
     "scripture": [{ "book": "Luke", "chapter": 1, "verse": 26, "endVerse": 56 }]
+  },
+  {
+    "id": "antioch-church", "title": "Believers first called Christians", "type": "other",
+    "summary": "Believers from Cyprus and Cyrene preach to Greeks in Antioch, and many turn to the Lord. Barnabas brings Saul from Tarsus to teach there for a year.",
+    "dates": { "early": { "start": { "year": 43 }, "confidence": "approx" } },
+    "dateNote": "The year before the famine relief visit and Herod Agrippa I's death in AD 44 (Acts 11:27–30; 12:23).",
+    "people": ["barnabas", "paul"], "locations": ["antioch-syria"],
+    "scripture": [{ "book": "Acts", "chapter": 11, "verse": 19, "endVerse": 30 }]
+  },
+  {
+    "id": "peter-freed", "title": "Peter freed from prison", "type": "miracle",
+    "summary": "Herod Agrippa kills James the brother of John and jails Peter. While the church prays, an angel leads Peter out past the guards.",
+    "dates": { "early": { "start": { "year": 44 }, "confidence": "approx" } },
+    "dateNote": "Shortly before Herod Agrippa I died in AD 44 (Acts 12:20–23), a death Josephus also records.",
+    "people": ["peter", "james-son-of-zebedee"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 12, "verse": 1, "endVerse": 19 }]
+  },
+  {
+    "id": "letter-of-james", "title": "The letter of James", "type": "writing",
+    "summary": "James, leader of the Jerusalem church, writes to believers scattered abroad: faith without works is dead.",
+    "dates": { "early": { "start": { "year": 48 }, "confidence": "approx" } },
+    "dateNote": "Often dated before AD 50, which would make it one of the earliest New Testament books; others date it near James's death in AD 62.",
+    "people": ["james-brother-of-jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "James", "chapter": 1, "verse": 1 }, { "book": "James", "chapter": 2, "verse": 14, "endVerse": 26 }]
+  },
+  {
+    "id": "galatians", "title": "Paul writes to the Galatians", "type": "writing",
+    "summary": "Paul warns the Galatian churches against those who say Gentiles must keep the Law: a person is justified by faith in Christ, not by works of the Law.",
+    "dates": { "early": { "start": { "year": 48 }, "confidence": "approx" } },
+    "dateNote": "If written to the churches of the first journey before the Jerusalem council, about AD 48 from Antioch; others date it AD 53–55, from Ephesus.",
+    "people": ["paul"], "locations": ["antioch-syria", "pisidian-antioch", "iconium", "lystra", "derbe"],
+    "scripture": [{ "book": "Galatians", "chapter": 1, "verse": 1, "endVerse": 9 }, { "book": "Galatians", "chapter": 2, "verse": 15, "endVerse": 21 }]
+  },
+  {
+    "id": "thessalonians", "title": "Paul writes to the Thessalonians", "type": "writing",
+    "summary": "From Corinth, after Timothy brings news of their faith under persecution, Paul writes two letters to encourage the young church and teach about the Lord's return.",
+    "dates": { "early": { "start": { "year": 51 }, "confidence": "approx" } },
+    "dateNote": "Written soon after Paul reached Corinth (1 Thessalonians 3:6; Acts 18:5).",
+    "people": ["paul", "silas", "timothy"], "locations": ["corinth", "thessalonica"],
+    "scripture": [{ "book": "1 Thessalonians", "chapter": 1, "verse": 1, "endVerse": 10 }, { "book": "1 Thessalonians", "chapter": 4, "verse": 13, "endVerse": 18 }]
+  },
+  {
+    "id": "first-corinthians", "title": "Paul writes 1 Corinthians", "type": "writing",
+    "summary": "From Ephesus Paul answers the divided church in Corinth: on factions, marriage, worship, the gifts of the Spirit, love, and the resurrection.",
+    "dates": { "early": { "start": { "year": 55 }, "confidence": "approx" } },
+    "dateNote": "Written at Ephesus before Pentecost (1 Corinthians 16:8).",
+    "people": ["paul"], "locations": ["ephesus", "corinth"],
+    "scripture": [{ "book": "1 Corinthians", "chapter": 13 }, { "book": "1 Corinthians", "chapter": 15, "verse": 1, "endVerse": 11 }]
+  },
+  {
+    "id": "second-corinthians", "title": "Paul writes 2 Corinthians", "type": "writing",
+    "summary": "Relieved by Titus's news, Paul writes from Macedonia about his trials, the ministry of the new covenant, and God's power made perfect in weakness.",
+    "dates": { "early": { "start": { "year": 56 }, "confidence": "approx" } },
+    "dateNote": "Written in Macedonia after leaving Ephesus (2 Corinthians 2:12–13; 7:5–7), perhaps at Philippi.",
+    "people": ["paul", "timothy"], "locations": ["philippi", "corinth"],
+    "scripture": [{ "book": "2 Corinthians", "chapter": 4, "verse": 7, "endVerse": 18 }, { "book": "2 Corinthians", "chapter": 12, "verse": 7, "endVerse": 10 }]
+  },
+  {
+    "id": "gospel-of-mark", "title": "Mark's Gospel", "type": "writing",
+    "summary": "Mark writes the shortest and probably earliest Gospel, a fast-moving account of Jesus the Son of God, who came to serve and give his life.",
+    "dates": { "early": { "start": { "year": 60 }, "confidence": "approx" } },
+    "dateNote": "Early tradition (Papias, Irenaeus) says Mark wrote down Peter's preaching, probably in Rome. Dates proposed range from the 50s to about AD 70.",
+    "people": ["mark", "peter"], "locations": ["rome"],
+    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 1 }, { "book": "Mark", "chapter": 10, "verse": 45 }]
+  },
+  {
+    "id": "luke-acts", "title": "Luke writes his Gospel and Acts", "type": "writing",
+    "summary": "Luke, after carefully investigating everything, writes an orderly account for Theophilus: Jesus' life, then the spread of the gospel from Jerusalem to Rome.",
+    "dates": { "early": { "start": { "year": 62 }, "confidence": "approx" } },
+    "dateNote": "Acts ends with Paul still awaiting trial in Rome, about AD 62, so many date it then, with the Gospel a little earlier. Others date both to the 70s or 80s.",
+    "people": ["luke", "paul"], "locations": ["rome"],
+    "scripture": [{ "book": "Luke", "chapter": 1, "verse": 1, "endVerse": 4 }, { "book": "Acts", "chapter": 1, "verse": 1, "endVerse": 3 }]
+  },
+  {
+    "id": "peter-letters", "title": "Peter's letters", "type": "writing",
+    "summary": "Writing from \"Babylon\" (likely Rome), Peter encourages suffering believers across Asia Minor to stand firm in grace, and warns against false teachers.",
+    "dates": { "early": { "start": { "year": 63 }, "end": { "year": 66 }, "confidence": "approx" } },
+    "dateNote": "Before his death under Nero, which tradition places in Rome about AD 64–67 (1 Peter 5:13; 2 Peter 1:14).",
+    "people": ["peter", "mark", "silas"], "locations": ["rome"],
+    "scripture": [{ "book": "1 Peter", "chapter": 1, "verse": 1, "endVerse": 9 }, { "book": "2 Peter", "chapter": 1, "verse": 12, "endVerse": 21 }]
+  },
+  {
+    "id": "timothy-titus", "title": "Paul writes to Timothy and Titus", "type": "writing",
+    "summary": "Paul instructs his co-workers Timothy in Ephesus and Titus on Crete in choosing leaders, guarding sound teaching and caring for the church.",
+    "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
+    "dateNote": "Probably between Paul's two Roman imprisonments, years that Acts doesn't cover.",
+    "people": ["paul", "timothy"], "locations": ["ephesus"],
+    "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }]
+  },
+  {
+    "id": "gospel-of-matthew", "title": "Matthew's Gospel", "type": "writing",
+    "summary": "Matthew presents Jesus as the promised Messiah and King, the fulfillment of the Law and the Prophets, gathering his teaching into five great discourses.",
+    "dates": { "early": { "start": { "year": 65 }, "confidence": "approx" } },
+    "dateNote": "Usually dated between the 50s and the 80s; where it was written isn't known. Tradition says Matthew wrote first, for Jewish believers.",
+    "people": ["matthew"],
+    "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 1 }, { "book": "Matthew", "chapter": 28, "verse": 18, "endVerse": 20 }]
+  },
+  {
+    "id": "hebrews", "title": "The letter to the Hebrews", "type": "writing",
+    "summary": "An unnamed teacher urges Jewish believers tempted to turn back not to drift away: Jesus is the great high priest and the final sacrifice, better than all that came before.",
+    "dates": { "early": { "start": { "year": 67 }, "confidence": "approx" } },
+    "dateNote": "Its author isn't named. It speaks of the temple's sacrifices as still going on (Hebrews 10:1–3), so it's usually dated before AD 70.",
+    "scripture": [{ "book": "Hebrews", "chapter": 1, "verse": 1, "endVerse": 4 }, { "book": "Hebrews", "chapter": 11 }]
+  },
+  {
+    "id": "john-gospel-letters", "title": "John's Gospel and letters", "type": "writing",
+    "summary": "Late in life John writes \"so that you may believe that Jesus is the Christ, the Son of God,\" and three letters calling believers to walk in the light and love one another.",
+    "dates": { "early": { "start": { "year": 90 }, "confidence": "approx" } },
+    "dateNote": "Irenaeus says John wrote at Ephesus late in life, about AD 85–95. Some date the Gospel earlier.",
+    "people": ["john-apostle"], "locations": ["ephesus"],
+    "scripture": [{ "book": "John", "chapter": 20, "verse": 30, "endVerse": 31 }, { "book": "1 John", "chapter": 4, "verse": 7, "endVerse": 12 }]
   }
 ]
