@@ -483,7 +483,7 @@
     "scripture": [{ "book": "Judges", "chapter": 4, "endChapter": 5 }]
   },
   {
-    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle", "major": true,
+    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle",
     "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches.",
     "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
     "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
@@ -491,7 +491,7 @@
     "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 8 }]
   },
   {
-    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family", "major": true,
+    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family",
     "summary": "Ruth the Moabite returns with Naomi to Bethlehem, gleans in Boaz's field, and marries him. Their son Obed is David's grandfather.",
     "dates": { "early": { "start": { "year": -1099 }, "confidence": "approx" } },
     "dateNote": "Set \"in the days when the judges ruled\" (Ruth 1:1). Boaz is David's great-grandfather, which points to the late 1100s BC.",
@@ -561,7 +561,7 @@
     "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }]
   },
   {
-    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "major": true, "partOf": "david-reign",
+    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "partOf": "david-reign",
     "summary": "David captures the Jebusite stronghold of Zion and makes Jerusalem his capital, then brings the ark there.",
     "dates": { "early": { "start": { "year": -1002 }, "confidence": "approx" } },
     "dateNote": "After seven and a half years reigning in Hebron (2 Samuel 5:5).",
@@ -704,7 +704,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
   },
   {
-    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry", "major": true,
+    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry",
     "summary": "Among the exiles in Babylonia, Ezekiel sees God's glory, warns that Jerusalem will fall, and after it falls promises new hearts, dry bones brought to life, and a new temple.",
     "dates": { "early": { "start": { "year": -592, "month": 7, "label": "5th of 4th month" }, "end": { "year": -570, "month": 4, "label": "1st of 1st month" }, "confidence": "approx" } },
     "dateNote": "From the fifth year of Jehoiachin's exile, 593 BC (Ezekiel 1:2), to his last dated message in the twenty-seventh year, 571 BC (Ezekiel 29:17).",
@@ -712,7 +712,7 @@
     "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 3 }]
   },
   {
-    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment", "major": true,
+    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment",
     "summary": "As Belshazzar feasts, a hand writes on the wall and Daniel reads its judgment. That night Babylon falls to the armies of Cyrus.",
     "dates": { "early": { "start": { "year": -538, "month": 10, "day": 12, "label": "16 Tashritu" }, "confidence": "exact" } },
     "dateNote": "The Nabonidus Chronicle records the city's fall on 16 Tashritu, 12 October 539 BC.",
@@ -768,7 +768,7 @@
     "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
   },
   {
-    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other", "major": true,
+    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",
     "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law.",
     "dates": { "early": { "start": { "year": -444, "month": 8 }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
     "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
@@ -799,7 +799,7 @@
     "locations": ["alexandria"]
   },
   {
-    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship", "major": true,
+    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship",
     "summary": "After Antiochus IV defiles the temple and outlaws Judaism, Judas Maccabeus leads a revolt, retakes Jerusalem and rededicates the temple. Jews remember it at Hanukkah, the Feast of Dedication Jesus kept (John 10:22).",
     "dates": { "early": { "start": { "year": -163, "month": 12, "label": "25 Kislev" }, "confidence": "approx" } },
     "dateNote": "History, not Scripture (except as Catholic and Orthodox Christians count 1 Maccabees): told in 1 Maccabees 4 and by Josephus, in December 164 BC.",
@@ -949,7 +949,7 @@
     "scripture": [{ "book": "Acts", "chapter": 10, "verse": 1, "endChapter": 11, "endVerse": 18 }]
   },
   {
-    "id": "first-journey", "title": "Paul's first missionary journey", "type": "journey", "major": true,
+    "id": "first-journey", "title": "Paul's first missionary journey", "type": "journey",
     "summary": "Sent out by the church at Antioch, Paul and Barnabas preach through Cyprus and the cities of southern Galatia, then return strengthening the new churches.",
     "dates": { "early": { "start": { "year": 46 }, "end": { "year": 48 }, "confidence": "approx" } },
     "dateNote": "Before the Jerusalem council of about AD 49.",
@@ -995,7 +995,7 @@
     "scripture": [{ "book": "Acts", "chapter": 21, "verse": 27, "endChapter": 26, "endVerse": 32 }]
   },
   {
-    "id": "voyage-to-rome", "title": "Paul's voyage to Rome", "type": "journey", "major": true,
+    "id": "voyage-to-rome", "title": "Paul's voyage to Rome", "type": "journey",
     "summary": "Having appealed to Caesar, Paul sails for Rome under guard. The ship is wrecked on Malta, and he reaches Rome the next spring.",
     "dates": { "early": { "start": { "year": 59, "month": 9 }, "end": { "year": 60, "month": 3 }, "confidence": "approx" } },
     "dateNote": "Festus took over from Felix about AD 59 (Acts 24:27). They sailed after the autumn fast and wintered three months on Malta (Acts 27:9; 28:11).",
