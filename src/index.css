@@ -44,3 +44,8 @@ body,
 body {
   @apply bg-paper text-ink font-sans antialiased;
 }
+
+/* The map credits wrap upward rather than run under the "Modern borders" button. */
+.maplibregl-ctrl-bottom-right {
+  left: 9rem;
+}
