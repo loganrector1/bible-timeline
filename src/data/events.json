@@ -1,6 +1,6 @@
 [
   {
-    "id": "creation", "title": "Creation", "type": "other",
+    "id": "creation", "title": "Creation", "type": "other", "major": true,
     "summary": "God creates the heavens and the earth, and makes humanity in his image.",
     "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" } },
     "dateNote": "Placed at the start of the Genesis 5 genealogy; Scripture gives no date.",
@@ -8,7 +8,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2, "endVerse": 3 }]
   },
   {
-    "id": "flood", "title": "The Flood", "type": "judgment",
+    "id": "flood", "title": "The Flood", "type": "judgment", "major": true,
     "summary": "God judges a corrupt world by a flood and saves Noah, his family and the animals in the ark, then makes a covenant never to flood the earth again.",
     "dates": { "early": { "start": { "year": -2457 }, "confidence": "unknown" } },
     "dateNote": "1,656 years after Creation by the Masoretic genealogies (Genesis 5; 7:6). The Septuagint and other readings give different totals.",
@@ -16,7 +16,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 6, "verse": 9, "endChapter": 9, "endVerse": 17 }]
   },
   {
-    "id": "babel", "title": "The Tower of Babel", "type": "judgment",
+    "id": "babel", "title": "The Tower of Babel", "type": "judgment", "major": true,
     "summary": "People unite to build a tower to the heavens; God confuses their language and scatters them.",
     "dates": { "early": { "start": { "year": -2356 }, "confidence": "unknown" } },
     "dateNote": "Sometimes linked to the days of Peleg, \"in whose days the earth was divided\" (Genesis 10:25).",
@@ -31,7 +31,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 26, "endVerse": 31 }]
   },
   {
-    "id": "call-of-abram", "title": "The call of Abram", "type": "covenant",
+    "id": "call-of-abram", "title": "The call of Abram", "type": "covenant", "major": true,
     "summary": "At 75, Abram obeys God's call to leave Haran for a land God will show him, with the promise that all nations will be blessed through him.",
     "dates": { "early": { "start": { "year": -2090 }, "confidence": "approx" } },
     "people": ["abraham", "sarah", "lot"], "locations": ["haran", "shechem", "bethel"], "regions": ["canaan"],
@@ -53,7 +53,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 13 }]
   },
   {
-    "id": "covenant-pieces", "title": "God's covenant with Abram", "type": "covenant",
+    "id": "covenant-pieces", "title": "God's covenant with Abram", "type": "covenant", "major": true,
     "summary": "God promises Abram offspring as many as the stars and confirms the promise of the land with a covenant ceremony.",
     "dates": { "early": { "start": { "year": -2080 }, "confidence": "approx" } },
     "people": ["abraham"], "locations": ["hebron"], "regions": ["canaan"],
@@ -88,7 +88,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 7 }]
   },
   {
-    "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship",
+    "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship", "major": true,
     "summary": "God tests Abraham by asking him to sacrifice Isaac on Mount Moriah, then provides a ram in his place.",
     "dates": { "early": { "start": { "year": -2049 }, "confidence": "approx" } },
     "dateNote": "Isaac's age is not given; the date is an estimate.",
@@ -140,7 +140,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
   },
   {
-    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant",
+    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant", "major": true,
     "summary": "Returning to Canaan, Jacob wrestles with God at Peniel, is renamed Israel, and is reconciled with Esau.",
     "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" } },
     "people": ["jacob", "esau"], "locations": ["peniel"],
@@ -148,7 +148,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 32, "endChapter": 33 }]
   },
   {
-    "id": "joseph-sold", "title": "Joseph sold into slavery", "type": "family",
+    "id": "joseph-sold", "title": "Joseph sold into slavery", "type": "family", "major": true,
     "summary": "Jealous of their father's favorite, Joseph's brothers sell him to traders bound for Egypt.",
     "dates": { "early": { "start": { "year": -1897 }, "confidence": "approx" } },
     "dateNote": "Joseph was 17 (Genesis 37:2).",
@@ -171,7 +171,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 35, "verse": 27, "endVerse": 29 }]
   },
   {
-    "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey",
+    "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey", "major": true,
     "summary": "Joseph reveals himself to his brothers, and Jacob's household of seventy settles in Goshen.",
     "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" } },
     "people": ["jacob", "joseph", "judah"], "locations": ["hebron", "beersheba", "goshen"], "regions": ["goshen"],
@@ -225,7 +225,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 11, "endVerse": 25 }]
   },
   {
-    "id": "burning-bush", "title": "The burning bush", "type": "covenant",
+    "id": "burning-bush", "title": "The burning bush", "type": "covenant", "major": true,
     "summary": "God appears to Moses in a bush that does not burn up, reveals his name, and sends him to bring Israel out of Egypt.",
     "dates": {
       "early": { "start": { "year": -1446 }, "confidence": "approx" },
@@ -245,7 +245,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
   },
   {
-    "id": "passover", "title": "The first Passover", "type": "worship",
+    "id": "passover", "title": "The first Passover", "type": "worship", "major": true,
     "summary": "Israel marks its doorposts with the blood of a lamb, and the Lord passes over them when he strikes the firstborn of Egypt.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
@@ -256,7 +256,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 12, "verse": 1, "endVerse": 30 }]
   },
   {
-    "id": "exodus", "title": "The Exodus", "type": "journey",
+    "id": "exodus", "title": "The Exodus", "type": "journey", "major": true,
     "summary": "God brings Israel out of Egypt, leading them by a pillar of cloud and fire from Rameses through the sea to Mount Sinai.",
     "description": "Israel sets out from Rameses the day after Passover, about 600,000 men plus women and children (Exodus 12:37). God leads them not by the coastal road but through the wilderness toward the sea, where he parts the waters and destroys Pharaoh's army. They travel on through Marah, Elim and the wilderness of Sin, arriving at Mount Sinai in the third month.",
     "dates": {
@@ -270,7 +270,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 12, "verse": 31, "endChapter": 19, "endVerse": 2 }]
   },
   {
-    "id": "red-sea", "title": "Crossing the Red Sea", "type": "miracle",
+    "id": "red-sea", "title": "Crossing the Red Sea", "type": "miracle", "major": true,
     "summary": "God parts the sea, Israel crosses on dry ground, and the waters return over Pharaoh's chariots. Moses and Miriam lead a song of praise.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
@@ -300,7 +300,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 17 }]
   },
   {
-    "id": "sinai-covenant", "title": "The covenant at Sinai", "type": "covenant",
+    "id": "sinai-covenant", "title": "The covenant at Sinai", "type": "covenant", "major": true,
     "summary": "At Mount Sinai God gives the Ten Commandments and makes his covenant with Israel as his treasured people.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 6, "label": "3rd month" }, "confidence": "approx" },
@@ -345,7 +345,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 10, "verse": 11, "endVerse": 36 }]
   },
   {
-    "id": "spies", "title": "The twelve spies", "type": "judgment",
+    "id": "spies", "title": "The twelve spies", "type": "judgment", "major": true,
     "summary": "Ten spies bring a fearful report; only Joshua and Caleb trust God. Israel refuses to enter and is sentenced to forty years in the wilderness.",
     "dates": {
       "early": { "start": { "year": -1444, "month": 7, "label": "Season of first grapes" }, "confidence": "approx" },
@@ -398,7 +398,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endChapter": 22, "endVerse": 1 }]
   },
   {
-    "id": "moses-dies", "title": "Death of Moses", "type": "death",
+    "id": "moses-dies", "title": "Death of Moses", "type": "death", "major": true,
     "summary": "After giving his final words to Israel, Moses views the Promised Land from Mount Nebo and dies at 120. Joshua succeeds him.",
     "dates": {
       "early": { "start": { "year": -1405, "month": 2, "label": "11th month, 40th year" }, "confidence": "approx" },

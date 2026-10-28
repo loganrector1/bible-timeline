@@ -41,6 +41,7 @@ npm run build    # type-check and build static files into dist/
 Conventions:
 
 - **Years are astronomical:** 1 BC is `0`, 1446 BC is `-1445`, and AD 30 is `30`. Add `month` and `day` (approximate Julian placement) when Scripture gives them, plus a `label` for the biblical form, e.g. `"14 Nisan"`.
+- **Mark key events `"major": true`.** When the timeline is crowded, their labels and dots show first. Keep it to the turning points a reader would look for (about one event in three at most).
 - **Dates are keyed by chronology:** `early` is the working default and `late` holds late-Exodus alternates. Anything without its own entry falls back to the default.
 - `npm test` checks that every file matches its schema and that every id it references exists.
 

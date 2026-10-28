@@ -47,6 +47,8 @@ export const Event = z.object({
   id,
   title: z.string(),
   type: EventType,
+  /** Key events: their labels and dots win when the timeline is crowded. */
+  major: z.boolean().default(false),
   summary: z.string(),
   description: z.string().optional(),
   dates: Dates,

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { data, datesFor } from "../../data";
 import type { Event } from "../../data/schema";
 import { formatDateSpec, specBounds, specMidpoint, type DateSpec } from "../../lib/dates";
-import { yearToPx, type TimeScale } from "../../lib/timeScale";
+import { pxToYear, yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { hoverProps, type OnHover } from "./hover";
@@ -11,7 +11,11 @@ import { packIntervals } from "./pack";
 const LABEL_HEIGHT = 18;
 const SPAN_COLUMN = 10;
 const DOT_SIZE = 12;
-const MAX_CLUSTER = 6;
+/** Dots in a cluster sit this far apart. */
+const DOT_STEP = DOT_SIZE + 2;
+/** At most this many dots side by side; the rest fold into a "+N" badge. */
+const MAX_CLUSTER = 5;
+const BADGE_WIDTH = 26;
 /** Spans shorter than this many pixels are drawn as points. */
 const MIN_SPAN_PX = 14;
 
@@ -23,6 +27,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
   const select = useStore((s) => s.select);
+  const goTo = useStore((s) => s.goTo);
   const highlight = useHighlight();
 
   // Span columns depend only on the data, not on scroll position, so bars don't jump around.
@@ -56,45 +61,72 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
     rows.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
   }
 
-  // Dots that would overlap are nudged sideways into a small cluster, so each stays clickable.
+  // Which events win when space is short: the selection, then highlighted, then major events.
+  const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
+  const isLit = (ev: Event) => !highlight || highlight.events.has(ev.id);
+  const rank = (r: Row) => 4 * Number(isSelected(r.ev)) + 2 * Number(isLit(r.ev)) + Number(r.ev.major);
+  const byRank = (a: Row, b: Row) => rank(b) - rank(a) || a.labelY - b.labelY;
+
+  // Dots that would overlap are nudged sideways into a small cluster, in time order, so each
+  // stays clickable. Past MAX_CLUSTER, the lowest-ranked fold into a "+N" badge that zooms in.
   // Labels then start after the whole cluster.
+  type Cluster = { top: number; bottom: number; width: number; folded: Row[] };
+  const clusters: Cluster[] = [];
+  const hidden = new Set<Row>();
   const dots = rows.filter((r) => !r.asSpan).sort((a, b) => a.labelY - b.labelY);
   for (let start = 0; start < dots.length; ) {
     let end = start + 1;
     while (end < dots.length && dots[end].labelY - dots[start].labelY < DOT_SIZE) end++;
-    const size = Math.min(end - start, MAX_CLUSTER);
-    for (let k = start; k < end; k++) {
-      const i = Math.min(k - start, MAX_CLUSTER - 1);
-      dots[k].nudge = i * (DOT_SIZE + 2);
-      dots[k].labelShift = (size - 1 - i) * (DOT_SIZE + 2);
-    }
+    const group = dots.slice(start, end);
+    const keep = new Set(group.length <= MAX_CLUSTER ? group : [...group].sort(byRank).slice(0, MAX_CLUSTER - 1));
+    const shown = group.filter((r) => keep.has(r));
+    const folded = group.filter((r) => !keep.has(r));
+    folded.forEach((r) => hidden.add(r));
+    const width = shown.length * DOT_STEP + (folded.length ? BADGE_WIDTH : 0);
+    shown.forEach((r, i) => {
+      r.nudge = i * DOT_STEP;
+      r.labelShift = width - (i + 1) * DOT_STEP;
+    });
+    clusters.push({ top: group[0].labelY, bottom: group[group.length - 1].labelY, width, folded });
     start = end;
   }
 
-  // Greedy label placement, top to bottom. Highlighted events claim space first.
-  const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
-  const isLit = (ev: Event) => !highlight || highlight.events.has(ev.id);
-  const order = [...rows].sort(
-    (a, b) => Number(isLit(b.ev)) - Number(isLit(a.ev)) || a.labelY - b.labelY,
-  );
+  // Span labels line up with the dot labels, after any cluster beside them.
+  for (const r of rows) {
+    if (!r.asSpan) continue;
+    const beside = clusters.filter(
+      (c) => c.top - DOT_SIZE / 2 < r.labelY + LABEL_HEIGHT / 2 && c.bottom + DOT_SIZE / 2 > r.labelY - LABEL_HEIGHT / 2,
+    );
+    r.labelShift = Math.max(DOT_STEP, ...beside.map((c) => c.width)) + 4;
+  }
+
+  // Greedy label placement, best-ranked first.
+  const visible = rows.filter((r) => !hidden.has(r));
   const taken: number[] = [];
   const showLabel = new Set<string>();
-  for (const r of order) {
+  for (const r of [...visible].sort(byRank)) {
     if (taken.some((y) => Math.abs(y - r.labelY) < LABEL_HEIGHT)) continue;
     taken.push(r.labelY);
     showLabel.add(r.ev.id);
   }
 
+  // Zoom in on a folded cluster until its dots spread out.
+  const spreadCluster = (c: Cluster) => {
+    const n = c.folded.length + MAX_CLUSTER;
+    const spreadPx = Math.max(c.bottom - c.top, 1);
+    goTo(pxToYear(scale, (c.top + c.bottom) / 2), scale.pxPerYear * Math.max(2, (n * LABEL_HEIGHT) / spreadPx));
+  };
+
   return (
     <div className="relative min-w-0 flex-1">
-      {rows.map((r) => {
+      {visible.map((r) => {
         const { ev, spec } = r;
         const selected = isSelected(ev);
         const lit = isLit(ev);
         const dateText = formatDateSpec(spec, eraStyle);
         const dim = lit ? "" : "opacity-35";
         const fuzzy = spec.confidence !== "exact";
-        const left = r.asSpan ? r.column * SPAN_COLUMN + 14 : dotX - 6 + r.nudge;
+        const left = r.asSpan ? dotX - 6 + r.labelShift : dotX - 6 + r.nudge;
 
         return (
           <div key={ev.id} className={dim}>
@@ -133,7 +165,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
               )}
               {showLabel.has(ev.id) && (
                 <span
-                  style={{ marginLeft: r.labelShift }}
+                  style={{ marginLeft: r.asSpan ? 0 : r.labelShift }}
                   className={`truncate rounded px-1 text-[13px] leading-[18px] ${
                     selected ? "bg-accent text-paper" : "bg-paper/75 group-hover:text-accent"
                   }`}
@@ -145,6 +177,18 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
           </div>
         );
       })}
+      {/* Last, so the labels of the dots beside them don't cover them. */}
+      {clusters.filter((c) => c.folded.length > 0).map((c) => (
+        <button
+          key={`more-${c.folded[0].ev.id}`}
+          onClick={() => spreadCluster(c)}
+          aria-label={`${c.folded.length} more events here; zoom in`}
+          className={`absolute flex h-4 -translate-y-1/2 items-center rounded-full border border-ink/50 bg-paper px-1 text-[10px] leading-none font-semibold text-ink-muted hover:border-accent hover:text-accent ${c.folded.some((r) => isLit(r.ev)) ? "" : "opacity-35"}`}
+          style={{ top: (c.top + c.bottom) / 2, left: dotX - 6 + (c.width - BADGE_WIDTH), minWidth: BADGE_WIDTH - 4 }}
+        >
+          +{c.folded.length}
+        </button>
+      ))}
     </div>
   );
 }
