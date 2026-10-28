@@ -1,5 +1,6 @@
 import type { PointerEvent } from "react";
 import { datesFor, erasById, eventsById, peopleById, type EntityRef } from "../../data";
+import type { EventType } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { useStore } from "../../state/store";
 
@@ -17,10 +18,10 @@ export function hoverProps(ref: EntityRef, onHover: OnHover) {
   };
 }
 
-const TYPE_LABEL: Record<string, string> = {
+const TYPE_LABEL: Record<EventType, string> = {
   birth: "Birth", death: "Death", battle: "Battle", covenant: "Covenant", miracle: "Miracle",
   journey: "Journey", reign: "Reign", prophecy: "Prophecy", judgment: "Judgment",
-  worship: "Worship", family: "Family", other: "Event",
+  worship: "Worship", family: "Family", ministry: "Ministry", writing: "Writing", other: "Event",
 };
 
 /** A small card next to the pointer naming the hovered item and its dates. */
