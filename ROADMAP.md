@@ -24,11 +24,21 @@ Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 - **More content:** extend the dataset past Moses (Conquest, Judges, Kings, Exile, Return, Gospels, Acts). Check coordinates against a dataset such as OpenBible.info first.
 - **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`).
 - **Search and filters:** the Browse panel has search; filters by person, book, type, era and theme, applied to both views, are still to come.
-- **Shareable links:** encode the mode, time, selection and filters in the URL, so a teacher can send a class straight to a moment.
+- **Shareable links:** encode the mode, time, selection and filters in the URL, so a teacher can send a class straight to a moment. Include a passage link (`?passage=Exod.12-14`) that selects the events whose Scripture covers it; this is the contract the reading-plans app will link through, so keep it stable once published.
 - **Guided tours:** step-by-step stories that drive both views, such as "The Exodus" or "The Life of Abraham".
 - **World-history context:** a lane for surrounding empires and rulers, and empire extents on the map.
 - **Scripture in the app:** read passages in a public-domain translation instead of linking out.
-- **Deployment:** host the static site somewhere. Once `main` deploys automatically, revisit the branching rule in CLAUDE.md.
+- **Deployment:** public, free static hosting on Cloudflare Pages connected to the GitHub repo (build `npm run build`, output `dist`, run `npm test` first so failures block a deploy), with a preview URL per branch. Serve it at `bibletimeline.rector.app` (rector.app's DNS is already on Cloudflare). First rename the repo to `bible-timeline` and update `package.json`, README, CLAUDE.md and the page title, and if the local folder is renamed too, copy Claude Code's memory folder to the new path. Credit OpenFreeMap, OpenStreetMap and Natural Earth on the map, and check OpenFreeMap's fair-use terms. Once `main` deploys automatically, revisit the branching rule in CLAUDE.md.
+
+## Later: reading plans (separate app)
+
+Customized daily Bible reading plans with accounts, saved progress and statistics (current streak, percent of days read, and more), for me and a few others. It will be its own repo, not part of this public app.
+
+- **Hosting:** a Home Assistant local add-on on the Raspberry Pi (HAOS), reached through the existing Cloudflare Tunnel on rector.app. Cloudflare Access in front of it handles login (email, free for up to 50 users), and its authenticated-user header can identify the reader, so the app doesn't need its own passwords.
+- **Data:** SQLite in WAL mode, backed up by Home Assistant's backups.
+- **Link to the timeline:** each reading links to `bibletimeline.rector.app/?passage=…` (see Shareable links), so the timeline must ship passage links first. If the reading app wants to know which readings have events, the timeline can publish a small passage-to-event index as JSON.
+- **Shared code:** copy the Scripture-reference parsing from this repo instead of writing a second one; make it a shared package only if keeping copies in sync becomes a chore.
+- **Working on both:** open each repo in its own VS Code window with its own Claude sessions. Use `/add-dir` when one session needs to read the other repo. Document the link format in both CLAUDE.md files.
 
 ## Open questions
 
