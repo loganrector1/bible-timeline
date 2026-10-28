@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { datesFor, eventsById, type EntityRef } from "../data";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
-import type { EraStyle } from "../lib/dates";
+import { specMidpoint, type EraStyle } from "../lib/dates";
 import { datasetRange, entityBounds } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
@@ -33,8 +33,12 @@ type State = {
   setViewportPx: (px: number) => void;
   /** Animate the cursor (and optionally zoom) to a target. */
   goTo: (year: number, pxPerYear?: number) => void;
-  /** Select an entity and bring it into view on the timeline. */
-  select: (ref: EntityRef | null) => void;
+  /** Select an entity, moving the cursor only if needed (see the implementation). Stops playback unless asked not to. */
+  select: (ref: EntityRef | null, opts?: { keepPlaying?: boolean }) => void;
+  /** Center an entity on the timeline and fit its span. */
+  showOnTimeline: (ref: EntityRef) => void;
+  browseOpen: boolean;
+  setBrowseOpen: (open: boolean) => void;
 };
 
 let animation = 0;
@@ -60,7 +64,9 @@ export const useStore = create<State>()((set, get) => {
     playing: false,
     viewportPx: 700,
     selectionNonce: 0,
+    browseOpen: false,
 
+    setBrowseOpen: (browseOpen) => set({ browseOpen }),
     setYear: (year) => {
       cancelAnimation();
       set({ currentYear: clampYear(year) });
@@ -89,21 +95,37 @@ export const useStore = create<State>()((set, get) => {
       animation = requestAnimationFrame(step);
     },
 
-    select: (ref) => {
-      set({ selection: ref, selectionNonce: get().selectionNonce + 1, playing: false });
-      if (!ref) return;
+    select: (ref, opts) => {
+      set({
+        selection: ref,
+        selectionNonce: get().selectionNonce + 1,
+        playing: opts?.keepPlaying ? get().playing : false,
+      });
+      if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.
+      const b = entityBounds(ref, get().chronologyId);
+      if (!b) return;
+      const cur = get().currentYear;
+      const ev = ref.kind === "event" ? eventsById.get(ref.id) : undefined;
+      const spec = ev && datesFor(ev, get().chronologyId);
+
+      // Point events are moments: go there. Spans (long events, lifespans, eras) only
+      // move the cursor if it's outside them: to the start of an event, or the nearest
+      // edge of a life or era. The zoom never changes here.
+      if (spec && !spec.end) get().goTo(specMidpoint(spec));
+      else if (cur < b[0] || cur >= b[1]) {
+        const edge = ev ? b[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
+        get().goTo(edge);
+      }
+    },
+
+    showOnTimeline: (ref) => {
       const b = entityBounds(ref, get().chronologyId);
       if (!b) return;
       const { viewportPx, pxPerYear } = get();
-      let zoom = pxPerYear;
-      // Point events keep the current zoom. Spans are fitted into ~60% of the viewport
-      // when they overflow it or are too small to read.
       const ev = ref.kind === "event" ? eventsById.get(ref.id) : undefined;
       const isPoint = ev !== undefined && !datesFor(ev, get().chronologyId)?.end;
-      if (!isPoint) {
-        const px = (b[1] - b[0]) * pxPerYear;
-        if (px > viewportPx * 0.8 || px < 40) zoom = (viewportPx * 0.6) / (b[1] - b[0]);
-      }
+      // Center it, and fit spans into ~60% of the viewport.
+      const zoom = isPoint ? pxPerYear : (viewportPx * 0.6) / (b[1] - b[0]);
       get().goTo((b[0] + b[1]) / 2, zoom);
     },
   };

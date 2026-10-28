@@ -5,6 +5,7 @@ import { useStore } from "../../state/store";
 import Axis from "./Axis";
 import EraBands from "./EraBands";
 import EventLane from "./EventLane";
+import { HoverCard, type TimelineHover } from "./hover";
 import Overview from "./Overview";
 import PeopleLane from "./PeopleLane";
 import TimeCursor from "./TimeCursor";
@@ -19,6 +20,7 @@ export default function Timeline() {
   const currentYear = useStore((s) => s.currentYear);
   const pxPerYear = useStore((s) => s.pxPerYear);
   const setViewportPx = useStore((s) => s.setViewportPx);
+  const [hover, setHover] = useState<TimelineHover | null>(null);
 
   useTimelineGestures(ref);
 
@@ -65,17 +67,20 @@ export default function Timeline() {
       ref={ref}
       tabIndex={0}
       onKeyDown={onKeyDown}
+      onPointerDown={() => setHover(null)}
+      onWheel={() => setHover(null)}
       aria-label="Timeline. Arrow keys and Page Up/Down move through time; plus and minus zoom."
       className="relative h-full touch-none overflow-hidden select-none outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
     >
-      <EraBands scale={scale} />
+      <EraBands scale={scale} onHover={setHover} />
       <Axis scale={scale} />
       <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
-        {showPeople && <PeopleLane scale={scale} />}
-        <EventLane scale={scale} />
+        {showPeople && <PeopleLane scale={scale} onHover={setHover} />}
+        <EventLane scale={scale} onHover={setHover} />
       </div>
       <TimeCursor scale={scale} />
       <Overview scale={scale} />
+      {hover && ref.current && <HoverCard hover={hover} container={ref.current} />}
 
       <div data-no-pan className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">
         <button

@@ -47,6 +47,13 @@ export function findProblems(d: Dataset): string[] {
     check(owner, "person", [...p.parents, ...p.spouses]);
   }
 
+  // Region outlines are the shapes of places, so each must share its id with a location.
+  for (const f of d.regions.features) {
+    if (!sets.location.has(f.properties.id)) {
+      problems.push(`region "${f.properties.id}" has no matching location`);
+    }
+  }
+
   for (const j of d.journeys) {
     check(`journey ${j.id}`, "location", j.stops.map((s) => s.locationId));
   }

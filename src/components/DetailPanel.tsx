@@ -16,6 +16,7 @@ export default function DetailPanel() {
   const mode = useStore((s) => s.mode);
   const setMode = useStore((s) => s.setMode);
   const select = useStore((s) => s.select);
+  const showOnTimeline = useStore((s) => s.showOnTimeline);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const scrollRef = useRef<HTMLElement>(null);
 
@@ -25,10 +26,13 @@ export default function DetailPanel() {
     headingRef.current?.focus({ preventScroll: true });
   }, [selectionNonce]);
 
-  // Escape closes the panel from anywhere.
+  // Escape closes the topmost panel from anywhere: Browse if it's open, otherwise this one.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") select(null);
+      if (e.key !== "Escape") return;
+      const s = useStore.getState();
+      if (s.browseOpen) s.setBrowseOpen(false);
+      else select(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -57,10 +61,12 @@ export default function DetailPanel() {
     }
   })();
 
-  // Re-selecting replays the map animation and re-centers the timeline.
+  // "Show on timeline" centers and fits the selection; "Show on map" re-selects,
+  // which re-frames the map and replays any journey.
   const showOn = (view: "map" | "timeline") => {
     if (mode !== "split" && mode !== view) setMode(view);
-    select(selection);
+    if (view === "timeline") showOnTimeline(selection);
+    else select(selection);
   };
 
   const btn = "flex-1 rounded-md border border-line px-3 py-1.5 text-sm hover:border-accent hover:text-accent";

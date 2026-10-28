@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { eventsById, type EntityRef } from "../data";
+import { eventsById, regionsById, type EntityRef } from "../data";
 import {
   entityLocations, eventLocations, eventsAtLocation, eventsForPerson, eventsInEra,
 } from "../lib/entities";
@@ -44,7 +44,8 @@ export function computeHighlight(sel: EntityRef | null, chron: string): Highligh
         events: new Set(evs.map((e) => e.id)),
         people: new Set(evs.flatMap((e) => e.people)),
         locations: new Set([sel.id]),
-        regions: new Set(),
+        // A region-type place is drawn as its outline.
+        regions: regionsById.has(sel.id) ? new Set([sel.id]) : new Set(),
       };
     }
     case "era": {

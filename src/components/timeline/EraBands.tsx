@@ -3,9 +3,14 @@ import { specBounds } from "../../lib/dates";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
+import { hoverProps, type OnHover } from "./hover";
 
-/** Eras as colored background bands, each with a label that stays in view while its band is on screen. */
-export default function EraBands({ scale }: { scale: TimeScale }) {
+/**
+ * Eras as colored background bands. Each also has a strip in a narrow column on the
+ * right that can be hovered or clicked; its vertical name shows only when the strip
+ * is tall enough to hold it.
+ */
+export default function EraBands({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
   const chron = useStore((s) => s.chronologyId);
   const select = useStore((s) => s.select);
   const highlight = useHighlight();
@@ -19,10 +24,13 @@ export default function EraBands({ scale }: { scale: TimeScale }) {
         const top = yearToPx(scale, lo);
         const bottom = yearToPx(scale, hi);
         if (bottom < 0 || top > scale.height) return null;
-        // Vertical label in its own column; keep it inside the band while the band is on screen.
-        const labelLength = era.name.length * 7 + 16;
-        const labelTop = Math.min(Math.max(top, 0) + 8, bottom - labelLength);
         const selected = highlight?.eraId === era.id;
+
+        // The visible part of the strip, and where the name fits inside it.
+        const stripTop = Math.max(top, 0);
+        const stripBottom = Math.min(bottom, scale.height);
+        const labelLength = era.name.length * 7 + 12;
+        const fits = stripBottom - stripTop >= labelLength + 8;
 
         return (
           <div key={era.id}>
@@ -38,10 +46,24 @@ export default function EraBands({ scale }: { scale: TimeScale }) {
             />
             <button
               onClick={() => select({ kind: "era", id: era.id })}
-              className="absolute right-7 z-[1] rounded px-0.5 py-1.5 text-[11px] font-semibold tracking-wider whitespace-nowrap uppercase [writing-mode:vertical-rl] hover:bg-paper/80"
-              style={{ top: labelTop, color: era.color }}
+              aria-label={`Era: ${era.name}`}
+              {...hoverProps({ kind: "era", id: era.id }, onHover)}
+              className="group absolute right-7 z-[1] w-4 overflow-hidden"
+              style={{ top: stripTop, height: Math.max(2, stripBottom - stripTop) }}
             >
-              {era.name}
+              <span
+                aria-hidden
+                className="absolute inset-y-0.5 right-0 w-0.5 rounded-full opacity-60 group-hover:opacity-100"
+                style={{ backgroundColor: era.color }}
+              />
+              {fits && (
+                <span
+                  className="absolute top-2 left-0 text-[11px] font-semibold tracking-wider whitespace-nowrap uppercase [writing-mode:vertical-rl]"
+                  style={{ color: era.color }}
+                >
+                  {era.name}
+                </span>
+              )}
             </button>
           </div>
         );

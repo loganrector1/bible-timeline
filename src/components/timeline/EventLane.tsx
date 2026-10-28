@@ -5,6 +5,7 @@ import { formatDateSpec, specBounds, specMidpoint, type DateSpec } from "../../l
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
+import { hoverProps, type OnHover } from "./hover";
 import { packIntervals } from "./pack";
 
 const LABEL_HEIGHT = 18;
@@ -17,7 +18,7 @@ const MIN_SPAN_PX = 14;
 type Placed = { ev: Event; spec: DateSpec; lo: number; hi: number; column: number };
 
 /** Events as dots (points) and bars (spans), with labels that hide rather than overlap. */
-export default function EventLane({ scale }: { scale: TimeScale }) {
+export default function EventLane({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
@@ -102,6 +103,7 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
                 tabIndex={-1}
                 aria-hidden
                 onClick={() => select({ kind: "event", id: ev.id })}
+                {...hoverProps({ kind: "event", id: ev.id }, onHover)}
                 className={`absolute w-1.5 rounded-full ${selected ? "bg-accent" : "bg-ink/60 hover:bg-accent"}`}
                 style={{
                   left: r.column * SPAN_COLUMN + 6,
@@ -114,7 +116,7 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
             )}
             <button
               onClick={() => select({ kind: "event", id: ev.id })}
-              title={`${ev.title} · ${dateText}`}
+              {...hoverProps({ kind: "event", id: ev.id }, onHover)}
               aria-label={`${ev.title}, ${dateText}`}
               aria-pressed={selected}
               className="group absolute flex -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"

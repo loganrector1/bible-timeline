@@ -4,13 +4,14 @@ import { formatDateSpec, specBounds } from "../../lib/dates";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
+import { hoverProps, type OnHover } from "./hover";
 import { packIntervals } from "./pack";
 
 const COLUMN = 18;
 const BAR = 14;
 
 /** Lifespans as vertical bars, packed into columns so overlapping lives sit side by side. */
-export default function PeopleLane({ scale }: { scale: TimeScale }) {
+export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
@@ -45,7 +46,7 @@ export default function PeopleLane({ scale }: { scale: TimeScale }) {
           <button
             key={person.id}
             onClick={() => select({ kind: "person", id: person.id })}
-            title={`${person.name} · ${dateText}`}
+            {...hoverProps({ kind: "person", id: person.id }, onHover)}
             aria-label={`${person.name}, ${dateText}`}
             aria-pressed={selected}
             className={`absolute overflow-hidden rounded-full border transition-opacity ${

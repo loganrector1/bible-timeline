@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { useStore, type ViewMode } from "../state/store";
+import BrowsePanel from "./BrowsePanel";
 import DetailPanel from "./DetailPanel";
 import Onboarding from "./Onboarding";
 import Timeline from "./timeline/Timeline";
@@ -17,6 +18,8 @@ export default function AppShell() {
   const mode = useStore((s) => s.mode);
   const setMode = useStore((s) => s.setMode);
   const hasSelection = useStore((s) => s.selection !== null);
+  const browseOpen = useStore((s) => s.browseOpen);
+  const setBrowseOpen = useStore((s) => s.setBrowseOpen);
 
   const showTimeline = mode !== "map";
   const showMap = mode !== "timeline";
@@ -24,7 +27,24 @@ export default function AppShell() {
   return (
     <div className="relative flex h-full flex-col">
       <header className="flex items-center justify-between gap-3 border-b border-line bg-paper-2 px-4 py-2">
-        <h1 className="font-serif text-lg font-semibold tracking-tight sm:text-xl">Bible Timeline</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="font-serif text-lg font-semibold tracking-tight sm:text-xl">Bible Timeline</h1>
+          <button
+            onClick={() => setBrowseOpen(!browseOpen)}
+            aria-pressed={browseOpen}
+            aria-keyshortcuts="/"
+            title="Browse and search (/)"
+            className={`flex items-center gap-1.5 rounded-lg border border-line px-2.5 py-1 text-sm ${
+              browseOpen ? "bg-ink text-paper" : "bg-paper text-ink-muted hover:text-ink"
+            }`}
+          >
+            <svg aria-hidden viewBox="0 0 20 20" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="8.5" cy="8.5" r="5.5" />
+              <path d="m13 13 4.5 4.5" />
+            </svg>
+            Browse
+          </button>
+        </div>
         <div role="radiogroup" aria-label="View" className="flex rounded-lg border border-line bg-paper p-0.5 text-sm">
           {MODES.map((m) => (
             <button
@@ -43,6 +63,7 @@ export default function AppShell() {
       </header>
 
       <div className="relative flex min-h-0 flex-1">
+        <BrowsePanel />
         <main className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row">
           {showTimeline && (
             <section
