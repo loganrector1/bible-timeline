@@ -19,7 +19,9 @@ export default function EraBands({ scale }: { scale: TimeScale }) {
         const top = yearToPx(scale, lo);
         const bottom = yearToPx(scale, hi);
         if (bottom < 0 || top > scale.height) return null;
-        const labelTop = Math.min(Math.max(top, 0) + 8, bottom - 28);
+        // Vertical label in its own column; keep it inside the band while the band is on screen.
+        const labelLength = era.name.length * 7 + 16;
+        const labelTop = Math.min(Math.max(top, 0) + 8, bottom - labelLength);
         const selected = highlight?.eraId === era.id;
 
         return (
@@ -36,7 +38,7 @@ export default function EraBands({ scale }: { scale: TimeScale }) {
             />
             <button
               onClick={() => select({ kind: "era", id: era.id })}
-              className="absolute right-8 z-[1] rounded px-1.5 py-0.5 text-[11px] font-semibold tracking-wider uppercase hover:bg-paper/80"
+              className="absolute right-7 z-[1] rounded px-0.5 py-1.5 text-[11px] font-semibold tracking-wider whitespace-nowrap uppercase [writing-mode:vertical-rl] hover:bg-paper/80"
               style={{ top: labelTop, color: era.color }}
             >
               {era.name}

@@ -71,14 +71,14 @@ export default function Timeline() {
     >
       <EraBands scale={scale} />
       <Axis scale={scale} />
-      <div className="absolute inset-y-0 right-6 flex" style={{ left: AXIS_WIDTH }}>
+      <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
         {showPeople && <PeopleLane scale={scale} />}
         <EventLane scale={scale} />
       </div>
       <TimeCursor scale={scale} />
       <Overview scale={scale} />
 
-      <div data-no-pan className="absolute right-8 bottom-3 z-10 flex gap-1 text-sm">
+      <div data-no-pan className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">
         <button
           onClick={() => setShowPeople(!showPeople)}
           aria-pressed={showPeople}

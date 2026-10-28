@@ -10,6 +10,7 @@ import { packIntervals } from "./pack";
 const LABEL_HEIGHT = 18;
 const SPAN_COLUMN = 10;
 const DOT_SIZE = 12;
+const MAX_CLUSTER = 6;
 /** Spans shorter than this many pixels are drawn as points. */
 const MIN_SPAN_PX = 14;
 
@@ -40,7 +41,9 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
 
   const dotX = spanColumns * SPAN_COLUMN + 10;
 
-  type Row = Placed & { top: number; bottom: number; asSpan: boolean; labelY: number; nudge: number };
+  type Row = Placed & {
+    top: number; bottom: number; asSpan: boolean; labelY: number; nudge: number; labelShift: number;
+  };
   const rows: Row[] = [];
   for (const p of placed) {
     const top = yearToPx(scale, p.lo);
@@ -49,16 +52,23 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
     const asSpan = p.spec.end !== undefined && bottom - top >= MIN_SPAN_PX;
     const mid = yearToPx(scale, specMidpoint(p.spec));
     const labelY = asSpan ? Math.min(Math.max(top, 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
-    rows.push({ ...p, top, bottom, asSpan, labelY, nudge: 0 });
+    rows.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
   }
 
   // Dots that would overlap are nudged sideways into a small cluster, so each stays clickable.
+  // Labels then start after the whole cluster.
   const dots = rows.filter((r) => !r.asSpan).sort((a, b) => a.labelY - b.labelY);
-  dots.forEach((r, i) => {
-    let n = 0;
-    for (let j = i - 1; j >= 0 && r.labelY - dots[j].labelY < DOT_SIZE; j--) n++;
-    r.nudge = Math.min(n, 5) * (DOT_SIZE + 2);
-  });
+  for (let start = 0; start < dots.length; ) {
+    let end = start + 1;
+    while (end < dots.length && dots[end].labelY - dots[start].labelY < DOT_SIZE) end++;
+    const size = Math.min(end - start, MAX_CLUSTER);
+    for (let k = start; k < end; k++) {
+      const i = Math.min(k - start, MAX_CLUSTER - 1);
+      dots[k].nudge = i * (DOT_SIZE + 2);
+      dots[k].labelShift = (size - 1 - i) * (DOT_SIZE + 2);
+    }
+    start = end;
+  }
 
   // Greedy label placement, top to bottom. Highlighted events claim space first.
   const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
@@ -120,6 +130,7 @@ export default function EventLane({ scale }: { scale: TimeScale }) {
               )}
               {showLabel.has(ev.id) && (
                 <span
+                  style={{ marginLeft: r.labelShift }}
                   className={`truncate rounded px-1 text-[13px] leading-[18px] ${
                     selected ? "bg-accent text-paper" : "bg-paper/75 group-hover:text-accent"
                   }`}
