@@ -20,6 +20,20 @@ describe("seed data", () => {
   });
 });
 
+describe("eras", () => {
+  // An event belongs to the era holding its midpoint, so overlapping eras would claim the same events.
+  test("follow one another without overlapping", () => {
+    const chrons = new Set(data.eras.flatMap((e) => Object.keys(e.dates)));
+    for (const chron of chrons) {
+      const spans = data.eras.map((e) => ({ id: e.id, b: specBounds(datesFor(e, chron)!) }));
+      for (let i = 1; i < spans.length; i++) {
+        const [prev, next] = [spans[i - 1], spans[i]];
+        expect(next.b[0], `${prev.id} → ${next.id} (${chron})`).toBeGreaterThanOrEqual(prev.b[1] - 1e-9);
+      }
+    }
+  });
+});
+
 describe("events that are part of another", () => {
   // Within, not strictly inside: "4th month" for the Red Sea overlaps an Exodus that starts on the 15th.
   test("fall within their parent's dates", () => {

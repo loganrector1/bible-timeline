@@ -35,8 +35,8 @@
     "color": "#c49a3a",
     "summary": "The covenant at Sinai, the tabernacle, and forty years in the wilderness before entering Canaan (Exodus 16 – Deuteronomy).",
     "dates": {
-      "early": { "start": { "year": -1445, "month": 5 }, "end": { "year": -1405 }, "confidence": "approx" },
-      "late": { "start": { "year": -1259, "month": 5 }, "end": { "year": -1219 }, "confidence": "approx" }
+      "early": { "start": { "year": -1445, "month": 5 }, "end": { "year": -1405, "month": 3 }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 5 }, "end": { "year": -1219, "month": 3 }, "confidence": "approx" }
     }
   },
   {
@@ -45,8 +45,8 @@
     "color": "#6f8a3c",
     "summary": "Under Joshua, Israel crosses the Jordan, takes Jericho and settles the land promised to Abraham (Joshua).",
     "dates": {
-      "early": { "start": { "year": -1405 }, "end": { "year": -1389 }, "confidence": "approx" },
-      "late": { "start": { "year": -1219 }, "end": { "year": -1203 }, "confidence": "approx" }
+      "early": { "start": { "year": -1405, "month": 4 }, "end": { "year": -1389 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4 }, "end": { "year": -1203 }, "confidence": "approx" }
     },
     "dateNote": "From the Jordan crossing, forty years after the Exodus (Joshua 5:6), to Joshua's death at 110 (Joshua 24:29)."
   },
@@ -56,8 +56,8 @@
     "color": "#9a6b4f",
     "summary": "A repeating cycle of turning from God, oppression and rescue through judges such as Deborah, Gideon and Samson, ending with Samuel (Judges, Ruth, 1 Samuel 1–7).",
     "dates": {
-      "early": { "start": { "year": -1389 }, "end": { "year": -1049 }, "confidence": "approx" },
-      "late": { "start": { "year": -1203 }, "end": { "year": -1049 }, "confidence": "approx" }
+      "early": { "start": { "year": -1388 }, "end": { "year": -1050 }, "confidence": "approx" },
+      "late": { "start": { "year": -1202 }, "end": { "year": -1050 }, "confidence": "approx" }
     },
     "dateNote": "The judges' years added together come to more than the time available, so many of them probably overlapped in different parts of the land."
   },
@@ -67,7 +67,7 @@
     "color": "#6a4c8c",
     "summary": "Israel asks for a king: Saul, then David, who makes Jerusalem his capital, then Solomon, who builds the temple (1 Samuel 8 – 1 Kings 11).",
     "dates": {
-      "early": { "start": { "year": -1049 }, "end": { "year": -930 }, "confidence": "approx" }
+      "early": { "start": { "year": -1049 }, "end": { "year": -931 }, "confidence": "approx" }
     },
     "dateNote": "Counted back from the kingdom's division in 931 BC: Solomon and David reigned forty years each (1 Kings 11:42; 2 Samuel 5:4), and Acts 13:21 gives Saul forty."
   },
@@ -87,7 +87,7 @@
     "color": "#4f6b8a",
     "summary": "Judah lives in exile in Babylon, where Daniel and Ezekiel serve, until Persia conquers Babylon and Cyrus lets the exiles go home (Daniel, Ezekiel, Lamentations).",
     "dates": {
-      "early": { "start": { "year": -585, "month": 7 }, "end": { "year": -537 }, "confidence": "approx" }
+      "early": { "start": { "year": -585, "month": 8 }, "end": { "year": -538 }, "confidence": "approx" }
     }
   },
   {
@@ -96,7 +96,7 @@
     "color": "#3f8a7a",
     "summary": "Exiles return to Judah, rebuild the temple and Jerusalem's walls, and renew the covenant under Zerubbabel, Ezra and Nehemiah (Ezra, Nehemiah, Esther, Haggai, Zechariah, Malachi).",
     "dates": {
-      "early": { "start": { "year": -537 }, "end": { "year": -429 }, "confidence": "approx" }
+      "early": { "start": { "year": -537 }, "end": { "year": -430 }, "confidence": "approx" }
     },
     "dateNote": "Ends around Nehemiah's second visit and Malachi, c. 430 BC, where the Old Testament's history closes."
   },
@@ -106,7 +106,7 @@
     "color": "#7d7d6b",
     "summary": "About four hundred years with no new Scripture, as Persia, Alexander the Great's successors and finally Rome rule Judea. The Maccabees win a brief independence.",
     "dates": {
-      "early": { "start": { "year": -429 }, "end": { "year": -5 }, "confidence": "approx" }
+      "early": { "start": { "year": -429 }, "end": { "year": -6 }, "confidence": "approx" }
     }
   },
   {
@@ -115,7 +115,7 @@
     "color": "#b8862e",
     "summary": "Jesus' birth, ministry, death and resurrection (Matthew, Mark, Luke, John).",
     "dates": {
-      "early": { "start": { "year": -5 }, "end": { "year": 30, "month": 5 }, "confidence": "approx" }
+      "early": { "start": { "year": -5 }, "end": { "year": 30, "month": 5, "day": 27 }, "confidence": "approx" }
     },
     "dateNote": "Jesus was born before Herod the Great died in 4 BC, probably about 6–4 BC. The crucifixion is dated AD 30 here; AD 33 is the main alternative."
   },
@@ -125,7 +125,7 @@
     "color": "#b0563c",
     "summary": "From Pentecost, the apostles carry the gospel from Jerusalem to Rome. Paul's journeys, the letters, and John's Revelation close the New Testament (Acts – Revelation).",
     "dates": {
-      "early": { "start": { "year": 30, "month": 5 }, "end": { "year": 96 }, "confidence": "approx" }
+      "early": { "start": { "year": 30, "month": 5, "day": 28 }, "end": { "year": 96 }, "confidence": "approx" }
     },
     "dateNote": "Ends with Revelation, usually dated about AD 95, late in Domitian's reign."
   }
