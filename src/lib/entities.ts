@@ -17,11 +17,25 @@ export function eventMidpoint(ev: Event, chron: string): number | undefined {
   return spec && specMidpoint(spec);
 }
 
-/** Events sorted by date under a chronology. Undated events are left out. */
+/**
+ * Where an event falls in date order. A span counts from its start, so a journey comes
+ * before what happens along it; a moment counts from its midpoint, since "4th month" is a
+ * best guess at mid-month, not the 1st.
+ */
+export function eventOrderKey(ev: Event, chron: string): number {
+  const spec = datesFor(ev, chron)!;
+  return spec.end ? specBounds(spec)[0] : specMidpoint(spec);
+}
+
+/** Events sorted by date under a chronology, longer first on ties. Undated events are left out. */
 export function eventsInOrder(chron: string): Event[] {
+  const length = (ev: Event) => {
+    const [lo, hi] = eventBounds(ev, chron)!;
+    return hi - lo;
+  };
   return data.events
     .filter((ev) => datesFor(ev, chron))
-    .sort((a, b) => eventMidpoint(a, chron)! - eventMidpoint(b, chron)!);
+    .sort((a, b) => eventOrderKey(a, chron) - eventOrderKey(b, chron) || length(b) - length(a));
 }
 
 /**
@@ -36,8 +50,8 @@ export function adjacentEvent(
   if (i >= 0) return ordered[i + dir];
   const eps = 1e-6;
   return dir === 1
-    ? ordered.find((ev) => eventMidpoint(ev, chron)! > currentYear + eps)
-    : ordered.findLast((ev) => eventMidpoint(ev, chron)! < currentYear - eps);
+    ? ordered.find((ev) => eventOrderKey(ev, chron) > currentYear + eps)
+    : ordered.findLast((ev) => eventOrderKey(ev, chron) < currentYear - eps);
 }
 
 export function eventsForPerson(personId: string, chron: string): Event[] {

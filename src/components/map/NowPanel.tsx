@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 import { datesFor } from "../../data";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
-import { eventMidpoint } from "../../lib/entities";
+import { eventsInOrder } from "../../lib/entities";
 import { useStore } from "../../state/store";
 
 /**
- * The events nearest the current moment, in date order. The list scrolls when
+ * The events nearest the current moment, in date order (as `eventsInOrder` sorts them). The list scrolls when
  * long, keeping the focus event (the one drawn on the map) in view.
  */
 export default function NowPanel({
@@ -18,7 +18,7 @@ export default function NowPanel({
   const eraStyle = useStore((s) => s.eraStyle);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const ordered = [...events].sort((a, b) => eventMidpoint(a, chron)! - eventMidpoint(b, chron)!);
+  const ordered = eventsInOrder(chron).filter((ev) => events.includes(ev));
 
   useEffect(() => {
     listRef.current?.querySelector("[data-focus]")?.scrollIntoView({ block: "nearest" });
