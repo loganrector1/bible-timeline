@@ -86,5 +86,96 @@
       { "locationId": "mount-hor", "at": { "year": -1406, "month": 8, "day": 1 }, "note": "Aaron dies." },
       { "locationId": "plains-of-moab", "at": { "year": -1406, "month": 11 } }
     ]
+  },
+  {
+    "id": "paul-first-journey",
+    "name": "Paul's first missionary journey",
+    "summary": "From Antioch through Cyprus to the cities of southern Galatia, and back the same way to strengthen the new churches.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "antioch-syria", "at": { "year": 46 }, "note": "The church sends out Barnabas and Saul (Acts 13:1–3)." },
+      { "locationId": "seleucia" },
+      { "locationId": "salamis" },
+      { "locationId": "paphos", "note": "The proconsul Sergius Paulus believes." },
+      { "locationId": "perga", "note": "John Mark leaves them." },
+      { "locationId": "pisidian-antioch", "note": "Paul turns to the Gentiles (Acts 13:46)." },
+      { "locationId": "iconium" },
+      { "locationId": "lystra" },
+      { "locationId": "derbe" },
+      { "locationId": "lystra" },
+      { "locationId": "iconium" },
+      { "locationId": "pisidian-antioch" },
+      { "locationId": "perga" },
+      { "locationId": "attalia" },
+      { "locationId": "antioch-syria", "via": [[32.8, 35.9], [35.92, 36.12]], "at": { "year": 48 }, "note": "They report how God opened a door of faith to the Gentiles." }
+    ]
+  },
+  {
+    "id": "paul-second-journey",
+    "name": "Paul's second missionary journey",
+    "summary": "Overland through the Cilician Gates to the Galatian churches, then across to Europe: Philippi, Thessalonica, Berea, Athens and Corinth, returning by Ephesus.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "antioch-syria", "at": { "year": 50 } },
+      { "locationId": "derbe", "via": [[36.2, 36.5], [36.2, 36.9], [35.32, 37], [34.89, 36.91], [34.79, 37.3]] },
+      { "locationId": "lystra", "note": "Timothy joins Paul and Silas." },
+      { "locationId": "troas", "note": "The vision of the man of Macedonia (Acts 16:9)." },
+      { "locationId": "samothrace" },
+      { "locationId": "neapolis" },
+      { "locationId": "philippi" },
+      { "locationId": "amphipolis" },
+      { "locationId": "apollonia" },
+      { "locationId": "thessalonica" },
+      { "locationId": "berea" },
+      { "locationId": "athens", "via": [[22.68, 40.38], [23.45, 39.6], [24.05, 38.85], [24.63, 38.08], [24.05, 37.56], [23.75, 37.75], [23.63, 37.94]], "note": "Taken by sea (Acts 17:14–15)." },
+      { "locationId": "corinth", "note": "Eighteen months (Acts 18:11)." },
+      { "locationId": "cenchreae" },
+      { "locationId": "ephesus", "via": [[24, 37.55], [26.6, 37.95], [27.2, 37.85]] },
+      { "locationId": "caesarea", "via": [[27.05, 37.68], [27.15, 37.35], [27.25, 36.95], [27.4, 36.6], [28.4, 36.35]] },
+      { "locationId": "jerusalem", "note": "He \"went up and greeted the church\" (Acts 18:22), probably at Jerusalem." },
+      { "locationId": "antioch-syria", "at": { "year": 52 } }
+    ]
+  },
+  {
+    "id": "paul-third-journey",
+    "name": "Paul's third missionary journey",
+    "summary": "Overland to Ephesus for more than two years, on through Macedonia to Greece, then back by sea to Jerusalem with a gift for its poor.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "antioch-syria", "at": { "year": 53 } },
+      { "locationId": "ephesus", "via": [[36.2, 36.5], [36.2, 36.9], [35.32, 37], [34.89, 36.91], [34.79, 37.3]], "note": "More than two years (Acts 19:10)." },
+      { "locationId": "troas", "note": "2 Corinthians 2:12–13." },
+      { "locationId": "philippi", "via": [[24.415, 40.935]] },
+      { "locationId": "corinth", "via": [[22.95, 40.64], [22.5, 40.27], [22.42, 39.64], [22.43, 38.9], [23.32, 38.32], [23.35, 38]], "note": "Three months in Greece (Acts 20:3), probably at Corinth, where he writes Romans." },
+      { "locationId": "philippi", "via": [[23.35, 38], [23.32, 38.32], [22.43, 38.9], [22.42, 39.64], [22.5, 40.27], [22.95, 40.64]], "at": { "year": 57, "month": 4, "label": "Passover" } },
+      { "locationId": "troas", "via": [[24.415, 40.935]] },
+      { "locationId": "assos", "note": "Paul goes on foot." },
+      { "locationId": "mitylene" },
+      { "locationId": "miletus", "via": [[26.25, 38.4], [27.05, 37.68]] },
+      { "locationId": "cos", "via": [[27.15, 37.35]] },
+      { "locationId": "rhodes", "via": [[27.4, 36.6]] },
+      { "locationId": "patara" },
+      { "locationId": "tyre", "via": [[32.4, 34.4]], "note": "Sighting Cyprus, they leave it on the left (Acts 21:3)." },
+      { "locationId": "ptolemais" },
+      { "locationId": "caesarea", "via": [[34.93, 32.85]] },
+      { "locationId": "jerusalem", "at": { "year": 57, "month": 6, "label": "Pentecost" } }
+    ]
+  },
+  {
+    "id": "paul-to-rome",
+    "name": "Paul's voyage to Rome",
+    "summary": "Under guard from Caesarea, north of Cyprus to Myra, along Crete, through a fourteen-day storm to Malta, and on to Rome in the spring.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "caesarea", "at": { "year": 59, "month": 9 } },
+      { "locationId": "sidon", "via": [[34.93, 32.85]] },
+      { "locationId": "myra", "via": [[34.3, 35.75], [32.8, 35.9], [30.45, 36.1]], "note": "Under the lee of Cyprus (Acts 27:4)." },
+      { "locationId": "fair-havens", "via": [[27.4, 36.6], [26.4, 35.25], [25.5, 34.85]], "at": { "year": 59, "month": 10, "label": "after the fast" }, "note": "Paul warns against sailing on (Acts 27:9–10)." },
+      { "locationId": "malta", "via": [[24.08, 34.75]], "note": "Fourteen days adrift in the storm." },
+      { "locationId": "syracuse", "via": [[15.25, 36.6]], "note": "After three months on Malta (Acts 28:11)." },
+      { "locationId": "rhegium" },
+      { "locationId": "puteoli", "via": [[14.15, 40.6]] },
+      { "locationId": "rome", "at": { "year": 60, "month": 3 } }
+    ]
   }
 ]

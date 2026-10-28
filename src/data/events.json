@@ -953,7 +953,8 @@
     "summary": "Sent out by the church at Antioch, Paul and Barnabas preach through Cyprus and the cities of southern Galatia, then return strengthening the new churches.",
     "dates": { "early": { "start": { "year": 46 }, "end": { "year": 48 }, "confidence": "approx" } },
     "dateNote": "Before the Jerusalem council of about AD 49.",
-    "people": ["paul", "barnabas"], "locations": ["antioch-syria", "cyprus", "pisidian-antioch", "iconium", "lystra", "derbe"],
+    "people": ["paul", "barnabas"], "locations": ["antioch-syria", "salamis", "paphos", "perga", "pisidian-antioch", "iconium", "lystra", "derbe"],
+    "journeyId": "paul-first-journey",
     "scripture": [{ "book": "Acts", "chapter": 13, "endChapter": 14 }]
   },
   {
@@ -968,14 +969,16 @@
     "summary": "Paul and Silas revisit Galatia, then cross into Europe at God's call: Philippi, Thessalonica, Athens, and eighteen months in Corinth.",
     "dates": { "early": { "start": { "year": 50 }, "end": { "year": 52 }, "confidence": "approx" } },
     "dateNote": "Paul's time in Corinth overlaps Gallio's term as proconsul (Acts 18:12), which an inscription at Delphi dates to AD 51–52.",
-    "people": ["paul", "silas", "timothy"], "locations": ["philippi", "thessalonica", "athens", "corinth"],
+    "people": ["paul", "silas", "timothy"], "locations": ["troas", "philippi", "thessalonica", "berea", "athens", "corinth"],
+    "journeyId": "paul-second-journey",
     "scripture": [{ "book": "Acts", "chapter": 15, "verse": 36, "endChapter": 18, "endVerse": 22 }]
   },
   {
     "id": "third-journey", "title": "Paul's third missionary journey", "type": "journey",
     "summary": "Paul spends over two years teaching in Ephesus, where the gospel spreads through all Asia, then visits the churches of Macedonia and Greece.",
     "dates": { "early": { "start": { "year": 53 }, "end": { "year": 57, "month": 5 }, "confidence": "approx" } },
-    "people": ["paul", "timothy"], "locations": ["ephesus", "corinth"],
+    "people": ["paul", "timothy"], "locations": ["ephesus", "troas", "corinth", "miletus"],
+    "journeyId": "paul-third-journey",
     "scripture": [{ "book": "Acts", "chapter": 18, "verse": 23, "endChapter": 21, "endVerse": 16 }]
   },
   {
@@ -999,7 +1002,8 @@
     "summary": "Having appealed to Caesar, Paul sails for Rome under guard. The ship is wrecked on Malta, and he reaches Rome the next spring.",
     "dates": { "early": { "start": { "year": 59, "month": 9 }, "end": { "year": 60, "month": 3 }, "confidence": "approx" } },
     "dateNote": "Festus took over from Felix about AD 59 (Acts 24:27). They sailed after the autumn fast and wintered three months on Malta (Acts 27:9; 28:11).",
-    "people": ["paul"], "locations": ["caesarea", "malta", "rome"],
+    "people": ["paul"], "locations": ["caesarea", "myra", "fair-havens", "malta", "rome"],
+    "journeyId": "paul-to-rome",
     "scripture": [{ "book": "Acts", "chapter": 27, "endChapter": 28 }]
   },
   {
@@ -1033,5 +1037,56 @@
     "dateNote": "Irenaeus (about AD 180) places John's vision late in Domitian's reign, about AD 95; some date it before AD 70, under Nero. The visions themselves aren't events in time and aren't placed on the timeline.",
     "people": ["john-apostle"], "locations": ["patmos", "ephesus", "smyrna", "pergamum", "thyatira", "sardis", "philadelphia", "laodicea"],
     "scripture": [{ "book": "Revelation", "chapter": 1, "verse": 9, "endChapter": 3, "endVerse": 22 }, { "book": "Revelation", "chapter": 21, "verse": 1, "endChapter": 22, "endVerse": 5 }]
+  },
+  {
+    "id": "lystra", "title": "Paul stoned at Lystra", "type": "miracle", "partOf": "first-journey",
+    "summary": "Paul heals a man lame from birth, and the crowd hails Paul and Barnabas as Zeus and Hermes. Then opponents turn the crowd, and Paul is stoned and left for dead, but gets up and goes back into the city.",
+    "dates": { "early": { "start": { "year": 47 }, "confidence": "approx" } },
+    "people": ["paul", "barnabas"], "locations": ["lystra"],
+    "scripture": [{ "book": "Acts", "chapter": 14, "verse": 8, "endVerse": 20 }]
+  },
+  {
+    "id": "philippi-prison", "title": "Paul and Silas in prison at Philippi", "type": "miracle", "partOf": "second-journey",
+    "summary": "Lydia believes and opens her home. Paul and Silas are beaten and jailed; at midnight, as they sing hymns, an earthquake opens the doors, and the jailer and his household believe.",
+    "dates": { "early": { "start": { "year": 50 }, "confidence": "approx" } },
+    "people": ["paul", "silas"], "locations": ["philippi"],
+    "scripture": [{ "book": "Acts", "chapter": 16, "verse": 11, "endVerse": 40 }]
+  },
+  {
+    "id": "areopagus", "title": "Paul at the Areopagus", "type": "ministry", "partOf": "second-journey",
+    "summary": "Troubled by the idols of Athens, Paul tells its philosophers about the \"unknown god\" who made the world and raised Jesus from the dead.",
+    "dates": { "early": { "start": { "year": 50 }, "confidence": "approx" } },
+    "people": ["paul"], "locations": ["athens"],
+    "scripture": [{ "book": "Acts", "chapter": 17, "verse": 16, "endVerse": 34 }]
+  },
+  {
+    "id": "ephesus-riot", "title": "The riot at Ephesus", "type": "other", "partOf": "third-journey",
+    "summary": "So many turn from idols that the silversmiths who make shrines of Artemis stir up the city. A mob fills the theater shouting \"Great is Artemis of the Ephesians!\" for two hours.",
+    "dates": { "early": { "start": { "year": 56 }, "confidence": "approx" } },
+    "people": ["paul"], "locations": ["ephesus"],
+    "scripture": [{ "book": "Acts", "chapter": 19, "verse": 23, "endVerse": 41 }]
+  },
+  {
+    "id": "eutychus", "title": "Eutychus raised at Troas", "type": "miracle", "partOf": "third-journey",
+    "summary": "As Paul talks late into the night, a young man falls asleep and drops from a third-floor window. Paul embraces him, and he is alive.",
+    "dates": { "early": { "start": { "year": 57, "month": 4, "label": "after Passover" }, "confidence": "approx" } },
+    "dateNote": "They sailed from Philippi after the days of Unleavened Bread and reached Troas five days later (Acts 20:6).",
+    "people": ["paul"], "locations": ["troas"],
+    "scripture": [{ "book": "Acts", "chapter": 20, "verse": 7, "endVerse": 12 }]
+  },
+  {
+    "id": "miletus-farewell", "title": "Farewell to the Ephesian elders", "type": "other", "partOf": "third-journey",
+    "summary": "At Miletus Paul calls the elders of Ephesus, charges them to shepherd God's flock, and tells them they will not see him again. They kneel, pray and weep together.",
+    "dates": { "early": { "start": { "year": 57, "month": 5 }, "confidence": "approx" } },
+    "people": ["paul"], "locations": ["miletus"],
+    "scripture": [{ "book": "Acts", "chapter": 20, "verse": 17, "endVerse": 38 }]
+  },
+  {
+    "id": "shipwreck", "title": "Shipwreck on Malta", "type": "other", "partOf": "voyage-to-rome",
+    "summary": "A storm drives the ship for fourteen days until it runs aground off Malta; all 276 aboard reach land. A viper bites Paul without harming him, and he heals the sick of the island.",
+    "dates": { "early": { "start": { "year": 59, "month": 11 }, "confidence": "approx" } },
+    "dateNote": "Some two weeks after leaving Crete late in the sailing season (Acts 27:9, 27).",
+    "people": ["paul"], "locations": ["malta"],
+    "scripture": [{ "book": "Acts", "chapter": 27, "verse": 13, "endChapter": 28, "endVerse": 10 }]
   }
 ]
