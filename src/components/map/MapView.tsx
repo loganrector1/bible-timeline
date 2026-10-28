@@ -9,7 +9,7 @@ import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
 import { entityLocations, eventLocations } from "../../lib/entities";
 import { eventForJourney } from "../../lib/journeys";
-import { usePrefersDark } from "../../lib/usePrefersDark";
+import { usePrefersDark } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";

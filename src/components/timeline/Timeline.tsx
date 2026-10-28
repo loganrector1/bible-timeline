@@ -82,7 +82,7 @@ export default function Timeline() {
       <Overview scale={scale} />
       {hover && ref.current && <HoverCard hover={hover} container={ref.current} />}
 
-      <div data-no-pan className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">
+      <div data-no-pan data-sheet-floor className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">
         <button
           onClick={() => setShowPeople(!showPeople)}
           aria-pressed={showPeople}

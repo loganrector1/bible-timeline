@@ -13,7 +13,7 @@ npm run build      # typecheck + production build to dist/
 
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
 - Before committing, gate on `npm test`'s exit code, not on grepping its output.
-- Known flake: Vitest has occasionally failed every suite with `TypeError: Cannot read properties of undefined (reading 'config')` at the first `describe`, always right after a build or while the dev server was busy. Tests now use their own cache (`cacheDir` in vite.config.ts). It recurred once since (2026-10-27, after browser screenshots) and didn't reproduce in 10 reruns, under page load or after a file change. If it recurs, rerun; if it starts happening often, investigate rather than ignore.
+- Known flake: now and then every suite fails at collection with `TypeError: Cannot read properties of undefined (reading 'config')` at the first `describe` and "no tests" run. It clears by itself within about a minute and hasn't been reproduced on demand (tried: right after edits, during and after browser screenshots, under page load). A separate Vitest `cacheDir` was tried and didn't help; that cache only holds `results.json`. With exactly that signature, wait and rerun; any other failure blocks the commit. If it gets more frequent, dig into Vitest's worker startup.
 - On Windows, stopping a background task doesn't kill the Node process behind it. Free a port with `Get-NetTCPConnection -LocalPort 5173` + `Stop-Process`.
 
 ## Architecture
@@ -40,6 +40,7 @@ npm run build      # typecheck + production build to dist/
 - **Journeys:** direction arrows, retraced legs drawn side by side (line-offset), a moving head dot while drawing, merged stop numbers ("4·6").
 - **Play** steps through events one by one, resting longer while a journey draws. It doesn't sweep time linearly.
 - **The map shows the 5 nearest events** to the cursor (`NEAREST_COUNT` in `activeEvents.ts`), whatever the time zoom. Time zoom affects only the timeline, so the map has no time-zoom controls. The panel is titled "Nearest events" and lists dates, because in quiet stretches the nearest event can be years away.
+- **Phone details sheet** opens as a short peek (kind, title, date, start of summary); tap or swipe up to expand, swipe down or tap the handle to shrink. It keeps its size as the selection changes (so play doesn't cover the map), and it always stops above the bottom controls: mark any control it must not cover with `data-sheet-floor`.
 - Hover cards are custom and instant; never rely on the browser's `title` tooltip.
 - Approachable for lay readers and small groups; honest about uncertainty without being academic.
 

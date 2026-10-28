@@ -61,7 +61,7 @@ export default function TimeStrip() {
   const btn = `${base} border-line bg-paper hover:bg-paper-2`;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
+    <div data-sheet-floor className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
       <div className="flex items-center gap-1.5">
         <button onClick={() => step(-1)} aria-label="Previous event" className={btn}>⏮</button>
         <button
