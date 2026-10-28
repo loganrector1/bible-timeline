@@ -858,12 +858,56 @@
     "scripture": [{ "book": "Matthew", "chapter": 3, "verse": 13, "endVerse": 17 }, { "book": "Luke", "chapter": 3, "verse": 21, "endVerse": 23 }]
   },
   {
+    "id": "temptation", "title": "Jesus is tempted in the wilderness", "type": "other", "partOf": "jesus-ministry",
+    "summary": "The Spirit leads Jesus into the wilderness for forty days, where he answers each of the devil's temptations with Scripture.",
+    "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "people": ["jesus"], "locations": ["judean-wilderness"],
+    "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 4, "verse": 1, "endVerse": 13 }]
+  },
+  {
+    "id": "cana", "title": "Water into wine at Cana", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "At a wedding, when the wine runs out, Jesus turns water into wine, the first of his signs, and his disciples believe in him.",
+    "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "people": ["jesus", "mary"], "locations": ["cana"],
+    "scripture": [{ "book": "John", "chapter": 2, "verse": 1, "endVerse": 11 }]
+  },
+  {
+    "id": "nicodemus", "title": "Jesus and Nicodemus", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "A Pharisee comes to Jesus by night and hears that he must be born again: \"For God so loved the world, that he gave his only Son.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "At Jesus' first Passover in Jerusalem (John 2:13, 23).",
+    "people": ["jesus", "nicodemus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 3, "verse": 1, "endVerse": 21 }]
+  },
+  {
+    "id": "woman-at-the-well", "title": "The woman at the well", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "Passing through Samaria, Jesus offers a Samaritan woman living water and tells her he is the Messiah. Many in her town believe.",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "people": ["jesus"], "locations": ["sychar"],
+    "scripture": [{ "book": "John", "chapter": 4, "verse": 1, "endVerse": 42 }]
+  },
+  {
+    "id": "calling-disciples", "title": "Jesus calls fishermen", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Follow me, and I will make you fishers of men.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "After John the Baptist was arrested, when Jesus began preaching in Galilee (Mark 1:14).",
+    "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle"], "locations": ["sea-of-galilee", "capernaum"],
+    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }, { "book": "Luke", "chapter": 5, "verse": 1, "endVerse": 11 }]
+  },
+  {
     "id": "sermon-on-the-mount", "title": "The Sermon on the Mount", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "On a hillside in Galilee Jesus teaches the Beatitudes, the Lord's Prayer, and what life in God's kingdom looks like.",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
     "dateNote": "Not dated; early in the Galilean ministry. Tradition places it on a hill above Capernaum.",
     "people": ["jesus"], "locations": ["capernaum"],
     "scripture": [{ "book": "Matthew", "chapter": 5, "endChapter": 7 }]
+  },
+  {
+    "id": "storm-calmed", "title": "Jesus calms the storm", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "A storm swamps the disciples' boat while Jesus sleeps. He rebukes the wind, and the sea becomes calm: \"Who then is this?\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "people": ["jesus", "peter"], "locations": ["sea-of-galilee"],
+    "scripture": [{ "book": "Mark", "chapter": 4, "verse": 35, "endVerse": 41 }]
   },
   {
     "id": "feeding-five-thousand", "title": "Feeding the five thousand", "type": "miracle", "partOf": "jesus-ministry",
@@ -874,6 +918,28 @@
     "scripture": [{ "book": "John", "chapter": 6, "verse": 1, "endVerse": 14 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }]
   },
   {
+    "id": "walking-on-water", "title": "Jesus walks on the water", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "The night after feeding the crowd, Jesus comes to his disciples walking on the sea. Peter steps out to meet him, and begins to sink.",
+    "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
+    "people": ["jesus", "peter"], "locations": ["sea-of-galilee"],
+    "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 22, "endVerse": 33 }, { "book": "John", "chapter": 6, "verse": 16, "endVerse": 21 }]
+  },
+  {
+    "id": "peter-confession", "title": "Peter's confession", "type": "covenant", "partOf": "jesus-ministry",
+    "summary": "\"Who do you say that I am?\" Peter answers, \"You are the Christ, the Son of the living God.\" From then on Jesus tells them he must suffer, die and rise.",
+    "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
+    "people": ["jesus", "peter"], "locations": ["caesarea-philippi"],
+    "scripture": [{ "book": "Matthew", "chapter": 16, "verse": 13, "endVerse": 28 }]
+  },
+  {
+    "id": "transfiguration", "title": "The transfiguration", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "On a high mountain Jesus' face shines like the sun; Moses and Elijah appear with him, and a voice says, \"This is my beloved Son; listen to him.\"",
+    "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
+    "dateNote": "Six days after Peter's confession (Matthew 17:1). Tradition places it on Mount Tabor; many prefer Mount Hermon, near Caesarea Philippi.",
+    "people": ["jesus", "peter", "james-son-of-zebedee", "john-apostle"], "locations": ["mount-tabor"],
+    "scripture": [{ "book": "Matthew", "chapter": 17, "verse": 1, "endVerse": 13 }]
+  },
+  {
     "id": "lazarus-raised", "title": "Jesus raises Lazarus", "type": "miracle", "partOf": "jesus-ministry",
     "summary": "Four days after Lazarus is buried, Jesus calls him out of the tomb: \"I am the resurrection and the life.\" The leaders resolve to kill Jesus.",
     "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
@@ -882,12 +948,27 @@
     "scripture": [{ "book": "John", "chapter": 11 }]
   },
   {
+    "id": "zacchaeus", "title": "Zacchaeus", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "On his last journey to Jerusalem, Jesus calls a chief tax collector down from a sycamore tree in Jericho and goes to his house. \"Today salvation has come to this house.\"",
+    "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
+    "people": ["jesus"], "locations": ["jericho"],
+    "scripture": [{ "book": "Luke", "chapter": 19, "verse": 1, "endVerse": 10 }]
+  },
+  {
     "id": "triumphal-entry", "title": "Jesus enters Jerusalem", "type": "other",
     "summary": "Jesus rides into Jerusalem on a donkey as crowds wave palm branches and shout \"Hosanna!\"",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 2, "label": "Sunday before Passover" }, "confidence": "approx" } },
     "dateNote": "The day after he came to Bethany, six days before Passover (John 12:1, 12). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus"], "locations": ["bethany", "mount-of-olives", "jerusalem"],
     "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
+  },
+  {
+    "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment",
+    "summary": "Jesus drives out the money-changers and sellers: \"My house shall be called a house of prayer, but you make it a den of robbers.\"",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 3, "label": "Monday" }, "confidence": "approx" } },
+    "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing early in the ministry (John 2:13–17).",
+    "people": ["jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Mark", "chapter": 11, "verse": 15, "endVerse": 19 }]
   },
   {
     "id": "last-supper", "title": "The Last Supper", "type": "covenant",
@@ -912,6 +993,21 @@
     "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus", "mary-magdalene", "peter"], "locations": ["golgotha", "jerusalem"],
     "scripture": [{ "book": "Matthew", "chapter": 28 }, { "book": "Luke", "chapter": 24 }, { "book": "John", "chapter": 20, "endChapter": 21 }, { "book": "1 Corinthians", "chapter": 15, "verse": 3, "endVerse": 8 }]
+  },
+  {
+    "id": "emmaus-road", "title": "The road to Emmaus", "type": "miracle",
+    "summary": "The risen Jesus walks with two disciples, explaining from the Scriptures why the Christ had to suffer; they recognize him as he breaks the bread.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 9, "label": "Sunday evening" }, "confidence": "approx" } },
+    "people": ["jesus"], "locations": ["emmaus", "jerusalem"],
+    "scripture": [{ "book": "Luke", "chapter": 24, "verse": 13, "endVerse": 35 }]
+  },
+  {
+    "id": "breakfast-by-the-sea", "title": "Breakfast by the sea", "type": "miracle",
+    "summary": "In Galilee the risen Jesus gives the fishing disciples a great catch and cooks them breakfast. Three times he asks Peter, \"Do you love me?\" and tells him, \"Feed my sheep.\"",
+    "dates": { "early": { "start": { "year": 30, "month": 4 }, "confidence": "approx" } },
+    "dateNote": "Between the resurrection and the ascension.",
+    "people": ["jesus", "peter", "john-apostle"], "locations": ["sea-of-galilee"],
+    "scripture": [{ "book": "John", "chapter": 21 }]
   },
   {
     "id": "ascension", "title": "The ascension", "type": "miracle",
@@ -1102,5 +1198,13 @@
     "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "egypt", "nazareth"],
     "journeyId": "flight-to-egypt",
     "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 13, "endVerse": 23 }]
+  },
+  {
+    "id": "annunciation", "title": "The angel comes to Mary", "type": "prophecy",
+    "summary": "Gabriel tells Mary, a virgin engaged to Joseph, that she will bear the Son of God. \"Let it be to me according to your word.\" She visits her relative Elizabeth, who is expecting John.",
+    "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
+    "dateNote": "About nine months before Jesus' birth, probably about 6–5 BC.",
+    "people": ["mary"], "locations": ["nazareth"],
+    "scripture": [{ "book": "Luke", "chapter": 1, "verse": 26, "endVerse": 56 }]
   }
 ]
