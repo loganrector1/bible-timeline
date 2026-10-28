@@ -1,0 +1,42 @@
+[
+  {
+    "id": "primeval",
+    "name": "Primeval History",
+    "color": "#8a7a5c",
+    "summary": "Creation, the Fall, the Flood and the Tower of Babel (Genesis 1–11). The story of humanity before God's call of Abram.",
+    "dates": {
+      "early": { "start": { "year": -4113 }, "end": { "year": -2091 }, "confidence": "unknown" }
+    },
+    "dateNote": "Placed using the genealogies of Genesis 5 and 11 (Masoretic text). Many readers and scholars do not take these as an exact chronology, so no firm dates are shown."
+  },
+  {
+    "id": "patriarchs",
+    "name": "The Patriarchs",
+    "color": "#b5763a",
+    "summary": "Abraham, Isaac, Jacob and Joseph: God's covenant family, from Abram's call to Jacob's move to Egypt (Genesis 12–50).",
+    "dates": {
+      "early": { "start": { "year": -2090 }, "end": { "year": -1876 }, "confidence": "approx" }
+    },
+    "dateNote": "Counted back from an Exodus in 1446 BC, 430 years in Egypt (Exodus 12:40) and the ages given in Genesis."
+  },
+  {
+    "id": "egypt-exodus",
+    "name": "Egypt & Exodus",
+    "color": "#a8442a",
+    "summary": "Israel grows into a nation in Egypt, is enslaved, and is brought out by God through Moses (Exodus 1–15).",
+    "dates": {
+      "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 4 }, "confidence": "approx" },
+      "late": { "start": { "year": -1875 }, "end": { "year": -1259, "month": 4 }, "confidence": "approx" }
+    }
+  },
+  {
+    "id": "wilderness",
+    "name": "Wilderness",
+    "color": "#c49a3a",
+    "summary": "The covenant at Sinai, the tabernacle, and forty years in the wilderness before entering Canaan (Exodus 16 – Deuteronomy).",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 5 }, "end": { "year": -1405 }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 5 }, "end": { "year": -1219 }, "confidence": "approx" }
+    }
+  }
+]

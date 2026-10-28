@@ -1,0 +1,90 @@
+[
+  {
+    "id": "abram-to-canaan",
+    "name": "Abram's journey to Canaan",
+    "summary": "From Ur to Haran with Terah, then on to Canaan at God's call, down to Egypt in a famine, and back to settle at Hebron.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "ur" },
+      { "locationId": "haran", "note": "Terah's family settles here." },
+      { "locationId": "shechem", "at": { "year": -2090 }, "note": "God promises the land to Abram's offspring." },
+      { "locationId": "bethel", "at": { "year": -2090 } },
+      { "locationId": "egypt", "at": { "year": -2089 }, "note": "Abram goes down to Egypt during a famine." },
+      { "locationId": "bethel", "at": { "year": -2085 } },
+      { "locationId": "hebron", "at": { "year": -2084 } }
+    ]
+  },
+  {
+    "id": "jacob-flight",
+    "name": "Jacob flees to Haran",
+    "summary": "After taking Esau's blessing, Jacob flees north to his uncle Laban, meeting God at Bethel on the way.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "beersheba", "at": { "year": -1928 } },
+      { "locationId": "bethel", "at": { "year": -1928 }, "note": "Jacob's dream of the stairway." },
+      { "locationId": "haran", "at": { "year": -1928 } }
+    ]
+  },
+  {
+    "id": "jacob-return",
+    "name": "Jacob returns to Canaan",
+    "summary": "Twenty years later Jacob returns with his family, wrestles with God at Peniel, and comes home to Isaac at Hebron.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "haran", "at": { "year": -1908 } },
+      { "locationId": "peniel", "at": { "year": -1908 }, "note": "Jacob is renamed Israel." },
+      { "locationId": "shechem" },
+      { "locationId": "bethel" },
+      { "locationId": "hebron" }
+    ]
+  },
+  {
+    "id": "jacob-to-egypt",
+    "name": "Jacob's family goes to Egypt",
+    "summary": "During the famine, Jacob and his household of seventy move to Goshen to join Joseph.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "hebron", "at": { "year": -1875 } },
+      { "locationId": "beersheba", "at": { "year": -1875 }, "note": "God tells Jacob not to fear going to Egypt." },
+      { "locationId": "goshen", "at": { "year": -1875 } }
+    ]
+  },
+  {
+    "id": "exodus-route",
+    "name": "The Exodus: Rameses to Sinai",
+    "summary": "Israel leaves Egypt on 15 Nisan, crosses the sea, and reaches Mount Sinai in the third month.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "rameses", "at": { "year": -1445, "month": 4, "day": 15, "label": "15 Nisan" } },
+      { "locationId": "succoth" },
+      { "locationId": "etham" },
+      { "locationId": "red-sea", "note": "The sea crossing. Scripture does not give the exact day." },
+      { "locationId": "marah" },
+      { "locationId": "elim" },
+      { "locationId": "wilderness-of-sin", "at": { "year": -1445, "month": 5, "day": 15, "label": "15th of 2nd month" } },
+      { "locationId": "rephidim" },
+      { "locationId": "sinai", "at": { "year": -1445, "month": 6, "day": 1, "label": "3rd month" } }
+    ]
+  },
+  {
+    "id": "sinai-to-kadesh",
+    "name": "From Sinai to Kadesh",
+    "summary": "The cloud lifts from the tabernacle and Israel sets out north through the wilderness of Paran.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "sinai", "at": { "year": -1444, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" } },
+      { "locationId": "kadesh-barnea", "at": { "year": -1444, "month": 7 } }
+    ]
+  },
+  {
+    "id": "kadesh-to-moab",
+    "name": "From Kadesh to the Plains of Moab",
+    "summary": "In the fortieth year Israel leaves Kadesh, goes around Edom, and camps opposite Jericho.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "kadesh-barnea", "at": { "year": -1406, "month": 4 } },
+      { "locationId": "mount-hor", "at": { "year": -1406, "month": 8, "day": 1 }, "note": "Aaron dies." },
+      { "locationId": "plains-of-moab", "at": { "year": -1406, "month": 11 } }
+    ]
+  }
+]

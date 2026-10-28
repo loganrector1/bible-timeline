@@ -1,0 +1,411 @@
+[
+  {
+    "id": "creation", "title": "Creation", "type": "other",
+    "summary": "God creates the heavens and the earth, and makes humanity in his image.",
+    "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" } },
+    "dateNote": "Placed at the start of the Genesis 5 genealogy; Scripture gives no date.",
+    "people": ["adam"],
+    "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2, "endVerse": 3 }]
+  },
+  {
+    "id": "flood", "title": "The Flood", "type": "judgment",
+    "summary": "God judges a corrupt world by a flood and saves Noah, his family and the animals in the ark, then makes a covenant never to flood the earth again.",
+    "dates": { "early": { "start": { "year": -2457 }, "confidence": "unknown" } },
+    "dateNote": "1,656 years after Creation by the Masoretic genealogies (Genesis 5; 7:6). The Septuagint and other readings give different totals.",
+    "people": ["noah"], "locations": ["ararat"],
+    "scripture": [{ "book": "Genesis", "chapter": 6, "verse": 9, "endChapter": 9, "endVerse": 17 }]
+  },
+  {
+    "id": "babel", "title": "The Tower of Babel", "type": "judgment",
+    "summary": "People unite to build a tower to the heavens; God confuses their language and scatters them.",
+    "dates": { "early": { "start": { "year": -2356 }, "confidence": "unknown" } },
+    "dateNote": "Sometimes linked to the days of Peleg, \"in whose days the earth was divided\" (Genesis 10:25).",
+    "locations": ["babel"],
+    "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 1, "endVerse": 9 }]
+  },
+  {
+    "id": "abram-born", "title": "Birth of Abram", "type": "birth",
+    "summary": "Abram is born to Terah in Ur of the Chaldeans.",
+    "dates": { "early": { "start": { "year": -2165 }, "confidence": "approx" } },
+    "people": ["abraham", "terah"], "locations": ["ur"],
+    "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 26, "endVerse": 31 }]
+  },
+  {
+    "id": "call-of-abram", "title": "The call of Abram", "type": "covenant",
+    "summary": "At 75, Abram obeys God's call to leave Haran for a land God will show him, with the promise that all nations will be blessed through him.",
+    "dates": { "early": { "start": { "year": -2090 }, "confidence": "approx" } },
+    "people": ["abraham", "sarah", "lot"], "locations": ["haran", "shechem", "bethel"], "regions": ["canaan"],
+    "journeyId": "abram-to-canaan",
+    "scripture": [{ "book": "Genesis", "chapter": 12, "verse": 1, "endVerse": 9 }]
+  },
+  {
+    "id": "abram-in-egypt", "title": "Abram in Egypt", "type": "journey",
+    "summary": "A famine drives Abram to Egypt, where he passes Sarai off as his sister and God protects her.",
+    "dates": { "early": { "start": { "year": -2089 }, "confidence": "approx" } },
+    "people": ["abraham", "sarah"], "locations": ["egypt"], "regions": ["egypt"],
+    "scripture": [{ "book": "Genesis", "chapter": 12, "verse": 10, "endVerse": 20 }]
+  },
+  {
+    "id": "abram-lot-part", "title": "Abram and Lot part ways", "type": "family",
+    "summary": "Their herds grow too large to share the land; Lot chooses the Jordan plain near Sodom and Abram settles at Hebron.",
+    "dates": { "early": { "start": { "year": -2084 }, "confidence": "approx" } },
+    "people": ["abraham", "lot"], "locations": ["bethel", "hebron", "sodom"],
+    "scripture": [{ "book": "Genesis", "chapter": 13 }]
+  },
+  {
+    "id": "covenant-pieces", "title": "God's covenant with Abram", "type": "covenant",
+    "summary": "God promises Abram offspring as many as the stars and confirms the promise of the land with a covenant ceremony.",
+    "dates": { "early": { "start": { "year": -2080 }, "confidence": "approx" } },
+    "people": ["abraham"], "locations": ["hebron"], "regions": ["canaan"],
+    "scripture": [{ "book": "Genesis", "chapter": 15 }]
+  },
+  {
+    "id": "ishmael-born", "title": "Birth of Ishmael", "type": "birth",
+    "summary": "Hagar bears Abram a son, Ishmael, after God meets her in the wilderness.",
+    "dates": { "early": { "start": { "year": -2079 }, "confidence": "approx" } },
+    "people": ["ishmael", "hagar", "abraham"],
+    "scripture": [{ "book": "Genesis", "chapter": 16 }]
+  },
+  {
+    "id": "covenant-circumcision", "title": "Covenant of circumcision", "type": "covenant",
+    "summary": "God renames Abram as Abraham and Sarai as Sarah, gives circumcision as the covenant sign, and promises a son within a year.",
+    "dates": { "early": { "start": { "year": -2066 }, "confidence": "approx" } },
+    "people": ["abraham", "sarah", "ishmael"], "locations": ["hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 17 }]
+  },
+  {
+    "id": "sodom-destroyed", "title": "Destruction of Sodom and Gomorrah", "type": "judgment",
+    "summary": "After Abraham pleads for the city, God rescues Lot and destroys Sodom and Gomorrah.",
+    "dates": { "early": { "start": { "year": -2066 }, "confidence": "approx" } },
+    "people": ["abraham", "lot"], "locations": ["sodom", "hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 18, "verse": 16, "endChapter": 19, "endVerse": 29 }]
+  },
+  {
+    "id": "isaac-born", "title": "Birth of Isaac", "type": "birth",
+    "summary": "Sarah bears Isaac when Abraham is 100, just as God promised.",
+    "dates": { "early": { "start": { "year": -2065 }, "confidence": "approx" } },
+    "people": ["isaac", "abraham", "sarah"], "locations": ["gerar"],
+    "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 7 }]
+  },
+  {
+    "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship",
+    "summary": "God tests Abraham by asking him to sacrifice Isaac on Mount Moriah, then provides a ram in his place.",
+    "dates": { "early": { "start": { "year": -2049 }, "confidence": "approx" } },
+    "dateNote": "Isaac's age is not given; the date is an estimate.",
+    "people": ["abraham", "isaac"], "locations": ["beersheba", "moriah"],
+    "scripture": [{ "book": "Genesis", "chapter": 22, "verse": 1, "endVerse": 19 }]
+  },
+  {
+    "id": "sarah-dies", "title": "Death of Sarah", "type": "death",
+    "summary": "Sarah dies at 127; Abraham buys the cave of Machpelah, his first owned land in Canaan, to bury her.",
+    "dates": { "early": { "start": { "year": -2028 }, "confidence": "approx" } },
+    "people": ["sarah", "abraham"], "locations": ["hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 23 }]
+  },
+  {
+    "id": "isaac-rebekah", "title": "Isaac marries Rebekah", "type": "family",
+    "summary": "Abraham's servant finds Rebekah among Abraham's relatives near Haran, and she becomes Isaac's wife.",
+    "dates": { "early": { "start": { "year": -2025 }, "confidence": "approx" } },
+    "people": ["isaac", "rebekah", "abraham"], "locations": ["haran"],
+    "scripture": [{ "book": "Genesis", "chapter": 24 }]
+  },
+  {
+    "id": "jacob-esau-born", "title": "Birth of Jacob and Esau", "type": "birth",
+    "summary": "Rebekah bears twins; God says the older will serve the younger.",
+    "dates": { "early": { "start": { "year": -2005 }, "confidence": "approx" } },
+    "people": ["jacob", "esau", "isaac", "rebekah"],
+    "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 26 }]
+  },
+  {
+    "id": "abraham-dies", "title": "Death of Abraham", "type": "death",
+    "summary": "Abraham dies at 175 and is buried by Isaac and Ishmael beside Sarah.",
+    "dates": { "early": { "start": { "year": -1990 }, "confidence": "approx" } },
+    "people": ["abraham", "isaac", "ishmael"], "locations": ["hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 7, "endVerse": 11 }]
+  },
+  {
+    "id": "jacob-flees", "title": "Jacob flees to Haran", "type": "journey",
+    "summary": "After taking Esau's blessing, Jacob flees to Laban and dreams of a stairway to heaven at Bethel.",
+    "dates": { "early": { "start": { "year": -1928 }, "confidence": "approx" } },
+    "dateNote": "Estimated from Jacob's age at the move to Egypt and his years with Laban.",
+    "people": ["jacob", "esau", "isaac", "rebekah"], "locations": ["beersheba", "bethel", "haran"],
+    "journeyId": "jacob-flight",
+    "scripture": [{ "book": "Genesis", "chapter": 27, "endChapter": 28 }]
+  },
+  {
+    "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
+    "summary": "Jacob works fourteen years for Laban's daughters; his sons, the ancestors of Israel's tribes, are born in Haran.",
+    "dates": { "early": { "start": { "year": -1921 }, "end": { "year": -1909 }, "confidence": "approx" } },
+    "people": ["jacob", "leah", "rachel", "judah", "joseph"], "locations": ["haran"],
+    "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
+  },
+  {
+    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant",
+    "summary": "Returning to Canaan, Jacob wrestles with God at Peniel, is renamed Israel, and is reconciled with Esau.",
+    "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" } },
+    "people": ["jacob", "esau"], "locations": ["peniel"],
+    "journeyId": "jacob-return",
+    "scripture": [{ "book": "Genesis", "chapter": 32, "endChapter": 33 }]
+  },
+  {
+    "id": "joseph-sold", "title": "Joseph sold into slavery", "type": "family",
+    "summary": "Jealous of their father's favorite, Joseph's brothers sell him to traders bound for Egypt.",
+    "dates": { "early": { "start": { "year": -1897 }, "confidence": "approx" } },
+    "dateNote": "Joseph was 17 (Genesis 37:2).",
+    "people": ["joseph", "judah", "jacob"], "locations": ["dothan", "egypt"],
+    "scripture": [{ "book": "Genesis", "chapter": 37 }]
+  },
+  {
+    "id": "joseph-rules", "title": "Joseph rules in Egypt", "type": "reign",
+    "summary": "Joseph interprets Pharaoh's dreams and is made second in command to prepare Egypt for seven years of famine.",
+    "dates": { "early": { "start": { "year": -1884 }, "confidence": "approx" } },
+    "dateNote": "Joseph was 30 (Genesis 41:46).",
+    "people": ["joseph"], "locations": ["egypt"], "regions": ["egypt"],
+    "scripture": [{ "book": "Genesis", "chapter": 41 }]
+  },
+  {
+    "id": "isaac-dies", "title": "Death of Isaac", "type": "death",
+    "summary": "Isaac dies at 180 and is buried by Esau and Jacob.",
+    "dates": { "early": { "start": { "year": -1885 }, "confidence": "approx" } },
+    "people": ["isaac", "jacob", "esau"], "locations": ["hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 35, "verse": 27, "endVerse": 29 }]
+  },
+  {
+    "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey",
+    "summary": "Joseph reveals himself to his brothers, and Jacob's household of seventy settles in Goshen.",
+    "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" } },
+    "people": ["jacob", "joseph", "judah"], "locations": ["hebron", "beersheba", "goshen"], "regions": ["goshen"],
+    "journeyId": "jacob-to-egypt",
+    "scripture": [{ "book": "Genesis", "chapter": 45, "endChapter": 47, "endVerse": 12 }]
+  },
+  {
+    "id": "jacob-dies", "title": "Death of Jacob", "type": "death",
+    "summary": "Jacob blesses his twelve sons and dies at 147; Joseph carries him back to be buried at Machpelah.",
+    "dates": { "early": { "start": { "year": -1858 }, "confidence": "approx" } },
+    "people": ["jacob", "joseph", "judah"], "locations": ["goshen", "hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 49, "endChapter": 50, "endVerse": 14 }]
+  },
+  {
+    "id": "joseph-dies", "title": "Death of Joseph", "type": "death",
+    "summary": "Joseph dies at 110, making Israel promise to carry his bones to the Promised Land.",
+    "dates": { "early": { "start": { "year": -1804 }, "confidence": "approx" } },
+    "people": ["joseph"], "locations": ["egypt"],
+    "scripture": [{ "book": "Genesis", "chapter": 50, "verse": 22, "endVerse": 26 }]
+  },
+  {
+    "id": "oppression", "title": "Israel enslaved in Egypt", "type": "other",
+    "summary": "A new king who did not know Joseph forces the growing Israelite people into hard labor building store cities.",
+    "dates": {
+      "early": { "start": { "year": -1549 }, "end": { "year": -1446 }, "confidence": "approx" },
+      "late": { "start": { "year": -1299 }, "end": { "year": -1260 }, "confidence": "approx" }
+    },
+    "dateNote": "Scripture does not date the start of the oppression; these spans are estimates.",
+    "people": ["pharaoh-exodus"], "locations": ["pithom", "rameses"], "regions": ["goshen"],
+    "scripture": [{ "book": "Exodus", "chapter": 1 }]
+  },
+  {
+    "id": "moses-born", "title": "Birth of Moses", "type": "birth",
+    "summary": "Hidden from Pharaoh's decree, the infant Moses is found in the Nile by Pharaoh's daughter and raised in the palace.",
+    "dates": {
+      "early": { "start": { "year": -1525 }, "confidence": "approx" },
+      "late": { "start": { "year": -1339 }, "confidence": "approx" }
+    },
+    "people": ["moses", "miriam"], "locations": ["goshen"], "regions": ["egypt"],
+    "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 1, "endVerse": 10 }]
+  },
+  {
+    "id": "moses-flees", "title": "Moses flees to Midian", "type": "journey",
+    "summary": "After killing an Egyptian, Moses flees to Midian, marries Zipporah and tends Jethro's flocks for forty years.",
+    "dates": {
+      "early": { "start": { "year": -1485 }, "confidence": "approx" },
+      "late": { "start": { "year": -1299 }, "confidence": "approx" }
+    },
+    "dateNote": "Moses was 40 (Acts 7:23).",
+    "people": ["moses", "jethro"], "locations": ["egypt", "midian"], "regions": ["midian"],
+    "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 11, "endVerse": 25 }]
+  },
+  {
+    "id": "burning-bush", "title": "The burning bush", "type": "covenant",
+    "summary": "God appears to Moses in a bush that does not burn up, reveals his name, and sends him to bring Israel out of Egypt.",
+    "dates": {
+      "early": { "start": { "year": -1446 }, "confidence": "approx" },
+      "late": { "start": { "year": -1260 }, "confidence": "approx" }
+    },
+    "people": ["moses", "aaron", "jethro"], "locations": ["sinai", "midian"],
+    "scripture": [{ "book": "Exodus", "chapter": 3, "endChapter": 4 }]
+  },
+  {
+    "id": "plagues", "title": "The ten plagues", "type": "judgment",
+    "summary": "Pharaoh refuses to let Israel go, and God strikes Egypt with ten plagues.",
+    "dates": {
+      "early": { "start": { "year": -1446 }, "end": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
+      "late": { "start": { "year": -1260 }, "end": { "year": -1259, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" }
+    },
+    "people": ["moses", "aaron", "pharaoh-exodus"], "locations": ["egypt", "rameses"], "regions": ["egypt", "goshen"],
+    "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
+  },
+  {
+    "id": "passover", "title": "The first Passover", "type": "worship",
+    "summary": "Israel marks its doorposts with the blood of a lamb, and the Lord passes over them when he strikes the firstborn of Egypt.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" }
+    },
+    "dateNote": "The 14th day of the first month (Exodus 12:2, 6). Nisan falls in March–April.",
+    "people": ["moses", "aaron", "pharaoh-exodus"], "locations": ["rameses"], "regions": ["goshen"],
+    "scripture": [{ "book": "Exodus", "chapter": 12, "verse": 1, "endVerse": 30 }]
+  },
+  {
+    "id": "exodus", "title": "The Exodus", "type": "journey",
+    "summary": "God brings Israel out of Egypt, leading them by a pillar of cloud and fire from Rameses through the sea to Mount Sinai.",
+    "description": "Israel sets out from Rameses the day after Passover, about 600,000 men plus women and children (Exodus 12:37). God leads them not by the coastal road but through the wilderness toward the sea, where he parts the waters and destroys Pharaoh's army. They travel on through Marah, Elim and the wilderness of Sin, arriving at Mount Sinai in the third month.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 4, "day": 15, "label": "15 Nisan" }, "end": { "year": -1445, "month": 6, "label": "3rd month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 4, "day": 15, "label": "15 Nisan" }, "end": { "year": -1259, "month": 6, "label": "3rd month" }, "confidence": "approx" }
+    },
+    "dateNote": "Early date (c. 1446 BC): 480 years before Solomon began the temple (1 Kings 6:1). Late date (c. 1260 BC): fits the city name Rameses (Exodus 1:11) and the reign of Rameses II.",
+    "people": ["moses", "aaron", "miriam", "pharaoh-exodus"],
+    "locations": ["rameses", "succoth", "red-sea", "sinai"], "regions": ["goshen", "sinai-wilderness"],
+    "journeyId": "exodus-route",
+    "scripture": [{ "book": "Exodus", "chapter": 12, "verse": 31, "endChapter": 19, "endVerse": 2 }]
+  },
+  {
+    "id": "red-sea", "title": "Crossing the Red Sea", "type": "miracle",
+    "summary": "God parts the sea, Israel crosses on dry ground, and the waters return over Pharaoh's chariots. Moses and Miriam lead a song of praise.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 4, "label": "1st month" }, "confidence": "approx" }
+    },
+    "people": ["moses", "miriam", "aaron", "pharaoh-exodus"], "locations": ["red-sea"],
+    "scripture": [{ "book": "Exodus", "chapter": 14, "endChapter": 15, "endVerse": 21 }]
+  },
+  {
+    "id": "manna", "title": "Manna and quail", "type": "miracle",
+    "summary": "When Israel grumbles for food, God sends quail in the evening and bread from heaven each morning.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 5, "day": 15, "label": "15th of 2nd month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 5, "day": 15, "label": "15th of 2nd month" }, "confidence": "approx" }
+    },
+    "people": ["moses", "aaron"], "locations": ["wilderness-of-sin"],
+    "scripture": [{ "book": "Exodus", "chapter": 16 }]
+  },
+  {
+    "id": "amalek", "title": "Battle with Amalek", "type": "battle",
+    "summary": "At Rephidim God gives water from the rock; Joshua defeats Amalek while Aaron and Hur hold up Moses' hands.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 5, "label": "2nd month" }, "confidence": "approx" }
+    },
+    "people": ["moses", "joshua", "aaron"], "locations": ["rephidim"],
+    "scripture": [{ "book": "Exodus", "chapter": 17 }]
+  },
+  {
+    "id": "sinai-covenant", "title": "The covenant at Sinai", "type": "covenant",
+    "summary": "At Mount Sinai God gives the Ten Commandments and makes his covenant with Israel as his treasured people.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 6, "label": "3rd month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 6, "label": "3rd month" }, "confidence": "approx" }
+    },
+    "dateNote": "Israel arrived \"on the third new moon\" after leaving Egypt (Exodus 19:1).",
+    "people": ["moses", "aaron", "joshua"], "locations": ["sinai"], "regions": ["sinai-wilderness"],
+    "scripture": [{ "book": "Exodus", "chapter": 19, "endChapter": 24 }]
+  },
+  {
+    "id": "golden-calf", "title": "The golden calf", "type": "judgment",
+    "summary": "While Moses is on the mountain, the people make a golden calf; Moses intercedes and God renews the covenant.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 7, "label": "Summer" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 7, "label": "Summer" }, "confidence": "approx" }
+    },
+    "dateNote": "About forty days after Moses went up the mountain (Exodus 24:18).",
+    "people": ["moses", "aaron", "joshua"], "locations": ["sinai"],
+    "scripture": [{ "book": "Exodus", "chapter": 32, "endChapter": 34 }]
+  },
+  {
+    "id": "tabernacle", "title": "The tabernacle is set up", "type": "worship",
+    "summary": "The tabernacle is raised and the glory of the Lord fills it.",
+    "dates": {
+      "early": { "start": { "year": -1444, "month": 4, "day": 1, "label": "1 Nisan, 2nd year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1258, "month": 4, "day": 1, "label": "1 Nisan, 2nd year" }, "confidence": "approx" }
+    },
+    "dateNote": "The first day of the first month of the second year (Exodus 40:17).",
+    "people": ["moses", "aaron"], "locations": ["sinai"],
+    "scripture": [{ "book": "Exodus", "chapter": 40 }]
+  },
+  {
+    "id": "depart-sinai", "title": "Israel leaves Sinai", "type": "journey",
+    "summary": "The cloud lifts from the tabernacle and Israel sets out by tribes toward the Promised Land.",
+    "dates": {
+      "early": { "start": { "year": -1444, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1258, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" }, "confidence": "approx" }
+    },
+    "dateNote": "Numbers 10:11.",
+    "people": ["moses", "aaron"], "locations": ["sinai", "kadesh-barnea"],
+    "journeyId": "sinai-to-kadesh",
+    "scripture": [{ "book": "Numbers", "chapter": 10, "verse": 11, "endVerse": 36 }]
+  },
+  {
+    "id": "spies", "title": "The twelve spies", "type": "judgment",
+    "summary": "Ten spies bring a fearful report; only Joshua and Caleb trust God. Israel refuses to enter and is sentenced to forty years in the wilderness.",
+    "dates": {
+      "early": { "start": { "year": -1444, "month": 7, "label": "Season of first grapes" }, "confidence": "approx" },
+      "late": { "start": { "year": -1258, "month": 7, "label": "Season of first grapes" }, "confidence": "approx" }
+    },
+    "dateNote": "\"The time of the first ripe grapes\" (Numbers 13:20), in summer.",
+    "people": ["moses", "joshua", "caleb", "aaron"], "locations": ["kadesh-barnea"], "regions": ["canaan"],
+    "scripture": [{ "book": "Numbers", "chapter": 13, "endChapter": 14 }]
+  },
+  {
+    "id": "wandering", "title": "Forty years in the wilderness", "type": "judgment",
+    "summary": "The generation that refused to enter the land dies in the wilderness while God continues to provide for his people.",
+    "dates": {
+      "early": { "start": { "year": -1444 }, "end": { "year": -1406 }, "confidence": "approx" },
+      "late": { "start": { "year": -1258 }, "end": { "year": -1220 }, "confidence": "approx" }
+    },
+    "people": ["moses", "aaron", "miriam", "joshua", "caleb"], "locations": ["kadesh-barnea"], "regions": ["sinai-wilderness"],
+    "scripture": [{ "book": "Numbers", "chapter": 14, "verse": 26, "endVerse": 35 }, { "book": "Numbers", "chapter": 33 }]
+  },
+  {
+    "id": "miriam-dies", "title": "Death of Miriam", "type": "death",
+    "summary": "Miriam dies and is buried at Kadesh.",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" }
+    },
+    "people": ["miriam"], "locations": ["kadesh-barnea"],
+    "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 1 }]
+  },
+  {
+    "id": "aaron-dies", "title": "Death of Aaron", "type": "death",
+    "summary": "Aaron dies on Mount Hor at 123, and his son Eleazar becomes high priest.",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 8, "day": 1, "label": "1st of 5th month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 8, "day": 1, "label": "1st of 5th month, 40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "Numbers 33:38.",
+    "people": ["aaron", "moses"], "locations": ["mount-hor"],
+    "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endVerse": 29 }]
+  },
+  {
+    "id": "to-moab", "title": "Journey to the Plains of Moab", "type": "journey",
+    "summary": "Israel travels around Edom, defeats Sihon and Og, and camps on the plains of Moab across from Jericho.",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 4 }, "end": { "year": -1406, "month": 11 }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 4 }, "end": { "year": -1220, "month": 11 }, "confidence": "approx" }
+    },
+    "people": ["moses", "joshua"], "locations": ["kadesh-barnea", "mount-hor", "plains-of-moab"],
+    "journeyId": "kadesh-to-moab",
+    "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endChapter": 22, "endVerse": 1 }]
+  },
+  {
+    "id": "moses-dies", "title": "Death of Moses", "type": "death",
+    "summary": "After giving his final words to Israel, Moses views the Promised Land from Mount Nebo and dies at 120. Joshua succeeds him.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 2, "label": "11th month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 2, "label": "11th month, 40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "Moses spoke Deuteronomy in the 11th month of the 40th year (Deuteronomy 1:3).",
+    "people": ["moses", "joshua"], "locations": ["nebo", "plains-of-moab"],
+    "scripture": [{ "book": "Deuteronomy", "chapter": 34 }]
+  }
+]

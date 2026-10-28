@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "egypt", "name": "Egypt", "summary": "The Nile valley and Delta (approximate)." },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[29.8, 31.25], [32.4, 31.2], [32.5, 30.0], [31.4, 29.3], [31.25, 27.5], [32.9, 24.2], [32.6, 24.0], [30.9, 27.4], [30.9, 29.3], [29.9, 30.6], [29.8, 31.25]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "goshen", "name": "Goshen", "summary": "The eastern Delta, where Israel lived (approximate)." },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[31.55, 30.45], [31.95, 30.4], [32.25, 30.55], [32.2, 30.95], [31.8, 31.05], [31.5, 30.85], [31.55, 30.45]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "canaan", "name": "Canaan", "summary": "The land promised to Abraham, west of the Jordan (approximate)." },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[34.25, 31.25], [34.5, 31.0], [35.4, 30.95], [35.55, 31.6], [35.6, 32.5], [35.85, 33.2], [35.6, 33.3], [35.1, 33.1], [34.9, 32.5], [34.5, 31.6], [34.25, 31.25]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "sinai-wilderness", "name": "Sinai wilderness", "summary": "The Sinai peninsula and its wilderness regions (approximate)." },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[32.3, 30.0], [32.6, 29.8], [33.0, 29.0], [33.6, 28.0], [34.25, 27.75], [34.5, 28.6], [34.9, 29.5], [34.5, 30.6], [34.25, 31.3], [32.6, 31.1], [32.3, 30.5], [32.3, 30.0]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "midian", "name": "Midian", "summary": "Northwest Arabia, east of the Gulf of Aqaba (approximate)." },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[34.95, 29.45], [35.6, 29.0], [36.5, 27.8], [36.0, 26.8], [35.2, 27.6], [34.7, 28.3], [34.95, 29.45]]]
+      }
+    }
+  ]
+}
