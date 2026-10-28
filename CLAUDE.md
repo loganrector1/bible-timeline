@@ -10,6 +10,7 @@ npm test           # vitest: date math + data integrity
 npm run typecheck  # tsc --noEmit
 npm run build      # typecheck + production build to dist/
 node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the dev server in Edge
+node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places against OpenBible.info
 ```
 
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
@@ -34,7 +35,7 @@ node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the 
 - Region outlines in `regions.json` are the shapes of places: each feature id must match a location id.
 - Don't invent precision Scripture doesn't give. Leave journey stops untimed rather than guessing days, and mark uncertain dates and sites as such, with a note.
 - `partOf` links an event to the larger event it happens within (Red Sea → Exodus). Children stay full events (type, people, Scripture); one level deep; the date's midpoint falls within the parent's, and a parent's journey must have a stop at one of the child's places (`validate.ts`, `data.test.ts`).
-- Coordinates and outlines are hand-entered approximations, not yet checked against a dataset like OpenBible.info.
+- Coordinates follow OpenBible.info (CC BY 4.0, credited on the map and in the README). Each location records its OpenBible place in `openbible` (`"Rephidim#2"` when we keep a candidate other than OpenBible's first, usually the traditional site, and say so in a note). Run `node scripts/openbible.mjs` after adding places; it should print nothing. Region, sea and wilderness points are map label positions and aren't checked. Region outlines are still hand-drawn.
 
 ## Design decisions (agreed with the user)
 

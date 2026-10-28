@@ -92,6 +92,8 @@ export const Location = z.object({
   uncertain: z.boolean().default(false),
   note: z.string().optional(),
   alternateSites: z.array(z.object({ name: z.string(), coords: Coords })).default([]),
+  /** OpenBible.info place name ("Bethel 1"), checked by scripts/openbible.mjs. */
+  openbible: z.string().optional(),
 });
 
 export const JourneyStop = z.object({
