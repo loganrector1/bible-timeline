@@ -820,5 +820,100 @@
     "dateNote": "From his capture of Jerusalem in 37 BC to his death in 4 BC, by Josephus's account. The temple's rebuilding began about 20 BC; John 2:20 says it had been under way for forty-six years.",
     "people": ["herod-the-great"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 1, "endVerse": 19 }]
+  },
+  {
+    "id": "jesus-born", "title": "Birth of Jesus", "type": "birth", "major": true,
+    "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there. Angels announce him to shepherds, and magi from the east come to worship.",
+    "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
+    "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
+    "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "nazareth"],
+    "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 20 }]
+  },
+  {
+    "id": "boy-jesus-temple", "title": "The boy Jesus in the temple", "type": "worship",
+    "summary": "At twelve, Jesus stays behind in Jerusalem after Passover, listening to the teachers and asking them questions: \"I must be in my Father's house.\"",
+    "dates": { "early": { "start": { "year": 8 }, "confidence": "approx" } },
+    "people": ["jesus", "mary", "joseph-of-nazareth"], "locations": ["jerusalem", "nazareth"],
+    "scripture": [{ "book": "Luke", "chapter": 2, "verse": 41, "endVerse": 52 }]
+  },
+  {
+    "id": "jesus-ministry", "title": "Jesus' ministry", "type": "ministry", "major": true,
+    "summary": "Jesus calls disciples, preaches the kingdom of God, heals the sick and forgives sinners, mostly around the Sea of Galilee, going up to Jerusalem for the feasts.",
+    "dates": { "early": { "start": { "year": 27 }, "end": { "year": 30, "month": 4 }, "confidence": "approx" } },
+    "dateNote": "John's Gospel names at least three Passovers (John 2:13; 6:4; 11:55), so about three years. The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "peter"], "locations": ["capernaum", "sea-of-galilee", "jerusalem"],
+    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }]
+  },
+  {
+    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "covenant", "partOf": "jesus-ministry",
+    "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are my beloved Son.\"",
+    "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
+    "people": ["jesus", "john-the-baptist"], "locations": ["jordan-river"],
+    "scripture": [{ "book": "Matthew", "chapter": 3, "verse": 13, "endVerse": 17 }, { "book": "Luke", "chapter": 3, "verse": 21, "endVerse": 23 }]
+  },
+  {
+    "id": "sermon-on-the-mount", "title": "The Sermon on the Mount", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "On a hillside in Galilee Jesus teaches the Beatitudes, the Lord's Prayer, and what life in God's kingdom looks like.",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; early in the Galilean ministry. Tradition places it on a hill above Capernaum.",
+    "people": ["jesus"], "locations": ["capernaum"],
+    "scripture": [{ "book": "Matthew", "chapter": 5, "endChapter": 7 }]
+  },
+  {
+    "id": "feeding-five-thousand", "title": "Feeding the five thousand", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "Jesus feeds a crowd of five thousand men, besides women and children, with five loaves and two fish. The only miracle all four Gospels record.",
+    "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
+    "dateNote": "\"The Passover was at hand\" (John 6:4).",
+    "people": ["jesus", "peter"], "locations": ["bethsaida"],
+    "scripture": [{ "book": "John", "chapter": 6, "verse": 1, "endVerse": 14 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "lazarus-raised", "title": "Jesus raises Lazarus", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "Four days after Lazarus is buried, Jesus calls him out of the tomb: \"I am the resurrection and the life.\" The leaders resolve to kill Jesus.",
+    "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
+    "dateNote": "Shortly before Jesus' last Passover (John 11:55).",
+    "people": ["jesus", "lazarus"], "locations": ["bethany"],
+    "scripture": [{ "book": "John", "chapter": 11 }]
+  },
+  {
+    "id": "triumphal-entry", "title": "Jesus enters Jerusalem", "type": "other",
+    "summary": "Jesus rides into Jerusalem on a donkey as crowds wave palm branches and shout \"Hosanna!\"",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 2, "label": "Sunday before Passover" }, "confidence": "approx" } },
+    "dateNote": "The day after he came to Bethany, six days before Passover (John 12:1, 12). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus"], "locations": ["bethany", "mount-of-olives", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
+  },
+  {
+    "id": "last-supper", "title": "The Last Supper", "type": "covenant",
+    "summary": "Jesus shares a final meal with his disciples, gives them bread and wine as his body and blood of the new covenant, then prays in Gethsemane, where he is arrested.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 6, "label": "Thursday evening" }, "confidence": "approx" } },
+    "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "peter"], "locations": ["jerusalem", "gethsemane"],
+    "scripture": [{ "book": "Luke", "chapter": 22, "verse": 7, "endVerse": 53 }, { "book": "John", "chapter": 13, "endChapter": 17 }]
+  },
+  {
+    "id": "crucifixion", "title": "The crucifixion", "type": "death", "major": true,
+    "summary": "After trials before the high priest and Pilate, Jesus is crucified at Golgotha between two criminals, and dies. He is buried in a nearby tomb.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 7, "label": "14 Nisan" }, "confidence": "approx" } },
+    "dateNote": "On the day of Preparation for the Passover (John 19:14, 31). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate"], "locations": ["golgotha", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 27 }, { "book": "John", "chapter": 18, "endChapter": 19 }]
+  },
+  {
+    "id": "resurrection", "title": "The resurrection", "type": "miracle", "major": true,
+    "summary": "On the third day the tomb is empty. Jesus appears to Mary Magdalene, to Peter, to the disciples, and to more than five hundred others.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 9, "label": "Sunday" }, "confidence": "approx" } },
+    "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "mary-magdalene", "peter"], "locations": ["golgotha", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 28 }, { "book": "Luke", "chapter": 24 }, { "book": "John", "chapter": 20, "endChapter": 21 }, { "book": "1 Corinthians", "chapter": 15, "verse": 3, "endVerse": 8 }]
+  },
+  {
+    "id": "ascension", "title": "The ascension", "type": "miracle",
+    "summary": "Forty days after rising, Jesus sends his disciples to be his witnesses to the ends of the earth, and is taken up into heaven from the Mount of Olives.",
+    "dates": { "early": { "start": { "year": 30, "month": 5, "day": 18, "label": "40 days after Easter" }, "confidence": "approx" } },
+    "dateNote": "Acts 1:3. Luke places it near Bethany, on the Mount of Olives (Luke 24:50; Acts 1:12).",
+    "people": ["jesus", "peter"], "locations": ["mount-of-olives", "bethany"],
+    "scripture": [{ "book": "Acts", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 24, "verse": 50, "endVerse": 53 }]
   }
 ]
