@@ -56,5 +56,9 @@
   { "id": "nineveh", "name": "Nineveh", "modernName": "Mosul, Iraq", "type": "city", "coords": [43.153, 36.359], "openbible": "Nineveh", "summary": "Great capital of Assyria, which repented at Jonah's preaching and fell in 612 BC." },
   { "id": "tekoa", "name": "Tekoa", "type": "city", "coords": [35.21, 31.632], "openbible": "Tekoa", "summary": "Village in the Judean hills, home of the prophet Amos." },
   { "id": "lachish", "name": "Lachish", "modernName": "Tel Lachish", "type": "city", "coords": [34.849, 31.565], "openbible": "Lachish", "summary": "Judah's second city, besieged and taken by Sennacherib in 701 BC." },
-  { "id": "anathoth", "name": "Anathoth", "type": "city", "coords": [35.258, 31.808], "openbible": "Anathoth", "summary": "Priestly town near Jerusalem, Jeremiah's home.", "uncertain": true }
+  { "id": "anathoth", "name": "Anathoth", "type": "city", "coords": [35.258, 31.808], "openbible": "Anathoth", "summary": "Priestly town near Jerusalem, Jeremiah's home.", "uncertain": true },
+  { "id": "chebar", "name": "Chebar canal", "modernName": "Shatt en-Nil, near Nippur", "type": "river", "coords": [45.231, 32.127], "openbible": "Chebar", "summary": "Canal in Babylonia where exiles from Judah lived and Ezekiel saw his visions of God's glory." },
+  { "id": "susa", "name": "Susa", "modernName": "Shush, Iran", "type": "city", "coords": [48.258, 32.189], "openbible": "Susa", "summary": "Royal city of the Persian kings, where Esther became queen and Nehemiah served as cupbearer." },
+  { "id": "tyre", "name": "Tyre", "type": "city", "coords": [35.196, 33.271], "openbible": "Tyre", "summary": "Phoenician island port, an ally of David and Solomon, later besieged by Nebuchadnezzar and taken by Alexander the Great." },
+  { "id": "alexandria", "name": "Alexandria", "type": "city", "coords": [29.897, 31.183], "openbible": "Alexandria", "summary": "Alexander's city on the Nile Delta, home of a large Jewish community, where the Hebrew Scriptures were translated into Greek." }
 ]

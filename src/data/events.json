@@ -702,5 +702,123 @@
     "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
     "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "babel"],
     "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
+  },
+  {
+    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry", "major": true,
+    "summary": "Among the exiles in Babylonia, Ezekiel sees God's glory, warns that Jerusalem will fall, and after it falls promises new hearts, dry bones brought to life, and a new temple.",
+    "dates": { "early": { "start": { "year": -592, "month": 7, "label": "5th of 4th month" }, "end": { "year": -570, "month": 4, "label": "1st of 1st month" }, "confidence": "approx" } },
+    "dateNote": "From the fifth year of Jehoiachin's exile, 593 BC (Ezekiel 1:2), to his last dated message in the twenty-seventh year, 571 BC (Ezekiel 29:17).",
+    "people": ["ezekiel"], "locations": ["chebar"],
+    "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 3 }]
+  },
+  {
+    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment", "major": true,
+    "summary": "As Belshazzar feasts, a hand writes on the wall and Daniel reads its judgment. That night Babylon falls to the armies of Cyrus.",
+    "dates": { "early": { "start": { "year": -538, "month": 10, "day": 12, "label": "16 Tashritu" }, "confidence": "exact" } },
+    "dateNote": "The Nabonidus Chronicle records the city's fall on 16 Tashritu, 12 October 539 BC.",
+    "people": ["belshazzar", "daniel", "cyrus"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 5 }]
+  },
+  {
+    "id": "lions-den", "title": "Daniel in the lions' den", "type": "miracle",
+    "summary": "Daniel keeps praying to God despite the king's decree, is thrown to the lions, and is kept safe.",
+    "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
+    "dateNote": "Under \"Darius the Mede,\" soon after Babylon fell (Daniel 6). Who Darius was is debated; he may be Cyrus's governor Gubaru, or Cyrus himself.",
+    "people": ["daniel"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 6 }]
+  },
+  {
+    "id": "cyrus-decree", "title": "Cyrus lets the exiles return", "type": "covenant", "major": true,
+    "summary": "In his first year Cyrus decrees that the Jews may go home and rebuild the temple, and returns its gold and silver vessels.",
+    "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
+    "dateNote": "Cyrus's first year in Babylon, 538 BC (Ezra 1:1). The Cyrus Cylinder records his policy of returning captive peoples and their gods to their homes.",
+    "people": ["cyrus"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 1 }, { "book": "2 Chronicles", "chapter": 36, "verse": 22, "endVerse": 23 }]
+  },
+  {
+    "id": "first-return", "title": "The first exiles return", "type": "journey",
+    "summary": "About fifty thousand exiles return with Zerubbabel, rebuild the altar, and lay the foundation of the new temple amid shouts and weeping.",
+    "dates": { "early": { "start": { "year": -536 }, "confidence": "approx" } },
+    "dateNote": "The temple's foundation was laid in the second month of the second year after their return (Ezra 3:8).",
+    "people": ["zerubbabel"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 2, "endChapter": 3 }]
+  },
+  {
+    "id": "temple-rebuilt", "title": "The second temple completed", "type": "worship", "major": true,
+    "summary": "After years of opposition and neglect, Haggai and Zechariah stir the people to build, and the temple is finished and dedicated.",
+    "dates": { "early": { "start": { "year": -519, "month": 9, "label": "24th of 6th month" }, "end": { "year": -514, "month": 3, "label": "3 Adar" }, "confidence": "approx" } },
+    "dateNote": "Work resumed in Darius's second year, 520 BC (Haggai 1:15), and the temple was finished on 3 Adar in his sixth year, March 515 BC (Ezra 6:15).",
+    "people": ["zerubbabel", "haggai", "zechariah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
+  },
+  {
+    "id": "esther", "title": "Esther saves her people", "type": "other", "major": true,
+    "summary": "Haman plots to destroy the Jews of the Persian Empire. Queen Esther risks her life to plead with the king, and the day set for their destruction becomes a day of deliverance, remembered at Purim.",
+    "dates": { "early": { "start": { "year": -472, "month": 3, "label": "13 Adar" }, "confidence": "approx" } },
+    "dateNote": "The lots were cast in Ahasuerus's twelfth year (Esther 3:7). He is usually identified with Xerxes I, which places the day in March 473 BC.",
+    "people": ["esther", "mordecai", "xerxes"], "locations": ["susa"],
+    "scripture": [{ "book": "Esther", "chapter": 3, "endChapter": 9 }]
+  },
+  {
+    "id": "ezra-return", "title": "Ezra returns to Jerusalem", "type": "journey",
+    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah.",
+    "dates": { "early": { "start": { "year": -457, "month": 4, "label": "1st of 1st month" }, "end": { "year": -457, "month": 8, "label": "1st of 5th month" }, "confidence": "approx" } },
+    "dateNote": "In Artaxerxes's seventh year, 458 BC (Ezra 7:7–9).",
+    "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
+  },
+  {
+    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other", "major": true,
+    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law.",
+    "dates": { "early": { "start": { "year": -444, "month": 8 }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
+    "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
+    "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"],
+    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 8 }]
+  },
+  {
+    "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "ministry",
+    "summary": "Malachi rebukes careless worship and broken marriages, and promises that the Lord will send Elijah before he comes. Then Scripture falls silent for four hundred years.",
+    "dates": { "early": { "start": { "year": -429 }, "confidence": "approx" } },
+    "dateNote": "Not dated. Malachi faces the same problems Nehemiah did (Nehemiah 13), so he is usually placed about 430 BC.",
+    "people": ["malachi"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Malachi", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "alexander", "title": "Alexander the Great conquers Persia", "type": "battle",
+    "summary": "Alexander of Macedon sweeps through the Persian Empire, taking Tyre and then Judea. Greek becomes the common language of the east, the language the New Testament will be written in.",
+    "dates": { "early": { "start": { "year": -331 }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture: Alexander took Tyre after a seven-month siege in 332 BC. Many readers see him in Daniel's vision of a swift goat from the west (Daniel 8:5–8, 21).",
+    "locations": ["tyre"],
+    "scripture": [{ "book": "Daniel", "chapter": 8, "verse": 5, "endVerse": 8 }]
+  },
+  {
+    "id": "septuagint", "title": "The Septuagint", "type": "writing",
+    "summary": "Jewish scholars in Alexandria translate the Hebrew Scriptures into Greek. The apostles often quote this translation.",
+    "dates": { "early": { "start": { "year": -249 }, "confidence": "approx" } },
+    "dateNote": "The Torah was translated in the third century BC, by tradition under Ptolemy II; the other books followed over the next century or so.",
+    "locations": ["alexandria"]
+  },
+  {
+    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship", "major": true,
+    "summary": "After Antiochus IV defiles the temple and outlaws Judaism, Judas Maccabeus leads a revolt, retakes Jerusalem and rededicates the temple. Jews remember it at Hanukkah, the Feast of Dedication Jesus kept (John 10:22).",
+    "dates": { "early": { "start": { "year": -163, "month": 12, "label": "25 Kislev" }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture (except as Catholic and Orthodox Christians count 1 Maccabees): told in 1 Maccabees 4 and by Josephus, in December 164 BC.",
+    "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 10, "verse": 22, "endVerse": 23 }]
+  },
+  {
+    "id": "pompey", "title": "Rome takes Jerusalem", "type": "battle",
+    "summary": "The Roman general Pompey captures Jerusalem and enters the temple. Judea comes under Roman rule.",
+    "dates": { "early": { "start": { "year": -62 }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture: recorded by Josephus, in 63 BC.",
+    "locations": ["jerusalem"]
+  },
+  {
+    "id": "herod-reign", "title": "Herod the Great's reign", "type": "reign",
+    "summary": "Rome makes Herod king of Judea. He rules ruthlessly, builds fortresses and cities, and rebuilds the temple on a grand scale.",
+    "dates": { "early": { "start": { "year": -36 }, "end": { "year": -3 }, "confidence": "approx" } },
+    "dateNote": "From his capture of Jerusalem in 37 BC to his death in 4 BC, by Josephus's account. The temple's rebuilding began about 20 BC; John 2:20 says it had been under way for forty-six years.",
+    "people": ["herod-the-great"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 1, "endVerse": 19 }]
   }
 ]

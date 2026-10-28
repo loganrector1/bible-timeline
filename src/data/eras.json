@@ -96,7 +96,7 @@
     "color": "#3f8a7a",
     "summary": "Exiles return to Judah, rebuild the temple and Jerusalem's walls, and renew the covenant under Zerubbabel, Ezra and Nehemiah (Ezra, Nehemiah, Esther, Haggai, Zechariah, Malachi).",
     "dates": {
-      "early": { "start": { "year": -537 }, "end": { "year": -430 }, "confidence": "approx" }
+      "early": { "start": { "year": -537 }, "end": { "year": -429 }, "confidence": "approx" }
     },
     "dateNote": "Ends around Nehemiah's second visit and Malachi, c. 430 BC, where the Old Testament's history closes."
   },
@@ -106,7 +106,7 @@
     "color": "#7d7d6b",
     "summary": "About four hundred years with no new Scripture, as Persia, Alexander the Great's successors and finally Rome rule Judea. The Maccabees win a brief independence.",
     "dates": {
-      "early": { "start": { "year": -429 }, "end": { "year": -6 }, "confidence": "approx" }
+      "early": { "start": { "year": -428 }, "end": { "year": -6 }, "confidence": "approx" }
     }
   },
   {
