@@ -1,0 +1,7 @@
+// Cloudflare Workers: serves the built site in dist/ as static files, with no Worker code.
+// Builds run from GitHub (Workers Builds); see "Deployment" in README.md.
+{
+  "name": "bible-timeline",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./dist" }
+}
