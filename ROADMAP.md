@@ -17,6 +17,10 @@ Built:
 
 What changed from the original plan, as it was built: the map shows a fixed number of nearest events rather than a time window, there are no "Show on map/timeline" buttons (chips appear only when the selection is out of view), and events can be part of a larger event (`partOf`). CLAUDE.md has the reasons.
 
+## Deployment (done)
+
+Live at [bible.rector.app](https://bible.rector.app): a Cloudflare Worker serving the static build (Cloudflare calls Pages legacy), built from GitHub on every push with `npm test` gating the deploy. `main` is the public site; every other pushed branch gets a preview URL behind Cloudflare Access (scope "Previews only"), for checking a feature on a phone. The repo is `loganrector1/bible-timeline`. Still to do: decide whether to revisit the branching rule in CLAUDE.md now that `main` deploys automatically; if the local folder is renamed to match, copy Claude Code's memory folder to the new path.
+
 ## Milestone 2: the whole Bible (in progress)
 
 Goal: extend the dataset from Genesis to Revelation, so the timeline and map cover the whole biblical story, not just Creation to Moses. Work happens on the `feature/whole-bible` branch.
@@ -54,7 +58,6 @@ Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
   - **Sources:** check open historical-boundary datasets and their licences before drawing by hand (for example Cliopatria from the Seshat project, or historical-basemaps), and credit them like OpenBible.info.
   - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World History lane, so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
 - **Scripture in the app:** read passages in a public-domain translation instead of linking out.
-- **Deployment:** public, free static hosting on Cloudflare Workers (static assets; Pages is now legacy) connected to the GitHub repo (build `npm run build`, output `dist`, run `npm test` first so failures block a deploy). Only `main` is public. Pushed branches get preview URLs behind Cloudflare Access (the account-wide Access setting for Workers previews), so only I can open them, for example to check a feature on a phone; branches kept local aren't deployed. Serve it at `bible.rector.app` (rector.app's DNS is already on Cloudflare). First rename the repo to `bible-timeline` and name the app "Bible Timeline" in `package.json`, README, CLAUDE.md and the page title, and if the local folder is renamed too, copy Claude Code's memory folder to the new path. Credit OpenFreeMap, OpenStreetMap and Natural Earth on the map, and check OpenFreeMap's fair-use terms. Once `main` deploys automatically, revisit the branching rule in CLAUDE.md.
 
 ## Later: reading plans (separate app)
 
