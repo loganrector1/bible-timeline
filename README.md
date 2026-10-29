@@ -27,6 +27,10 @@ npm test         # run tests (date math + data integrity)
 npm run build    # type-check and build static files into dist/
 ```
 
+## Deployment
+
+Cloudflare Pages builds the site from GitHub on every push, with build command `npm test && npm run build` and output directory `dist` (Node version from `.node-version`), so a failing test blocks the deploy. `main` is the public site at [bible.rector.app](https://bible.rector.app). Every other pushed branch gets its own preview URL, which Cloudflare Access keeps private.
+
 ## Content
 
 | File | Holds |

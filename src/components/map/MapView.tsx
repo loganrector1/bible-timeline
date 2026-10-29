@@ -30,6 +30,8 @@ setWorkerUrl(workerUrl);
 const INITIAL_BOUNDS: [[number, number], [number, number]] = [[29, 24], [47.5, 38]];
 /** Keep the map on the biblical world; never the whole globe. */
 const MAX_BOUNDS: [number, number, number, number] = [-15, 5, 75, 55];
+/** OpenFreeMap, OpenMapTiles and OpenStreetMap credit themselves through the tile source. */
+const CREDITS = '<a href="https://www.naturalearthdata.com/">Natural Earth</a>';
 const MIN_ZOOM = 2.5;
 const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
@@ -205,7 +207,7 @@ export default function MapView() {
               applyBorders();
             }}
             cursor={hover ? "pointer" : "grab"}
-            attributionControl={{ compact: true }}
+            attributionControl={{ compact: true, customAttribution: CREDITS }}
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="top-right" showCompass={false} />
