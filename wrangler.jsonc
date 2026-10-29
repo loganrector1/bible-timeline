@@ -3,5 +3,7 @@
 {
   "name": "bible-timeline",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./dist" }
+  "assets": { "directory": "./dist" },
+  // Branch builds run `wrangler preview`, which requires this block (it can stay empty).
+  "previews": {}
 }
