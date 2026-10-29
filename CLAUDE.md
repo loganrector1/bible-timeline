@@ -71,6 +71,7 @@ node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places
 
 - Commit each logical change with a clear message, and push after committing (the user has OK'd pushing without asking).
 - Small fixes and single-commit changes go straight to `main`. Larger or experimental features that take several commits get a short-lived branch (`feature/<name>`), which is merged into `main` and deleted when done. Revisit this once `main` deploys somewhere automatically.
+- Deployment: Cloudflare Pages builds every push (`npm test && npm run build`, output `dist`, Node from `.node-version`). `main` is public at bible.rector.app, so anything pushed to `main` goes live; other pushed branches get private preview URLs behind Cloudflare Access (see README). Tests run on Linux there, so don't make them depend on Windows paths or on the network.
 - Verify UI changes in a real browser (screenshots at desktop and phone widths, light and dark), not just by type-checking.
 - Ask before making product or design calls the user hasn't decided; recommend an option.
 - Keep this file current: when a decision is made, a convention changes or a new gotcha turns up, update CLAUDE.md in the same commit as the change.

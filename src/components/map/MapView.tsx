@@ -31,8 +31,14 @@ const INITIAL_BOUNDS: [[number, number], [number, number]] = [[29, 24], [47.5, 3
 /** Keep the map on the biblical world; never the whole globe. */
 const MAX_BOUNDS: [number, number, number, number] = [-15, 5, 75, 55];
 const MIN_ZOOM = 2.5;
-/** Place coordinates come from OpenBible.info, CC BY 4.0. */
-const PLACES_CREDIT = '<a href="https://www.openbible.info/geo/">Places: OpenBible.info</a> (CC BY 4.0)';
+/**
+ * Places come from OpenBible.info (CC BY 4.0). OpenFreeMap, OpenMapTiles and OpenStreetMap
+ * credit themselves through the tile source.
+ */
+const CREDITS = [
+  '<a href="https://www.openbible.info/geo/">Places: OpenBible.info</a> (CC BY 4.0)',
+  '<a href="https://www.naturalearthdata.com/">Natural Earth</a>',
+];
 const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
@@ -207,7 +213,7 @@ export default function MapView() {
               applyBorders();
             }}
             cursor={hover ? "pointer" : "grab"}
-            attributionControl={{ compact: true, customAttribution: PLACES_CREDIT }}
+            attributionControl={{ compact: true, customAttribution: CREDITS }}
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="top-right" showCompass={false} />
