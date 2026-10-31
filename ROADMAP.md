@@ -48,12 +48,16 @@ Steps:
 
 The view, time, zoom and selection are in the URL, kept current as you move, and the details panel has a Share button (the share sheet on phones, the clipboard on desktop), so a teacher can send a class straight to a moment. A link leaves out the year when the selection has been scrolled off screen, so the reader lands on what was shared. Passage links were moved to Search and filters.
 
+## Filters and settings (done)
+
+Filters by event type and person, applied to both views (timeline, map, Nearest events, step and play) and carried in links, with a Filter button and a chip bar under the header, dimmed hidden events and a filter suggestion in Browse, and shortcuts in the event and person panels. A selected event always shows. Births and deaths filtered to become event dots, and people not in a shown event dim. A Settings menu (the gear) holds the theme: System, Light or Dark.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
 - **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`). Both can go in the Settings menu, which so far holds the theme.
-- **Search and filters** (branch `feature/filters`): filters by event type and person are built, applied to both views and carried in links, with shortcuts from Browse and the detail panels. Filters by book, theme, region and date range are still to come, all as event filters. A passage link (`?passage=Exod.12-14`) is one of these filters: it lights every event whose Scripture overlaps the passage. It's the contract the reading-plans app will link through, so keep it stable once published.
+- **More filters:** by book and passage (`?passage=Exod.12-14`, which lights every event whose Scripture overlaps it; it's the contract the reading-plans app will link through, so keep it stable once published), theme (needs tags on every event), region and date range, all as event filters.
 - **Guided tours:** step-by-step stories that drive both views, such as "The Exodus" or "The Life of Abraham".
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
 - **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
