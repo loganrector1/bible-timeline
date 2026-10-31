@@ -25,6 +25,7 @@ export default function NowPanel({
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const listRef = useRef<HTMLUListElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ y: number; id?: string; moved: boolean } | null>(null);
 
   const ordered = eventsInOrder(chron).filter((ev) => events.includes(ev));
@@ -48,7 +49,7 @@ export default function NowPanel({
   const onPointerDown = (e: PointerEvent) => {
     if (e.button === 0) drag.current = { y: e.clientY, id: focusId, moved: false };
   };
-  const onPointerMove = (e: PointerEvent<HTMLUListElement>) => {
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     const d = drag.current;
     if (!d) return;
     if (!d.moved) {
@@ -72,8 +73,30 @@ export default function NowPanel({
     else drag.current = null;
   };
 
+  // `touch-none` should stop the browser panning or scrolling the page under a drag, but not
+  // every mobile browser honours it, so touch moves are cancelled here too. (React's touch
+  // listeners are passive, so this has to be a native one.)
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    const stop = (e: TouchEvent) => e.preventDefault();
+    el.addEventListener("touchmove", stop, { passive: false });
+    return () => el.removeEventListener("touchmove", stop);
+  }, []);
+
+  // The whole panel, header included, is the drag surface, so a drag that starts just off the
+  // one row of a collapsed panel still steps rather than reaching the page.
   return (
-    <div data-map-obstacle className={`absolute top-3 left-3 z-10 max-w-[calc(100%-5rem)] rounded-lg border border-line bg-paper/90 text-sm shadow-md backdrop-blur ${open ? "w-64" : "w-56"}`}>
+    <div
+      ref={panelRef}
+      data-map-obstacle
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onClickCapture={(e) => drag.current?.moved && e.stopPropagation()}
+      className={`absolute top-3 left-3 z-10 max-w-[calc(100%-5rem)] touch-none rounded-lg border border-line bg-paper/90 text-sm shadow-md backdrop-blur select-none ${open ? "w-64" : "w-56"}`}
+    >
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -89,12 +112,7 @@ export default function NowPanel({
           ) : (
             <ul
               ref={listRef}
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={endDrag}
-              onPointerCancel={endDrag}
-              onClickCapture={(e) => drag.current?.moved && e.stopPropagation()}
-              className="max-h-52 touch-none overflow-y-auto overscroll-contain select-none"
+              className="max-h-52 overflow-y-auto overscroll-contain"
             >
               {shown.map((ev) => {
                 const selected = selection?.kind === "event" && selection.id === ev.id;
