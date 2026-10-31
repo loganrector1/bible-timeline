@@ -1,8 +1,8 @@
-import { data, datesFor, journeysById } from "../../data";
+import { datesFor, journeysById } from "../../data";
 import { CHRONOLOGIES } from "../../data/chronologies";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
-import { childEvents, eventMidpoint, eventsInOrder, entityBounds, parentEvent } from "../../lib/entities";
+import { childEvents, eraAt, eventMidpoint, eventsInOrder, parentEvent } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { Chip, Chips, Note, ScriptureList, Section } from "./parts";
 
@@ -12,10 +12,7 @@ export default function EventDetail({ ev }: { ev: Event }) {
   const spec = datesFor(ev, chron);
   const mid = eventMidpoint(ev, chron);
 
-  const era = mid === undefined ? undefined : data.eras.find((e) => {
-    const b = entityBounds({ kind: "era", id: e.id }, chron);
-    return b && mid >= b[0] && mid < b[1];
-  });
+  const era = mid === undefined ? undefined : eraAt(mid, chron);
 
   const alternates = CHRONOLOGIES.filter((c) => c.id !== chron && ev.dates[c.id]);
   const ordered = eventsInOrder(chron);

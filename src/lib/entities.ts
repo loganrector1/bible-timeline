@@ -2,7 +2,7 @@ import {
   data, datesFor, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
-import type { Event, Location } from "../data/schema";
+import type { Era, Event, Location } from "../data/schema";
 import { specBounds, specExtent, specMidpoint } from "./dates";
 
 export type Bounds = [number, number];
@@ -96,6 +96,14 @@ export function eventsAtLocation(locationId: string, chron: string): Event[] {
       (ev.journeyId !== undefined &&
         journeysById.get(ev.journeyId)!.stops.some((s) => s.locationId === locationId)),
   );
+}
+
+/** The era a moment falls in, if any. */
+export function eraAt(year: number, chron: string): Era | undefined {
+  return data.eras.find((e) => {
+    const b = entityBounds({ kind: "era", id: e.id }, chron);
+    return b && year >= b[0] && year < b[1];
+  });
 }
 
 export function eventsInEra(eraId: string, chron: string): Event[] {
