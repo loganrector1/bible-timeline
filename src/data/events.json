@@ -823,8 +823,8 @@
   {
     "id": "joel-ministry", "title": "Joel and the locusts", "type": "ministry",
     "summary": "After a plague of locusts strips the land, Joel calls priests and people to fast and return to the Lord, warns of the day of the Lord, and promises that God will pour out his Spirit on all people, words Peter quotes at Pentecost.",
-    "dates": { "early": { "start": { "year": -449 }, "end": { "year": -399 }, "confidence": "approx" } },
-    "dateNote": "Joel names no king. Most now place him after the return, about 450–400 BC: the temple stands, elders and priests lead, and Judah's people have been scattered and sold to the Greeks (Joel 3:2, 6). Many others place him about 835 BC, while the priest Jehoiada ruled for the boy-king Joash, where his place among the early prophets suggests. Scripture doesn't say how long he prophesied.",
+    "dates": { "early": { "start": { "year": -449 }, "end": { "year": -429 }, "confidence": "approx" } },
+    "dateNote": "Joel names no king. Most now place him after the return, about 450–430 BC, before Malachi (some later still): the temple stands, elders and priests lead, and Judah's people have been scattered and sold to the Greeks (Joel 3:2, 6). Many others place him about 835 BC, while the priest Jehoiada ruled for the boy-king Joash, where his place among the early prophets suggests. Scripture doesn't say how long he prophesied.",
     "people": ["joel"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Joel", "chapter": 1, "verse": 1, "endVerse": 20 }, { "book": "Joel", "chapter": 2, "verse": 28, "endVerse": 32 }]
   },
