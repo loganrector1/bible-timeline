@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { datesFor, eventsById, type EntityRef } from "../data";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
-import { specMidpoint, type EraStyle } from "../lib/dates";
+import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
 import { datasetRange, entityBounds } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
@@ -113,7 +113,8 @@ export const useStore = create<State>()((set, get) => {
       // edge of a life or era. The zoom never changes here.
       if (spec && !spec.end) get().goTo(specMidpoint(spec));
       else if (cur < b[0] || cur >= b[1]) {
-        const edge = ev ? b[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
+        // An event starts where it's drawn (mid-year for "from 1446 BC").
+        const edge = ev && spec ? specExtent(spec)[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
         get().goTo(edge);
       }
     },

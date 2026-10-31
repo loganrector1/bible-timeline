@@ -41,14 +41,15 @@ const hits = (a: Box, b: Box, slack = 0) =>
 /**
  * A card for the map's focus event, placed beside what it describes without moving the
  * map: next to the visible part nearest its middle, or, when it's all off screen, at the
- * edge nearest it with an arrow pointing the way. Clicking it selects the event.
+ * edge nearest it with an arrow pointing the way. Clicking it selects the event; its close
+ * button hides it.
  */
-export default function EventPopup({ map, ev }: { map: MapLibreMap | null; ev: Event }) {
+export default function EventPopup({ map, ev, onClose }: { map: MapLibreMap | null; ev: Event; onClose: () => void }) {
   useMapRedraw(map);
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const select = useStore((s) => s.select);
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 240, h: 100 });
 
   // The card's height depends on its text; measure it after each render.
@@ -126,23 +127,30 @@ export default function EventPopup({ map, ev }: { map: MapLibreMap | null; ev: E
 
   const spec = datesFor(ev, chron);
   return (
-    <button
-      ref={ref}
-      onClick={() => select({ kind: "event", id: ev.id })}
-      className="absolute z-10 w-60 max-w-[60%] rounded-lg border border-line bg-paper/95 px-3 py-2 text-left text-sm shadow-lg backdrop-blur hover:border-accent"
-      style={{ left, top }}
-    >
-      <span className="flex items-start justify-between gap-2">
-        <span className="font-serif text-base leading-tight font-semibold">{ev.title}</span>
-        {arrow && (
-          <span className="shrink-0 text-accent" aria-label="Off screen in this direction">
-            {arrow}
-          </span>
-        )}
-      </span>
-      {spec && <span className="mt-0.5 block text-xs font-medium text-accent">{formatDateSpec(spec, eraStyle)}</span>}
-      <span className="mt-1 line-clamp-2 text-ink-muted">{ev.summary}</span>
-      <span className="mt-1 block text-xs font-medium text-accent">Details →</span>
-    </button>
+    <div ref={ref} className="absolute z-10 w-60 max-w-[60%]" style={{ left, top }}>
+      <button
+        onClick={() => select({ kind: "event", id: ev.id })}
+        className="block w-full rounded-lg border border-line bg-paper/95 px-3 py-2 text-left text-sm shadow-lg backdrop-blur hover:border-accent"
+      >
+        <span className="flex items-start justify-between gap-2 pr-5">
+          <span className="font-serif text-base leading-tight font-semibold">{ev.title}</span>
+          {arrow && (
+            <span className="shrink-0 text-accent" aria-label="Off screen in this direction">
+              {arrow}
+            </span>
+          )}
+        </span>
+        {spec && <span className="mt-0.5 block text-xs font-medium text-accent">{formatDateSpec(spec, eraStyle)}</span>}
+        <span className="mt-1 line-clamp-2 text-ink-muted">{ev.summary}</span>
+        <span className="mt-1 block text-xs font-medium text-accent">Details →</span>
+      </button>
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-1 right-1 flex size-6 items-center justify-center rounded text-base leading-none text-ink-muted hover:bg-paper-2 hover:text-ink"
+      >
+        ×
+      </button>
+    </div>
   );
 }

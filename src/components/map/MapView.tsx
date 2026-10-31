@@ -9,7 +9,7 @@ import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
 import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { eventForJourney } from "../../lib/journeys";
-import { usePrefersDark } from "../../lib/useMediaQuery";
+import { useIsPhone, usePrefersDark } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
@@ -104,8 +104,16 @@ export default function MapView() {
   const [hover, setHover] = useState<Hover | null>(null);
   /** The map instance once loaded, for overlays positioned in screen space. */
   const [map, setMap] = useState<maplibregl.Map | null>(null);
-  // Start collapsed on phones, where the panel would cover much of the map.
-  const [nowOpen, setNowOpen] = useState(() => window.innerWidth >= 768);
+  const isPhone = useIsPhone();
+  const mode = useStore((s) => s.mode);
+  // On phones, where there's no popup, the panel shows just the focus event (collapsed) beside
+  // the timeline, and all of them when the map has the screen.
+  const [nowOpen, setNowOpen] = useState(() => !isPhone || mode === "map");
+  useEffect(() => {
+    if (isPhone) setNowOpen(mode === "map");
+  }, [isPhone, mode]);
+  /** The focus event whose popup was closed; it stays closed until the focus moves on. */
+  const [dismissed, setDismissed] = useState<string | null>(null);
 
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
@@ -136,6 +144,10 @@ export default function MapView() {
   // nearest event happening now (among the selection's events, if something else is selected).
   const focus: Event | undefined = selectedEvent
     ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+  useEffect(() => {
+    if (focus?.id !== dismissed) setDismissed(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus?.id]);
   const focusHighlight = useMemo(
     () => (focus ? computeHighlight({ kind: "event", id: focus.id }, chron) : null),
     [focus, chron],
@@ -234,8 +246,10 @@ export default function MapView() {
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
         <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
-        {/* The details panel already describes a selected event. */}
-        {focus && focus !== selectedEvent && <EventPopup map={map} ev={focus} />}
+        {/* The details panel already describes a selected event. Phones have no room for it. */}
+        {!isPhone && focus && focus !== selectedEvent && focus.id !== dismissed && (
+          <EventPopup map={map} ev={focus} onClose={() => setDismissed(focus.id)} />
+        )}
         <OffscreenSelection
           map={map}
           onShow={() => map && selection && frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen)}
