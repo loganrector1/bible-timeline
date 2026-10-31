@@ -117,6 +117,14 @@
     "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 26 }]
   },
   {
+    "id": "job-trials", "title": "Job's trials", "type": "other",
+    "summary": "Job, a blameless man of Uz, loses his wealth, his children and his health. His friends insist he must have sinned; Job protests his innocence and demands an answer, until God speaks out of the whirlwind.",
+    "dates": { "early": { "start": { "year": -1999 }, "confidence": "unknown" } },
+    "dateNote": "Not dated, and Uz can't be located. The setting looks like the patriarchs' time: wealth counted in flocks, Job offering sacrifice for his family as its head, no mention of Israel or the Law, and a life of over 140 years (Job 42:16). When the book was written is unknown.",
+    "people": ["job"],
+    "scripture": [{ "book": "Job", "chapter": 1, "verse": 1, "endVerse": 22 }, { "book": "Job", "chapter": 38, "verse": 1, "endVerse": 7 }, { "book": "Job", "chapter": 42, "verse": 1, "endVerse": 6 }]
+  },
+  {
     "id": "abraham-dies", "title": "Death of Abraham", "type": "death",
     "summary": "Abraham dies at 175 and is buried by Isaac and Ishmael beside Sarah.",
     "dates": { "early": { "start": { "year": -1990 }, "confidence": "approx" } },
@@ -585,6 +593,14 @@
     "scripture": [{ "book": "2 Samuel", "chapter": 11, "endChapter": 12 }]
   },
   {
+    "id": "david-psalms", "title": "David's psalms", "type": "writing", "partOf": "david-reign",
+    "summary": "David, \"the sweet psalmist of Israel,\" writes songs of lament, trust and praise. About half of the 150 psalms bear his name, among them Psalm 23 and his prayer of repentance, Psalm 51.",
+    "dates": { "early": { "start": { "year": -1009 }, "end": { "year": -969 }, "confidence": "approx" } },
+    "dateNote": "Through his life; some, like Psalms 57 and 59, from before his reign, while he fled from Saul. The book grew over centuries, from Moses (Psalm 90) to the exile (Psalm 137), and was gathered into its five books after the return.",
+    "people": ["david"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 23, "verse": 1, "endVerse": 2 }, { "book": "Psalm", "chapter": 23 }, { "book": "Psalm", "chapter": 51 }]
+  },
+  {
     "id": "solomon-reign", "title": "Solomon's reign", "type": "reign", "major": true,
     "summary": "Solomon asks God for wisdom, rules Israel at the height of its wealth and peace, and builds the temple, but his many foreign wives turn his heart to other gods.",
     "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
@@ -599,6 +615,14 @@
     "dateNote": "Begun in Solomon's fourth year, 480 years after the Exodus (1 Kings 6:1), and finished seven years later (1 Kings 6:37–38).",
     "people": ["solomon"], "locations": ["jerusalem", "moriah"],
     "scripture": [{ "book": "1 Kings", "chapter": 6, "endChapter": 8 }]
+  },
+  {
+    "id": "solomon-wisdom", "title": "Solomon's wisdom", "type": "writing", "partOf": "solomon-reign",
+    "summary": "God gives Solomon wisdom beyond all others: he speaks three thousand proverbs and a thousand and five songs. Proverbs, Ecclesiastes and the Song of Songs bear his name.",
+    "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
+    "dateNote": "Through his reign (1 Kings 4:29–34). Proverbs also gathers sayings of others, and some of Solomon's were copied out by Hezekiah's men about 700 BC (Proverbs 25:1). Ecclesiastes is traditionally Solomon's, from late in life; many date it later.",
+    "people": ["solomon"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 4, "verse": 29, "endVerse": 34 }, { "book": "Proverbs", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Ecclesiastes", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Song of Songs", "chapter": 1, "verse": 1 }]
   },
   {
     "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
@@ -1358,6 +1382,14 @@
     "dateNote": "Before his death under Nero, which tradition places in Rome about AD 64–67 (1 Peter 5:13; 2 Peter 1:14).",
     "people": ["peter", "mark", "silas"], "locations": ["rome"],
     "scripture": [{ "book": "1 Peter", "chapter": 1, "verse": 1, "endVerse": 9 }, { "book": "2 Peter", "chapter": 1, "verse": 12, "endVerse": 21 }]
+  },
+  {
+    "id": "letter-of-jude", "title": "The letter of Jude", "type": "writing",
+    "summary": "Jude, brother of James, urges believers to contend for the faith against false teachers who turn grace into a licence for immorality, and closes with a doxology to the one able to keep them from stumbling.",
+    "dates": { "early": { "start": { "year": 65 }, "confidence": "approx" } },
+    "dateNote": "Not dated; usually placed AD 60–80. Much of it is shared with 2 Peter 2. Where it was written isn't known.",
+    "people": ["jude"],
+    "scripture": [{ "book": "Jude", "chapter": 1, "verse": 3, "endVerse": 4 }, { "book": "Jude", "chapter": 1, "verse": 24, "endVerse": 25 }]
   },
   {
     "id": "timothy-titus", "title": "Paul writes to Timothy and Titus", "type": "writing",
