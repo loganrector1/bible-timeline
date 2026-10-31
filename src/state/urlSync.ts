@@ -1,4 +1,5 @@
-import { entityBounds } from "../lib/entities";
+import { entityBounds, eventOrderKey, eventsInOrder } from "../lib/entities";
+import { eventShown } from "../lib/filters";
 import { formatLink, parseLink } from "../lib/shareLink";
 import { useStore } from "./store";
 
@@ -30,8 +31,13 @@ export function startUrlSync() {
   if (link.filters) store.setFilters(link.filters);
   if (link.pxPerYear) store.setZoom(link.pxPerYear);
   if (link.selection) store.select(link.selection, { instant: true });
-  // A link's own year wins over where selecting would put the cursor.
+  // A link's own year wins over where selecting would put the cursor. A filtered link with
+  // neither (a reading plan's `?passage=Exod.12-14`) starts at the first event it shows.
   if (link.year !== undefined) store.setYear(link.year);
+  else if (link.filters && !link.selection) {
+    const first = eventsInOrder(store.chronologyId).find((ev) => eventShown(ev, link.filters!));
+    if (first) store.stepTo(first.id, eventOrderKey(first, store.chronologyId));
+  }
 
   let timer = 0;
   useStore.subscribe((s, prev) => {

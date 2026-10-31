@@ -1,12 +1,14 @@
 import type { Event, EventType } from "../data/schema";
+import { overlaps, type Passage } from "./passages";
 
 /**
- * Which events are shown: of any of these types (all, if none) and involving any of these
- * people (anyone, if none). Filters only hide events; people, places and eras stay.
+ * Which events are shown: of any of these types (all, if none), involving any of these people
+ * (anyone, if none), and told in any of these passages (anywhere, if none). Filters only hide
+ * events; people, places and eras stay.
  */
-export type Filters = { types: EventType[]; people: string[] };
+export type Filters = { types: EventType[]; people: string[]; passages: Passage[] };
 
-export const NO_FILTERS: Filters = { types: [], people: [] };
+export const NO_FILTERS: Filters = { types: [], people: [], passages: [] };
 
 /** Event types as filter choices, in a reader's order rather than the schema's. */
 export const FILTER_TYPES: { type: EventType; label: string }[] = [
@@ -28,11 +30,13 @@ export const FILTER_TYPES: { type: EventType; label: string }[] = [
 export const TYPE_FILTER_LABEL = new Map(FILTER_TYPES.map((t) => [t.type, t.label]));
 
 export function hasFilters(f: Filters): boolean {
-  return f.types.length > 0 || f.people.length > 0;
+  return f.types.length > 0 || f.people.length > 0 || f.passages.length > 0;
 }
 
 export function eventShown(ev: Event, f: Filters): boolean {
-  return (!f.types.length || f.types.includes(ev.type)) && (!f.people.length || ev.people.some((p) => f.people.includes(p)));
+  return (!f.types.length || f.types.includes(ev.type))
+    && (!f.people.length || ev.people.some((p) => f.people.includes(p)))
+    && (!f.passages.length || ev.scripture.some((r) => f.passages.some((p) => overlaps(r, p))));
 }
 
 /**
@@ -45,11 +49,11 @@ export function drawnAsLifeMark(ev: Event, f: Filters): boolean {
 
 /**
  * The people who stand out while filtering with nothing selected: the people filtered to, or
- * with only types filtered, everyone in a shown event. Undefined when nothing is filtered.
+ * without a person filter, everyone in a shown event. Undefined when nothing is filtered.
  */
 export function filteredPeople(events: Event[], f: Filters): Set<string> | undefined {
   if (f.people.length) return new Set(f.people);
-  if (!f.types.length) return undefined;
+  if (!hasFilters(f)) return undefined;
   return new Set(events.filter((ev) => eventShown(ev, f)).flatMap((ev) => ev.people));
 }
 
