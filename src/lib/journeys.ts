@@ -1,5 +1,7 @@
 import { data, journeysById, locationsById } from "../data";
+import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import type { Event } from "../data/schema";
+import { childEvents } from "./entities";
 
 export type Coord = [number, number];
 
@@ -97,15 +99,30 @@ export function eventForJourney(journeyId: string): Event | undefined {
 }
 
 /**
- * The stop where an event along the journey happens, or -1: the first stop at the event's
- * first place, else at its next place, and so on. A letter lists where it was written before
- * where it was sent, so it marks Corinth, not Thessalonica, which the route reaches first.
+ * The stop where an event along the journey happens, or -1. Events along the way are matched
+ * in date order, each to the next stop at its place from where the one before it was: Troas
+ * comes twice on Paul's third journey, and Eutychus falls on the way back, after Romans at
+ * Corinth. An event's first place counts before its others, since a letter lists where it was
+ * written before where it was sent (Thessalonians marks Corinth, not Thessalonica).
  */
-export function stopIndexOf(journeyId: string, ev: Event): number {
+export function stopIndexOf(journeyId: string, ev: Event, chron: string = DEFAULT_CHRONOLOGY): number {
   const stops = journeysById.get(journeyId)!.stops;
-  for (const place of ev.locations) {
-    const i = stops.findIndex((s) => s.locationId === place);
-    if (i >= 0) return i;
+  const stopFrom = (e: Event, from: number) => {
+    for (const start of [from, 0]) {
+      for (const place of e.locations) {
+        const i = stops.findIndex((s, k) => k >= start && s.locationId === place);
+        if (i >= 0) return i;
+      }
+    }
+    return -1;
+  };
+  const parent = eventForJourney(journeyId);
+  const along = parent && ev.partOf === parent.id ? childEvents(parent, chron) : [ev];
+  let from = 0;
+  for (const e of along) {
+    const i = stopFrom(e, from);
+    if (e.id === ev.id) return i;
+    if (i >= 0) from = i;
   }
   return -1;
 }

@@ -82,6 +82,7 @@
   { "id": "corinth", "name": "Corinth", "type": "city", "coords": [22.879, 37.906], "openbible": "Corinth", "summary": "Wealthy port city of Greece where Paul stayed eighteen months; he wrote it at least two letters." },
   { "id": "ephesus", "name": "Ephesus", "modernName": "Near Selçuk, Turkey", "type": "city", "coords": [27.341, 37.939], "openbible": "Ephesus", "summary": "Leading city of Asia, where Paul taught for over two years; the first of Revelation's seven churches." },
   { "id": "rome", "name": "Rome", "type": "city", "coords": [12.485, 41.892], "openbible": "Rome", "summary": "Capital of the empire, where Paul arrived as a prisoner and, by tradition, Peter and Paul were martyred." },
+  { "id": "crete", "name": "Crete", "type": "island", "coords": [24.893, 35.31], "openbible": "Crete", "summary": "Large island south of the Aegean, where Paul left Titus to appoint elders in every town." },
   { "id": "malta", "name": "Malta", "type": "island", "coords": [14.412, 35.933], "openbible": "Malta", "summary": "Island where Paul's ship was wrecked on the way to Rome." },
   { "id": "patmos", "name": "Patmos", "type": "island", "coords": [26.542, 37.325], "openbible": "Patmos", "summary": "Small Aegean island where John, exiled for his witness, received the Revelation." },
   { "id": "smyrna", "name": "Smyrna", "modernName": "İzmir, Turkey", "type": "city", "coords": [27.138, 38.419], "openbible": "Smyrna", "summary": "Church of Revelation 2 facing persecution: \"Be faithful unto death.\"" },

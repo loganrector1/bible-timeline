@@ -1307,7 +1307,7 @@
     "summary": "Paul instructs his co-workers Timothy in Ephesus and Titus on Crete in choosing leaders, guarding sound teaching and caring for the church.",
     "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
     "dateNote": "Probably between Paul's two Roman imprisonments, years that Acts doesn't cover.",
-    "people": ["paul", "timothy"], "locations": ["ephesus"],
+    "people": ["paul", "timothy"], "locations": ["ephesus", "crete"],
     "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }]
   },
   {

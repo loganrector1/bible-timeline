@@ -63,7 +63,7 @@ export default function JourneyLayer({
   }, [journeyId, animateKey]);
 
   const legs = useMemo(() => (journeyId ? journeyLegs(journeyId) : []), [journeyId]);
-  const alongStop = journeyId && along ? stopIndexOf(journeyId, along) : -1;
+  const alongStop = journeyId && along ? stopIndexOf(journeyId, along, chron) : -1;
   const { legs: drawn, head, reached } = alongStop >= 0
     ? { legs: legs.slice(0, alongStop), head: undefined, reached: alongStop + 1 }
     : drawnLegs(legs, progress);
@@ -73,7 +73,7 @@ export default function JourneyLayer({
     const parent = journeyId ? eventForJourney(journeyId) : undefined;
     const byPlace = new Map<string, Event[]>();
     for (const ev of parent ? childEvents(parent, chron) : []) {
-      const i = stopIndexOf(journeyId!, ev);
+      const i = stopIndexOf(journeyId!, ev, chron);
       if (i < 0) continue;
       const id = journeysById.get(journeyId!)!.stops[i].locationId;
       byPlace.set(id, [...(byPlace.get(id) ?? []), ev]);

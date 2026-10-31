@@ -46,4 +46,9 @@ describe("events along a journey", () => {
     const stops = journeysById.get("paul-second-journey")!.stops;
     expect(stops[stopIndexOf("paul-second-journey", eventsById.get("thessalonians")!)].locationId).toBe("corinth");
   });
+
+  test("take the next stop at their place, in date order, when the route passes it twice", () => {
+    // Troas is stop 3 on the way out and 7 on the way back; Eutychus is after Romans at Corinth.
+    expect(stopIndexOf("paul-third-journey", eventsById.get("eutychus")!) + 1).toBe(7);
+  });
 });
