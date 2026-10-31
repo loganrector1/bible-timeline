@@ -68,8 +68,11 @@ type State = {
   stepTo: (eventId: string, year: number) => void;
   /** Animate the cursor (and optionally zoom) to a target. */
   goTo: (year: number, pxPerYear?: number) => void;
-  /** Select an entity, moving the cursor only if needed (see the implementation). Stops playback unless asked not to. */
-  select: (ref: EntityRef | null, opts?: { keepPlaying?: boolean }) => void;
+  /**
+   * Select an entity, moving the cursor only if needed (see the implementation). Stops playback
+   * unless asked not to. `instant` jumps instead of gliding (opening a link).
+   */
+  select: (ref: EntityRef | null, opts?: { keepPlaying?: boolean; instant?: boolean }) => void;
   /** Center an entity on the timeline and fit its span. */
   showOnTimeline: (ref: EntityRef) => void;
   browseOpen: boolean;
@@ -160,15 +163,16 @@ export const useStore = create<State>()((set, get) => {
       const cur = get().currentYear;
       const ev = ref.kind === "event" ? eventsById.get(ref.id) : undefined;
       const spec = ev && datesFor(ev, get().chronologyId);
+      const move = (y: number) => (opts?.instant ? get().setYear(y) : get().goTo(y));
 
       // Point events are moments: go there. Spans (long events, lifespans, eras) only
       // move the cursor if it's outside them: to the start of an event, or the nearest
       // edge of a life or era. The zoom never changes here.
-      if (spec && !spec.end) get().goTo(specMidpoint(spec));
+      if (spec && !spec.end) move(specMidpoint(spec));
       else if (cur < b[0] || cur >= b[1]) {
         // An event starts where it's drawn (mid-year for "from 1446 BC").
         const edge = ev && spec ? specExtent(spec)[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
-        get().goTo(edge);
+        move(edge);
       }
     },
 

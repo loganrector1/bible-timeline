@@ -9,7 +9,7 @@
 //   {"click": css} {"dispatch": css} {"hover": css} {"key": "Escape"} {"type": text}
 //   {"wheel": [x, y, dy, ctrl?]} {"drag": [x1, y1, x2, y2]} {"move": [x, y]}
 //   {"eval": js}                        logs the JSON result
-// Env: CLIP="x,y,w,h" crops; ONBOARD=1 keeps the first-run hint.
+// Env: CLIP="x,y,w,h" crops; ONBOARD=1 keeps the first-run hint; QUERY="?event=exodus" opens a link.
 // Don't import app modules from "eval": that loads a second copy of the store.
 import { chromium } from "playwright-core";
 
@@ -21,7 +21,8 @@ const logs = [];
 page.on("console", (m) => (m.type() === "error" || m.type() === "warning") && logs.push(`${m.type()}: ${m.text()}`));
 page.on("pageerror", (e) => logs.push(`pageerror: ${e.message}`));
 if (!process.env.ONBOARD) await page.addInitScript(() => localStorage.setItem("bible-timeline:onboarded", "1"));
-await page.goto("http://localhost:5173/");
+await page.context().grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://localhost:5173" });
+await page.goto(`http://localhost:5173/${process.env.QUERY ?? ""}`);
 await page.waitForTimeout(1500);
 
 for (const a of JSON.parse(actionsJson)) {
