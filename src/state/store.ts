@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
-import { Lane } from "../data/schema";
+import { Lane, type EventType } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
 import { datasetRange, entityBounds, shownLane } from "../lib/entities";
@@ -54,6 +54,9 @@ type State = {
    * cursor alone.
    */
   focusHint: { id: string; year: number } | null;
+  /** Events shown: of these types (any, if none) and involving these people (any, if none). */
+  filters: { types: EventType[]; people: string[] };
+  setFilters: (filters: Partial<State["filters"]>) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -104,6 +107,8 @@ export const useStore = create<State>()((set, get) => {
     timeStripPx: 0,
     focusHint: null,
     lanes: loadLanes(),
+    filters: { types: [], people: [] },
+    setFilters: (f) => set({ filters: { ...get().filters, ...f } }),
     setLaneShown: (lane, shown) => {
       const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));
       saveLanes(lanes);
