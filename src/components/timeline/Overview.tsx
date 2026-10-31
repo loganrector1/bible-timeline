@@ -1,9 +1,10 @@
-import { useRef, type PointerEvent } from "react";
+import { useRef, useState, type PointerEvent } from "react";
 import { data, datesFor } from "../../data";
 import { specBounds } from "../../lib/dates";
 import { datasetRange } from "../../lib/entities";
 import { visibleRange, type TimeScale } from "../../lib/timeScale";
 import { useStore } from "../../state/store";
+import EraTip from "../EraTip";
 
 const PAD = 8;
 const MIN_BOX_PX = 10;
@@ -15,13 +16,15 @@ type Drag =
 /**
  * A slim overview of the whole timeline down the right edge, with a box showing the
  * visible range. Drag the box to scroll (it stays where you grabbed it), click outside
- * it to jump there, or drag its top/bottom handles to zoom.
+ * it to jump there, or drag its top/bottom handles to zoom. Hovering or dragging names the
+ * era under the pointer.
  */
 export default function Overview({ scale }: { scale: TimeScale }) {
   const chron = useStore((s) => s.chronologyId);
   const setYear = useStore((s) => s.setYear);
   const setZoom = useStore((s) => s.setZoom);
   const drag = useRef<Drag | null>(null);
+  const [tipY, setTipY] = useState<number | null>(null);
   const [lo, hi] = datasetRange(chron);
   const usable = scale.height - PAD * 2;
   const toPx = (y: number) => PAD + ((y - lo) / (hi - lo)) * usable;
@@ -48,9 +51,10 @@ export default function Overview({ scale }: { scale: TimeScale }) {
   };
 
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    const y = localY(e);
+    setTipY(y);
     const d = drag.current;
     if (!d || !e.buttons) return;
-    const y = localY(e);
     if (d.mode === "move") {
       setYear(toYear(y - d.grabOffset));
     } else {
@@ -70,7 +74,11 @@ export default function Overview({ scale }: { scale: TimeScale }) {
       className="absolute inset-y-0 right-0 z-[3] w-6 cursor-pointer touch-none border-l border-line bg-paper-2"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
-      onPointerUp={() => (drag.current = null)}
+      onPointerUp={(e) => {
+        drag.current = null;
+        if (e.pointerType === "touch") setTipY(null);
+      }}
+      onPointerLeave={() => !drag.current && setTipY(null)}
     >
       {data.eras.map((era) => {
         const spec = datesFor(era, chron);
@@ -95,6 +103,9 @@ export default function Overview({ scale }: { scale: TimeScale }) {
           <div className="pointer-events-none mx-auto mt-0.5 h-1 w-3 rounded-full bg-ink/70 opacity-0 group-hover:opacity-100" />
         </div>
       </div>
+      {tipY !== null && (
+        <EraTip year={toYear(tipY)} style={{ right: "calc(100% + 6px)", top: Math.min(Math.max(tipY, 24), scale.height - 24), transform: "translateY(-50%)" }} />
+      )}
     </div>
   );
 }

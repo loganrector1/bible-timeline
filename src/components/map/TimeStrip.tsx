@@ -1,10 +1,11 @@
-import { useEffect, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { data, datesFor } from "../../data";
 import { formatTimePoint, fromFractional, specBounds } from "../../lib/dates";
 import { adjacentEvent, datasetRange } from "../../lib/entities";
 import { JOURNEY_DELAY_MS, journeyDuration } from "../../lib/journeys";
 import { cursorPrecision } from "../../lib/timeScale";
 import { useStore } from "../../state/store";
+import EraTip from "../EraTip";
 
 const SPEEDS = [1, 2, 4];
 /** At 1×, how long play rests on each event before moving to the next. */
@@ -20,6 +21,20 @@ export default function TimeStrip() {
   const setPlaying = useStore((s) => s.setPlaying);
   const setYear = useStore((s) => s.setYear);
   const [speed, setSpeed] = useState(1);
+
+  // Report the strip's height, so a phone's Both view can split the screen above it evenly.
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const { setTimeStripPx } = useStore.getState();
+    const observer = new ResizeObserver(() => setTimeStripPx(el.offsetHeight));
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      setTimeStripPx(0);
+    };
+  }, []);
   const [lo, hi] = datasetRange(chron);
   const frac = (y: number) => ((y - lo) / (hi - lo)) * 100;
 
@@ -49,11 +64,13 @@ export default function TimeStrip() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing, speed]);
 
-  const scrub = (e: PointerEvent<HTMLDivElement>) => {
+  const fractionAt = (e: PointerEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const f = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-    setYear(lo + f * (hi - lo));
+    return { f: Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width)), width: rect.width };
   };
+  const scrub = (e: PointerEvent<HTMLDivElement>) => setYear(lo + fractionAt(e).f * (hi - lo));
+  /** Where the pointer is over the era bar, to name the era there (hover, or any drag). */
+  const [tip, setTip] = useState<{ f: number; width: number } | null>(null);
 
   const label = formatTimePoint(fromFractional(currentYear, cursorPrecision(pxPerYear)), eraStyle);
   // Background classes stay out of the shared base so a variant never has two competing ones.
@@ -61,7 +78,7 @@ export default function TimeStrip() {
   const btn = `${base} border-line bg-paper hover:bg-paper-2`;
 
   return (
-    <div data-sheet-floor className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
+    <div ref={ref} data-sheet-floor className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
       <div className="flex items-center gap-1.5">
         <button onClick={() => step(-1)} aria-label="Previous event" className={btn}>⏮</button>
         <button
@@ -97,8 +114,14 @@ export default function TimeStrip() {
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           scrub(e);
+          setTip(fractionAt(e));
         }}
-        onPointerMove={(e) => e.buttons && scrub(e)}
+        onPointerMove={(e) => {
+          setTip(fractionAt(e));
+          if (e.buttons) scrub(e);
+        }}
+        onPointerUp={(e) => e.pointerType === "touch" && setTip(null)}
+        onPointerLeave={(e) => !e.buttons && setTip(null)}
       >
         {data.eras.map((era) => {
           const spec = datesFor(era, chron);
@@ -107,13 +130,19 @@ export default function TimeStrip() {
           return (
             <div
               key={era.id}
-              title={era.name}
               className="absolute top-2.5 h-2 rounded-sm"
               style={{ left: `${frac(a)}%`, width: `${frac(b) - frac(a)}%`, backgroundColor: era.color }}
             />
           );
         })}
         <div className="absolute top-0 h-7 w-0.5 -translate-x-1/2 rounded bg-accent" style={{ left: `${frac(currentYear)}%` }} />
+        {tip && (
+          // Above the bar, kept from running off either end.
+          <EraTip
+            year={lo + tip.f * (hi - lo)}
+            style={{ bottom: "calc(100% + 6px)", left: Math.min(Math.max(tip.f * tip.width, 70), tip.width - 70), transform: "translateX(-50%)" }}
+          />
+        )}
       </div>
 
       <span className="w-28 shrink-0 pr-1 text-right text-xs font-semibold tabular-nums">{label}</span>
