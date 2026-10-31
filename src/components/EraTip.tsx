@@ -15,8 +15,9 @@ export default function EraTip({ year, style }: { year: number; style: CSSProper
   const spec = era && datesFor(era, chron);
   if (!era) return null;
   return (
+    // Above the phone's details sheet (z-20), which the time strip's tip rises into.
     <div
-      className="pointer-events-none absolute z-20 rounded-lg border border-line bg-paper px-2.5 py-1.5 text-left whitespace-nowrap shadow-lg"
+      className="pointer-events-none absolute z-30 rounded-lg border border-line bg-paper px-2.5 py-1.5 text-left whitespace-nowrap shadow-lg"
       style={style}
     >
       <div className="flex items-center gap-1.5 text-sm leading-tight font-semibold">
