@@ -3,7 +3,7 @@ import { data, datesFor } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
-import { personSpan } from "../src/lib/entities";
+import { personSpan, shownLane } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -80,5 +80,12 @@ describe("people's bars", () => {
 
   test("use dates when there are some", () => {
     expect(span("moses")?.derived).toBe(false);
+  });
+
+  test("someone in two lanes shows in the first that's on", () => {
+    const peter = data.people.find((p) => p.id === "peter")!;
+    expect(shownLane(peter, ["people", "church"])).toBe("people");
+    expect(shownLane(peter, ["church"])).toBe("church");
+    expect(shownLane(peter, ["kings"])).toBeUndefined();
   });
 });

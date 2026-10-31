@@ -2,7 +2,7 @@ import {
   data, datesFor, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
-import type { Era, Event, Location, Person } from "../data/schema";
+import type { Era, Event, Lane, Location, Person } from "../data/schema";
 import { formatDateSpec, specBounds, specExtent, specMidpoint, type DateSpec, type EraStyle } from "./dates";
 
 export type Bounds = [number, number];
@@ -85,6 +85,14 @@ export function adjacentEvent(
 }
 
 /**
+ * The lane a person shows in, of those shown (in menu order): the first they belong to, so
+ * Peter is among the main figures when they're shown and in the church lane when only it is.
+ */
+export function shownLane(person: Person, shown: Lane[]): Lane | undefined {
+  return shown.find((l) => l === person.lane || person.alsoIn.includes(l));
+}
+
+/**
  * Where a person's bar runs: their dates (`specExtent`), or else from their first event to
  * their last (`derived`), so people Scripture gives no lifespan, like Peter, still have a
  * place on the timeline. That's for people in two or more events, and prophets (dated by
@@ -95,7 +103,7 @@ export function personSpan(person: Person, chron: string): { bounds: Bounds; spe
   const own = datesFor(person, chron);
   if (own) return { bounds: specExtent(own), spec: own, derived: false };
   const extents = eventsForPerson(person.id, chron).map((ev) => specExtent(datesFor(ev, chron)!));
-  if (extents.length === 0 || (extents.length < 2 && person.lane !== "prophets")) return undefined;
+  if (extents.length === 0 || (extents.length < 2 && shownLane(person, ["prophets"]) === undefined)) return undefined;
   const bounds: Bounds = [Math.min(...extents.map((e) => e[0])), Math.max(...extents.map((e) => e[1]))];
   if (bounds[1] - bounds[0] < 1) return undefined;
   // For describing it: the years it runs between.

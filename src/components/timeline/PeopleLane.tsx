@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { data, datesFor } from "../../data";
 import type { Lane } from "../../data/schema";
 import { formatDateSpec, specMidpoint } from "../../lib/dates";
-import { lifeMarkPerson, personDatesText, personSpan } from "../../lib/entities";
+import { lifeMarkPerson, personDatesText, personSpan, shownLane } from "../../lib/entities";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -19,7 +19,8 @@ export const LANE_NAMES: Record<Lane, string> = {
 
 /**
  * One lane of people (the main figures, or a group like the prophets) as vertical bars,
- * packed into columns so overlapping lives sit side by side. A bar is the person's dates, or,
+ * packed into columns so overlapping lives sit side by side. Someone in two lanes (Peter) shows
+ * in the first that's on. A bar is the person's dates, or,
  * lighter and dashed, the span of their events when Scripture gives no dates (`personSpan`).
  * Routine births and deaths are small marks on the bar rather than dots in the event lane.
  */
@@ -28,16 +29,17 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
   const select = useStore((s) => s.select);
+  const shown = useStore((s) => s.lanes);
   const highlight = useHighlight();
 
   const lives = useMemo(() => {
-    const items = data.people.filter((p) => p.lane === lane).flatMap((person) => {
+    const items = data.people.filter((p) => shownLane(p, shown) === lane).flatMap((person) => {
       const span = personSpan(person, chron);
       return span ? [{ person, ...span }] : [];
     });
     const columns = packIntervals(items.map((i) => i.bounds));
     return items.map((item, i) => ({ ...item, column: columns[i] }));
-  }, [chron, lane]);
+  }, [chron, lane, shown]);
 
   const marks = useMemo(() => {
     const columnOf = new Map(lives.map((l) => [l.person.id, l.column]));

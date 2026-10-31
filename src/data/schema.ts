@@ -80,6 +80,8 @@ export const Person = z.object({
   altNames: z.array(z.string()).default([]),
   roles: z.array(z.string()).default([]),
   lane: Lane.default("people"),
+  /** Other lanes they belong to (Peter is also church). They show once, in the first lane that's on. */
+  alsoIn: z.array(Lane).default([]),
   summary: z.string(),
   /**
    * Lifespan where Scripture supports one; otherwise the years we can place them (a reign, a

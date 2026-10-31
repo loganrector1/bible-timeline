@@ -636,7 +636,7 @@
     "summary": "A shepherd from Judah denounces the northern kingdom's injustice and hollow worship at Bethel, and foretells its fall.",
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
-    "people": ["amos"], "locations": ["tekoa", "bethel"],
+    "people": ["amos", "jeroboam-ii"], "locations": ["tekoa", "bethel"],
     "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
   },
   {
@@ -644,7 +644,7 @@
     "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
     "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
     "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
-    "people": ["isaiah"], "locations": ["jerusalem"],
+    "people": ["isaiah", "uzziah", "jotham", "ahaz", "hezekiah"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
   },
   {
@@ -652,6 +652,7 @@
     "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
     "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
     "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
+    "people": ["hoshea"],
     "locations": ["samaria", "gozan", "halah"],
     "journeyId": "to-assyria",
     "scripture": [{ "book": "2 Kings", "chapter": 17 }]
@@ -677,7 +678,7 @@
     "summary": "For four decades Jeremiah warns Judah to repent and submit to Babylon, weeps over Jerusalem's fall, and promises a new covenant.",
     "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
-    "people": ["jeremiah"], "locations": ["anathoth", "jerusalem"],
+    "people": ["jeremiah", "josiah", "jehoiakim", "zedekiah"], "locations": ["anathoth", "jerusalem"],
     "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
   },
   {
@@ -693,7 +694,7 @@
     "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
     "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
     "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
-    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"], "journeyId": "jehoiachin-to-babylon",
+    "people": ["jehoiachin", "nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"], "journeyId": "jehoiachin-to-babylon",
     "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
   },
   {

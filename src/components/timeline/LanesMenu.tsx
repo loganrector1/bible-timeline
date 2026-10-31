@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import type { Lane } from "../../data/schema";
+import { Lane } from "../../data/schema";
 import { useStore } from "../../state/store";
 import { LANE_NAMES } from "./PeopleLane";
 
-const LANES: Lane[] = ["people", "kings", "prophets", "church"];
+const LANES: Lane[] = Lane.options;
 
 /** The "People" button: a small menu of the people lanes to show. */
 export default function LanesMenu() {

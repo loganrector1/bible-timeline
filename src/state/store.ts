@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
-import type { Lane } from "../data/schema";
+import { Lane } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
-import { datasetRange, entityBounds } from "../lib/entities";
+import { datasetRange, entityBounds, shownLane } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
 
@@ -15,7 +15,7 @@ const clampZoom = (z: number) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
 
 /** Which people lanes are shown, remembered per browser (a convenience; it may be unavailable). */
 const LANES_KEY = "bible-timeline:lanes";
-const LANE_ORDER: Lane[] = ["people", "kings", "prophets", "church"];
+const LANE_ORDER: Lane[] = Lane.options;
 function loadLanes(): Lane[] {
   try {
     const saved: unknown = JSON.parse(localStorage.getItem(LANES_KEY) ?? "null");
@@ -153,7 +153,7 @@ export const useStore = create<State>()((set, get) => {
       });
       // A person in a hidden lane brings their lane into view.
       const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
-      if (person && !get().lanes.includes(person.lane)) get().setLaneShown(person.lane, true);
+      if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
       if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.
       const b = entityBounds(ref, get().chronologyId);
       if (!b) return;
