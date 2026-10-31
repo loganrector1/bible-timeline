@@ -128,7 +128,7 @@
     "summary": "After taking Esau's blessing, Jacob flees to Laban and dreams of a stairway to heaven at Bethel.",
     "dates": { "early": { "start": { "year": -1928 }, "confidence": "approx" } },
     "dateNote": "Estimated from Jacob's age at the move to Egypt and his years with Laban.",
-    "people": ["jacob", "esau", "isaac", "rebekah"], "locations": ["beersheba", "bethel", "haran"],
+    "people": ["jacob", "esau", "isaac", "rebekah", "laban"], "locations": ["beersheba", "bethel", "haran"],
     "journeyId": "jacob-flight",
     "scripture": [{ "book": "Genesis", "chapter": 27, "endChapter": 28 }]
   },
@@ -136,7 +136,7 @@
     "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
     "summary": "Jacob works fourteen years for Laban's daughters; his sons, the ancestors of Israel's tribes, are born in Haran.",
     "dates": { "early": { "start": { "year": -1921 }, "end": { "year": -1909 }, "confidence": "approx" } },
-    "people": ["jacob", "leah", "rachel", "judah", "joseph"], "locations": ["haran"],
+    "people": ["jacob", "leah", "rachel", "laban", "judah", "joseph"], "locations": ["haran"],
     "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
   },
   {
@@ -200,7 +200,7 @@
       "late": { "start": { "year": -1299 }, "end": { "year": -1260 }, "confidence": "approx" }
     },
     "dateNote": "Scripture does not date the start of the oppression; these spans are estimates.",
-    "people": ["pharaoh-exodus"], "locations": ["pithom", "rameses"], "regions": ["goshen"],
+    "people": [], "locations": ["pithom", "rameses"], "regions": ["goshen"],
     "scripture": [{ "book": "Exodus", "chapter": 1 }]
   },
   {
@@ -636,7 +636,7 @@
     "summary": "A shepherd from Judah denounces the northern kingdom's injustice and hollow worship at Bethel, and foretells its fall.",
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
-    "people": ["amos"], "locations": ["tekoa", "bethel"],
+    "people": ["amos", "jeroboam-ii"], "locations": ["tekoa", "bethel"],
     "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
   },
   {
@@ -644,7 +644,7 @@
     "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
     "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
     "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
-    "people": ["isaiah"], "locations": ["jerusalem"],
+    "people": ["isaiah", "uzziah", "jotham", "ahaz", "hezekiah", "tiglath-pileser"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
   },
   {
@@ -652,6 +652,7 @@
     "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
     "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
     "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
+    "people": ["hoshea", "shalmaneser-v"],
     "locations": ["samaria", "gozan", "halah"],
     "journeyId": "to-assyria",
     "scripture": [{ "book": "2 Kings", "chapter": 17 }]
@@ -661,7 +662,7 @@
     "summary": "Assyria's king takes Lachish and surrounds Jerusalem. Hezekiah prays, Isaiah promises deliverance, and the angel of the Lord strikes the Assyrian camp.",
     "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
     "dateNote": "Sennacherib's own annals and the reliefs of Lachish from his palace record this campaign of 701 BC.",
-    "people": ["hezekiah", "isaiah"], "locations": ["jerusalem", "lachish"],
+    "people": ["hezekiah", "isaiah", "sennacherib"], "locations": ["jerusalem", "lachish"],
     "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }]
   },
   {
@@ -677,7 +678,7 @@
     "summary": "For four decades Jeremiah warns Judah to repent and submit to Babylon, weeps over Jerusalem's fall, and promises a new covenant.",
     "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
-    "people": ["jeremiah"], "locations": ["anathoth", "jerusalem"],
+    "people": ["jeremiah", "josiah", "jehoiakim", "zedekiah", "neco"], "locations": ["anathoth", "jerusalem"],
     "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
   },
   {
@@ -693,7 +694,7 @@
     "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
     "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
     "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
-    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"], "journeyId": "jehoiachin-to-babylon",
+    "people": ["jehoiachin", "nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"], "journeyId": "jehoiachin-to-babylon",
     "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
   },
   {
@@ -751,7 +752,7 @@
     "summary": "After years of opposition and neglect, Haggai and Zechariah stir the people to build, and the temple is finished and dedicated.",
     "dates": { "early": { "start": { "year": -519, "month": 9, "label": "24th of 6th month" }, "end": { "year": -514, "month": 3, "label": "3 Adar" }, "confidence": "approx" } },
     "dateNote": "Work resumed in Darius's second year, 520 BC (Haggai 1:15), and the temple was finished on 3 Adar in his sixth year, March 515 BC (Ezra 6:15).",
-    "people": ["zerubbabel", "haggai", "zechariah"], "locations": ["jerusalem"],
+    "people": ["zerubbabel", "haggai", "zechariah", "darius"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
   },
   {
@@ -830,7 +831,7 @@
     "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there. Angels announce him to shepherds, and magi from the east come to worship.",
     "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
     "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
-    "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "nazareth"],
+    "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great", "augustus"], "locations": ["bethlehem", "nazareth"],
     "journeyId": "to-bethlehem",
     "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 20 }]
   },
@@ -854,7 +855,7 @@
     "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are my beloved Son.\"",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
     "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
-    "people": ["jesus", "john-the-baptist"], "locations": ["jordan-river"],
+    "people": ["jesus", "john-the-baptist", "tiberius"], "locations": ["jordan-river"],
     "scripture": [{ "book": "Matthew", "chapter": 3, "verse": 13, "endVerse": 17 }, { "book": "Luke", "chapter": 3, "verse": 21, "endVerse": 23 }]
   },
   {
@@ -983,7 +984,7 @@
     "summary": "After trials before the high priest and Pilate, Jesus is crucified at Golgotha between two criminals, and dies. He is buried in a nearby tomb.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 7, "label": "14 Nisan" }, "confidence": "approx" } },
     "dateNote": "On the day of Preparation for the Passover (John 19:14, 31). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
-    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate"], "locations": ["golgotha", "jerusalem"],
+    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate", "herod-antipas"], "locations": ["golgotha", "jerusalem"],
     "scripture": [{ "book": "Matthew", "chapter": 27 }, { "book": "John", "chapter": 18, "endChapter": 19 }]
   },
   {
@@ -1110,7 +1111,7 @@
     "summary": "A riot breaks out when Paul visits the temple. Roman soldiers take him into custody, and he is held at Caesarea for two years.",
     "dates": { "early": { "start": { "year": 57, "month": 6 }, "confidence": "approx" } },
     "dateNote": "Paul hurried to reach Jerusalem by Pentecost (Acts 20:16).",
-    "people": ["paul"], "locations": ["jerusalem", "caesarea"],
+    "people": ["paul", "felix", "festus"], "locations": ["jerusalem", "caesarea"],
     "scripture": [{ "book": "Acts", "chapter": 21, "verse": 27, "endChapter": 26, "endVerse": 32 }]
   },
   {
@@ -1118,7 +1119,7 @@
     "summary": "Having appealed to Caesar, Paul sails for Rome under guard. The ship is wrecked on Malta, and he reaches Rome the next spring.",
     "dates": { "early": { "start": { "year": 59, "month": 9 }, "end": { "year": 60, "month": 3 }, "confidence": "approx" } },
     "dateNote": "Festus took over from Felix about AD 59 (Acts 24:27). They sailed after the autumn fast and wintered three months on Malta (Acts 27:9; 28:11).",
-    "people": ["paul"], "locations": ["caesarea", "myra", "fair-havens", "malta", "rome"],
+    "people": ["paul", "festus", "nero"], "locations": ["caesarea", "myra", "fair-havens", "malta", "rome"],
     "journeyId": "paul-to-rome",
     "scripture": [{ "book": "Acts", "chapter": 27, "endChapter": 28 }]
   },
@@ -1135,7 +1136,7 @@
     "summary": "Imprisoned again in Rome and expecting to die, Paul writes to Timothy: \"I have fought the good fight, I have finished the race, I have kept the faith.\"",
     "dates": { "early": { "start": { "year": 67 }, "confidence": "approx" } },
     "dateNote": "Tradition says Paul was beheaded in Rome under Nero, about AD 64–67, and that Peter was crucified there too.",
-    "people": ["paul", "timothy"], "locations": ["rome"],
+    "people": ["paul", "timothy", "nero"], "locations": ["rome"],
     "scripture": [{ "book": "2 Timothy", "chapter": 4, "verse": 6, "endVerse": 8 }]
   },
   {
@@ -1235,7 +1236,7 @@
     "summary": "Herod Agrippa kills James the brother of John and jails Peter. While the church prays, an angel leads Peter out past the guards.",
     "dates": { "early": { "start": { "year": 44 }, "confidence": "approx" } },
     "dateNote": "Shortly before Herod Agrippa I died in AD 44 (Acts 12:20–23), a death Josephus also records.",
-    "people": ["peter", "james-son-of-zebedee"], "locations": ["jerusalem"],
+    "people": ["peter", "james-son-of-zebedee", "herod-agrippa"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Acts", "chapter": 12, "verse": 1, "endVerse": 19 }]
   },
   {
@@ -1275,7 +1276,7 @@
     "summary": "Relieved by Titus's news, Paul writes from Macedonia about his trials, the ministry of the new covenant, and God's power made perfect in weakness.",
     "dates": { "early": { "start": { "year": 56 }, "confidence": "approx" } },
     "dateNote": "Written in Macedonia after leaving Ephesus (2 Corinthians 2:12–13; 7:5–7), perhaps at Philippi.",
-    "people": ["paul", "timothy"], "locations": ["philippi", "corinth"],
+    "people": ["paul", "timothy", "titus"], "locations": ["philippi", "corinth"],
     "scripture": [{ "book": "2 Corinthians", "chapter": 4, "verse": 7, "endVerse": 18 }, { "book": "2 Corinthians", "chapter": 12, "verse": 7, "endVerse": 10 }]
   },
   {
@@ -1307,7 +1308,7 @@
     "summary": "Paul instructs his co-workers Timothy in Ephesus and Titus on Crete in choosing leaders, guarding sound teaching and caring for the church.",
     "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
     "dateNote": "Probably between Paul's two Roman imprisonments, years that Acts doesn't cover.",
-    "people": ["paul", "timothy"], "locations": ["ephesus", "crete"],
+    "people": ["paul", "timothy", "titus"], "locations": ["ephesus", "crete"],
     "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }]
   },
   {

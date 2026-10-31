@@ -1,51 +1,70 @@
 import { useMemo } from "react";
 import { data, datesFor } from "../../data";
-import { formatDateSpec, specExtent, specMidpoint } from "../../lib/dates";
-import { lifeMarkPerson } from "../../lib/entities";
+import type { Lane } from "../../data/schema";
+import { formatDateSpec, specMidpoint } from "../../lib/dates";
+import { hasLifeMarks, lifeMarkPerson, personDatesText, personSpan, shownLanes } from "../../lib/entities";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { hoverProps, type OnHover } from "./hover";
 import { packIntervals } from "./pack";
 
-const COLUMN = 18;
-const BAR = 14;
+const COLUMN = 15;
+const BAR = 12;
 const MARK = 10;
 
+/** Judah warm, Israel cool; the united kingdom plain. */
+const KINGDOM_TINT = {
+  united: "border-ink/25 bg-ink/10",
+  judah: "border-amber-700/40 bg-amber-500/25",
+  israel: "border-sky-700/40 bg-sky-500/25",
+};
+
+export const LANE_NAMES: Record<Lane, string> = {
+  people: "Important people", kings: "Kings & rulers", prophets: "Prophets", church: "Apostles & church",
+};
+
 /**
- * Lifespans as vertical bars, packed into columns so overlapping lives sit side by side.
+ * One lane of people (the main figures, or a group like the prophets) as vertical bars,
+ * packed into columns so overlapping lives sit side by side. Someone in two lanes (Peter) shows
+ * in the first that's on, except that kings always show in the Kings lane (`shownLanes`). A bar is the person's dates, or,
+ * lighter and dashed, the span of their events when Scripture gives no dates (`personSpan`).
  * Routine births and deaths are small marks on the bar rather than dots in the event lane.
  */
-export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
+export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale; onHover: OnHover; lane: Lane }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
   const select = useStore((s) => s.select);
+  const shown = useStore((s) => s.lanes);
   const highlight = useHighlight();
 
   const lives = useMemo(() => {
-    const items = data.people.flatMap((person) => {
-      const spec = datesFor(person, chron);
-      return spec ? [{ person, spec, bounds: specExtent(spec) }] : [];
+    const items = data.people.filter((p) => shownLanes(p, shown).includes(lane)).flatMap((person) => {
+      const span = personSpan(person, chron, lane === "kings");
+      return span ? [{ person, ...span }] : [];
     });
-    const columns = packIntervals(items.map((i) => i.bounds));
+    // Kings: Judah (after the united kingdom) on the left, Israel beside it; other rulers fill in.
+    const preset = items.map(({ person: p }) => (lane !== "kings" || !p.kingdom ? undefined : p.kingdom === "israel" ? 1 : 0));
+    const columns = packIntervals(items.map((i) => i.bounds), preset);
     return items.map((item, i) => ({ ...item, column: columns[i] }));
-  }, [chron]);
+  }, [chron, lane, shown]);
 
   const marks = useMemo(() => {
-    const columnOf = new Map(lives.map((l) => [l.person.id, l.column]));
+    const columnOf = new Map(lives.filter((l) => hasLifeMarks(l.person, lane)).map((l) => [l.person.id, l.column]));
     return data.events.flatMap((ev) => {
       const personId = lifeMarkPerson(ev, chron);
       const spec = datesFor(ev, chron);
-      return personId && spec ? [{ ev, spec, year: specMidpoint(spec), column: columnOf.get(personId)! }] : [];
+      const column = personId ? columnOf.get(personId) : undefined;
+      return column !== undefined && spec ? [{ ev, spec, year: specMidpoint(spec), column }] : [];
     });
-  }, [lives, chron]);
+  }, [lives, chron, lane]);
 
   const width = (Math.max(0, ...lives.map((l) => l.column)) + 1) * COLUMN + 8;
 
   return (
     <div className="relative shrink-0 border-r border-line/60" style={{ width }}>
-      {lives.map(({ person, spec, bounds, column }) => {
+      {lives.map(({ person, spec, bounds, column, derived }) => {
         const top = yearToPx(scale, bounds[0]);
         const bottom = yearToPx(scale, bounds[1]);
         if (bottom < 0 || top > scale.height) return null;
@@ -54,7 +73,7 @@ export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHov
         const lit = !highlight || highlight.people.has(person.id);
         // Keep the name in view while any part of the bar is on screen.
         const labelOffset = Math.max(0, Math.min(-top, height - 80)) + 6;
-        const dateText = formatDateSpec(spec, eraStyle);
+        const dateText = personDatesText(person, chron, eraStyle) ?? "";
 
         return (
           <button
@@ -66,8 +85,10 @@ export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHov
             className={`absolute overflow-hidden rounded-full border transition-opacity ${
               selected ? "border-accent bg-accent text-paper"
               : lit && highlight ? "border-accent bg-accent-soft text-ink"
+              : derived ? "border-ink/30 bg-ink/5 text-ink hover:border-accent"
+              : lane === "kings" && person.kingdom ? `${KINGDOM_TINT[person.kingdom]} text-ink hover:border-accent`
               : "border-ink/25 bg-ink/10 text-ink hover:border-accent"
-            } ${lit ? "" : "opacity-35"}`}
+            } ${derived && !selected ? "border-dashed" : ""} ${lit ? "" : "opacity-35"}`}
             style={{
               left: column * COLUMN + 4,
               width: BAR,

@@ -9,6 +9,7 @@ import EventLane from "./EventLane";
 import { HoverCard, type TimelineHover } from "./hover";
 import OffscreenSelection from "./OffscreenSelection";
 import Overview from "./Overview";
+import LanesMenu from "./LanesMenu";
 import PeopleLane from "./PeopleLane";
 import TimeCursor from "./TimeCursor";
 import { useTimelineGestures, zoomBy } from "./useTimelineGestures";
@@ -18,7 +19,7 @@ export const AXIS_WIDTH = 76;
 export default function Timeline() {
   const ref = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(600);
-  const [showPeople, setShowPeople] = useState(true);
+  const lanes = useStore((s) => s.lanes);
   const currentYear = useStore((s) => s.currentYear);
   const pxPerYear = useStore((s) => s.pxPerYear);
   const setViewportPx = useStore((s) => s.setViewportPx);
@@ -76,13 +77,7 @@ export default function Timeline() {
         ? "flex justify-end gap-1 border-t border-line bg-paper-2 px-3 py-2 text-sm"
         : "absolute right-12 bottom-3 z-10 flex gap-1 text-sm"}
     >
-      <button
-        onClick={() => setShowPeople(!showPeople)}
-        aria-pressed={showPeople}
-        className={`rounded-md border border-line px-2 py-1 shadow-sm ${showPeople ? "bg-ink text-paper" : "bg-paper text-ink-muted"}`}
-      >
-        People
-      </button>
+      <LanesMenu />
       <button onClick={() => zoomBy(0.6)} aria-label="Zoom out" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">−</button>
       <button onClick={() => zoomBy(1 / 0.6)} aria-label="Zoom in" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">+</button>
     </div>
@@ -102,8 +97,8 @@ export default function Timeline() {
         <EraBands scale={scale} onHover={setHover} />
         <Axis scale={scale} />
         <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
-          {showPeople && <PeopleLane scale={scale} onHover={setHover} />}
-          <EventLane scale={scale} onHover={setHover} peopleShown={showPeople} />
+          {lanes.map((lane) => <PeopleLane key={lane} lane={lane} scale={scale} onHover={setHover} />)}
+          <EventLane scale={scale} onHover={setHover} lanes={lanes} />
         </div>
         <TimeCursor scale={scale} />
         <Overview scale={scale} />

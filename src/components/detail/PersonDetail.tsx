@@ -1,14 +1,13 @@
-import { childrenOf, datesFor } from "../../data";
+import { childrenOf } from "../../data";
 import type { Person } from "../../data/schema";
-import { formatDateSpec } from "../../lib/dates";
-import { eventsForPerson } from "../../lib/entities";
+import { eventsForPerson, personDatesText } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { Chips, EventList, Note, ScriptureList, Section } from "./parts";
 
 export default function PersonDetail({ person }: { person: Person }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
-  const spec = datesFor(person, chron);
+  const datesText = personDatesText(person, chron, eraStyle);
   const children = childrenOf(person.id);
   const events = eventsForPerson(person.id, chron);
 
@@ -22,7 +21,7 @@ export default function PersonDetail({ person }: { person: Person }) {
     <>
       <p className="text-sm font-medium text-accent">
         {person.roles.join(", ")}
-        {spec && <span className="text-ink-muted"> · {formatDateSpec(spec, eraStyle)}</span>}
+        {datesText && <span className="text-ink-muted"> · {datesText}</span>}
       </p>
       {person.altNames.length > 0 && (
         <p className="mt-1 text-sm text-ink-muted">Also called {person.altNames.join(", ")}</p>

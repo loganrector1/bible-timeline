@@ -2,8 +2,8 @@ import {
   data, datesFor, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
-import type { Era, Event, Location } from "../data/schema";
-import { specBounds, specExtent, specMidpoint } from "./dates";
+import type { Era, Event, Lane, Location, Person } from "../data/schema";
+import { formatDateSpec, specBounds, specExtent, specMidpoint, type DateSpec, type EraStyle } from "./dates";
 
 export type Bounds = [number, number];
 
@@ -82,6 +82,65 @@ export function adjacentEvent(
   return dir === 1
     ? ordered.find((ev) => eventOrderKey(ev, chron) > currentYear + eps)
     : ordered.findLast((ev) => eventOrderKey(ev, chron) < currentYear - eps);
+}
+
+/**
+ * The lane a person shows in, of those shown (in menu order): the first they belong to, so
+ * Peter is among the main figures when they're shown and in the church lane when only it is.
+ */
+export function shownLane(person: Person, shown: Lane[]): Lane | undefined {
+  return shown.find((l) => l === person.lane || person.alsoIn.includes(l));
+}
+
+/**
+ * Every lane a person is drawn in: the first shown lane they belong to, and the Kings lane too,
+ * since there a king's bar is his reign in an unbroken line (David with the main figures and
+ * among the kings).
+ */
+export function shownLanes(person: Person, shown: Lane[]): Lane[] {
+  const first = shownLane(person, shown.filter((l) => l !== "kings"));
+  const king = shownLane(person, shown.filter((l) => l === "kings"));
+  return [first, king].filter((l) => l !== undefined);
+}
+
+/** Births and deaths mark the ends of a lifespan, so not a bar that's a reign. */
+export function hasLifeMarks(person: Person, lane: Lane): boolean {
+  return lane !== "kings" || !person.reign;
+}
+
+/**
+ * Where a person's bar runs: their dates (`specExtent`), or else from their first event to
+ * their last (`derived`), so people Scripture gives no lifespan, like Peter, still have a
+ * place on the timeline. That's for people in two or more events, and prophets (dated by
+ * their ministry, often a single event); others, like Leah, would only crowd the lane.
+ * Undefined when there's nothing to span. In the Kings lane (`asKing`) it's their reign, when
+ * that differs from their dates, so each kingdom's kings follow on one after another.
+ */
+export function personSpan(
+  person: Person, chron: string, asKing = false,
+): { bounds: Bounds; spec: DateSpec; derived: boolean } | undefined {
+  const own = (asKing ? datesFor({ dates: person.reign }, chron) : undefined) ?? datesFor(person, chron);
+  if (own) return { bounds: specExtent(own), spec: own, derived: false };
+  const extents = eventsForPerson(person.id, chron).map((ev) => specExtent(datesFor(ev, chron)!));
+  if (extents.length === 0 || (extents.length < 2 && shownLane(person, ["prophets"]) === undefined)) return undefined;
+  const bounds: Bounds = [Math.min(...extents.map((e) => e[0])), Math.max(...extents.map((e) => e[1]))];
+  if (bounds[1] - bounds[0] < 1) return undefined;
+  // For describing it: the years it runs between.
+  const spec: DateSpec = { start: { year: Math.floor(bounds[0]) }, end: { year: Math.floor(bounds[1]) }, confidence: "approx" };
+  return { bounds, spec, derived: true };
+}
+
+/**
+ * A person's dates for display: their own, or "known c. …" for a span drawn from their events,
+ * then their reign when it differs.
+ */
+export function personDatesText(person: Person, chron: string, eraStyle: EraStyle): string | undefined {
+  const span = personSpan(person, chron);
+  if (!span) return undefined;
+  const text = formatDateSpec(span.spec, eraStyle);
+  const reign = datesFor({ dates: person.reign }, chron);
+  return (span.derived ? `known c. ${text.replace(/^c\. /, "")}` : text) +
+    (reign ? `, reigned ${formatDateSpec(reign, eraStyle)}` : "");
 }
 
 export function eventsForPerson(personId: string, chron: string): Event[] {

@@ -2,6 +2,7 @@ import type { PointerEvent } from "react";
 import { datesFor, erasById, eventsById, peopleById, type EntityRef } from "../../data";
 import type { EventType } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
+import { personDatesText } from "../../lib/entities";
 import { useStore } from "../../state/store";
 
 export type TimelineHover = { ref: EntityRef; clientX: number; clientY: number };
@@ -41,10 +42,9 @@ export function HoverCard({ hover, container }: { hover: TimelineHover; containe
     dates = spec ? formatDateSpec(spec, eraStyle) : "";
   } else if (ref.kind === "person") {
     const p = peopleById.get(ref.id)!;
-    const spec = datesFor(p, chron);
     title = p.name;
     kicker = p.roles.join(", ");
-    dates = spec ? formatDateSpec(spec, eraStyle) : "";
+    dates = personDatesText(p, chron, eraStyle) ?? "";
   } else if (ref.kind === "era") {
     const era = erasById.get(ref.id)!;
     const spec = datesFor(era, chron);

@@ -1,8 +1,9 @@
 import { create } from "zustand";
-import { datesFor, eventsById, type EntityRef } from "../data";
+import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
+import { Lane } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
-import { datasetRange, entityBounds } from "../lib/entities";
+import { datasetRange, entityBounds, shownLane } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
 
@@ -11,6 +12,26 @@ export const MIN_ZOOM = 0.15;
 export const MAX_ZOOM = 365 * 40;
 
 const clampZoom = (z: number) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
+
+/** Which people lanes are shown, remembered per browser (a convenience; it may be unavailable). */
+const LANES_KEY = "bible-timeline:lanes";
+const LANE_ORDER: Lane[] = Lane.options;
+function loadLanes(): Lane[] {
+  try {
+    const saved: unknown = JSON.parse(localStorage.getItem(LANES_KEY) ?? "null");
+    if (Array.isArray(saved)) return LANE_ORDER.filter((l) => saved.includes(l));
+  } catch {
+    // Private windows and blocked storage fall back to the default.
+  }
+  return ["people"];
+}
+function saveLanes(lanes: Lane[]) {
+  try {
+    localStorage.setItem(LANES_KEY, JSON.stringify(lanes));
+  } catch {
+    // Not remembered; nothing else depends on it.
+  }
+}
 
 type State = {
   /** The shared "current moment", as a fractional astronomical year. */
@@ -33,6 +54,9 @@ type State = {
    * cursor alone.
    */
   focusHint: { id: string; year: number } | null;
+  /** People lanes shown on the timeline, in display order. */
+  lanes: Lane[];
+  setLaneShown: (lane: Lane, shown: boolean) => void;
 
   setYear: (year: number) => void;
   setZoom: (pxPerYear: number) => void;
@@ -76,6 +100,12 @@ export const useStore = create<State>()((set, get) => {
     viewportPx: 700,
     timeStripPx: 0,
     focusHint: null,
+    lanes: loadLanes(),
+    setLaneShown: (lane, shown) => {
+      const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));
+      saveLanes(lanes);
+      set({ lanes });
+    },
     selectionNonce: 0,
     browseOpen: false,
 
@@ -121,6 +151,9 @@ export const useStore = create<State>()((set, get) => {
         selectionNonce: get().selectionNonce + 1,
         playing: opts?.keepPlaying ? get().playing : false,
       });
+      // A person in a hidden lane brings their lane into view.
+      const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
+      if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
       if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.
       const b = entityBounds(ref, get().chronologyId);
       if (!b) return;

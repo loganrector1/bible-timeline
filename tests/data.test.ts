@@ -3,6 +3,7 @@ import { data, datesFor } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
+import { personSpan, shownLane, shownLanes } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -61,6 +62,47 @@ describe("births and deaths", () => {
         const at = datesFor(ev, chron)!.start;
         expect({ year, month, day }, `${ev.id} and ${person.id} (${chron})`).toEqual({ year: at.year, month: at.month, day: at.day });
       }
+    }
+  });
+});
+
+describe("people's bars", () => {
+  const span = (id: string) => personSpan(data.people.find((p) => p.id === id)!, DEFAULT_CHRONOLOGY);
+
+  test("without dates, span the person's events", () => {
+    expect(span("peter")?.derived).toBe(true);
+    expect(span("jeremiah")?.derived).toBe(true); // A prophet, from his one ministry event.
+  });
+
+  test("need two or more events unless they're a prophet", () => {
+    expect(span("leah")).toBeUndefined();
+  });
+
+  test("use dates when there are some", () => {
+    expect(span("moses")?.derived).toBe(false);
+  });
+
+  test("someone in two lanes shows in the first that's on", () => {
+    const peter = data.people.find((p) => p.id === "peter")!;
+    expect(shownLane(peter, ["people", "church"])).toBe("people");
+    expect(shownLane(peter, ["church"])).toBe("church");
+    expect(shownLane(peter, ["kings"])).toBeUndefined();
+  });
+
+  test("kings show in the Kings lane too, as their reign", () => {
+    const david = data.people.find((p) => p.id === "david")!;
+    expect(shownLanes(david, ["people", "kings"])).toEqual(["people", "kings"]);
+    expect(shownLanes(david, ["kings"])).toEqual(["kings"]);
+  });
+
+  test("each kingdom's reigns follow on without overlapping, as their one column needs", () => {
+    for (const kingdom of ["judah", "israel"]) {
+      const reigns = data.people
+        .filter((p) => p.kingdom === kingdom || (kingdom === "judah" && p.kingdom === "united"))
+        .flatMap((p) => personSpan(p, DEFAULT_CHRONOLOGY, true) ?? [])
+        .map((s) => s.bounds)
+        .sort((a, b) => a[0] - b[0]);
+      for (let i = 1; i < reigns.length; i++) expect(reigns[i][0]).toBeGreaterThanOrEqual(reigns[i - 1][1]);
     }
   });
 });
