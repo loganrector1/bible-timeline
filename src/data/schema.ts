@@ -40,7 +40,12 @@ export const Era = z.object({
 
 export const EventType = z.enum([
   "birth", "death", "battle", "covenant", "miracle", "journey",
-  "reign", "prophecy", "judgment", "worship", "family", "other",
+  "reign", "prophecy", "judgment", "worship", "family",
+  /** A prophet's or Jesus' public ministry. */
+  "ministry",
+  /** A book written, dated by when and where it was written rather than what it describes. */
+  "writing",
+  "other",
 ]);
 
 export const Event = z.object({
@@ -77,7 +82,7 @@ export const Person = z.object({
 });
 
 export const LocationType = z.enum([
-  "city", "region", "mountain", "river", "sea", "wilderness", "site",
+  "city", "region", "mountain", "river", "sea", "wilderness", "site", "island",
 ]);
 
 export const Location = z.object({
@@ -92,6 +97,8 @@ export const Location = z.object({
   uncertain: z.boolean().default(false),
   note: z.string().optional(),
   alternateSites: z.array(z.object({ name: z.string(), coords: Coords })).default([]),
+  /** OpenBible.info place name ("Bethel 1"), checked by scripts/openbible.mjs. */
+  openbible: z.string().optional(),
 });
 
 export const JourneyStop = z.object({

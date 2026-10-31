@@ -68,6 +68,15 @@ export default function EventLayer({
           "circle-stroke-width": ["match", ["get", "state"], -1, 2, 1.5],
         }}
       />
+      {/* MapLibre places labels from the top layer down, so the event labels above win collisions. */}
+      <Layer
+        id="locations-label-base"
+        type="symbol"
+        minzoom={5.5}
+        filter={["all", ["==", ["get", "kind"], "site"], ["==", ["get", "state"], 0]]}
+        layout={{ "text-field": ["get", "name"], "text-font": ["Noto Sans Italic"], "text-size": 11, "text-offset": [0, 0.8], "text-anchor": "top" }}
+        paint={{ "text-color": colors.muted, "text-halo-color": colors.halo, "text-halo-width": 1.2 }}
+      />
       <Layer
         id="locations-label"
         type="symbol"
@@ -85,14 +94,6 @@ export default function EventLayer({
           "text-halo-color": colors.halo,
           "text-halo-width": 1.5,
         }}
-      />
-      <Layer
-        id="locations-label-base"
-        type="symbol"
-        minzoom={5.5}
-        filter={["all", ["==", ["get", "kind"], "site"], ["==", ["get", "state"], 0]]}
-        layout={{ "text-field": ["get", "name"], "text-font": ["Noto Sans Italic"], "text-size": 11, "text-offset": [0, 0.8], "text-anchor": "top" }}
-        paint={{ "text-color": colors.muted, "text-halo-color": colors.halo, "text-halo-width": 1.2 }}
       />
     </Source>
   );

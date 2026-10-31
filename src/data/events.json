@@ -407,5 +407,631 @@
     "dateNote": "Moses spoke Deuteronomy in the 11th month of the 40th year (Deuteronomy 1:3).",
     "people": ["moses", "joshua"], "locations": ["nebo", "plains-of-moab"],
     "scripture": [{ "book": "Deuteronomy", "chapter": 34 }]
+  },
+  {
+    "id": "conquest", "title": "Conquest of Canaan", "type": "battle", "major": true,
+    "summary": "Joshua leads Israel across the Jordan and through campaigns in the center, south and north of Canaan, breaking the power of its kings.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4 }, "end": { "year": -1399 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4 }, "end": { "year": -1213 }, "confidence": "approx" }
+    },
+    "dateNote": "About seven years: Caleb was 40 when sent as a spy and 85 when the land was divided (Joshua 14:7–10).",
+    "people": ["joshua", "caleb"], "locations": ["jericho", "gibeon"], "regions": ["canaan"],
+    "scripture": [{ "book": "Joshua", "chapter": 1, "endChapter": 12 }]
+  },
+  {
+    "id": "cross-jordan", "title": "Crossing the Jordan", "type": "miracle", "partOf": "conquest",
+    "summary": "The Jordan stops flowing when the priests carrying the ark step into it, and Israel crosses into the Promised Land on dry ground.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" }
+    },
+    "dateNote": "Joshua 4:19, forty years after the Exodus.",
+    "people": ["joshua"], "locations": ["jordan-river", "gilgal"],
+    "scripture": [{ "book": "Joshua", "chapter": 3, "endChapter": 4 }]
+  },
+  {
+    "id": "fall-of-jericho", "title": "The fall of Jericho", "type": "battle", "major": true, "partOf": "conquest",
+    "summary": "Israel marches around Jericho for seven days; at the trumpet blast and shout its walls fall. Rahab and her family are spared.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4 }, "confidence": "approx" }
+    },
+    "people": ["joshua", "rahab"], "locations": ["jericho"],
+    "scripture": [{ "book": "Joshua", "chapter": 6 }]
+  },
+  {
+    "id": "sun-stands-still", "title": "The sun stands still at Gibeon", "type": "miracle", "partOf": "conquest",
+    "summary": "Joshua defends Gibeon against five Amorite kings, and the sun stands still until Israel has won.",
+    "dates": {
+      "early": { "start": { "year": -1405 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219 }, "confidence": "approx" }
+    },
+    "people": ["joshua"], "locations": ["gibeon"],
+    "scripture": [{ "book": "Joshua", "chapter": 10, "verse": 1, "endVerse": 15 }]
+  },
+  {
+    "id": "land-divided", "title": "The land divided among the tribes", "type": "covenant",
+    "summary": "Joshua divides the land among the tribes by lot, and the tabernacle is set up at Shiloh.",
+    "dates": {
+      "early": { "start": { "year": -1399 }, "confidence": "approx" },
+      "late": { "start": { "year": -1213 }, "confidence": "approx" }
+    },
+    "dateNote": "Caleb is 85, forty-five years after the spies (Joshua 14:7–10).",
+    "people": ["joshua", "caleb"], "locations": ["gilgal", "shiloh"], "regions": ["canaan"],
+    "scripture": [{ "book": "Joshua", "chapter": 13, "endChapter": 21 }]
+  },
+  {
+    "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant",
+    "summary": "Near the end of his life Joshua gathers Israel at Shechem: \"As for me and my house, we will serve the Lord.\" He dies at 110.",
+    "dates": {
+      "early": { "start": { "year": -1390 }, "confidence": "approx" },
+      "late": { "start": { "year": -1204 }, "confidence": "approx" }
+    },
+    "people": ["joshua"], "locations": ["shechem"],
+    "scripture": [{ "book": "Joshua", "chapter": 23, "endChapter": 24 }]
+  },
+  {
+    "id": "deborah-barak", "title": "Deborah and Barak defeat Sisera", "type": "battle",
+    "summary": "At Deborah's word Barak leads ten thousand men from Mount Tabor; the Kishon sweeps away Sisera's chariots, and Jael kills Sisera.",
+    "dates": {
+      "early": { "start": { "year": -1208 }, "confidence": "approx" },
+      "late": { "start": { "year": -1179 }, "confidence": "approx" }
+    },
+    "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["deborah", "barak"], "locations": ["mount-tabor", "kishon"],
+    "scripture": [{ "book": "Judges", "chapter": 4, "endChapter": 5 }]
+  },
+  {
+    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle",
+    "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches.",
+    "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
+    "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["gideon"], "locations": ["harod"],
+    "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 8 }]
+  },
+  {
+    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family",
+    "summary": "Ruth the Moabite returns with Naomi to Bethlehem, gleans in Boaz's field, and marries him. Their son Obed is David's grandfather.",
+    "dates": { "early": { "start": { "year": -1099 }, "confidence": "approx" } },
+    "dateNote": "Set \"in the days when the judges ruled\" (Ruth 1:1). Boaz is David's great-grandfather, which points to the late 1100s BC.",
+    "people": ["ruth", "naomi", "boaz"], "locations": ["moab", "bethlehem"],
+    "scripture": [{ "book": "Ruth", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "samuel-born", "title": "Birth of Samuel", "type": "birth",
+    "summary": "Hannah prays at Shiloh for a son; when Samuel is born she gives him to serve the Lord under Eli.",
+    "dates": { "early": { "start": { "year": -1104 }, "confidence": "approx" } },
+    "people": ["samuel", "hannah", "eli"], "locations": ["ramah", "shiloh"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 1, "verse": 1, "endChapter": 2, "endVerse": 11 }]
+  },
+  {
+    "id": "samson-judges", "title": "Samson fights the Philistines", "type": "battle", "major": true,
+    "summary": "Samson, set apart from birth, fights the Philistines alone for twenty years, until Delilah betrays him; he dies pulling down the temple of Dagon at Gaza.",
+    "dates": { "early": { "start": { "year": -1074 }, "end": { "year": -1054 }, "confidence": "approx" } },
+    "dateNote": "He judged Israel twenty years (Judges 16:31), during the Philistine oppression that runs into Samuel's day. Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["samson"], "locations": ["zorah", "gaza"],
+    "scripture": [{ "book": "Judges", "chapter": 13, "endChapter": 16 }]
+  },
+  {
+    "id": "ark-captured", "title": "The ark captured", "type": "judgment",
+    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news.",
+    "dates": { "early": { "start": { "year": -1079 }, "confidence": "approx" } },
+    "dateNote": "The ark then stays twenty years at Kiriath-jearim before Samuel gathers Israel at Mizpah (1 Samuel 7:2).",
+    "people": ["eli", "samuel"], "locations": ["aphek", "shiloh"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 6 }]
+  },
+  {
+    "id": "saul-king", "title": "Saul becomes king", "type": "reign", "major": true,
+    "summary": "Israel asks Samuel for a king like the other nations. God gives them Saul, whom Samuel anoints and the people acclaim.",
+    "dates": { "early": { "start": { "year": -1049 }, "confidence": "approx" } },
+    "dateNote": "Acts 13:21 gives Saul forty years; the numbers in 1 Samuel 13:1 are damaged in the Hebrew text.",
+    "people": ["saul", "samuel"], "locations": ["ramah", "gibeah"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 8, "endChapter": 11 }]
+  },
+  {
+    "id": "david-anointed", "title": "Samuel anoints David", "type": "other",
+    "summary": "God rejects Saul and sends Samuel to Bethlehem, where he anoints Jesse's youngest son, the shepherd David.",
+    "dates": { "early": { "start": { "year": -1024 }, "confidence": "approx" } },
+    "dateNote": "Not dated in Scripture; David is the youngest son, still keeping the sheep (1 Samuel 16:11).",
+    "people": ["david", "samuel", "jesse"], "locations": ["bethlehem"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 16, "verse": 1, "endVerse": 13 }]
+  },
+  {
+    "id": "david-goliath", "title": "David and Goliath", "type": "battle", "major": true,
+    "summary": "The young David faces the Philistine champion Goliath with a sling and five stones, trusting the Lord, and kills him.",
+    "dates": { "early": { "start": { "year": -1022 }, "confidence": "approx" } },
+    "dateNote": "Not dated in Scripture; David is still a youth (1 Samuel 17:33).",
+    "people": ["david", "goliath", "saul"], "locations": ["valley-of-elah"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 17 }]
+  },
+  {
+    "id": "saul-dies", "title": "Death of Saul and Jonathan", "type": "death",
+    "summary": "The Philistines defeat Israel on Mount Gilboa. Jonathan is killed and the wounded Saul falls on his own sword.",
+    "dates": { "early": { "start": { "year": -1009 }, "confidence": "approx" } },
+    "people": ["saul", "jonathan", "david"], "locations": ["mount-gilboa"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 31 }, { "book": "2 Samuel", "chapter": 1 }]
+  },
+  {
+    "id": "david-reign", "title": "David's reign", "type": "reign", "major": true,
+    "summary": "David rules seven and a half years from Hebron over Judah, then thirty-three years from Jerusalem over all Israel.",
+    "dates": { "early": { "start": { "year": -1009 }, "end": { "year": -969 }, "confidence": "approx" } },
+    "dateNote": "Forty years in all (2 Samuel 5:4–5).",
+    "people": ["david"], "locations": ["hebron", "jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }]
+  },
+  {
+    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "partOf": "david-reign",
+    "summary": "David captures the Jebusite stronghold of Zion and makes Jerusalem his capital, then brings the ark there.",
+    "dates": { "early": { "start": { "year": -1002 }, "confidence": "approx" } },
+    "dateNote": "After seven and a half years reigning in Hebron (2 Samuel 5:5).",
+    "people": ["david"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 5, "verse": 6, "endChapter": 6, "endVerse": 19 }]
+  },
+  {
+    "id": "davidic-covenant", "title": "God's covenant with David", "type": "covenant", "major": true, "partOf": "david-reign",
+    "summary": "Through Nathan, God promises David a house and a kingdom that will last forever: a promise the New Testament sees fulfilled in Jesus.",
+    "dates": { "early": { "start": { "year": -999 }, "confidence": "approx" } },
+    "dateNote": "Not dated; it comes once David is settled in his palace in Jerusalem (2 Samuel 7:1).",
+    "people": ["david", "nathan"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 7 }]
+  },
+  {
+    "id": "david-bathsheba", "title": "David and Bathsheba", "type": "judgment", "partOf": "david-reign",
+    "summary": "David takes Bathsheba and has her husband Uriah killed. Nathan confronts him, and David repents (Psalm 51), but trouble follows his house.",
+    "dates": { "early": { "start": { "year": -992 }, "confidence": "approx" } },
+    "dateNote": "Not dated; it happens while Israel's army besieges Rabbah of the Ammonites (2 Samuel 11:1).",
+    "people": ["david", "bathsheba", "nathan"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 11, "endChapter": 12 }]
+  },
+  {
+    "id": "solomon-reign", "title": "Solomon's reign", "type": "reign", "major": true,
+    "summary": "Solomon asks God for wisdom, rules Israel at the height of its wealth and peace, and builds the temple, but his many foreign wives turn his heart to other gods.",
+    "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
+    "dateNote": "Forty years (1 Kings 11:42).",
+    "people": ["solomon"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 1, "endChapter": 11 }]
+  },
+  {
+    "id": "temple-built", "title": "Solomon builds the temple", "type": "worship", "major": true, "partOf": "solomon-reign",
+    "summary": "Solomon builds the house of the Lord on Mount Moriah; at its dedication God's glory fills the temple.",
+    "dates": { "early": { "start": { "year": -965, "month": 5, "label": "Ziv, 2nd month" }, "end": { "year": -958, "month": 11, "label": "Bul, 8th month" }, "confidence": "approx" } },
+    "dateNote": "Begun in Solomon's fourth year, 480 years after the Exodus (1 Kings 6:1), and finished seven years later (1 Kings 6:37–38).",
+    "people": ["solomon"], "locations": ["jerusalem", "moriah"],
+    "scripture": [{ "book": "1 Kings", "chapter": 6, "endChapter": 8 }]
+  },
+  {
+    "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
+    "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan.",
+    "dates": { "early": { "start": { "year": -930 }, "confidence": "approx" } },
+    "people": ["rehoboam", "jeroboam"], "locations": ["shechem", "bethel", "dan"],
+    "scripture": [{ "book": "1 Kings", "chapter": 12 }]
+  },
+  {
+    "id": "elijah-carmel", "title": "Elijah on Mount Carmel", "type": "miracle", "major": true,
+    "summary": "After three years of drought Elijah challenges the prophets of Baal. God answers with fire from heaven, then sends rain.",
+    "dates": { "early": { "start": { "year": -859 }, "confidence": "approx" } },
+    "dateNote": "During Ahab's reign (874–853 BC); the year isn't given.",
+    "people": ["elijah", "ahab", "jezebel"], "locations": ["mount-carmel", "kishon"],
+    "scripture": [{ "book": "1 Kings", "chapter": 18 }]
+  },
+  {
+    "id": "elijah-taken", "title": "Elijah taken up to heaven", "type": "miracle",
+    "summary": "Elijah parts the Jordan and is taken up in a whirlwind as chariots of fire appear. Elisha takes up his cloak and his ministry.",
+    "dates": { "early": { "start": { "year": -849 }, "confidence": "approx" } },
+    "dateNote": "Not dated; Elisha is already prophet while Jehoshaphat still reigns in Judah (2 Kings 3), before about 848 BC.",
+    "people": ["elijah", "elisha"], "locations": ["jericho", "jordan-river"],
+    "scripture": [{ "book": "2 Kings", "chapter": 2, "verse": 1, "endVerse": 18 }]
+  },
+  {
+    "id": "jonah-nineveh", "title": "Jonah preaches to Nineveh", "type": "prophecy",
+    "summary": "Jonah runs from God's call, is swallowed by a great fish, and finally warns Nineveh, which repents and is spared.",
+    "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
+    "dateNote": "Jonah prophesied under Jeroboam II of Israel (793–753 BC, 2 Kings 14:25); the year of his mission isn't given.",
+    "people": ["jonah"], "locations": ["joppa", "nineveh"],
+    "scripture": [{ "book": "Jonah", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "amos-ministry", "title": "Amos warns Israel", "type": "ministry",
+    "summary": "A shepherd from Judah denounces the northern kingdom's injustice and hollow worship at Bethel, and foretells its fall.",
+    "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
+    "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
+    "people": ["amos"], "locations": ["tekoa", "bethel"],
+    "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
+    "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
+    "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
+    "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
+    "people": ["isaiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
+  },
+  {
+    "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "major": true,
+    "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
+    "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
+    "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
+    "locations": ["samaria", "nineveh"],
+    "scripture": [{ "book": "2 Kings", "chapter": 17 }]
+  },
+  {
+    "id": "sennacherib-siege", "title": "Sennacherib threatens Jerusalem", "type": "miracle",
+    "summary": "Assyria's king takes Lachish and surrounds Jerusalem. Hezekiah prays, Isaiah promises deliverance, and the angel of the Lord strikes the Assyrian camp.",
+    "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
+    "dateNote": "Sennacherib's own annals and the reliefs of Lachish from his palace record this campaign of 701 BC.",
+    "people": ["hezekiah", "isaiah"], "locations": ["jerusalem", "lachish"],
+    "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }]
+  },
+  {
+    "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant",
+    "summary": "The Book of the Law is found in the temple. Josiah renews the covenant, destroys the idols and celebrates the Passover.",
+    "dates": { "early": { "start": { "year": -621 }, "confidence": "approx" } },
+    "dateNote": "In Josiah's eighteenth year (2 Kings 22:3).",
+    "people": ["josiah"], "locations": ["jerusalem", "bethel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 22, "endChapter": 23 }]
+  },
+  {
+    "id": "jeremiah-ministry", "title": "Jeremiah's ministry", "type": "ministry", "major": true,
+    "summary": "For four decades Jeremiah warns Judah to repent and submit to Babylon, weeps over Jerusalem's fall, and promises a new covenant.",
+    "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
+    "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
+    "people": ["jeremiah"], "locations": ["anathoth", "jerusalem"],
+    "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
+  },
+  {
+    "id": "daniel-taken", "title": "Daniel taken to Babylon", "type": "journey",
+    "summary": "Nebuchadnezzar takes young nobles from Jerusalem to serve in his court, among them Daniel, Hananiah, Mishael and Azariah.",
+    "dates": { "early": { "start": { "year": -604 }, "confidence": "approx" } },
+    "dateNote": "In the third year of Jehoiakim (Daniel 1:1), when Nebuchadnezzar first took Jerusalem in 605 BC.",
+    "people": ["daniel", "nebuchadnezzar"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 1 }]
+  },
+  {
+    "id": "jehoiachin-exiled", "title": "King Jehoiachin taken to Babylon", "type": "judgment",
+    "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
+    "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
+    "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
+    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "fall-of-jerusalem", "title": "Fall of Jerusalem", "type": "judgment", "major": true,
+    "summary": "Babylon besieges Jerusalem for a year and a half, breaks through the walls, burns the temple and takes the people into exile.",
+    "dates": { "early": { "start": { "year": -587, "month": 1, "label": "10th of 10th month" }, "end": { "year": -585, "month": 8, "label": "10th of 5th month" }, "confidence": "approx" } },
+    "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
+    "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
+  },
+  {
+    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry",
+    "summary": "Among the exiles in Babylonia, Ezekiel sees God's glory, warns that Jerusalem will fall, and after it falls promises new hearts, dry bones brought to life, and a new temple.",
+    "dates": { "early": { "start": { "year": -592, "month": 7, "label": "5th of 4th month" }, "end": { "year": -570, "month": 4, "label": "1st of 1st month" }, "confidence": "approx" } },
+    "dateNote": "From the fifth year of Jehoiachin's exile, 593 BC (Ezekiel 1:2), to his last dated message in the twenty-seventh year, 571 BC (Ezekiel 29:17).",
+    "people": ["ezekiel"], "locations": ["chebar"],
+    "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 3 }]
+  },
+  {
+    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment",
+    "summary": "As Belshazzar feasts, a hand writes on the wall and Daniel reads its judgment. That night Babylon falls to the armies of Cyrus.",
+    "dates": { "early": { "start": { "year": -538, "month": 10, "day": 12, "label": "16 Tashritu" }, "confidence": "exact" } },
+    "dateNote": "The Nabonidus Chronicle records the city's fall on 16 Tashritu, 12 October 539 BC.",
+    "people": ["belshazzar", "daniel", "cyrus"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 5 }]
+  },
+  {
+    "id": "lions-den", "title": "Daniel in the lions' den", "type": "miracle",
+    "summary": "Daniel keeps praying to God despite the king's decree, is thrown to the lions, and is kept safe.",
+    "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
+    "dateNote": "Under \"Darius the Mede,\" soon after Babylon fell (Daniel 6). Who Darius was is debated; he may be Cyrus's governor Gubaru, or Cyrus himself.",
+    "people": ["daniel"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 6 }]
+  },
+  {
+    "id": "cyrus-decree", "title": "Cyrus lets the exiles return", "type": "covenant", "major": true,
+    "summary": "In his first year Cyrus decrees that the Jews may go home and rebuild the temple, and returns its gold and silver vessels.",
+    "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
+    "dateNote": "Cyrus's first year in Babylon, 538 BC (Ezra 1:1). The Cyrus Cylinder records his policy of returning captive peoples and their gods to their homes.",
+    "people": ["cyrus"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 1 }, { "book": "2 Chronicles", "chapter": 36, "verse": 22, "endVerse": 23 }]
+  },
+  {
+    "id": "first-return", "title": "The first exiles return", "type": "journey",
+    "summary": "About fifty thousand exiles return with Zerubbabel, rebuild the altar, and lay the foundation of the new temple amid shouts and weeping.",
+    "dates": { "early": { "start": { "year": -536 }, "confidence": "approx" } },
+    "dateNote": "The temple's foundation was laid in the second month of the second year after their return (Ezra 3:8).",
+    "people": ["zerubbabel"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 2, "endChapter": 3 }]
+  },
+  {
+    "id": "temple-rebuilt", "title": "The second temple completed", "type": "worship", "major": true,
+    "summary": "After years of opposition and neglect, Haggai and Zechariah stir the people to build, and the temple is finished and dedicated.",
+    "dates": { "early": { "start": { "year": -519, "month": 9, "label": "24th of 6th month" }, "end": { "year": -514, "month": 3, "label": "3 Adar" }, "confidence": "approx" } },
+    "dateNote": "Work resumed in Darius's second year, 520 BC (Haggai 1:15), and the temple was finished on 3 Adar in his sixth year, March 515 BC (Ezra 6:15).",
+    "people": ["zerubbabel", "haggai", "zechariah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
+  },
+  {
+    "id": "esther", "title": "Esther saves her people", "type": "other", "major": true,
+    "summary": "Haman plots to destroy the Jews of the Persian Empire. Queen Esther risks her life to plead with the king, and the day set for their destruction becomes a day of deliverance, remembered at Purim.",
+    "dates": { "early": { "start": { "year": -472, "month": 3, "label": "13 Adar" }, "confidence": "approx" } },
+    "dateNote": "The lots were cast in Ahasuerus's twelfth year (Esther 3:7). He is usually identified with Xerxes I, which places the day in March 473 BC.",
+    "people": ["esther", "mordecai", "xerxes"], "locations": ["susa"],
+    "scripture": [{ "book": "Esther", "chapter": 3, "endChapter": 9 }]
+  },
+  {
+    "id": "ezra-return", "title": "Ezra returns to Jerusalem", "type": "journey",
+    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah.",
+    "dates": { "early": { "start": { "year": -457, "month": 4, "label": "1st of 1st month" }, "end": { "year": -457, "month": 8, "label": "1st of 5th month" }, "confidence": "approx" } },
+    "dateNote": "In Artaxerxes's seventh year, 458 BC (Ezra 7:7–9).",
+    "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
+    "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
+  },
+  {
+    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",
+    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law.",
+    "dates": { "early": { "start": { "year": -444, "month": 8 }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
+    "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
+    "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"],
+    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 8 }]
+  },
+  {
+    "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "ministry",
+    "summary": "Malachi rebukes careless worship and broken marriages, and promises that the Lord will send Elijah before he comes. Then Scripture falls silent for four hundred years.",
+    "dates": { "early": { "start": { "year": -429 }, "confidence": "approx" } },
+    "dateNote": "Not dated. Malachi faces the same problems Nehemiah did (Nehemiah 13), so he is usually placed about 430 BC.",
+    "people": ["malachi"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Malachi", "chapter": 1, "endChapter": 4 }]
+  },
+  {
+    "id": "alexander", "title": "Alexander the Great conquers Persia", "type": "battle",
+    "summary": "Alexander of Macedon sweeps through the Persian Empire, taking Tyre and then Judea. Greek becomes the common language of the east, the language the New Testament will be written in.",
+    "dates": { "early": { "start": { "year": -331 }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture: Alexander took Tyre after a seven-month siege in 332 BC. Many readers see him in Daniel's vision of a swift goat from the west (Daniel 8:5–8, 21).",
+    "locations": ["tyre"],
+    "scripture": [{ "book": "Daniel", "chapter": 8, "verse": 5, "endVerse": 8 }]
+  },
+  {
+    "id": "septuagint", "title": "The Septuagint", "type": "writing",
+    "summary": "Jewish scholars in Alexandria translate the Hebrew Scriptures into Greek. The apostles often quote this translation.",
+    "dates": { "early": { "start": { "year": -249 }, "confidence": "approx" } },
+    "dateNote": "The Torah was translated in the third century BC, by tradition under Ptolemy II; the other books followed over the next century or so.",
+    "locations": ["alexandria"]
+  },
+  {
+    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship",
+    "summary": "After Antiochus IV defiles the temple and outlaws Judaism, Judas Maccabeus leads a revolt, retakes Jerusalem and rededicates the temple. Jews remember it at Hanukkah, the Feast of Dedication Jesus kept (John 10:22).",
+    "dates": { "early": { "start": { "year": -163, "month": 12, "label": "25 Kislev" }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture (except as Catholic and Orthodox Christians count 1 Maccabees): told in 1 Maccabees 4 and by Josephus, in December 164 BC.",
+    "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 10, "verse": 22, "endVerse": 23 }]
+  },
+  {
+    "id": "pompey", "title": "Rome takes Jerusalem", "type": "battle",
+    "summary": "The Roman general Pompey captures Jerusalem and enters the temple. Judea comes under Roman rule.",
+    "dates": { "early": { "start": { "year": -62 }, "confidence": "approx" } },
+    "dateNote": "History, not Scripture: recorded by Josephus, in 63 BC.",
+    "locations": ["jerusalem"]
+  },
+  {
+    "id": "herod-reign", "title": "Herod the Great's reign", "type": "reign",
+    "summary": "Rome makes Herod king of Judea. He rules ruthlessly, builds fortresses and cities, and rebuilds the temple on a grand scale.",
+    "dates": { "early": { "start": { "year": -36 }, "end": { "year": -3 }, "confidence": "approx" } },
+    "dateNote": "From his capture of Jerusalem in 37 BC to his death in 4 BC, by Josephus's account. The temple's rebuilding began about 20 BC; John 2:20 says it had been under way for forty-six years.",
+    "people": ["herod-the-great"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 1, "endVerse": 19 }]
+  },
+  {
+    "id": "jesus-born", "title": "Birth of Jesus", "type": "birth", "major": true,
+    "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there. Angels announce him to shepherds, and magi from the east come to worship.",
+    "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
+    "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
+    "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "nazareth"],
+    "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 20 }]
+  },
+  {
+    "id": "boy-jesus-temple", "title": "The boy Jesus in the temple", "type": "worship",
+    "summary": "At twelve, Jesus stays behind in Jerusalem after Passover, listening to the teachers and asking them questions: \"I must be in my Father's house.\"",
+    "dates": { "early": { "start": { "year": 8 }, "confidence": "approx" } },
+    "people": ["jesus", "mary", "joseph-of-nazareth"], "locations": ["jerusalem", "nazareth"],
+    "scripture": [{ "book": "Luke", "chapter": 2, "verse": 41, "endVerse": 52 }]
+  },
+  {
+    "id": "jesus-ministry", "title": "Jesus' ministry", "type": "ministry", "major": true,
+    "summary": "Jesus calls disciples, preaches the kingdom of God, heals the sick and forgives sinners, mostly around the Sea of Galilee, going up to Jerusalem for the feasts.",
+    "dates": { "early": { "start": { "year": 27 }, "end": { "year": 30, "month": 4 }, "confidence": "approx" } },
+    "dateNote": "John's Gospel names at least three Passovers (John 2:13; 6:4; 11:55), so about three years. The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "peter"], "locations": ["capernaum", "sea-of-galilee", "jerusalem"],
+    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }]
+  },
+  {
+    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "covenant", "partOf": "jesus-ministry",
+    "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are my beloved Son.\"",
+    "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
+    "people": ["jesus", "john-the-baptist"], "locations": ["jordan-river"],
+    "scripture": [{ "book": "Matthew", "chapter": 3, "verse": 13, "endVerse": 17 }, { "book": "Luke", "chapter": 3, "verse": 21, "endVerse": 23 }]
+  },
+  {
+    "id": "sermon-on-the-mount", "title": "The Sermon on the Mount", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "On a hillside in Galilee Jesus teaches the Beatitudes, the Lord's Prayer, and what life in God's kingdom looks like.",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; early in the Galilean ministry. Tradition places it on a hill above Capernaum.",
+    "people": ["jesus"], "locations": ["capernaum"],
+    "scripture": [{ "book": "Matthew", "chapter": 5, "endChapter": 7 }]
+  },
+  {
+    "id": "feeding-five-thousand", "title": "Feeding the five thousand", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "Jesus feeds a crowd of five thousand men, besides women and children, with five loaves and two fish. The only miracle all four Gospels record.",
+    "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
+    "dateNote": "\"The Passover was at hand\" (John 6:4).",
+    "people": ["jesus", "peter"], "locations": ["bethsaida"],
+    "scripture": [{ "book": "John", "chapter": 6, "verse": 1, "endVerse": 14 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }]
+  },
+  {
+    "id": "lazarus-raised", "title": "Jesus raises Lazarus", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "Four days after Lazarus is buried, Jesus calls him out of the tomb: \"I am the resurrection and the life.\" The leaders resolve to kill Jesus.",
+    "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
+    "dateNote": "Shortly before Jesus' last Passover (John 11:55).",
+    "people": ["jesus", "lazarus"], "locations": ["bethany"],
+    "scripture": [{ "book": "John", "chapter": 11 }]
+  },
+  {
+    "id": "triumphal-entry", "title": "Jesus enters Jerusalem", "type": "other",
+    "summary": "Jesus rides into Jerusalem on a donkey as crowds wave palm branches and shout \"Hosanna!\"",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 2, "label": "Sunday before Passover" }, "confidence": "approx" } },
+    "dateNote": "The day after he came to Bethany, six days before Passover (John 12:1, 12). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus"], "locations": ["bethany", "mount-of-olives", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
+  },
+  {
+    "id": "last-supper", "title": "The Last Supper", "type": "covenant",
+    "summary": "Jesus shares a final meal with his disciples, gives them bread and wine as his body and blood of the new covenant, then prays in Gethsemane, where he is arrested.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 6, "label": "Thursday evening" }, "confidence": "approx" } },
+    "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "peter"], "locations": ["jerusalem", "gethsemane"],
+    "scripture": [{ "book": "Luke", "chapter": 22, "verse": 7, "endVerse": 53 }, { "book": "John", "chapter": 13, "endChapter": 17 }]
+  },
+  {
+    "id": "crucifixion", "title": "The crucifixion", "type": "death", "major": true,
+    "summary": "After trials before the high priest and Pilate, Jesus is crucified at Golgotha between two criminals, and dies. He is buried in a nearby tomb.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 7, "label": "14 Nisan" }, "confidence": "approx" } },
+    "dateNote": "On the day of Preparation for the Passover (John 19:14, 31). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate"], "locations": ["golgotha", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 27 }, { "book": "John", "chapter": 18, "endChapter": 19 }]
+  },
+  {
+    "id": "resurrection", "title": "The resurrection", "type": "miracle", "major": true,
+    "summary": "On the third day the tomb is empty. Jesus appears to Mary Magdalene, to Peter, to the disciples, and to more than five hundred others.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 9, "label": "Sunday" }, "confidence": "approx" } },
+    "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
+    "people": ["jesus", "mary-magdalene", "peter"], "locations": ["golgotha", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 28 }, { "book": "Luke", "chapter": 24 }, { "book": "John", "chapter": 20, "endChapter": 21 }, { "book": "1 Corinthians", "chapter": 15, "verse": 3, "endVerse": 8 }]
+  },
+  {
+    "id": "ascension", "title": "The ascension", "type": "miracle",
+    "summary": "Forty days after rising, Jesus sends his disciples to be his witnesses to the ends of the earth, and is taken up into heaven from the Mount of Olives.",
+    "dates": { "early": { "start": { "year": 30, "month": 5, "day": 18, "label": "40 days after Easter" }, "confidence": "approx" } },
+    "dateNote": "Acts 1:3. Luke places it near Bethany, on the Mount of Olives (Luke 24:50; Acts 1:12).",
+    "people": ["jesus", "peter"], "locations": ["mount-of-olives", "bethany"],
+    "scripture": [{ "book": "Acts", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 24, "verse": 50, "endVerse": 53 }]
+  },
+  {
+    "id": "pentecost", "title": "Pentecost", "type": "miracle", "major": true,
+    "summary": "The Holy Spirit comes on the disciples with wind and fire, and they speak in other languages. Peter preaches, and about three thousand are baptized.",
+    "dates": { "early": { "start": { "year": 30, "month": 5, "day": 28, "label": "Pentecost" }, "confidence": "approx" } },
+    "dateNote": "Fifty days after the resurrection (Acts 2:1).",
+    "people": ["peter"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 2 }]
+  },
+  {
+    "id": "stephen-martyred", "title": "Stephen is stoned", "type": "death",
+    "summary": "Stephen is stoned after his defense before the council, with a young man named Saul approving. Persecution scatters the believers beyond Jerusalem.",
+    "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
+    "dateNote": "Not dated; a short time after Pentecost and before Paul's conversion.",
+    "people": ["stephen", "paul"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Acts", "chapter": 6, "verse": 8, "endChapter": 8, "endVerse": 3 }]
+  },
+  {
+    "id": "paul-conversion", "title": "Paul meets Jesus on the road to Damascus", "type": "miracle", "major": true,
+    "summary": "On his way to arrest believers in Damascus, Saul is blinded by a light from heaven and hears the risen Jesus. He is baptized and begins to preach Christ.",
+    "dates": { "early": { "start": { "year": 32 }, "confidence": "approx" } },
+    "dateNote": "Paul counts three years and then fourteen years to his visits to Jerusalem (Galatians 1:18; 2:1), placing his conversion about AD 31–33.",
+    "people": ["paul"], "locations": ["jerusalem", "damascus"],
+    "scripture": [{ "book": "Acts", "chapter": 9, "verse": 1, "endVerse": 22 }]
+  },
+  {
+    "id": "cornelius", "title": "Peter and Cornelius", "type": "covenant",
+    "summary": "A vision teaches Peter not to call any person unclean. He preaches to the Roman centurion Cornelius, and the Spirit falls on Gentiles for the first time.",
+    "dates": { "early": { "start": { "year": 40 }, "confidence": "approx" } },
+    "dateNote": "Not dated; between Paul's conversion and Herod Agrippa I's death in AD 44 (Acts 12).",
+    "people": ["peter", "cornelius"], "locations": ["joppa", "caesarea"],
+    "scripture": [{ "book": "Acts", "chapter": 10, "verse": 1, "endChapter": 11, "endVerse": 18 }]
+  },
+  {
+    "id": "first-journey", "title": "Paul's first missionary journey", "type": "journey",
+    "summary": "Sent out by the church at Antioch, Paul and Barnabas preach through Cyprus and the cities of southern Galatia, then return strengthening the new churches.",
+    "dates": { "early": { "start": { "year": 46 }, "end": { "year": 48 }, "confidence": "approx" } },
+    "dateNote": "Before the Jerusalem council of about AD 49.",
+    "people": ["paul", "barnabas"], "locations": ["antioch-syria", "cyprus", "pisidian-antioch", "iconium", "lystra", "derbe"],
+    "scripture": [{ "book": "Acts", "chapter": 13, "endChapter": 14 }]
+  },
+  {
+    "id": "jerusalem-council", "title": "The council at Jerusalem", "type": "covenant",
+    "summary": "The apostles and elders decide that Gentile believers don't need to be circumcised or keep the Law of Moses to be saved.",
+    "dates": { "early": { "start": { "year": 49 }, "confidence": "approx" } },
+    "people": ["peter", "paul", "barnabas", "james-brother-of-jesus"], "locations": ["jerusalem", "antioch-syria"],
+    "scripture": [{ "book": "Acts", "chapter": 15, "verse": 1, "endVerse": 35 }]
+  },
+  {
+    "id": "second-journey", "title": "Paul's second missionary journey", "type": "journey",
+    "summary": "Paul and Silas revisit Galatia, then cross into Europe at God's call: Philippi, Thessalonica, Athens, and eighteen months in Corinth.",
+    "dates": { "early": { "start": { "year": 50 }, "end": { "year": 52 }, "confidence": "approx" } },
+    "dateNote": "Paul's time in Corinth overlaps Gallio's term as proconsul (Acts 18:12), which an inscription at Delphi dates to AD 51–52.",
+    "people": ["paul", "silas", "timothy"], "locations": ["philippi", "thessalonica", "athens", "corinth"],
+    "scripture": [{ "book": "Acts", "chapter": 15, "verse": 36, "endChapter": 18, "endVerse": 22 }]
+  },
+  {
+    "id": "third-journey", "title": "Paul's third missionary journey", "type": "journey",
+    "summary": "Paul spends over two years teaching in Ephesus, where the gospel spreads through all Asia, then visits the churches of Macedonia and Greece.",
+    "dates": { "early": { "start": { "year": 53 }, "end": { "year": 57, "month": 5 }, "confidence": "approx" } },
+    "people": ["paul", "timothy"], "locations": ["ephesus", "corinth"],
+    "scripture": [{ "book": "Acts", "chapter": 18, "verse": 23, "endChapter": 21, "endVerse": 16 }]
+  },
+  {
+    "id": "romans", "title": "Paul writes to the Romans", "type": "writing",
+    "summary": "From Corinth Paul writes his fullest account of the gospel to the church in Rome, which he hopes to visit on his way to Spain.",
+    "dates": { "early": { "start": { "year": 57, "month": 2 }, "confidence": "approx" } },
+    "dateNote": "Written during his three months in Greece, as he prepared to take a gift to Jerusalem (Acts 20:2–3; Romans 15:25–26).",
+    "people": ["paul"], "locations": ["corinth", "rome"],
+    "scripture": [{ "book": "Romans", "chapter": 1, "verse": 1, "endVerse": 17 }]
+  },
+  {
+    "id": "paul-arrested", "title": "Paul arrested in Jerusalem", "type": "other",
+    "summary": "A riot breaks out when Paul visits the temple. Roman soldiers take him into custody, and he is held at Caesarea for two years.",
+    "dates": { "early": { "start": { "year": 57, "month": 6 }, "confidence": "approx" } },
+    "dateNote": "Paul hurried to reach Jerusalem by Pentecost (Acts 20:16).",
+    "people": ["paul"], "locations": ["jerusalem", "caesarea"],
+    "scripture": [{ "book": "Acts", "chapter": 21, "verse": 27, "endChapter": 26, "endVerse": 32 }]
+  },
+  {
+    "id": "voyage-to-rome", "title": "Paul's voyage to Rome", "type": "journey",
+    "summary": "Having appealed to Caesar, Paul sails for Rome under guard. The ship is wrecked on Malta, and he reaches Rome the next spring.",
+    "dates": { "early": { "start": { "year": 59, "month": 9 }, "end": { "year": 60, "month": 3 }, "confidence": "approx" } },
+    "dateNote": "Festus took over from Felix about AD 59 (Acts 24:27). They sailed after the autumn fast and wintered three months on Malta (Acts 27:9; 28:11).",
+    "people": ["paul"], "locations": ["caesarea", "malta", "rome"],
+    "scripture": [{ "book": "Acts", "chapter": 27, "endChapter": 28 }]
+  },
+  {
+    "id": "prison-letters", "title": "Paul's letters from prison", "type": "writing",
+    "summary": "Under house arrest in Rome, Paul welcomes visitors and writes to the Ephesians, Philippians, Colossians and Philemon.",
+    "dates": { "early": { "start": { "year": 60 }, "end": { "year": 62 }, "confidence": "approx" } },
+    "dateNote": "Two years in Rome (Acts 28:30). Some place one or more of these letters earlier, in Ephesus or Caesarea.",
+    "people": ["paul", "timothy"], "locations": ["rome"],
+    "scripture": [{ "book": "Ephesians", "chapter": 3, "verse": 1 }, { "book": "Philippians", "chapter": 1, "verse": 12, "endVerse": 14 }]
+  },
+  {
+    "id": "second-timothy", "title": "Paul's last letter", "type": "writing",
+    "summary": "Imprisoned again in Rome and expecting to die, Paul writes to Timothy: \"I have fought the good fight, I have finished the race, I have kept the faith.\"",
+    "dates": { "early": { "start": { "year": 67 }, "confidence": "approx" } },
+    "dateNote": "Tradition says Paul was beheaded in Rome under Nero, about AD 64–67, and that Peter was crucified there too.",
+    "people": ["paul", "timothy"], "locations": ["rome"],
+    "scripture": [{ "book": "2 Timothy", "chapter": 4, "verse": 6, "endVerse": 8 }]
+  },
+  {
+    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "major": true,
+    "summary": "Rome crushes a Jewish revolt. Titus's army takes Jerusalem and burns the temple, as Jesus had foretold.",
+    "dates": { "early": { "start": { "year": 70, "month": 8, "label": "10 Av" }, "confidence": "approx" } },
+    "dateNote": "History, not narrated in Scripture: Josephus describes the siege and the burning of the temple in August AD 70. Jesus foretold it (Luke 21:20–24).",
+    "locations": ["jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 24, "verse": 1, "endVerse": 2 }, { "book": "Luke", "chapter": 21, "verse": 20, "endVerse": 24 }]
+  },
+  {
+    "id": "revelation", "title": "John's vision on Patmos", "type": "prophecy", "major": true,
+    "summary": "Exiled on Patmos, John sees the risen Christ, receives letters for seven churches of Asia, and is shown the defeat of evil and the new heaven and new earth.",
+    "dates": { "early": { "start": { "year": 95 }, "confidence": "approx" } },
+    "dateNote": "Irenaeus (about AD 180) places John's vision late in Domitian's reign, about AD 95; some date it before AD 70, under Nero. The visions themselves aren't events in time and aren't placed on the timeline.",
+    "people": ["john-apostle"], "locations": ["patmos", "ephesus", "smyrna", "pergamum", "thyatira", "sardis", "philadelphia", "laodicea"],
+    "scripture": [{ "book": "Revelation", "chapter": 1, "verse": 9, "endChapter": 3, "endVerse": 22 }, { "book": "Revelation", "chapter": 21, "verse": 1, "endChapter": 22, "endVerse": 5 }]
   }
 ]

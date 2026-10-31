@@ -10,11 +10,13 @@ npm test           # vitest: date math + data integrity
 npm run typecheck  # tsc --noEmit
 npm run build      # typecheck + production build to dist/
 node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the dev server in Edge
+node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places against OpenBible.info
 ```
 
 - Windows, PowerShell 5.1. Node is installed at `C:\Program Files\nodejs`; shells started before the install may not have it on PATH. In Git Bash, prefix commands with `export PATH="/c/Program Files/nodejs:$PATH" &&`.
 - Before committing, gate on `npm test`'s exit code, not on grepping its output. Any failure blocks the commit.
 - `npm test` runs Vitest through `scripts/vitest.mjs`, which restarts it from an upper-case drive letter. When the working directory is `c:\...` (VS Code terminals and Claude Code's shell often are), plain `vitest` loads itself twice and every suite fails at its first `describe` with `TypeError: Cannot read properties of undefined (reading 'config')`. Call `npm test`, not `npx vitest`. This was the "flake" of 2026-10-27/28: it came and went with the shell's drive-letter case, not with screenshots or caches.
+- Map labels: MapLibre places symbols from the top layer down, so the layer that must win collisions (the focus event's places) goes last in `EventLayer`.
 - `scripts/shot.mjs` (playwright-core driving the installed Edge; the dev server must be running) is how UI changes get checked; its header lists the actions (`mode`, `select` via Browse, `zoomIn`, click, hover, drag, eval…). Save screenshots outside the repo. Driving the app: don't `import()` app modules in `eval` (that loads a second store, which the app ignores); use the UI. At phone width, `select` via Browse can fail to select; pick from the Nearest events list instead.
 - On Windows, stopping a background task doesn't kill the Node process behind it. Free a port with `Get-NetTCPConnection -LocalPort 5173` + `Stop-Process`.
 
@@ -30,11 +32,13 @@ node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the 
 
 - Years are astronomical: 1 BC = `0`, 1446 BC = `-1445`. Never display a year 0.
 - Optional `month`/`day` are approximate Julian placement; `label` keeps the biblical form ("14 Nisan"). Precision comes from which fields are present; there is no separate precision field.
-- Dates are keyed by chronology id (`early` is the default, `late` holds alternates); a missing entry falls back to the default. Which default to use is still an open decision.
+- Dates are keyed by chronology id (`early` is the default, `late` holds alternates); a missing entry falls back to the default. Which default to use is still an open decision. The chronologies differ only on the Exodus, so only dates before Saul need a `late` entry.
+- Kings follow Thiele's chronology (division 931 BC, Samaria 722, Jerusalem 586). Jesus is born c. 6–4 BC and crucified in AD 30; mention AD 33 in a `dateNote` where it matters.
+- Non-narrative books are events of their writing or ministry, not of their contents: Revelation is John's vision on Patmos (c. AD 95), prophets are dated by their ministry, letters by when and where they were written. Don't date prophetic visions as history.
 - Region outlines in `regions.json` are the shapes of places: each feature id must match a location id.
 - Don't invent precision Scripture doesn't give. Leave journey stops untimed rather than guessing days, and mark uncertain dates and sites as such, with a note.
 - `partOf` links an event to the larger event it happens within (Red Sea → Exodus). Children stay full events (type, people, Scripture); one level deep; the date's midpoint falls within the parent's, and a parent's journey must have a stop at one of the child's places (`validate.ts`, `data.test.ts`).
-- Coordinates and outlines are hand-entered approximations, not yet checked against a dataset like OpenBible.info.
+- Coordinates follow OpenBible.info (CC BY 4.0, credited on the map and in the README). Each location records its OpenBible place in `openbible` (`"Rephidim#2"` when we keep a candidate other than OpenBible's first, usually the traditional site, and say so in a note). Run `node scripts/openbible.mjs` after adding places; it should print nothing. Region, sea and wilderness points are map label positions and aren't checked. Region outlines are still hand-drawn.
 
 ## Design decisions (agreed with the user)
 
@@ -60,6 +64,8 @@ node scripts/shot.mjs out.png [w] [h] [actions] [light|dark]   # screenshot the 
 - The wandering (`-1444` start) sorts before the tabernacle, departure from Sinai and the spies, which Scripture places before it; its start date may need revisiting.
 - In Both view on a phone, the details peek covers much of the small map.
 - Three events have no places, so they get no map popup or dots: Creation, Birth of Ishmael, Birth of Jacob and Esau.
+- Some events between the Testaments (Alexander, the Septuagint, the Maccabees, Pompey, Herod) are history, not Scripture; for now only their `dateNote` says so. key_features.md's world-history lane would set them apart visually.
+- At the map's closest framing (zoom 7.5), places a few hundred metres apart in Jerusalem (Golgotha, Gethsemane, Moriah) hide each other's labels.
 
 ## Working style
 

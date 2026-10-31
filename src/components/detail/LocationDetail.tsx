@@ -5,7 +5,7 @@ import { EventList, Note, Section } from "./parts";
 
 const TYPE_LABEL: Record<Location["type"], string> = {
   city: "City", region: "Region", mountain: "Mountain", river: "River",
-  sea: "Sea", wilderness: "Wilderness", site: "Site",
+  sea: "Sea", wilderness: "Wilderness", site: "Site", island: "Island",
 };
 
 export default function LocationDetail({ loc }: { loc: Location }) {

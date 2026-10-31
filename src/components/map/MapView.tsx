@@ -30,9 +30,15 @@ setWorkerUrl(workerUrl);
 const INITIAL_BOUNDS: [[number, number], [number, number]] = [[29, 24], [47.5, 38]];
 /** Keep the map on the biblical world; never the whole globe. */
 const MAX_BOUNDS: [number, number, number, number] = [-15, 5, 75, 55];
-/** OpenFreeMap, OpenMapTiles and OpenStreetMap credit themselves through the tile source. */
-const CREDITS = '<a href="https://www.naturalearthdata.com/">Natural Earth</a>';
 const MIN_ZOOM = 2.5;
+/**
+ * Places come from OpenBible.info (CC BY 4.0). OpenFreeMap, OpenMapTiles and OpenStreetMap
+ * credit themselves through the tile source.
+ */
+const CREDITS = [
+  '<a href="https://www.openbible.info/geo/">Places: OpenBible.info</a> (CC BY 4.0)',
+  '<a href="https://www.naturalearthdata.com/">Natural Earth</a>',
+];
 const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
