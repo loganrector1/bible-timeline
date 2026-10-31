@@ -2,7 +2,7 @@ import * as maplibregl from "maplibre-gl";
 import { setWorkerUrl, type StyleSpecification } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import { useEffect, useMemo, useRef, useState } from "react";
-import Map, { NavigationControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
+import Map, { NavigationControl, useControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
 import { datesFor, eventsById, journeysById, locationsById, regionsById } from "../../data";
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
@@ -46,6 +46,24 @@ const FRAME_MAX_ZOOM = 7.5;
 const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER];
 
 type Hover = { layer: string; id: string; x: number; y: number };
+
+/**
+ * MapLibre's compact credits, starting folded behind their ⓘ button. Its own control opens them
+ * on every new map until the first drag; folding them once the map has loaded left them open
+ * for a moment, so they're folded as the control is created.
+ */
+class FoldedAttribution extends maplibregl.AttributionControl {
+  onAdd(map: maplibregl.Map) {
+    const el = super.onAdd(map);
+    el.classList.remove("maplibregl-compact-show");
+    return el;
+  }
+}
+
+function Credits() {
+  useControl(() => new FoldedAttribution({ compact: true, customAttribution: CREDITS }), { position: "bottom-right" });
+  return null;
+}
 
 /** Fly to fit the given places, leaving room for the "Nearest events" panel when it's open. */
 function frame(map: MapRef | maplibregl.Map, coords: [number, number][], panelOpen: boolean) {
@@ -223,15 +241,13 @@ export default function MapView() {
             onLoad={(e) => {
               setMap(e.target);
               applyBorders();
-              // MapLibre opens the compact credits on every new map until the first drag; keep
-              // them behind their ⓘ button until asked for.
-              e.target.getContainer().querySelector(".maplibregl-compact-show")?.classList.remove("maplibregl-compact-show");
             }}
             cursor={hover ? "pointer" : "grab"}
-            attributionControl={{ compact: true, customAttribution: CREDITS }}
+            attributionControl={false}
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="top-right" showCompass={false} />
+            <Credits />
             <RegionLayer selected={strongRegions} focus={focusRegions} hovered={hoveredRegion} colors={colors} />
             <JourneyLayer
               journeyId={focus && journeyOf(focus)}
