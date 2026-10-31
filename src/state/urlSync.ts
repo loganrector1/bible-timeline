@@ -13,7 +13,7 @@ export function currentLink(): string {
   const b = s.selection && s.selection.kind !== "location" && entityBounds(s.selection, s.chronologyId);
   const inView = !b || (b[1] > s.currentYear - half && b[0] < s.currentYear + half);
   const query = formatLink({
-    mode: s.mode, selection: s.selection, year: inView ? s.currentYear : undefined, pxPerYear: s.pxPerYear,
+    mode: s.mode, selection: s.selection, year: inView ? s.currentYear : undefined, pxPerYear: s.pxPerYear, filters: s.filters,
   });
   return `${location.origin}${location.pathname}?${query}`;
 }
@@ -27,6 +27,7 @@ export function startUrlSync() {
   const link = parseLink(location.search);
   const store = useStore.getState();
   if (link.mode) store.setMode(link.mode);
+  if (link.filters) store.setFilters(link.filters);
   if (link.pxPerYear) store.setZoom(link.pxPerYear);
   if (link.selection) store.select(link.selection, { instant: true });
   // A link's own year wins over where selecting would put the cursor.
@@ -35,7 +36,7 @@ export function startUrlSync() {
   let timer = 0;
   useStore.subscribe((s, prev) => {
     const same = s.mode === prev.mode && s.selection === prev.selection && s.currentYear === prev.currentYear
-      && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx;
+      && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx && s.filters === prev.filters;
     if (same) return;
     // Only once things settle: gliding and dragging change the year every frame.
     clearTimeout(timer);

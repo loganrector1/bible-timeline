@@ -2,7 +2,7 @@ import { lazy, Suspense, type CSSProperties } from "react";
 import { useStore, type ViewMode } from "../state/store";
 import BrowsePanel from "./BrowsePanel";
 import DetailPanel, { PEEK_HEIGHT } from "./DetailPanel";
-import { FilterBar, FilterButton, MOCK, useFilterCount } from "./Filters";
+import { FilterBar, FilterButton } from "./Filters";
 import Onboarding from "./Onboarding";
 import Timeline from "./timeline/Timeline";
 
@@ -22,7 +22,6 @@ export default function AppShell() {
   const browseOpen = useStore((s) => s.browseOpen);
   const timeStripPx = useStore((s) => s.timeStripPx);
   const setBrowseOpen = useStore((s) => s.setBrowseOpen);
-  const filterCount = useFilterCount();
 
   const showTimeline = mode !== "map";
   const showMap = mode !== "timeline";
@@ -46,9 +45,8 @@ export default function AppShell() {
               <path d="m13 13 4.5 4.5" />
             </svg>
             <span className="max-sm:sr-only">Browse</span>
-            {MOCK === "b" && filterCount > 0 && <span className="rounded-full bg-accent px-1.5 text-xs text-paper">{filterCount}</span>}
           </button>
-          {MOCK === "a" && <FilterButton />}
+          <FilterButton />
         </div>
         <div role="radiogroup" aria-label="View" className="flex rounded-lg border border-line bg-paper p-0.5 text-sm">
           {MODES.map((m) => (
@@ -66,7 +64,7 @@ export default function AppShell() {
           ))}
         </div>
       </header>
-      {MOCK === "a" && <FilterBar />}
+      <FilterBar />
 
       <div className="relative flex min-h-0 flex-1">
         <BrowsePanel />

@@ -3,7 +3,9 @@ import { CHRONOLOGIES } from "../../data/chronologies";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { childEvents, eraAt, eventMidpoint, eventsInOrder, parentEvent } from "../../lib/entities";
+import { eventShown } from "../../lib/filters";
 import { useStore } from "../../state/store";
+import { FilterShortcut } from "../Filters";
 import { Chip, Chips, Note, ScriptureList, Section } from "./parts";
 
 export default function EventDetail({ ev }: { ev: Event }) {
@@ -15,7 +17,9 @@ export default function EventDetail({ ev }: { ev: Event }) {
   const era = mid === undefined ? undefined : eraAt(mid, chron);
 
   const alternates = CHRONOLOGIES.filter((c) => c.id !== chron && ev.dates[c.id]);
-  const ordered = eventsInOrder(chron);
+  // Before and after skip what the filters hide, as the step buttons do.
+  const filters = useStore((s) => s.filters);
+  const ordered = eventsInOrder(chron).filter((e) => e.id === ev.id || eventShown(e, filters));
   const index = ordered.findIndex((e) => e.id === ev.id);
   const prev = ordered[index - 1];
   const next = ordered[index + 1];
@@ -102,6 +106,8 @@ export default function EventDetail({ ev }: { ev: Event }) {
           </div>
         </Section>
       )}
+
+      <FilterShortcut type={ev.type} />
     </>
   );
 }

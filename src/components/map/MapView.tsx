@@ -8,6 +8,7 @@ import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
 import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
+import { shownBy } from "../../lib/filters";
 import { eventForJourney } from "../../lib/journeys";
 import { useIsPhone, usePrefersDark } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
@@ -153,7 +154,8 @@ export default function MapView() {
   const selectedEvent = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
   const focusHint = useStore((s) => s.focusHint);
   const hinted = !selectedEvent && focusHint?.year === currentYear ? eventsById.get(focusHint.id) : undefined;
-  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted);
+  const filters = useStore((s) => s.filters);
+  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted, shownBy(filters));
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),

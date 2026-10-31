@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
-import { Lane, type EventType } from "../data/schema";
+import { Lane } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
+import { NO_FILTERS, type Filters } from "../lib/filters";
 import { datasetRange, entityBounds, shownLane } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
@@ -54,9 +55,10 @@ type State = {
    * cursor alone.
    */
   focusHint: { id: string; year: number } | null;
-  /** Events shown: of these types (any, if none) and involving these people (any, if none). */
-  filters: { types: EventType[]; people: string[] };
-  setFilters: (filters: Partial<State["filters"]>) => void;
+  /** Which events are shown (`lib/filters.ts`). A selected event shows whatever they say. */
+  filters: Filters;
+  /** Change some of the filters. A person filtered to brings their lane into view, as selecting does. */
+  setFilters: (filters: Partial<Filters>) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -107,8 +109,14 @@ export const useStore = create<State>()((set, get) => {
     timeStripPx: 0,
     focusHint: null,
     lanes: loadLanes(),
-    filters: { types: [], people: [] },
-    setFilters: (f) => set({ filters: { ...get().filters, ...f } }),
+    filters: NO_FILTERS,
+    setFilters: (f) => {
+      set({ filters: { ...get().filters, ...f } });
+      for (const id of f.people ?? []) {
+        const person = peopleById.get(id);
+        if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
+      }
+    },
     setLaneShown: (lane, shown) => {
       const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));
       saveLanes(lanes);

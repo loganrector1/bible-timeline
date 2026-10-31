@@ -2,7 +2,8 @@ import { describe, expect, test } from "vitest";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { eventsById } from "../src/data";
 import { activeEvents, distanceFrom, NEAREST_COUNT } from "../src/lib/activeEvents";
-import { eventsInOrder } from "../src/lib/entities";
+import { adjacentEvent, eventsInOrder } from "../src/lib/entities";
+import { eventShown, shownBy } from "../src/lib/filters";
 
 describe("activeEvents", () => {
   test("returns a fixed number of events, nearest first", () => {
@@ -80,5 +81,32 @@ describe("events along a journey", () => {
     const order = eventsInOrder(DEFAULT_CHRONOLOGY).map((ev) => ev.id);
     const i = order.indexOf("exodus");
     expect(order.slice(i, i + 4)).toEqual(["exodus", "red-sea", "manna", "amalek"]);
+  });
+});
+
+describe("filters", () => {
+  const chron = DEFAULT_CHRONOLOGY;
+  const battles = shownBy({ types: ["battle"], people: [] })!;
+
+  test("Nearest events and stepping show only what the filters let through", () => {
+    for (const year of [-1445, -1000, 30]) {
+      expect(activeEvents(year, chron, undefined, battles).every((ev) => ev.type === "battle")).toBe(true);
+    }
+    expect(adjacentEvent(1, chron, -1445, "amalek", battles)?.id).toBe("conquest");
+  });
+
+  test("the selected event stays, even when filtered out", () => {
+    const exodus = eventsById.get("exodus")!;
+    const events = activeEvents(-1444.7, chron, exodus, battles);
+    expect(events).toContain(exodus);
+    expect(events.filter((ev) => ev !== exodus).every((ev) => ev.type === "battle")).toBe(true);
+    expect(adjacentEvent(1, chron, -1444.7, "exodus", battles)?.type).toBe("battle");
+  });
+
+  test("events and people combine: any of the types, involving any of the people", () => {
+    const f = { types: ["battle" as const], people: ["david"] };
+    const shown = eventsInOrder(chron).filter((ev) => eventShown(ev, f));
+    expect(shown.length).toBeGreaterThan(0);
+    expect(shown.every((ev) => ev.type === "battle" && ev.people.includes("david"))).toBe(true);
   });
 });

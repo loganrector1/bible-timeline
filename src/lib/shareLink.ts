@@ -1,16 +1,19 @@
 import { erasById, eventsById, locationsById, peopleById, type EntityKind, type EntityRef } from "../data";
+import { EventType } from "../data/schema";
 import type { ViewMode } from "../state/store";
 import { fromHistorical, toHistorical } from "./dates";
+import type { Filters } from "./filters";
 
 /**
- * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map`. Every part is
- * optional. Keep these names stable once published: links get pasted into lesson notes.
+ * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map&types=battle,miracle&people=david`.
+ * Every part is optional. Keep these names stable once published: links get pasted into lesson notes.
  */
 export type LinkState = {
   mode?: ViewMode;
   selection?: EntityRef;
   year?: number;
   pxPerYear?: number;
+  filters?: Filters;
 };
 
 /** The URL parameter for each kind of selection. */
@@ -64,6 +67,10 @@ export function parseLink(search: string): LinkState {
   if (year !== undefined) out.year = year;
   const zoom = Number(p.get("zoom"));
   if (zoom > 0) out.pxPerYear = zoom;
+  const list = (name: string) => (p.get(name) ?? "").split(",").filter(Boolean);
+  const types = list("types").filter((t): t is EventType => (EventType.options as string[]).includes(t));
+  const people = list("people").filter((id) => peopleById.has(id));
+  if (types.length || people.length) out.filters = { types, people };
   return out;
 }
 
@@ -71,7 +78,9 @@ export function parseLink(search: string): LinkState {
  * The query string for a state, without the "?"; the default view ("Both") is left out, and
  * so is the year when there's none (opening the link then goes where selecting would).
  */
-export function formatLink(s: Required<Omit<LinkState, "selection" | "year">> & { selection: EntityRef | null; year?: number }): string {
+export function formatLink(
+  s: Required<Pick<LinkState, "mode" | "pxPerYear">> & { selection: EntityRef | null; year?: number; filters?: Filters },
+): string {
   const p = new URLSearchParams();
   if (s.selection) p.set(KIND_PARAM[s.selection.kind], s.selection.id);
   // Enough decimals that the cursor lands within a pixel of where it was.
@@ -79,5 +88,8 @@ export function formatLink(s: Required<Omit<LinkState, "selection" | "year">> & 
   if (s.year !== undefined) p.set("year", formatYearParam(s.year, digits));
   p.set("zoom", String(Number(s.pxPerYear.toPrecision(3))));
   if (s.mode !== "split") p.set("view", s.mode);
-  return p.toString();
+  if (s.filters?.types.length) p.set("types", s.filters.types.join(","));
+  if (s.filters?.people.length) p.set("people", s.filters.people.join(","));
+  // Commas are safe in a query and easier to read than %2C.
+  return p.toString().replace(/%2C/g, ",");
 }

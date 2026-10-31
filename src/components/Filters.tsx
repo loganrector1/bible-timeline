@@ -1,29 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { data, peopleById } from "../data";
-import { EventType } from "../data/schema";
+import type { EventType } from "../data/schema";
+import { eventShown, FILTER_TYPES, NO_FILTERS, TYPE_FILTER_LABEL } from "../lib/filters";
 import { useStore } from "../state/store";
-
-/** Event types as filter choices, in a reader's order rather than the schema's. */
-const TYPES: { type: EventType; label: string }[] = [
-  { type: "covenant", label: "Covenants" },
-  { type: "miracle", label: "Miracles" },
-  { type: "battle", label: "Battles" },
-  { type: "journey", label: "Journeys" },
-  { type: "judgment", label: "Judgments" },
-  { type: "prophecy", label: "Prophecy" },
-  { type: "ministry", label: "Ministries" },
-  { type: "worship", label: "Worship" },
-  { type: "writing", label: "Writings" },
-  { type: "reign", label: "Reigns" },
-  { type: "family", label: "Family" },
-  { type: "birth", label: "Births" },
-  { type: "death", label: "Deaths" },
-  { type: "other", label: "Other" },
-];
-const TYPE_LABEL = new Map(TYPES.map((t) => [t.type, t.label]));
-
-/** Placement being compared: "a" is a Filter button with chips, "b" is inside Browse. Temporary. */
-export const MOCK: "a" | "b" = new URLSearchParams(location.search).get("mock") === "b" ? "b" : "a";
 
 export function useFilterCount(): number {
   const { types, people } = useStore((s) => s.filters);
@@ -31,11 +10,8 @@ export function useFilterCount(): number {
 }
 
 function useMatchCount(): number {
-  const { types, people } = useStore((s) => s.filters);
-  return useMemo(
-    () => data.events.filter((ev) => (!types.length || types.includes(ev.type)) && (!people.length || ev.people.some((p) => people.includes(p)))).length,
-    [types, people],
-  );
+  const filters = useStore((s) => s.filters);
+  return useMemo(() => data.events.filter((ev) => eventShown(ev, filters)).length, [filters]);
 }
 
 /** The filter choices: event types as toggles, and people picked by name. */
@@ -61,7 +37,7 @@ export function FilterControls() {
       <section>
         <h3 className="mb-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">Event types</h3>
         <div className="flex flex-wrap gap-1.5">
-          {TYPES.map(({ type, label }) => {
+          {FILTER_TYPES.map(({ type, label }) => {
             const on = types.includes(type);
             return (
               <button
@@ -115,7 +91,7 @@ export function FilterControls() {
       <p className="flex items-center justify-between text-sm text-ink-muted">
         <span>{matches} of {data.events.length} events</span>
         {(types.length > 0 || people.length > 0) && (
-          <button onClick={() => setFilters({ types: [], people: [] })} className="text-accent hover:underline">
+          <button onClick={() => setFilters(NO_FILTERS)} className="text-accent hover:underline">
             Clear all
           </button>
         )}
@@ -145,19 +121,19 @@ export function FilterBar() {
     <div className="flex items-center gap-2 overflow-x-auto border-b border-line bg-paper-2 px-4 py-1.5 text-sm">
       <span className="shrink-0 text-ink-muted">Showing {matches} events:</span>
       {types.map((t) => (
-        <Chip key={t} label={TYPE_LABEL.get(t)!} onRemove={() => setFilters({ types: types.filter((x) => x !== t) })} />
+        <Chip key={t} label={TYPE_FILTER_LABEL.get(t)!} onRemove={() => setFilters({ types: types.filter((x) => x !== t) })} />
       ))}
       {people.map((id) => (
         <Chip key={id} label={peopleById.get(id)?.name ?? id} onRemove={() => setFilters({ people: people.filter((p) => p !== id) })} />
       ))}
-      <button onClick={() => setFilters({ types: [], people: [] })} className="ml-auto shrink-0 text-accent hover:underline">
+      <button onClick={() => setFilters(NO_FILTERS)} className="ml-auto shrink-0 text-accent hover:underline">
         Clear
       </button>
     </div>
   );
 }
 
-/** Placement A: a Filter button beside Browse, opening the choices in a small panel. */
+/** The Filter button beside Browse, opening the choices in a small panel. */
 export function FilterButton() {
   const count = useFilterCount();
   const [open, setOpen] = useState(false);
@@ -201,5 +177,34 @@ export function FilterButton() {
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * A detail panel's shortcut to filter by what it shows: an event's type, or a person's events.
+ * Pressed again, it removes that filter.
+ */
+export function FilterShortcut({ type, person }: { type?: EventType; person?: { id: string; name: string } }) {
+  const filters = useStore((s) => s.filters);
+  const setFilters = useStore((s) => s.setFilters);
+  const on = type ? filters.types.includes(type) : person ? filters.people.includes(person.id) : false;
+  const label = type ? TYPE_FILTER_LABEL.get(type)!.toLowerCase() : `${person?.name}’s events`;
+  const toggle = () => {
+    if (type) setFilters({ types: on ? filters.types.filter((t) => t !== type) : [...filters.types, type] });
+    else if (person) setFilters({ people: on ? filters.people.filter((p) => p !== person.id) : [...filters.people, person.id] });
+  };
+  return (
+    <button
+      onClick={toggle}
+      aria-pressed={on}
+      className={`mt-6 flex w-full items-center justify-center gap-1.5 rounded-md border px-3 py-1.5 text-sm ${
+        on ? "border-accent bg-accent/10 text-accent" : "border-line hover:border-accent hover:text-accent"
+      }`}
+    >
+      <svg aria-hidden viewBox="0 0 20 20" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 4.5h14l-5.5 6.5v5l-3 -1.5v-3.5z" />
+      </svg>
+      {on ? `Stop filtering to ${label}` : `Show only ${label}`}
+    </button>
   );
 }
