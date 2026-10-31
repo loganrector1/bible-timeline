@@ -42,6 +42,11 @@ describe("selected event", () => {
     expect(list).toContain(order[i + 1]);
   });
 
+  test("is listed with the event it's part of, wherever the cursor is", () => {
+    // Just after selecting, the cursor is still where it was (the death of Moses).
+    expect(ids(-1405, "sun-stands-still")).toContain("conquest");
+  });
+
   test("at the ends of time, there's only one neighbour", () => {
     expect(ids(-4113, "creation")).toContain("creation");
     expect(ids(-4113, "creation")).toHaveLength(NEAREST_COUNT);
