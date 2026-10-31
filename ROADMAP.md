@@ -52,7 +52,7 @@ The view, time, zoom and selection are in the URL, kept current as you move, and
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
-- **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`).
+- **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`). Both can go in the Settings menu, which so far holds the theme.
 - **Search and filters** (branch `feature/filters`): filters by event type and person are built, applied to both views and carried in links, with shortcuts from Browse and the detail panels. Filters by book, theme, region and date range are still to come, all as event filters. A passage link (`?passage=Exod.12-14`) is one of these filters: it lights every event whose Scripture overlaps the passage. It's the contract the reading-plans app will link through, so keep it stable once published.
 - **Guided tours:** step-by-step stories that drive both views, such as "The Exodus" or "The Life of Abraham".
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).

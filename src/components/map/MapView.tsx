@@ -10,7 +10,7 @@ import { formatDateSpec } from "../../lib/dates";
 import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { shownBy } from "../../lib/filters";
 import { eventForJourney } from "../../lib/journeys";
-import { useIsPhone, usePrefersDark } from "../../lib/useMediaQuery";
+import { useIsDark, useIsPhone } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
@@ -114,7 +114,7 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
 }
 
 export default function MapView() {
-  const dark = usePrefersDark();
+  const dark = useIsDark();
   const colors = dark ? DARK : LIGHT;
   const mapRef = useRef<MapRef>(null);
   const [style, setStyle] = useState<StyleSpecification | null>(null);

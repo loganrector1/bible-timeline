@@ -34,6 +34,29 @@ function saveLanes(lanes: Lane[]) {
   }
 }
 
+/** "system" follows the OS; the others override it. Remembered per browser. */
+export type Theme = "system" | "light" | "dark";
+const THEME_KEY = "bible-timeline:theme";
+function loadTheme(): Theme {
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {
+    // Blocked storage: follow the system.
+  }
+  return "system";
+}
+function applyTheme(theme: Theme) {
+  if (theme === "system") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = theme;
+  try {
+    if (theme === "system") localStorage.removeItem(THEME_KEY);
+    else localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // Not remembered; it still applies now.
+  }
+}
+
 type State = {
   /** The shared "current moment", as a fractional astronomical year. */
   currentYear: number;
@@ -59,6 +82,8 @@ type State = {
   filters: Filters;
   /** Change some of the filters. A person filtered to brings their lane into view, as selecting does. */
   setFilters: (filters: Partial<Filters>) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -109,6 +134,11 @@ export const useStore = create<State>()((set, get) => {
     timeStripPx: 0,
     focusHint: null,
     lanes: loadLanes(),
+    theme: loadTheme(),
+    setTheme: (theme) => {
+      applyTheme(theme);
+      set({ theme });
+    },
     filters: NO_FILTERS,
     setFilters: (f) => {
       set({ filters: { ...get().filters, ...f } });

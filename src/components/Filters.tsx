@@ -186,7 +186,7 @@ export function FilterButton() {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="dialog"
-        className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2.5 text-sm ${
+        className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2 text-sm sm:px-2.5 ${
           open || count ? "bg-ink text-paper" : "bg-paper text-ink-muted hover:text-ink"
         }`}
       >
