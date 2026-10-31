@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { eventsById, regionsById, type EntityRef } from "../data";
 import {
-  entityLocations, eventLocations, eventsAtLocation, eventsForPerson, eventsInEra,
+  childEvents, entityLocations, eventLocations, eventsAtLocation, eventsForPerson, eventsInEra,
 } from "../lib/entities";
 import { useStore } from "./store";
 
@@ -22,8 +22,9 @@ export function computeHighlight(sel: EntityRef | null, chron: string): Highligh
     case "event": {
       const ev = eventsById.get(sel.id);
       if (!ev) return null;
+      // The event it's part of and the events within it stay lit, not dimmed with the rest.
       return {
-        events: new Set([ev.id]),
+        events: new Set([ev.id, ...(ev.partOf ? [ev.partOf] : []), ...childEvents(ev, chron).map((c) => c.id)]),
         people: new Set(ev.people),
         locations: locationIds(eventLocations(ev)),
         regions: new Set(ev.regions),

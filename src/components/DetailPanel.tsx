@@ -10,6 +10,9 @@ import PersonDetail from "./detail/PersonDetail";
 
 const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era" } as const;
 
+/** Height of the phone sheet's collapsed peek. */
+export const PEEK_HEIGHT = "9.5rem";
+
 /** Swipes shorter than this count as taps. */
 const SWIPE_PX = 24;
 
@@ -152,7 +155,7 @@ export default function DetailPanel() {
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => (drag.current = null)}
-      style={isPhone ? { bottom: floor, maxHeight: peek ? "9.5rem" : `min(55%, calc(100% - ${floor}px - 3rem))` } : undefined}
+      style={isPhone ? { bottom: floor, maxHeight: peek ? PEEK_HEIGHT : `min(55%, calc(100% - ${floor}px - 3rem))` } : undefined}
       className={`absolute inset-x-0 z-20 rounded-t-2xl border-t border-line bg-paper shadow-[0_-8px_30px_rgb(0_0_0/0.15)] transition-[max-height] duration-200 md:static md:max-h-none md:w-96 md:shrink-0 md:rounded-none md:border-t-0 md:border-l md:shadow-none ${
         peek ? "touch-none overflow-hidden select-none" : "overflow-y-auto"
       }`}

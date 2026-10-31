@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { data, datesFor } from "../../data";
-import { formatDateSpec, specBounds } from "../../lib/dates";
+import { formatDateSpec, specExtent, specMidpoint } from "../../lib/dates";
+import { lifeMarkPerson } from "../../lib/entities";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -9,8 +10,12 @@ import { packIntervals } from "./pack";
 
 const COLUMN = 18;
 const BAR = 14;
+const MARK = 10;
 
-/** Lifespans as vertical bars, packed into columns so overlapping lives sit side by side. */
+/**
+ * Lifespans as vertical bars, packed into columns so overlapping lives sit side by side.
+ * Routine births and deaths are small marks on the bar rather than dots in the event lane.
+ */
 export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
@@ -21,11 +26,20 @@ export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHov
   const lives = useMemo(() => {
     const items = data.people.flatMap((person) => {
       const spec = datesFor(person, chron);
-      return spec ? [{ person, spec, bounds: specBounds(spec) }] : [];
+      return spec ? [{ person, spec, bounds: specExtent(spec) }] : [];
     });
     const columns = packIntervals(items.map((i) => i.bounds));
     return items.map((item, i) => ({ ...item, column: columns[i] }));
   }, [chron]);
+
+  const marks = useMemo(() => {
+    const columnOf = new Map(lives.map((l) => [l.person.id, l.column]));
+    return data.events.flatMap((ev) => {
+      const personId = lifeMarkPerson(ev, chron);
+      const spec = datesFor(ev, chron);
+      return personId && spec ? [{ ev, spec, year: specMidpoint(spec), column: columnOf.get(personId)! }] : [];
+    });
+  }, [lives, chron]);
 
   const width = (Math.max(0, ...lives.map((l) => l.column)) + 1) * COLUMN + 8;
 
@@ -73,6 +87,25 @@ export default function PeopleLane({ scale, onHover }: { scale: TimeScale; onHov
               </span>
             )}
           </button>
+        );
+      })}
+      {marks.map(({ ev, spec, year, column }) => {
+        const y = yearToPx(scale, year);
+        if (y < -MARK || y > scale.height + MARK) return null;
+        const selected = selection?.kind === "event" && selection.id === ev.id;
+        const lit = !highlight || highlight.events.has(ev.id);
+        return (
+          <button
+            key={ev.id}
+            onClick={() => select({ kind: "event", id: ev.id })}
+            {...hoverProps({ kind: "event", id: ev.id }, onHover)}
+            aria-label={`${ev.title}, ${formatDateSpec(spec, eraStyle)}`}
+            aria-pressed={selected}
+            className={`absolute -translate-y-1/2 rounded-full border-2 ${
+              selected ? "border-accent bg-accent ring-4 ring-accent/25" : "border-ink/70 bg-paper hover:border-accent"
+            } ${lit ? "" : "opacity-35"}`}
+            style={{ left: column * COLUMN + 4 + (BAR - MARK) / 2, top: y, width: MARK, height: MARK }}
+          />
         );
       })}
     </div>

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { datesFor, eventsById, type EntityRef } from "../data";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
-import { specMidpoint, type EraStyle } from "../lib/dates";
+import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
 import { datasetRange, entityBounds } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
@@ -23,14 +23,25 @@ type State = {
   playing: boolean;
   /** Height of the timeline viewport, reported by the timeline; used to fit spans. */
   viewportPx: number;
+  /** Height of the map's time strip, reported by it (0 while the map is hidden); used to split a phone screen. */
+  timeStripPx: number;
   /** Bumped on every select, so the map can replay an animation even for the same entity. */
   selectionNonce: number;
+  /**
+   * The event stepped to without selecting it (dragging Nearest events). It's the map's focus
+   * while the cursor stays at `year`, since events sharing a moment can't be told apart by the
+   * cursor alone.
+   */
+  focusHint: { id: string; year: number } | null;
 
   setYear: (year: number) => void;
   setZoom: (pxPerYear: number) => void;
   setMode: (mode: ViewMode) => void;
   setPlaying: (playing: boolean) => void;
   setViewportPx: (px: number) => void;
+  setTimeStripPx: (px: number) => void;
+  /** Move the cursor to an event without selecting it, making it the focus there. */
+  stepTo: (eventId: string, year: number) => void;
   /** Animate the cursor (and optionally zoom) to a target. */
   goTo: (year: number, pxPerYear?: number) => void;
   /** Select an entity, moving the cursor only if needed (see the implementation). Stops playback unless asked not to. */
@@ -63,6 +74,8 @@ export const useStore = create<State>()((set, get) => {
     selection: null,
     playing: false,
     viewportPx: 700,
+    timeStripPx: 0,
+    focusHint: null,
     selectionNonce: 0,
     browseOpen: false,
 
@@ -75,6 +88,12 @@ export const useStore = create<State>()((set, get) => {
     setMode: (mode) => set({ mode }),
     setPlaying: (playing) => set({ playing }),
     setViewportPx: (viewportPx) => set({ viewportPx }),
+    setTimeStripPx: (timeStripPx) => set({ timeStripPx }),
+    stepTo: (id, year) => {
+      cancelAnimation();
+      const y = clampYear(year);
+      set({ currentYear: y, focusHint: { id, year: y } });
+    },
 
     goTo: (year, pxPerYear) => {
       cancelAnimation();
@@ -98,6 +117,7 @@ export const useStore = create<State>()((set, get) => {
     select: (ref, opts) => {
       set({
         selection: ref,
+        focusHint: null,
         selectionNonce: get().selectionNonce + 1,
         playing: opts?.keepPlaying ? get().playing : false,
       });
@@ -113,7 +133,8 @@ export const useStore = create<State>()((set, get) => {
       // edge of a life or era. The zoom never changes here.
       if (spec && !spec.end) get().goTo(specMidpoint(spec));
       else if (cur < b[0] || cur >= b[1]) {
-        const edge = ev ? b[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
+        // An event starts where it's drawn (mid-year for "from 1446 BC").
+        const edge = ev && spec ? specExtent(spec)[0] : cur < b[0] ? b[0] : b[1] - 1e-3;
         get().goTo(edge);
       }
     },

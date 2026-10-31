@@ -1,7 +1,7 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type CSSProperties } from "react";
 import { useStore, type ViewMode } from "../state/store";
 import BrowsePanel from "./BrowsePanel";
-import DetailPanel from "./DetailPanel";
+import DetailPanel, { PEEK_HEIGHT } from "./DetailPanel";
 import Onboarding from "./Onboarding";
 import Timeline from "./timeline/Timeline";
 
@@ -19,6 +19,7 @@ export default function AppShell() {
   const setMode = useStore((s) => s.setMode);
   const hasSelection = useStore((s) => s.selection !== null);
   const browseOpen = useStore((s) => s.browseOpen);
+  const timeStripPx = useStore((s) => s.timeStripPx);
   const setBrowseOpen = useStore((s) => s.setBrowseOpen);
 
   const showTimeline = mode !== "map";
@@ -64,11 +65,17 @@ export default function AppShell() {
 
       <div className="relative flex min-h-0 flex-1">
         <BrowsePanel />
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row">
+        {/* On a phone in Both view, the timeline and the map split the space that's actually
+            visible: not counting the map's time strip, or the details peek that covers the
+            bottom of the map while something is selected. */}
+        <main
+          className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
+          style={{ "--below-map": `calc(${timeStripPx}px + ${hasSelection ? PEEK_HEIGHT : "0px"})` } as CSSProperties}
+        >
           {showTimeline && (
             <section
               aria-label="Timeline"
-              className={`min-h-0 ${mode === "split" ? "h-1/2 border-line max-md:border-b md:h-auto md:w-[44%] md:border-r" : "flex-1"}`}
+              className={`min-h-0 ${mode === "split" ? "h-[calc((100%-var(--below-map))/2)] border-line transition-[height] duration-200 max-md:border-b md:h-auto md:w-[44%] md:border-r" : "flex-1"}`}
             >
               <Timeline />
             </section>

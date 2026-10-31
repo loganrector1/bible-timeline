@@ -65,6 +65,19 @@ export function specBounds(spec: DateSpec): [number, number] {
   return [pointBounds(spec.start)[0], pointBounds(spec.end ?? spec.start)[1]];
 }
 
+/**
+ * Where a DateSpec is drawn: each end at the middle of its own precision, the same place a
+ * moment with that date sits. So a span "from 1446 BC" starts level with a moment "in 1446
+ * BC", and a lifespan ending "in 1405 BC" ends at the dot for that death.
+ */
+export function specExtent(spec: DateSpec): [number, number] {
+  const mid = (tp: TimePoint) => {
+    const [lo, hi] = pointBounds(tp);
+    return (lo + hi) / 2;
+  };
+  return [mid(spec.start), mid(spec.end ?? spec.start)];
+}
+
 /** A single representative position, e.g. for placing a point marker. */
 export function specMidpoint(spec: DateSpec): number {
   const [lo, hi] = specBounds(spec);

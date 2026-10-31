@@ -2,14 +2,14 @@ import * as maplibregl from "maplibre-gl";
 import { setWorkerUrl, type StyleSpecification } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import { useEffect, useMemo, useRef, useState } from "react";
-import Map, { NavigationControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
+import Map, { NavigationControl, useControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
 import { datesFor, eventsById, journeysById, locationsById, regionsById } from "../../data";
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
 import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { eventForJourney } from "../../lib/journeys";
-import { usePrefersDark } from "../../lib/useMediaQuery";
+import { useIsPhone, usePrefersDark } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
@@ -46,6 +46,24 @@ const FRAME_MAX_ZOOM = 7.5;
 const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER];
 
 type Hover = { layer: string; id: string; x: number; y: number };
+
+/**
+ * MapLibre's compact credits, starting folded behind their ⓘ button. Its own control opens them
+ * on every new map until the first drag; folding them once the map has loaded left them open
+ * for a moment, so they're folded as the control is created.
+ */
+class FoldedAttribution extends maplibregl.AttributionControl {
+  onAdd(map: maplibregl.Map) {
+    const el = super.onAdd(map);
+    el.classList.remove("maplibregl-compact-show");
+    return el;
+  }
+}
+
+function Credits() {
+  useControl(() => new FoldedAttribution({ compact: true, customAttribution: CREDITS }), { position: "bottom-right" });
+  return null;
+}
 
 /** Fly to fit the given places, leaving room for the "Nearest events" panel when it's open. */
 function frame(map: MapRef | maplibregl.Map, coords: [number, number][], panelOpen: boolean) {
@@ -104,8 +122,16 @@ export default function MapView() {
   const [hover, setHover] = useState<Hover | null>(null);
   /** The map instance once loaded, for overlays positioned in screen space. */
   const [map, setMap] = useState<maplibregl.Map | null>(null);
-  // Start collapsed on phones, where the panel would cover much of the map.
-  const [nowOpen, setNowOpen] = useState(() => window.innerWidth >= 768);
+  const isPhone = useIsPhone();
+  const mode = useStore((s) => s.mode);
+  // On phones, where there's no popup, the panel shows just the focus event (collapsed) beside
+  // the timeline, and all of them when the map has the screen.
+  const [nowOpen, setNowOpen] = useState(() => !isPhone || mode === "map");
+  useEffect(() => {
+    if (isPhone) setNowOpen(mode === "map");
+  }, [isPhone, mode]);
+  /** The focus event whose popup was closed; it stays closed until the focus moves on. */
+  const [dismissed, setDismissed] = useState<string | null>(null);
 
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
@@ -125,17 +151,24 @@ export default function MapView() {
   }, [dark]);
 
   const selectedEvent = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
-  const active = activeEvents(currentYear, chron, selectedEvent);
+  const focusHint = useStore((s) => s.focusHint);
+  const hinted = !selectedEvent && focusHint?.year === currentYear ? eventsById.get(focusHint.id) : undefined;
+  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted);
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),
     [activeKey],
   );
 
-  // One focus event gets its journey and regions drawn: the selected event, or the
-  // nearest event happening now (among the selection's events, if something else is selected).
-  const focus: Event | undefined = selectedEvent
+  // One focus event gets its journey and regions drawn: the selected event, the event just
+  // stepped to in Nearest events, or the nearest event happening now (among the selection's
+  // events, if something else is selected).
+  const focus: Event | undefined = selectedEvent ?? hinted
     ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+  useEffect(() => {
+    if (focus?.id !== dismissed) setDismissed(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus?.id]);
   const focusHighlight = useMemo(
     () => (focus ? computeHighlight({ kind: "event", id: focus.id }, chron) : null),
     [focus, chron],
@@ -213,10 +246,11 @@ export default function MapView() {
               applyBorders();
             }}
             cursor={hover ? "pointer" : "grab"}
-            attributionControl={{ compact: true, customAttribution: CREDITS }}
+            attributionControl={false}
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="top-right" showCompass={false} />
+            <Credits />
             <RegionLayer selected={strongRegions} focus={focusRegions} hovered={hoveredRegion} colors={colors} />
             <JourneyLayer
               journeyId={focus && journeyOf(focus)}
@@ -234,8 +268,10 @@ export default function MapView() {
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
         <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
-        {/* The details panel already describes a selected event. */}
-        {focus && focus !== selectedEvent && <EventPopup map={map} ev={focus} />}
+        {/* The details panel already describes a selected event. Phones have no room for it. */}
+        {!isPhone && focus && focus !== selectedEvent && focus.id !== dismissed && (
+          <EventPopup map={map} ev={focus} onClose={() => setDismissed(focus.id)} />
+        )}
         <OffscreenSelection
           map={map}
           onShow={() => map && selection && frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen)}

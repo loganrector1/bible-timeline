@@ -245,7 +245,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
   },
   {
-    "id": "passover", "title": "The first Passover", "type": "worship", "major": true,
+    "id": "passover", "title": "The first Passover", "type": "worship", "major": true, "partOf": "plagues",
     "summary": "Israel marks its doorposts with the blood of a lamb, and the Lord passes over them when he strikes the firstborn of Egypt.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
@@ -722,7 +722,7 @@
     "scripture": [{ "book": "Daniel", "chapter": 5 }]
   },
   {
-    "id": "lions-den", "title": "Daniel in the lions' den", "type": "miracle",
+    "id": "lions-den", "title": "Daniel in the lions' den", "type": "miracle", "major": true,
     "summary": "Daniel keeps praying to God despite the king's decree, is thrown to the lions, and is kept safe.",
     "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
     "dateNote": "Under \"Darius the Mede,\" soon after Babylon fell (Daniel 6). Who Darius was is debated; he may be Cyrus's governor Gubaru, or Cyrus himself.",

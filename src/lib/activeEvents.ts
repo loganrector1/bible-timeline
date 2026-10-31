@@ -1,5 +1,5 @@
 import type { Event } from "../data/schema";
-import { adjacentEvent, eventBounds, eventsInOrder } from "./entities";
+import { adjacentEvent, eventBounds, eventsInOrder, parentEvent } from "./entities";
 
 /** How many events the map treats as "now", whatever the time zoom. */
 export const NEAREST_COUNT = 5;
@@ -22,8 +22,8 @@ export function distanceFrom(currentYear: number, ev: Event, chron: string): num
  * The events nearest the current moment, nearest first. A fixed count rather than a
  * time window, so the map is never empty in quiet stretches or crowded in busy ones.
  * The anchor (the selected event, or else the nearest) is always included with the
- * events just before and after it, so the list doubles as a way to step through time;
- * nearest events fill the rest.
+ * events just before and after it, so the list doubles as a way to step through time,
+ * and with the event it's part of, so it stays nested under it; nearest events fill the rest.
  */
 export function activeEvents(currentYear: number, chron: string, selected?: Event): Event[] {
   const byDistance = eventsInOrder(chron)
@@ -33,7 +33,7 @@ export function activeEvents(currentYear: number, chron: string, selected?: Even
   const anchor = selected ?? byDistance[0];
   if (!anchor) return [];
   const picked = new Set(
-    [anchor, adjacentEvent(-1, chron, currentYear, anchor.id), adjacentEvent(1, chron, currentYear, anchor.id)]
+    [anchor, parentEvent(anchor), adjacentEvent(-1, chron, currentYear, anchor.id), adjacentEvent(1, chron, currentYear, anchor.id)]
       .filter((ev): ev is Event => ev !== undefined),
   );
   for (const ev of byDistance) {
