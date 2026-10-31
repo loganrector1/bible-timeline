@@ -67,13 +67,24 @@ export const Event = z.object({
   scripture: z.array(ScriptureRef).default([]),
 });
 
+/**
+ * Which lane of the timeline a person's bar sits in: the main figures, or one of the optional
+ * groups (off by default) that would crowd the main lane.
+ */
+export const Lane = z.enum(["people", "kings", "prophets", "church"]);
+export type Lane = z.infer<typeof Lane>;
+
 export const Person = z.object({
   id,
   name: z.string(),
   altNames: z.array(z.string()).default([]),
   roles: z.array(z.string()).default([]),
+  lane: Lane.default("people"),
   summary: z.string(),
-  /** Lifespan, where it can be estimated. */
+  /**
+   * Lifespan where Scripture supports one; otherwise the years we can place them (a reign, a
+   * ministry), said so in `dateNote`. Without it, the bar spans the person's events.
+   */
   dates: Dates.optional(),
   dateNote: z.string().optional(),
   parents: ids,

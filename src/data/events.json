@@ -128,7 +128,7 @@
     "summary": "After taking Esau's blessing, Jacob flees to Laban and dreams of a stairway to heaven at Bethel.",
     "dates": { "early": { "start": { "year": -1928 }, "confidence": "approx" } },
     "dateNote": "Estimated from Jacob's age at the move to Egypt and his years with Laban.",
-    "people": ["jacob", "esau", "isaac", "rebekah"], "locations": ["beersheba", "bethel", "haran"],
+    "people": ["jacob", "esau", "isaac", "rebekah", "laban"], "locations": ["beersheba", "bethel", "haran"],
     "journeyId": "jacob-flight",
     "scripture": [{ "book": "Genesis", "chapter": 27, "endChapter": 28 }]
   },
@@ -136,7 +136,7 @@
     "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
     "summary": "Jacob works fourteen years for Laban's daughters; his sons, the ancestors of Israel's tribes, are born in Haran.",
     "dates": { "early": { "start": { "year": -1921 }, "end": { "year": -1909 }, "confidence": "approx" } },
-    "people": ["jacob", "leah", "rachel", "judah", "joseph"], "locations": ["haran"],
+    "people": ["jacob", "leah", "rachel", "laban", "judah", "joseph"], "locations": ["haran"],
     "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
   },
   {
@@ -200,7 +200,7 @@
       "late": { "start": { "year": -1299 }, "end": { "year": -1260 }, "confidence": "approx" }
     },
     "dateNote": "Scripture does not date the start of the oppression; these spans are estimates.",
-    "people": ["pharaoh-exodus"], "locations": ["pithom", "rameses"], "regions": ["goshen"],
+    "people": [], "locations": ["pithom", "rameses"], "regions": ["goshen"],
     "scripture": [{ "book": "Exodus", "chapter": 1 }]
   },
   {
@@ -1275,7 +1275,7 @@
     "summary": "Relieved by Titus's news, Paul writes from Macedonia about his trials, the ministry of the new covenant, and God's power made perfect in weakness.",
     "dates": { "early": { "start": { "year": 56 }, "confidence": "approx" } },
     "dateNote": "Written in Macedonia after leaving Ephesus (2 Corinthians 2:12–13; 7:5–7), perhaps at Philippi.",
-    "people": ["paul", "timothy"], "locations": ["philippi", "corinth"],
+    "people": ["paul", "timothy", "titus"], "locations": ["philippi", "corinth"],
     "scripture": [{ "book": "2 Corinthians", "chapter": 4, "verse": 7, "endVerse": 18 }, { "book": "2 Corinthians", "chapter": 12, "verse": 7, "endVerse": 10 }]
   },
   {
@@ -1307,7 +1307,7 @@
     "summary": "Paul instructs his co-workers Timothy in Ephesus and Titus on Crete in choosing leaders, guarding sound teaching and caring for the church.",
     "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
     "dateNote": "Probably between Paul's two Roman imprisonments, years that Acts doesn't cover.",
-    "people": ["paul", "timothy"], "locations": ["ephesus", "crete"],
+    "people": ["paul", "timothy", "titus"], "locations": ["ephesus", "crete"],
     "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }]
   },
   {
