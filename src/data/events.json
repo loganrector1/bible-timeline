@@ -640,12 +640,28 @@
     "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
   },
   {
+    "id": "hosea-ministry", "title": "Hosea's ministry", "type": "ministry",
+    "summary": "Hosea marries Gomer, who leaves him for other lovers, and takes her back: a living picture of Israel's unfaithfulness and God's love. He warns the northern kingdom of judgment in its last decades.",
+    "dates": { "early": { "start": { "year": -754 }, "end": { "year": -714 }, "confidence": "approx" } },
+    "dateNote": "In the days of Uzziah, Jotham, Ahaz and Hezekiah of Judah and Jeroboam II of Israel (Hosea 1:1): from before 753 BC, when Jeroboam died, into Hezekiah's reign, from 715 BC.",
+    "people": ["hosea", "jeroboam-ii", "uzziah", "jotham", "ahaz", "hezekiah"], "locations": ["samaria"],
+    "scripture": [{ "book": "Hosea", "chapter": 1, "verse": 1, "endVerse": 3 }, { "book": "Hosea", "chapter": 11, "verse": 1, "endVerse": 9 }]
+  },
+  {
     "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
     "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
     "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
     "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
     "people": ["isaiah", "uzziah", "jotham", "ahaz", "hezekiah", "tiglath-pileser"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
+  },
+  {
+    "id": "micah-ministry", "title": "Micah's ministry", "type": "ministry",
+    "summary": "A prophet from the Judean countryside condemns the rich who seize fields and the leaders who sell justice, foretells the fall of Samaria and Jerusalem, and names Bethlehem as the birthplace of a coming ruler.",
+    "dates": { "early": { "start": { "year": -734 }, "end": { "year": -699 }, "confidence": "approx" } },
+    "dateNote": "In the days of Jotham, Ahaz and Hezekiah (Micah 1:1): before Samaria fell in 722 BC, which he foretells (Micah 1:6), and into Hezekiah's reign (Jeremiah 26:18). About 735–700 BC.",
+    "people": ["micah", "jotham", "ahaz", "hezekiah"], "locations": ["moresheth", "jerusalem", "samaria"],
+    "scripture": [{ "book": "Micah", "chapter": 1, "verse": 1 }, { "book": "Micah", "chapter": 5, "verse": 2 }, { "book": "Micah", "chapter": 6, "verse": 8 }]
   },
   {
     "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "major": true,
@@ -666,6 +682,22 @@
     "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }]
   },
   {
+    "id": "zephaniah-ministry", "title": "Zephaniah's warning", "type": "ministry",
+    "summary": "Zephaniah warns Judah and the nations of the coming day of the Lord, and promises a humble remnant that God will rejoice over with singing.",
+    "dates": { "early": { "start": { "year": -629 }, "confidence": "approx" } },
+    "dateNote": "In the days of Josiah (Zephaniah 1:1). The idol worship he condemns suggests before Josiah's reform of 622 BC, about 630 BC.",
+    "people": ["zephaniah", "josiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Zephaniah", "chapter": 1, "verse": 1, "endVerse": 18 }, { "book": "Zephaniah", "chapter": 3, "verse": 14, "endVerse": 20 }]
+  },
+  {
+    "id": "nahum-nineveh", "title": "Nahum foretells Nineveh's fall", "type": "prophecy",
+    "summary": "A century after Jonah, Nahum announces that Nineveh, Assyria's capital, will fall for its cruelty: comfort for Judah, long under Assyria's yoke.",
+    "dates": { "early": { "start": { "year": -649 }, "confidence": "approx" } },
+    "dateNote": "Nahum speaks of the fall of Thebes (663 BC) as past (Nahum 3:8) and Nineveh's (612 BC) as still to come; often placed about 650 BC.",
+    "people": ["nahum"], "locations": ["nineveh"],
+    "scripture": [{ "book": "Nahum", "chapter": 1, "verse": 1, "endVerse": 15 }, { "book": "Nahum", "chapter": 3, "verse": 1, "endVerse": 19 }]
+  },
+  {
     "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant",
     "summary": "The Book of the Law is found in the temple. Josiah renews the covenant, destroys the idols and celebrates the Passover.",
     "dates": { "early": { "start": { "year": -621 }, "confidence": "approx" } },
@@ -680,6 +712,14 @@
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
     "people": ["jeremiah", "josiah", "jehoiakim", "zedekiah", "neco"], "locations": ["anathoth", "jerusalem"],
     "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
+  },
+  {
+    "id": "habakkuk-ministry", "title": "Habakkuk questions God", "type": "ministry",
+    "summary": "Habakkuk asks why God lets injustice go unpunished, and is told that Babylon is coming. He learns that the righteous will live by faith, and ends in praise though the fig tree fails.",
+    "dates": { "early": { "start": { "year": -606 }, "confidence": "approx" } },
+    "dateNote": "Not dated. God is \"raising up the Chaldeans\" (Habakkuk 1:6), so usually placed just before Babylon's victory at Carchemish in 605 BC.",
+    "people": ["habakkuk"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Habakkuk", "chapter": 1, "verse": 1, "endVerse": 6 }, { "book": "Habakkuk", "chapter": 2, "verse": 4 }, { "book": "Habakkuk", "chapter": 3, "verse": 17, "endVerse": 19 }]
   },
   {
     "id": "daniel-taken", "title": "Daniel taken to Babylon", "type": "journey",
@@ -705,6 +745,14 @@
     "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "riblah", "babel"],
     "journeyId": "to-babylon",
     "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
+  },
+  {
+    "id": "obadiah-edom", "title": "Obadiah against Edom", "type": "prophecy",
+    "summary": "Obadiah condemns Edom, Jacob's brother nation, for gloating and looting as Jerusalem fell, and promises that the kingdom will be the Lord's.",
+    "dates": { "early": { "start": { "year": -584 }, "confidence": "approx" } },
+    "dateNote": "Not dated. Edom's part as Jerusalem was plundered (Obadiah 11–14) best fits Babylon's capture of the city in 586 BC (Psalm 137:7). Some link it to a raid under Jehoram of Judah, about 845 BC (2 Chronicles 21:16–17).",
+    "people": ["obadiah"], "locations": ["edom", "jerusalem"],
+    "scripture": [{ "book": "Obadiah", "chapter": 1, "verse": 1, "endVerse": 21 }]
   },
   {
     "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry",
