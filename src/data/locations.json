@@ -89,6 +89,7 @@
   { "id": "thyatira", "name": "Thyatira", "modernName": "Akhisar, Turkey", "type": "city", "coords": [27.837, 38.92], "openbible": "Thyatira", "summary": "Church of Revelation 2, praised for its love and service; Lydia's hometown." },
   { "id": "sardis", "name": "Sardis", "type": "city", "coords": [28.04, 38.488], "openbible": "Sardis", "summary": "Church of Revelation 3 with a reputation for being alive, though it was dead." },
   { "id": "philadelphia", "name": "Philadelphia", "modernName": "Alaşehir, Turkey", "type": "city", "coords": [28.517, 38.35], "openbible": "Philadelphia", "summary": "Church of Revelation 3 given an open door that no one can shut." },
+  { "id": "colossae", "name": "Colossae", "type": "city", "coords": [29.26, 37.787], "openbible": "Colossae", "summary": "Small Phrygian town in the Lycus valley, home of the church Paul wrote to and of Philemon." },
   { "id": "laodicea", "name": "Laodicea", "type": "city", "coords": [29.108, 37.836], "openbible": "Laodicea", "summary": "Wealthy church of Revelation 3, neither hot nor cold." },
   { "id": "seleucia", "name": "Seleucia", "modernName": "Near Samandağ, Turkey", "type": "city", "coords": [35.922, 36.124], "openbible": "Seleucia", "summary": "Antioch's seaport, where Paul and Barnabas set sail on the first journey." },
   { "id": "salamis", "name": "Salamis", "type": "city", "coords": [33.902, 35.185], "openbible": "Salamis", "summary": "Port on the east coast of Cyprus, where Paul and Barnabas first preached in the synagogues." },

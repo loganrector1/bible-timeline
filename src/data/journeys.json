@@ -190,6 +190,26 @@
     ]
   },
   {
+    "id": "daniel-to-babylon",
+    "name": "Daniel taken to Babylon",
+    "summary": "The first captives, Daniel and his friends among them, are taken north and down the Euphrates to Nebuchadnezzar's court.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "jerusalem" },
+      { "locationId": "babel", "via": [[36.3, 33.51], [36.75, 35.14], [37.16, 36.2], [38.1, 35.98], [39, 35.95], [40.15, 35.33], [40.89, 34.55], [41.98, 34.37], [42.82, 33.64]] }
+    ]
+  },
+  {
+    "id": "jehoiachin-to-babylon",
+    "name": "Jehoiachin taken to Babylon",
+    "summary": "The young king, his household, officials, craftsmen and Ezekiel among ten thousand captives are taken the same road to Babylon.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "jerusalem" },
+      { "locationId": "babel", "via": [[36.3, 33.51], [36.75, 35.14], [37.16, 36.2], [38.1, 35.98], [39, 35.95], [40.15, 35.33], [40.89, 34.55], [41.98, 34.37], [42.82, 33.64]] }
+    ]
+  },
+  {
     "id": "to-babylon",
     "name": "Judah taken to Babylon",
     "summary": "After Jerusalem falls, its people are marched north to Nebuchadnezzar at Riblah and on down the Euphrates to Babylon.",
@@ -218,6 +238,16 @@
     "stops": [
       { "locationId": "babel", "at": { "year": -457, "month": 4, "label": "1st of 1st month" } },
       { "locationId": "jerusalem", "via": [[42.82, 33.64], [41.98, 34.37], [40.89, 34.55], [40.15, 35.33], [39, 35.95], [38.1, 35.98], [37.16, 36.2], [36.75, 35.14], [36.3, 33.51]], "at": { "year": -457, "month": 8, "label": "1st of 5th month" } }
+    ]
+  },
+  {
+    "id": "nehemiah-to-jerusalem",
+    "name": "Nehemiah goes to Jerusalem",
+    "summary": "With the king's letters and an escort, Nehemiah travels from the Persian court at Susa to Jerusalem.",
+    "chronology": "early",
+    "stops": [
+      { "locationId": "susa", "note": "Artaxerxes grants Nehemiah leave in the month of Nisan (Nehemiah 2:1–8)." },
+      { "locationId": "jerusalem", "via": [[46.2, 32.75], [44.42, 32.54], [42.82, 33.64], [41.98, 34.37], [40.89, 34.55], [40.15, 35.33], [39, 35.95], [38.1, 35.98], [37.16, 36.2], [36.75, 35.14], [36.3, 33.51]] }
     ]
   },
   {

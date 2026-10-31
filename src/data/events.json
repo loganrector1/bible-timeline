@@ -685,7 +685,7 @@
     "summary": "Nebuchadnezzar takes young nobles from Jerusalem to serve in his court, among them Daniel, Hananiah, Mishael and Azariah.",
     "dates": { "early": { "start": { "year": -604 }, "confidence": "approx" } },
     "dateNote": "In the third year of Jehoiakim (Daniel 1:1), when Nebuchadnezzar first took Jerusalem in 605 BC.",
-    "people": ["daniel", "nebuchadnezzar"], "locations": ["jerusalem", "babel"],
+    "people": ["daniel", "nebuchadnezzar"], "locations": ["jerusalem", "babel"], "journeyId": "daniel-to-babylon",
     "scripture": [{ "book": "Daniel", "chapter": 1 }]
   },
   {
@@ -693,7 +693,7 @@
     "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
     "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
     "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
-    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"],
+    "people": ["nebuchadnezzar", "zedekiah"], "locations": ["jerusalem", "babel"], "journeyId": "jehoiachin-to-babylon",
     "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
   },
   {
@@ -776,7 +776,7 @@
     "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law.",
     "dates": { "early": { "start": { "year": -444, "month": 8 }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
     "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
-    "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"],
+    "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"], "journeyId": "nehemiah-to-jerusalem",
     "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 8 }]
   },
   {
@@ -1098,7 +1098,7 @@
     "scripture": [{ "book": "Acts", "chapter": 18, "verse": 23, "endChapter": 21, "endVerse": 16 }]
   },
   {
-    "id": "romans", "title": "Paul writes to the Romans", "type": "writing",
+    "id": "romans", "title": "Paul writes to the Romans", "type": "writing", "partOf": "third-journey",
     "summary": "From Corinth Paul writes his fullest account of the gospel to the church in Rome, which he hopes to visit on his way to Spain.",
     "dates": { "early": { "start": { "year": 57, "month": 2 }, "confidence": "approx" } },
     "dateNote": "Written during his three months in Greece, as he prepared to take a gift to Jerusalem (Acts 20:2–3; Romans 15:25–26).",
@@ -1127,7 +1127,7 @@
     "summary": "Under house arrest in Rome, Paul welcomes visitors and writes to the Ephesians, Philippians, Colossians and Philemon.",
     "dates": { "early": { "start": { "year": 60 }, "end": { "year": 62 }, "confidence": "approx" } },
     "dateNote": "Two years in Rome (Acts 28:30). Some place one or more of these letters earlier, in Ephesus or Caesarea.",
-    "people": ["paul", "timothy"], "locations": ["rome"],
+    "people": ["paul", "timothy"], "locations": ["rome", "ephesus", "philippi", "colossae"],
     "scripture": [{ "book": "Ephesians", "chapter": 3, "verse": 1 }, { "book": "Philippians", "chapter": 1, "verse": 12, "endVerse": 14 }]
   },
   {
@@ -1255,7 +1255,7 @@
     "scripture": [{ "book": "Galatians", "chapter": 1, "verse": 1, "endVerse": 9 }, { "book": "Galatians", "chapter": 2, "verse": 15, "endVerse": 21 }]
   },
   {
-    "id": "thessalonians", "title": "Paul writes to the Thessalonians", "type": "writing",
+    "id": "thessalonians", "title": "Paul writes to the Thessalonians", "type": "writing", "partOf": "second-journey",
     "summary": "From Corinth, after Timothy brings news of their faith under persecution, Paul writes two letters to encourage the young church and teach about the Lord's return.",
     "dates": { "early": { "start": { "year": 51 }, "confidence": "approx" } },
     "dateNote": "Written soon after Paul reached Corinth (1 Thessalonians 3:6; Acts 18:5).",
@@ -1263,7 +1263,7 @@
     "scripture": [{ "book": "1 Thessalonians", "chapter": 1, "verse": 1, "endVerse": 10 }, { "book": "1 Thessalonians", "chapter": 4, "verse": 13, "endVerse": 18 }]
   },
   {
-    "id": "first-corinthians", "title": "Paul writes 1 Corinthians", "type": "writing",
+    "id": "first-corinthians", "title": "Paul writes 1 Corinthians", "type": "writing", "partOf": "third-journey",
     "summary": "From Ephesus Paul answers the divided church in Corinth: on factions, marriage, worship, the gifts of the Spirit, love, and the resurrection.",
     "dates": { "early": { "start": { "year": 55 }, "confidence": "approx" } },
     "dateNote": "Written at Ephesus before Pentecost (1 Corinthians 16:8).",
@@ -1271,7 +1271,7 @@
     "scripture": [{ "book": "1 Corinthians", "chapter": 13 }, { "book": "1 Corinthians", "chapter": 15, "verse": 1, "endVerse": 11 }]
   },
   {
-    "id": "second-corinthians", "title": "Paul writes 2 Corinthians", "type": "writing",
+    "id": "second-corinthians", "title": "Paul writes 2 Corinthians", "type": "writing", "partOf": "third-journey",
     "summary": "Relieved by Titus's news, Paul writes from Macedonia about his trials, the ministry of the new covenant, and God's power made perfect in weakness.",
     "dates": { "early": { "start": { "year": 56 }, "confidence": "approx" } },
     "dateNote": "Written in Macedonia after leaving Ephesus (2 Corinthians 2:12–13; 7:5–7), perhaps at Philippi.",
