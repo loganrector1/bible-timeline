@@ -38,6 +38,7 @@ node scripts/openbible.mjs [--write | find <text> | show <name>]  # check places
 - Region outlines in `regions.json` are the shapes of places: each feature id must match a location id.
 - Don't invent precision Scripture doesn't give. Leave journey stops untimed rather than guessing days, and mark uncertain dates and sites as such, with a note.
 - `partOf` links an event to the larger event it happens within (Red Sea → Exodus). Children stay full events (type, people, Scripture); one level deep; the date's midpoint falls within the parent's, and a parent's journey must have a stop at one of the child's places (`validate.ts`, `data.test.ts`).
+- **Who gets a person entry:** anyone in two or more events, or with a book named after them or written by them. A person gets a lifespan bar only when Scripture supports one; prophets whose lifespans aren't known (Jeremiah, Ezekiel) are dated by their years of ministry.
 - Coordinates follow OpenBible.info (CC BY 4.0, credited on the map and in the README). Each location records its OpenBible place in `openbible` (`"Rephidim#2"` when we keep a candidate other than OpenBible's first, usually the traditional site, and say so in a note). Run `node scripts/openbible.mjs` after adding places; it should print nothing. Region, sea and wilderness points are map label positions and aren't checked. Region outlines are still hand-drawn.
 
 ## Design decisions (agreed with the user)
