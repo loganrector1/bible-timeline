@@ -3,8 +3,9 @@ import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
 import { Lane } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
-import { NO_FILTERS, type Filters } from "../lib/filters";
-import { datasetRange, entityBounds, shownLane } from "../lib/entities";
+import { activeEvents } from "../lib/activeEvents";
+import { NO_FILTERS, shownBy, type Filters } from "../lib/filters";
+import { datasetRange, entityBounds, eventBounds, eventOrderKey, eventsInOrder, shownLane } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
 
@@ -80,7 +81,10 @@ type State = {
   focusHint: { id: string; year: number } | null;
   /** Which events are shown (`lib/filters.ts`). A selected event shows whatever they say. */
   filters: Filters;
-  /** Change some of the filters. A person filtered to brings their lane into view, as selecting does. */
+  /**
+   * Change some of the filters. A person filtered to brings their lane into view, as selecting
+   * does. Adding a filter with nothing selected and no match on screen glides to the nearest match.
+   */
   setFilters: (filters: Partial<Filters>) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -141,11 +145,27 @@ export const useStore = create<State>()((set, get) => {
     },
     filters: NO_FILTERS,
     setFilters: (f) => {
-      set({ filters: { ...get().filters, ...f } });
+      const before = get().filters;
+      const filters = { ...before, ...f };
+      set({ filters });
       for (const id of f.people ?? []) {
         const person = peopleById.get(id);
         if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
       }
+      // Narrowing what's shown can leave the screen empty. Not while something is selected (it
+      // stays in view, and time shouldn't jump away from it), and never when removing a filter.
+      const added = (Object.keys(f) as (keyof Filters)[]).some((k) =>
+        filters[k].some((x) => !(before[k] as unknown[]).some((y) => JSON.stringify(y) === JSON.stringify(x))));
+      const { selection, currentYear, viewportPx, pxPerYear, chronologyId: chron } = get();
+      if (!added || selection) return;
+      const shown = shownBy(filters);
+      const half = viewportPx / 2 / pxPerYear;
+      const onScreen = eventsInOrder(chron).some((ev) => {
+        const b = shown?.(ev) && eventBounds(ev, chron);
+        return b && b[1] > currentYear - half && b[0] < currentYear + half;
+      });
+      const nearest = onScreen ? undefined : activeEvents(currentYear, chron, undefined, shown)[0];
+      if (nearest) get().goTo(eventOrderKey(nearest, chron));
     },
     setLaneShown: (lane, shown) => {
       const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));

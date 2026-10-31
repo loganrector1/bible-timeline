@@ -28,9 +28,10 @@ export function startUrlSync() {
   const link = parseLink(location.search);
   const store = useStore.getState();
   if (link.mode) store.setMode(link.mode);
-  if (link.filters) store.setFilters(link.filters);
   if (link.pxPerYear) store.setZoom(link.pxPerYear);
   if (link.selection) store.select(link.selection, { instant: true });
+  // After the selection, so filtering doesn't glide away from it; any glide is overridden below.
+  if (link.filters) store.setFilters(link.filters);
   // A link's own year wins over where selecting would put the cursor. A filtered link with
   // neither (a reading plan's `?passage=Exod.12-14`) starts at the first event it shows.
   if (link.year !== undefined) store.setYear(link.year);
