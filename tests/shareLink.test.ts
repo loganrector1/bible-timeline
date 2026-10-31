@@ -43,6 +43,10 @@ describe("links", () => {
     expect(formatLink({ mode: "split", selection: null, year: -1444.5, pxPerYear: 0.6 })).toBe("year=1446.5BC&zoom=0.6");
   });
 
+  test("can leave out the year", () => {
+    expect(formatLink({ mode: "split", selection: { kind: "event", id: "exodus" }, pxPerYear: 3 })).toBe("event=exodus&zoom=3");
+  });
+
   test("ignore unknown ids, views and bad numbers", () => {
     expect(parseLink("?event=no-such-event&view=sideways&zoom=-3&year=soon")).toEqual({});
     expect(parseLink("?event=exodus&person=moses").selection).toEqual({ kind: "event", id: "exodus" });

@@ -67,13 +67,16 @@ export function parseLink(search: string): LinkState {
   return out;
 }
 
-/** The query string for a state, without the "?"; the default view ("Both") is left out. */
-export function formatLink(s: Required<Omit<LinkState, "selection">> & { selection: EntityRef | null }): string {
+/**
+ * The query string for a state, without the "?"; the default view ("Both") is left out, and
+ * so is the year when there's none (opening the link then goes where selecting would).
+ */
+export function formatLink(s: Required<Omit<LinkState, "selection" | "year">> & { selection: EntityRef | null; year?: number }): string {
   const p = new URLSearchParams();
   if (s.selection) p.set(KIND_PARAM[s.selection.kind], s.selection.id);
   // Enough decimals that the cursor lands within a pixel of where it was.
   const digits = Math.min(5, Math.max(1, Math.ceil(Math.log10(s.pxPerYear))));
-  p.set("year", formatYearParam(s.year, digits));
+  if (s.year !== undefined) p.set("year", formatYearParam(s.year, digits));
   p.set("zoom", String(Number(s.pxPerYear.toPrecision(3))));
   if (s.mode !== "split") p.set("view", s.mode);
   return p.toString();
