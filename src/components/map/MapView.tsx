@@ -223,13 +223,12 @@ export default function MapView() {
             onLoad={(e) => {
               setMap(e.target);
               applyBorders();
-              // MapLibre opens the compact credits on every new map until the first drag; on
-              // phones keep them behind their ⓘ button until asked for.
+              // MapLibre opens the compact credits on every new map until the first drag; keep
+              // them behind their ⓘ button until asked for.
               e.target.getContainer().querySelector(".maplibregl-compact-show")?.classList.remove("maplibregl-compact-show");
             }}
             cursor={hover ? "pointer" : "grab"}
-            // Credits are always shown on wider screens, and folded behind ⓘ on phones.
-            attributionControl={{ compact: isPhone, customAttribution: CREDITS }}
+            attributionControl={{ compact: true, customAttribution: CREDITS }}
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="top-right" showCompass={false} />
