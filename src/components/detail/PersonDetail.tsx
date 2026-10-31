@@ -2,6 +2,7 @@ import { childrenOf } from "../../data";
 import type { Person } from "../../data/schema";
 import { eventsForPerson, personDatesText } from "../../lib/entities";
 import { useStore } from "../../state/store";
+import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, ScriptureList, Section } from "./parts";
 
 export default function PersonDetail({ person }: { person: Person }) {
@@ -49,6 +50,8 @@ export default function PersonDetail({ person }: { person: Person }) {
       </Section>
 
       <ScriptureList refs={person.scripture} />
+
+      <FilterShortcut person={person} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-/* Warm, parchment-leaning palette. Dark mode follows the OS setting. */
+/* Warm, parchment-leaning palette. Dark mode follows the OS setting unless Settings picks a
+   theme, which sets data-theme on <html> (index.html applies the saved one before first paint). */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -24,7 +25,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --color-paper: #1c1915;
     --color-paper-2: #26221c;
     --color-ink: #efe8dc;
@@ -33,6 +35,16 @@
     --color-accent: #e08a5f;
     --color-accent-soft: #4a2d20;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #1c1915;
+  --color-paper-2: #26221c;
+  --color-ink: #efe8dc;
+  --color-ink-muted: #a89d8e;
+  --color-line: #3d362d;
+  --color-accent: #e08a5f;
+  --color-accent-soft: #4a2d20;
 }
 
 html,
@@ -48,4 +60,21 @@ body {
 /* The map credits wrap upward rather than run under the "Modern borders" button. */
 .maplibregl-ctrl-bottom-right {
   left: 9rem;
+}
+
+/* Folded, the credits are just their ⓘ: the theme's ink with the "i" cut out, no disc behind it. */
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
+  min-height: 20px;
+  padding: 0 20px 0 0;
+  background: transparent;
+}
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-button {
+  width: 20px;
+  height: 20px;
+  background: var(--color-ink);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17ZM9 8.5h2V15H9Zm0-3.5h2v2H9Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.8;
+}
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-button:hover {
+  opacity: 1;
 }

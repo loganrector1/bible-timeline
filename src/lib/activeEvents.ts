@@ -24,17 +24,22 @@ export function distanceFrom(currentYear: number, ev: Event, chron: string): num
  * The anchor (the selected event, or else the nearest) is always included with the
  * events just before and after it, so the list doubles as a way to step through time,
  * and with the event it's part of, so it stays nested under it; nearest events fill the rest.
+ * `shown` leaves out events the filters hide, except the selected one.
  */
-export function activeEvents(currentYear: number, chron: string, selected?: Event): Event[] {
+export function activeEvents(currentYear: number, chron: string, selected?: Event, shown?: (ev: Event) => boolean): Event[] {
   const byDistance = eventsInOrder(chron)
+    .filter((ev) => !shown || shown(ev) || ev === selected)
     .map((ev) => ({ ev, d: distanceFrom(currentYear, ev, chron) }))
     .sort((a, b) => a.d - b.d)
     .map((x) => x.ev);
   const anchor = selected ?? byDistance[0];
   if (!anchor) return [];
+  const parent = parentEvent(anchor);
   const picked = new Set(
-    [anchor, parentEvent(anchor), adjacentEvent(-1, chron, currentYear, anchor.id), adjacentEvent(1, chron, currentYear, anchor.id)]
-      .filter((ev): ev is Event => ev !== undefined),
+    [
+      anchor, parent && (!shown || shown(parent)) ? parent : undefined,
+      adjacentEvent(-1, chron, currentYear, anchor.id, shown), adjacentEvent(1, chron, currentYear, anchor.id, shown),
+    ].filter((ev): ev is Event => ev !== undefined),
   );
   for (const ev of byDistance) {
     if (picked.size >= NEAREST_COUNT) break;

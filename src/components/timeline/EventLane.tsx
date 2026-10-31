@@ -3,6 +3,7 @@ import { data, datesFor, peopleById } from "../../data";
 import type { Event, Lane } from "../../data/schema";
 import { formatDateSpec, specExtent, type DateSpec } from "../../lib/dates";
 import { hasLifeMarks, lifeMarkPerson, shownLanes } from "../../lib/entities";
+import { drawnAsLifeMark, eventShown } from "../../lib/filters";
 import type { TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -30,6 +31,7 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
   const select = useStore((s) => s.select);
   const goTo = useStore((s) => s.goTo);
   const highlight = useHighlight();
+  const filters = useStore((s) => s.filters);
 
   // Span columns depend only on the data, not on scroll position, so bars don't jump around.
   const { placed, spanColumns } = useMemo(() => {
@@ -71,16 +73,18 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
 
   // Events within a larger event (the Red Sea in the Exodus) fold into it until it's long
   // enough to draw as a bar, and routine births and deaths are marks on their person's lane while
-  // it's shown. A selected one always shows.
+  // it's shown. Events the filters hide are left out, and their children no longer fold into them.
+  // A selected one always shows.
   const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
   const byId = new Map(all.map((r) => [r.ev.id, r]));
   const rows = all.filter((r) => {
     if (isSelected(r.ev)) return true;
+    if (!eventShown(r.ev, filters)) return false;
     const markedOn = lifeMarkPerson(r.ev, chron);
     const person = markedOn ? peopleById.get(markedOn)! : undefined;
-    if (person && shownLanes(person, lanes).some((l) => hasLifeMarks(person, l))) return false;
+    if (person && drawnAsLifeMark(r.ev, filters) && shownLanes(person, lanes).some((l) => hasLifeMarks(person, l))) return false;
     const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
-    return !parent || parent.asSpan;
+    return !parent || parent.asSpan || (!eventShown(parent.ev, filters) && !isSelected(parent.ev));
   });
 
   // Which events win when space is short: the selection, then highlighted, then major events.

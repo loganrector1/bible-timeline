@@ -3,6 +3,7 @@ import { datesFor } from "../../data";
 import type { Event } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { adjacentEvent, eventOrderKey, eventsInOrder } from "../../lib/entities";
+import { shownBy } from "../../lib/filters";
 import { useStore } from "../../state/store";
 
 /** Dragging the list this far steps one event. */
@@ -39,7 +40,7 @@ export default function NowPanel({
     const s = useStore.getState();
     const selectedId = s.selection?.kind === "event" ? s.selection.id : undefined;
     // Step from the last event this drag reached, not the cursor, which is still on its way there.
-    const target = adjacentEvent(dir, chron, s.currentYear, selectedId ?? drag.current?.id);
+    const target = adjacentEvent(dir, chron, s.currentYear, selectedId ?? drag.current?.id, shownBy(s.filters));
     if (!target) return;
     if (drag.current) drag.current.id = target.id;
     if (selectedId) select({ kind: "event", id: target.id });

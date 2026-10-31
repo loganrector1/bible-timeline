@@ -2,7 +2,9 @@ import { lazy, Suspense, type CSSProperties } from "react";
 import { useStore, type ViewMode } from "../state/store";
 import BrowsePanel from "./BrowsePanel";
 import DetailPanel, { PEEK_HEIGHT } from "./DetailPanel";
+import { FilterBar, FilterButton } from "./Filters";
 import Onboarding from "./Onboarding";
+import SettingsMenu from "./SettingsMenu";
 import Timeline from "./timeline/Timeline";
 
 // The map library is large; load it only when the map is first shown.
@@ -27,15 +29,15 @@ export default function AppShell() {
 
   return (
     <div className="relative flex h-full flex-col">
-      <header className="flex items-center justify-between gap-3 border-b border-line bg-paper-2 px-4 py-2">
-        <div className="flex items-center gap-3">
-          <h1 className="font-serif text-lg font-semibold tracking-tight sm:text-xl">Bible Timeline</h1>
+      <header className="relative flex items-center justify-between gap-1 border-b border-line bg-paper-2 px-3 py-2 min-[400px]:gap-1.5 sm:gap-3 sm:px-4">
+        <div className="flex items-center gap-1 min-[400px]:gap-1.5 sm:gap-3">
+          <h1 className="font-serif text-base leading-tight font-semibold tracking-tight min-[400px]:text-lg sm:text-xl">Bible Timeline</h1>
           <button
             onClick={() => setBrowseOpen(!browseOpen)}
             aria-pressed={browseOpen}
             aria-keyshortcuts="/"
             title="Browse and search (/)"
-            className={`flex items-center gap-1.5 rounded-lg border border-line px-2.5 py-1 text-sm ${
+            className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2 text-sm sm:px-2.5 ${
               browseOpen ? "bg-ink text-paper" : "bg-paper text-ink-muted hover:text-ink"
             }`}
           >
@@ -43,25 +45,30 @@ export default function AppShell() {
               <circle cx="8.5" cy="8.5" r="5.5" />
               <path d="m13 13 4.5 4.5" />
             </svg>
-            Browse
+            <span className="max-sm:sr-only">Browse</span>
           </button>
+          <FilterButton />
         </div>
-        <div role="radiogroup" aria-label="View" className="flex rounded-lg border border-line bg-paper p-0.5 text-sm">
-          {MODES.map((m) => (
-            <button
-              key={m.id}
-              role="radio"
-              aria-checked={mode === m.id}
-              onClick={() => setMode(m.id)}
-              className={`rounded-md px-3 py-1 transition-colors ${
-                mode === m.id ? "bg-accent text-paper" : "text-ink-muted hover:text-ink"
-              }`}
-            >
-              {m.label}
-            </button>
-          ))}
+        <div className="flex items-center gap-1 min-[400px]:gap-1.5 sm:gap-3">
+          <div role="radiogroup" aria-label="View" className="flex h-8 rounded-lg border border-line bg-paper p-0.5 text-sm">
+            {MODES.map((m) => (
+              <button
+                key={m.id}
+                role="radio"
+                aria-checked={mode === m.id}
+                onClick={() => setMode(m.id)}
+                className={`rounded-md px-1.5 transition-colors min-[400px]:px-2 sm:px-3 ${
+                  mode === m.id ? "bg-accent text-paper" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+          <SettingsMenu />
         </div>
       </header>
+      <FilterBar />
 
       <div className="relative flex min-h-0 flex-1">
         <BrowsePanel />

@@ -41,7 +41,7 @@ export default function Onboarding() {
             Ctrl + scroll, pinch, or the +/− buttons zoom from centuries down to days.
           </li>
           <li>
-            <strong>The red line is the current moment.</strong> The map shows what was happening then,
+            <strong>The line across the middle of the timeline is the current moment.</strong> The map shows what was happening then,
             and both views always stay in step.
           </li>
           <li>

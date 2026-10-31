@@ -3,6 +3,7 @@ import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
 import { Lane } from "../data/schema";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
+import { NO_FILTERS, type Filters } from "../lib/filters";
 import { datasetRange, entityBounds, shownLane } from "../lib/entities";
 
 export type ViewMode = "timeline" | "map" | "split";
@@ -33,6 +34,29 @@ function saveLanes(lanes: Lane[]) {
   }
 }
 
+/** "system" follows the OS; the others override it. Remembered per browser. */
+export type Theme = "system" | "light" | "dark";
+const THEME_KEY = "bible-timeline:theme";
+function loadTheme(): Theme {
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {
+    // Blocked storage: follow the system.
+  }
+  return "system";
+}
+function applyTheme(theme: Theme) {
+  if (theme === "system") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = theme;
+  try {
+    if (theme === "system") localStorage.removeItem(THEME_KEY);
+    else localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // Not remembered; it still applies now.
+  }
+}
+
 type State = {
   /** The shared "current moment", as a fractional astronomical year. */
   currentYear: number;
@@ -54,6 +78,12 @@ type State = {
    * cursor alone.
    */
   focusHint: { id: string; year: number } | null;
+  /** Which events are shown (`lib/filters.ts`). A selected event shows whatever they say. */
+  filters: Filters;
+  /** Change some of the filters. A person filtered to brings their lane into view, as selecting does. */
+  setFilters: (filters: Partial<Filters>) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -104,6 +134,19 @@ export const useStore = create<State>()((set, get) => {
     timeStripPx: 0,
     focusHint: null,
     lanes: loadLanes(),
+    theme: loadTheme(),
+    setTheme: (theme) => {
+      applyTheme(theme);
+      set({ theme });
+    },
+    filters: NO_FILTERS,
+    setFilters: (f) => {
+      set({ filters: { ...get().filters, ...f } });
+      for (const id of f.people ?? []) {
+        const person = peopleById.get(id);
+        if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
+      }
+    },
     setLaneShown: (lane, shown) => {
       const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));
       saveLanes(lanes);

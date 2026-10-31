@@ -71,11 +71,13 @@ export function lifeMarkPerson(ev: Event, chron: string): string | undefined {
 /**
  * The next (dir = 1) or previous (dir = -1) event: relative to the selected event if
  * there is one, so events sharing a date are each visited, otherwise to the cursor.
+ * `shown` skips events the filters hide (the selected one still counts as a starting point).
  */
 export function adjacentEvent(
-  dir: 1 | -1, chron: string, currentYear: number, selectedEventId?: string,
+  dir: 1 | -1, chron: string, currentYear: number, selectedEventId?: string, shown?: (ev: Event) => boolean,
 ): Event | undefined {
-  const ordered = eventsInOrder(chron);
+  const all = eventsInOrder(chron);
+  const ordered = shown ? all.filter((ev) => shown(ev) || ev.id === selectedEventId) : all;
   const i = selectedEventId ? ordered.findIndex((e) => e.id === selectedEventId) : -1;
   if (i >= 0) return ordered[i + dir];
   const eps = 1e-6;

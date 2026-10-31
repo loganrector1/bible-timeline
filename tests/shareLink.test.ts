@@ -47,6 +47,15 @@ describe("links", () => {
     expect(formatLink({ mode: "split", selection: { kind: "event", id: "exodus" }, pxPerYear: 3 })).toBe("event=exodus&zoom=3");
   });
 
+  test("carry filters", () => {
+    const query = formatLink({
+      mode: "split", selection: null, pxPerYear: 1, filters: { types: ["battle", "miracle"], people: ["david"] },
+    });
+    expect(query).toBe("zoom=1&types=battle,miracle&people=david");
+    expect(parseLink(`?${query}`).filters).toEqual({ types: ["battle", "miracle"], people: ["david"] });
+    expect(parseLink("?types=battle,dancing&people=nobody").filters).toEqual({ types: ["battle"], people: [] });
+  });
+
   test("ignore unknown ids, views and bad numbers", () => {
     expect(parseLink("?event=no-such-event&view=sideways&zoom=-3&year=soon")).toEqual({});
     expect(parseLink("?event=exodus&person=moses").selection).toEqual({ kind: "event", id: "exodus" });

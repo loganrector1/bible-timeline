@@ -4,6 +4,7 @@ import { formatTimePoint, fromFractional, specBounds } from "../../lib/dates";
 import { adjacentEvent, datasetRange } from "../../lib/entities";
 import { JOURNEY_DELAY_MS, journeyDuration } from "../../lib/journeys";
 import { cursorPrecision } from "../../lib/timeScale";
+import { shownBy } from "../../lib/filters";
 import { useStore } from "../../state/store";
 import EraTip from "../EraTip";
 
@@ -41,7 +42,7 @@ export default function TimeStrip() {
   const step = (dir: 1 | -1, keepPlaying = false) => {
     const s = useStore.getState();
     const selectedId = s.selection?.kind === "event" ? s.selection.id : undefined;
-    const target = adjacentEvent(dir, chron, s.currentYear, selectedId);
+    const target = adjacentEvent(dir, chron, s.currentYear, selectedId, shownBy(s.filters));
     if (target) s.select({ kind: "event", id: target.id }, { keepPlaying });
     return target;
   };
