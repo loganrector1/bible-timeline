@@ -44,13 +44,16 @@ Steps:
    - ~~More of the Gospels and Acts, and the letters~~ (branch `feature/nt-content`): fourteen more Gospel events, four more from Acts, and the letters and Gospels dated by their writing. Later (branch `feature/wisdom`): Jude, David's psalms, Solomon's wisdom books, and Job's story.
    - Region outlines: tribal allotments, the two kingdoms, and the empires (key_features.md's empire layer may be the better home for these).
 
+## Shareable links (done)
+
+The view, time, zoom and selection are in the URL, kept current as you move, and the details panel has a Share button (the share sheet on phones, the clipboard on desktop), so a teacher can send a class straight to a moment. A link leaves out the year when the selection has been scrolled off screen, so the reader lands on what was shared. Passage links were moved to Search and filters.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
 - **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`).
 - **Search and filters:** the Browse panel has search; filters by person, book, type, era and theme, applied to both views, are still to come. Filters go in the link too. A passage link (`?passage=Exod.12-14`) is one of these filters: it lights every event whose Scripture overlaps the passage. It's the contract the reading-plans app will link through, so keep it stable once published.
-- **Shareable links** (branch `feature/share-links`): the view, time, zoom and selection are in the URL, kept current as you move, with a Share button in the details panel, so a teacher can send a class straight to a moment. Passage links were moved to filters.
 - **Guided tours:** step-by-step stories that drive both views, such as "The Exodus" or "The Life of Abraham".
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
 - **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
