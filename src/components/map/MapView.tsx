@@ -179,16 +179,18 @@ export default function MapView() {
   const strongRegions = highlight?.regions ?? new Set<string>();
   const focusRegions = focusHighlight?.regions ?? new Set<string>();
 
+  const frameSelection = () => {
+    const map = mapRef.current;
+    if (!map || !selection) return;
+    map.resize();
+    frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen);
+  };
   // Fly to whatever was just selected, from either view. Wait a frame so the map has
-  // its final size (opening the detail panel narrows it).
+  // its final size (opening the detail panel narrows it). A selection made before the map
+  // loaded (from a link, or in Timeline view) is framed once it does.
   useEffect(() => {
     if (!selection) return;
-    const id = requestAnimationFrame(() => {
-      const map = mapRef.current;
-      if (!map) return;
-      map.resize();
-      frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen);
-    });
+    const id = requestAnimationFrame(frameSelection);
     return () => cancelAnimationFrame(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectionNonce]);
@@ -244,6 +246,7 @@ export default function MapView() {
             onLoad={(e) => {
               setMap(e.target);
               applyBorders();
+              frameSelection();
             }}
             cursor={hover ? "pointer" : "grab"}
             attributionControl={false}

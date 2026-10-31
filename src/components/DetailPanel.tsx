@@ -3,6 +3,7 @@ import { erasById, eventsById, locationsById, peopleById } from "../data";
 import { entityTitle } from "../lib/entities";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
+import { currentLink } from "../state/urlSync";
 import EraDetail from "./detail/EraDetail";
 import EventDetail from "./detail/EventDetail";
 import LocationDetail from "./detail/LocationDetail";
@@ -52,6 +53,55 @@ function useSheetFloor(ref: RefObject<HTMLElement | null>, enabled: boolean): nu
     };
   }, [ref, enabled]);
   return floor;
+}
+
+/**
+ * Shares a link to what's on screen: the phone's share sheet on touch screens, otherwise
+ * copied to the clipboard (desktop share dialogs are clumsier than a paste).
+ */
+function ShareButton({ title }: { title: string }) {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1500);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  const share = async () => {
+    const url = currentLink();
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      try {
+        await navigator.share({ title, url });
+      } catch {
+        // Cancelled.
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+    } catch {
+      // No clipboard access (an insecure page); the address bar still holds the link.
+    }
+  };
+
+  return (
+    <button
+      data-sheet-close
+      onClick={share}
+      aria-label="Share a link to this"
+      className="flex items-center gap-1 rounded p-1.5 text-sm text-ink-muted hover:bg-paper-2 hover:text-ink"
+    >
+      {copied ? (
+        <span role="status">Link copied</span>
+      ) : (
+        <svg aria-hidden viewBox="0 0 20 20" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 2.5v10M6.5 6 10 2.5 13.5 6" />
+          <path d="M6 9H5a1.5 1.5 0 0 0-1.5 1.5v5A1.5 1.5 0 0 0 5 17h10a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 15 9h-1" />
+        </svg>
+      )}
+    </button>
+  );
 }
 
 /** Side panel (desktop) or bottom sheet (phone) describing the selected entity. */
@@ -178,14 +228,17 @@ export default function DetailPanel() {
               {entityTitle(selection)}
             </h2>
           </div>
-          <button
-            data-sheet-close
-            onClick={() => select(null)}
-            aria-label="Close details"
-            className="-mr-1 rounded p-1.5 text-ink-muted hover:bg-paper-2 hover:text-ink"
-          >
-            ✕
-          </button>
+          <div className="-mr-1 flex shrink-0 items-center">
+            <ShareButton title={entityTitle(selection)} />
+            <button
+              data-sheet-close
+              onClick={() => select(null)}
+              aria-label="Close details"
+              className="rounded p-1.5 text-ink-muted hover:bg-paper-2 hover:text-ink"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       </div>
 
