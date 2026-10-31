@@ -23,6 +23,8 @@ type State = {
   playing: boolean;
   /** Height of the timeline viewport, reported by the timeline; used to fit spans. */
   viewportPx: number;
+  /** Height of the map's time strip, reported by it (0 while the map is hidden); used to split a phone screen. */
+  timeStripPx: number;
   /** Bumped on every select, so the map can replay an animation even for the same entity. */
   selectionNonce: number;
 
@@ -31,6 +33,7 @@ type State = {
   setMode: (mode: ViewMode) => void;
   setPlaying: (playing: boolean) => void;
   setViewportPx: (px: number) => void;
+  setTimeStripPx: (px: number) => void;
   /** Animate the cursor (and optionally zoom) to a target. */
   goTo: (year: number, pxPerYear?: number) => void;
   /** Select an entity, moving the cursor only if needed (see the implementation). Stops playback unless asked not to. */
@@ -63,6 +66,7 @@ export const useStore = create<State>()((set, get) => {
     selection: null,
     playing: false,
     viewportPx: 700,
+    timeStripPx: 0,
     selectionNonce: 0,
     browseOpen: false,
 
@@ -75,6 +79,7 @@ export const useStore = create<State>()((set, get) => {
     setMode: (mode) => set({ mode }),
     setPlaying: (playing) => set({ playing }),
     setViewportPx: (viewportPx) => set({ viewportPx }),
+    setTimeStripPx: (timeStripPx) => set({ timeStripPx }),
 
     goTo: (year, pxPerYear) => {
       cancelAnimation();

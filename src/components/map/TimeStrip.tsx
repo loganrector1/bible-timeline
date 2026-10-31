@@ -1,4 +1,4 @@
-import { useEffect, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { data, datesFor } from "../../data";
 import { formatTimePoint, fromFractional, specBounds } from "../../lib/dates";
 import { adjacentEvent, datasetRange } from "../../lib/entities";
@@ -21,6 +21,20 @@ export default function TimeStrip() {
   const setPlaying = useStore((s) => s.setPlaying);
   const setYear = useStore((s) => s.setYear);
   const [speed, setSpeed] = useState(1);
+
+  // Report the strip's height, so a phone's Both view can split the screen above it evenly.
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const { setTimeStripPx } = useStore.getState();
+    const observer = new ResizeObserver(() => setTimeStripPx(el.offsetHeight));
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      setTimeStripPx(0);
+    };
+  }, []);
   const [lo, hi] = datasetRange(chron);
   const frac = (y: number) => ((y - lo) / (hi - lo)) * 100;
 
@@ -64,7 +78,7 @@ export default function TimeStrip() {
   const btn = `${base} border-line bg-paper hover:bg-paper-2`;
 
   return (
-    <div data-sheet-floor className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
+    <div ref={ref} data-sheet-floor className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-line bg-paper-2 px-3 py-2 text-sm">
       <div className="flex items-center gap-1.5">
         <button onClick={() => step(-1)} aria-label="Previous event" className={btn}>⏮</button>
         <button
