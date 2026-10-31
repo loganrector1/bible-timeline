@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { drawnLegs, type Leg } from "../src/lib/journeys";
+import { eventsById, journeysById } from "../src/data";
+import { drawnLegs, journeyLegs, stopIndexOf, type Leg } from "../src/lib/journeys";
 
 // A short first leg, then a long one that bends around a via point: lengths 1 and 3 + 4 = 7.
 const legs: Leg[] = [
@@ -25,5 +26,24 @@ describe("drawnLegs", () => {
 
   test("draws nothing at the start", () => {
     expect(drawnLegs(legs, 0).legs).toEqual([]);
+  });
+});
+
+describe("retraced stretches", () => {
+  test("legs sharing part of the way are drawn side by side", () => {
+    // To Egypt by the coast road, then back up it to Nazareth: different stops, same road.
+    expect(journeyLegs("flight-to-egypt").map((l) => l.offset > 0)).toEqual([true, true]);
+  });
+
+  test("an out-and-back between the same places is too", () => {
+    const offsets = journeyLegs("abram-to-canaan").map((l) => l.offset > 0);
+    expect(offsets).toEqual([false, false, false, true, true, false]); // Bethel → Egypt → Bethel
+  });
+});
+
+describe("events along a journey", () => {
+  test("mark the stop at their first place, where a letter was written", () => {
+    const stops = journeysById.get("paul-second-journey")!.stops;
+    expect(stops[stopIndexOf("paul-second-journey", eventsById.get("thessalonians")!)].locationId).toBe("corinth");
   });
 });

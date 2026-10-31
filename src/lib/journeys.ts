@@ -28,19 +28,21 @@ export function routePath(journeyId: string): Coord[] {
 }
 
 /**
- * The journey split into legs. When two legs join the same pair of places (in either
- * direction), both get a sideways offset. MapLibre offsets to the right of the line's
- * direction, so an out-and-back pair ends up side by side instead of on top of each other.
+ * The journey split into legs. When two legs share a stretch of road (the same two points,
+ * stops or `via`, in either direction), both get a sideways offset. MapLibre offsets to the
+ * right of the line's direction, so an out-and-back pair ends up side by side instead of on
+ * top of each other, even when only part of the way is shared (to Egypt and back to Nazareth).
  */
 export function journeyLegs(journeyId: string): Leg[] {
   const stops = journeysById.get(journeyId)!.stops;
   const coords = routeCoords(journeyId);
-  const pairKey = (i: number) => [stops[i].locationId, stops[i + 1].locationId].sort().join("|");
+  const paths = coords.slice(1).map((to, i): Coord[] => [coords[i], ...((stops[i + 1].via ?? []) as Coord[]), to]);
+  const stretchKeys = (path: Coord[]) => path.slice(1).map((b, i) => [path[i].join(","), b.join(",")].sort().join("|"));
   const counts = new Map<string, number>();
-  for (let i = 0; i < stops.length - 1; i++) counts.set(pairKey(i), (counts.get(pairKey(i)) ?? 0) + 1);
-  return coords.slice(1).map((to, i) => ({
-    path: [coords[i], ...((stops[i + 1].via ?? []) as Coord[]), to],
-    offset: counts.get(pairKey(i))! > 1 ? RETRACE_OFFSET_PX : 0,
+  for (const path of paths) for (const key of stretchKeys(path)) counts.set(key, (counts.get(key) ?? 0) + 1);
+  return paths.map((path) => ({
+    path,
+    offset: stretchKeys(path).some((key) => counts.get(key)! > 1) ? RETRACE_OFFSET_PX : 0,
   }));
 }
 
@@ -94,7 +96,16 @@ export function eventForJourney(journeyId: string): Event | undefined {
   return data.events.find((ev) => ev.journeyId === journeyId);
 }
 
-/** The first stop on the journey at one of the event's places, or -1. */
+/**
+ * The stop where an event along the journey happens, or -1: the first stop at the event's
+ * first place, else at its next place, and so on. A letter lists where it was written before
+ * where it was sent, so it marks Corinth, not Thessalonica, which the route reaches first.
+ */
 export function stopIndexOf(journeyId: string, ev: Event): number {
-  return journeysById.get(journeyId)!.stops.findIndex((s) => ev.locations.includes(s.locationId));
+  const stops = journeysById.get(journeyId)!.stops;
+  for (const place of ev.locations) {
+    const i = stops.findIndex((s) => s.locationId === place);
+    if (i >= 0) return i;
+  }
+  return -1;
 }
