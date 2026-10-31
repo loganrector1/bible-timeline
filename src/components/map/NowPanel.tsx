@@ -43,7 +43,8 @@ export default function NowPanel({
     if (!target) return;
     if (drag.current) drag.current.id = target.id;
     if (selectedId) select({ kind: "event", id: target.id });
-    else s.goTo(eventOrderKey(target, chron));
+    // Jump, not glide: gliding passes other events, which would briefly become the focus.
+    else s.stepTo(target.id, eventOrderKey(target, chron));
   };
 
   const onPointerDown = (e: PointerEvent) => {

@@ -27,6 +27,12 @@ type State = {
   timeStripPx: number;
   /** Bumped on every select, so the map can replay an animation even for the same entity. */
   selectionNonce: number;
+  /**
+   * The event stepped to without selecting it (dragging Nearest events). It's the map's focus
+   * while the cursor stays at `year`, since events sharing a moment can't be told apart by the
+   * cursor alone.
+   */
+  focusHint: { id: string; year: number } | null;
 
   setYear: (year: number) => void;
   setZoom: (pxPerYear: number) => void;
@@ -34,6 +40,8 @@ type State = {
   setPlaying: (playing: boolean) => void;
   setViewportPx: (px: number) => void;
   setTimeStripPx: (px: number) => void;
+  /** Move the cursor to an event without selecting it, making it the focus there. */
+  stepTo: (eventId: string, year: number) => void;
   /** Animate the cursor (and optionally zoom) to a target. */
   goTo: (year: number, pxPerYear?: number) => void;
   /** Select an entity, moving the cursor only if needed (see the implementation). Stops playback unless asked not to. */
@@ -67,6 +75,7 @@ export const useStore = create<State>()((set, get) => {
     playing: false,
     viewportPx: 700,
     timeStripPx: 0,
+    focusHint: null,
     selectionNonce: 0,
     browseOpen: false,
 
@@ -80,6 +89,11 @@ export const useStore = create<State>()((set, get) => {
     setPlaying: (playing) => set({ playing }),
     setViewportPx: (viewportPx) => set({ viewportPx }),
     setTimeStripPx: (timeStripPx) => set({ timeStripPx }),
+    stepTo: (id, year) => {
+      cancelAnimation();
+      const y = clampYear(year);
+      set({ currentYear: y, focusHint: { id, year: y } });
+    },
 
     goTo: (year, pxPerYear) => {
       cancelAnimation();
@@ -103,6 +117,7 @@ export const useStore = create<State>()((set, get) => {
     select: (ref, opts) => {
       set({
         selection: ref,
+        focusHint: null,
         selectionNonce: get().selectionNonce + 1,
         playing: opts?.keepPlaying ? get().playing : false,
       });

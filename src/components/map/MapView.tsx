@@ -151,16 +151,19 @@ export default function MapView() {
   }, [dark]);
 
   const selectedEvent = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
-  const active = activeEvents(currentYear, chron, selectedEvent);
+  const focusHint = useStore((s) => s.focusHint);
+  const hinted = !selectedEvent && focusHint?.year === currentYear ? eventsById.get(focusHint.id) : undefined;
+  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted);
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),
     [activeKey],
   );
 
-  // One focus event gets its journey and regions drawn: the selected event, or the
-  // nearest event happening now (among the selection's events, if something else is selected).
-  const focus: Event | undefined = selectedEvent
+  // One focus event gets its journey and regions drawn: the selected event, the event just
+  // stepped to in Nearest events, or the nearest event happening now (among the selection's
+  // events, if something else is selected).
+  const focus: Event | undefined = selectedEvent ?? hinted
     ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
   useEffect(() => {
     if (focus?.id !== dismissed) setDismissed(null);
