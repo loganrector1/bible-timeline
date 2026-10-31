@@ -50,11 +50,12 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
   type Row = Placed & {
     top: number; bottom: number; asSpan: boolean; labelY: number; nudge: number; labelShift: number;
   };
+  // Everything is laid out, not just what's on screen, so clusters and labels depend only on
+  // zoom: if they started from the topmost visible dot, they'd regroup (jitter) while scrolling.
   const all: Row[] = [];
   for (const p of placed) {
     const top = yearToPx(scale, p.lo);
     const bottom = yearToPx(scale, p.hi);
-    if (bottom < -40 || top > scale.height + 40) continue;
     const asSpan = p.spec.end !== undefined && bottom - top >= MIN_SPAN_PX;
     const mid = yearToPx(scale, specMidpoint(p.spec));
     const labelY = asSpan ? Math.min(Math.max(top, 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
@@ -101,6 +102,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
 
   // Greedy label placement, best-ranked first. A span's label can slide down its bar to
   // find room, so a journey stays labelled beside the events at its start.
+  const onScreen = (r: Row) => r.bottom >= -40 && r.top <= scale.height + 40;
   const visible = rows.filter((r) => !hidden.has(r));
   const taken: number[] = [];
   const showLabel = new Set<string>();
@@ -135,7 +137,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
 
   return (
     <div className="relative min-w-0 flex-1">
-      {visible.map((r) => {
+      {visible.filter(onScreen).map((r) => {
         const { ev, spec } = r;
         const selected = isSelected(ev);
         const lit = isLit(ev);
@@ -195,7 +197,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
         );
       })}
       {/* Last, so the labels of the dots beside them don't cover them. */}
-      {clusters.filter((c) => c.folded.length > 0).map((c) => (
+      {clusters.filter((c) => c.folded.length > 0 && c.bottom >= -40 && c.top <= scale.height + 40).map((c) => (
         <button
           key={`more-${c.folded[0].ev.id}`}
           onClick={() => spreadCluster(c)}
