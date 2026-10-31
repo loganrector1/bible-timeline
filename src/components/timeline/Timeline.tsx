@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { datasetRange } from "../../lib/entities";
+import { useIsPhone } from "../../lib/useMediaQuery";
 import type { TimeScale } from "../../lib/timeScale";
 import { useStore } from "../../state/store";
 import Axis from "./Axis";
@@ -22,6 +23,10 @@ export default function Timeline() {
   const pxPerYear = useStore((s) => s.pxPerYear);
   const setViewportPx = useStore((s) => s.setViewportPx);
   const [hover, setHover] = useState<TimelineHover | null>(null);
+  // On a phone with the timeline alone, its controls sit in a bar along the bottom, like the
+  // map's time strip, so the details sheet rests on the bar rather than on floating buttons.
+  const isPhone = useIsPhone();
+  const inBar = useStore((s) => s.mode === "timeline") && isPhone;
 
   useTimelineGestures(ref);
 
@@ -63,38 +68,51 @@ export default function Timeline() {
     }
   };
 
-  return (
+  const controls = (
     <div
-      ref={ref}
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      onPointerDown={() => setHover(null)}
-      onWheel={() => setHover(null)}
-      aria-label="Timeline. Arrow keys and Page Up/Down move through time; plus and minus zoom."
-      className="relative h-full touch-none overflow-hidden select-none outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+      data-no-pan
+      data-sheet-floor
+      className={inBar
+        ? "flex justify-end gap-1 border-t border-line bg-paper-2 px-3 py-2 text-sm"
+        : "absolute right-12 bottom-3 z-10 flex gap-1 text-sm"}
     >
-      <EraBands scale={scale} onHover={setHover} />
-      <Axis scale={scale} />
-      <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
-        {showPeople && <PeopleLane scale={scale} onHover={setHover} />}
-        <EventLane scale={scale} onHover={setHover} peopleShown={showPeople} />
-      </div>
-      <TimeCursor scale={scale} />
-      <Overview scale={scale} />
-      <OffscreenSelection scale={scale} left={AXIS_WIDTH + 8} />
-      {hover && ref.current && <HoverCard hover={hover} container={ref.current} />}
+      <button
+        onClick={() => setShowPeople(!showPeople)}
+        aria-pressed={showPeople}
+        className={`rounded-md border border-line px-2 py-1 shadow-sm ${showPeople ? "bg-ink text-paper" : "bg-paper text-ink-muted"}`}
+      >
+        People
+      </button>
+      <button onClick={() => zoomBy(0.6)} aria-label="Zoom out" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">−</button>
+      <button onClick={() => zoomBy(1 / 0.6)} aria-label="Zoom in" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">+</button>
+    </div>
+  );
 
-      <div data-no-pan data-sheet-floor className="absolute right-12 bottom-3 z-10 flex gap-1 text-sm">
-        <button
-          onClick={() => setShowPeople(!showPeople)}
-          aria-pressed={showPeople}
-          className={`rounded-md border border-line px-2 py-1 shadow-sm ${showPeople ? "bg-ink text-paper" : "bg-paper text-ink-muted"}`}
-        >
-          People
-        </button>
-        <button onClick={() => zoomBy(0.6)} aria-label="Zoom out" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">−</button>
-        <button onClick={() => zoomBy(1 / 0.6)} aria-label="Zoom in" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">+</button>
+  return (
+    <div className="flex h-full flex-col">
+      <div
+        ref={ref}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onPointerDown={() => setHover(null)}
+        onWheel={() => setHover(null)}
+        aria-label="Timeline. Arrow keys and Page Up/Down move through time; plus and minus zoom."
+        className="relative min-h-0 flex-1 touch-none overflow-hidden select-none outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+      >
+        <EraBands scale={scale} onHover={setHover} />
+        <Axis scale={scale} />
+        <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
+          {showPeople && <PeopleLane scale={scale} onHover={setHover} />}
+          <EventLane scale={scale} onHover={setHover} peopleShown={showPeople} />
+        </div>
+        <TimeCursor scale={scale} />
+        <Overview scale={scale} />
+        <OffscreenSelection scale={scale} left={AXIS_WIDTH + 8} />
+        {hover && ref.current && <HoverCard hover={hover} container={ref.current} />}
+
+        {!inBar && controls}
       </div>
+      {inBar && controls}
     </div>
   );
 }
