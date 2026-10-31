@@ -88,4 +88,15 @@ describe("people's bars", () => {
     expect(shownLane(peter, ["church"])).toBe("church");
     expect(shownLane(peter, ["kings"])).toBeUndefined();
   });
+
+  test("each kingdom's reigns follow on without overlapping, as their one column needs", () => {
+    for (const kingdom of ["judah", "israel"]) {
+      const reigns = data.people
+        .filter((p) => p.kingdom === kingdom || (kingdom === "judah" && p.kingdom === "united"))
+        .flatMap((p) => personSpan(p, DEFAULT_CHRONOLOGY, true) ?? [])
+        .map((s) => s.bounds)
+        .sort((a, b) => a[0] - b[0]);
+      for (let i = 1; i < reigns.length; i++) expect(reigns[i][0]).toBeGreaterThanOrEqual(reigns[i - 1][1]);
+    }
+  });
 });

@@ -97,10 +97,13 @@ export function shownLane(person: Person, shown: Lane[]): Lane | undefined {
  * their last (`derived`), so people Scripture gives no lifespan, like Peter, still have a
  * place on the timeline. That's for people in two or more events, and prophets (dated by
  * their ministry, often a single event); others, like Leah, would only crowd the lane.
- * Undefined when there's nothing to span.
+ * Undefined when there's nothing to span. In the Kings lane (`asKing`) it's their reign, when
+ * that differs from their dates, so each kingdom's kings follow on one after another.
  */
-export function personSpan(person: Person, chron: string): { bounds: Bounds; spec: DateSpec; derived: boolean } | undefined {
-  const own = datesFor(person, chron);
+export function personSpan(
+  person: Person, chron: string, asKing = false,
+): { bounds: Bounds; spec: DateSpec; derived: boolean } | undefined {
+  const own = (asKing ? datesFor({ dates: person.reign }, chron) : undefined) ?? datesFor(person, chron);
   if (own) return { bounds: specExtent(own), spec: own, derived: false };
   const extents = eventsForPerson(person.id, chron).map((ev) => specExtent(datesFor(ev, chron)!));
   if (extents.length === 0 || (extents.length < 2 && shownLane(person, ["prophets"]) === undefined)) return undefined;
@@ -111,12 +114,17 @@ export function personSpan(person: Person, chron: string): { bounds: Bounds; spe
   return { bounds, spec, derived: true };
 }
 
-/** A person's dates for display: their own, or "known c. …" for a span drawn from their events. */
+/**
+ * A person's dates for display: their own, or "known c. …" for a span drawn from their events,
+ * then their reign when it differs.
+ */
 export function personDatesText(person: Person, chron: string, eraStyle: EraStyle): string | undefined {
   const span = personSpan(person, chron);
   if (!span) return undefined;
   const text = formatDateSpec(span.spec, eraStyle);
-  return span.derived ? `known c. ${text.replace(/^c\. /, "")}` : text;
+  const reign = datesFor({ dates: person.reign }, chron);
+  return (span.derived ? `known c. ${text.replace(/^c\. /, "")}` : text) +
+    (reign ? `, reigned ${formatDateSpec(reign, eraStyle)}` : "");
 }
 
 export function eventsForPerson(personId: string, chron: string): Event[] {

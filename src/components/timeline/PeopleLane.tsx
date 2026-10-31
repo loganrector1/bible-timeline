@@ -13,6 +13,13 @@ const COLUMN = 15;
 const BAR = 12;
 const MARK = 10;
 
+/** Judah warm, Israel cool; the united kingdom plain. */
+const KINGDOM_TINT = {
+  united: "border-ink/25 bg-ink/10",
+  judah: "border-amber-700/40 bg-amber-500/25",
+  israel: "border-sky-700/40 bg-sky-500/25",
+};
+
 export const LANE_NAMES: Record<Lane, string> = {
   people: "Important people", kings: "Kings & rulers", prophets: "Prophets", church: "Apostles & church",
 };
@@ -34,10 +41,12 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
 
   const lives = useMemo(() => {
     const items = data.people.filter((p) => shownLane(p, shown) === lane).flatMap((person) => {
-      const span = personSpan(person, chron);
+      const span = personSpan(person, chron, lane === "kings");
       return span ? [{ person, ...span }] : [];
     });
-    const columns = packIntervals(items.map((i) => i.bounds));
+    // Kings: Judah (after the united kingdom) on the left, Israel beside it; other rulers fill in.
+    const preset = items.map(({ person: p }) => (lane !== "kings" || !p.kingdom ? undefined : p.kingdom === "israel" ? 1 : 0));
+    const columns = packIntervals(items.map((i) => i.bounds), preset);
     return items.map((item, i) => ({ ...item, column: columns[i] }));
   }, [chron, lane, shown]);
 
@@ -77,6 +86,7 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
               selected ? "border-accent bg-accent text-paper"
               : lit && highlight ? "border-accent bg-accent-soft text-ink"
               : derived ? "border-ink/30 bg-ink/5 text-ink hover:border-accent"
+              : lane === "kings" && person.kingdom ? `${KINGDOM_TINT[person.kingdom]} text-ink hover:border-accent`
               : "border-ink/25 bg-ink/10 text-ink hover:border-accent"
             } ${derived && !selected ? "border-dashed" : ""} ${lit ? "" : "opacity-35"}`}
             style={{

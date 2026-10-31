@@ -74,6 +74,9 @@ export const Event = z.object({
 export const Lane = z.enum(["people", "kings", "prophets", "church"]);
 export type Lane = z.infer<typeof Lane>;
 
+/** The throne a king of God's people sat on, which sets his column and colour in the Kings lane. */
+export const Kingdom = z.enum(["united", "judah", "israel"]);
+
 export const Person = z.object({
   id,
   name: z.string(),
@@ -89,6 +92,12 @@ export const Person = z.object({
    */
   dates: Dates.optional(),
   dateNote: z.string().optional(),
+  /**
+   * For kings: the years they reigned alone (Thiele), their bar in the Kings lane. Only when it
+   * differs from `dates`, which is then a lifespan or a reign counted from a coregency.
+   */
+  reign: Dates.optional(),
+  kingdom: Kingdom.optional(),
   parents: ids,
   spouses: ids,
   scripture: z.array(ScriptureRef).default([]),
