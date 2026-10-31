@@ -14,7 +14,7 @@ const BAR = 12;
 const MARK = 10;
 
 export const LANE_NAMES: Record<Lane, string> = {
-  people: "People", kings: "Kings & rulers", prophets: "Prophets", church: "Apostles & church",
+  people: "Important people", kings: "Kings & rulers", prophets: "Prophets", church: "Apostles & church",
 };
 
 /**
