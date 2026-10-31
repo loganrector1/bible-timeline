@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { data, datesFor } from "../../data";
-import type { Event } from "../../data/schema";
+import { data, datesFor, peopleById } from "../../data";
+import type { Event, Lane } from "../../data/schema";
 import { formatDateSpec, specExtent, type DateSpec } from "../../lib/dates";
 import { lifeMarkPerson } from "../../lib/entities";
 import type { TimeScale } from "../../lib/timeScale";
@@ -23,7 +23,7 @@ const MIN_SPAN_PX = 14;
 type Placed = { ev: Event; spec: DateSpec; lo: number; hi: number; column: number };
 
 /** Events as dots (points) and bars (spans), with labels that hide rather than overlap. */
-export default function EventLane({ scale, onHover, peopleShown }: { scale: TimeScale; onHover: OnHover; peopleShown: boolean }) {
+export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale; onHover: OnHover; lanes: Lane[] }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
@@ -70,13 +70,14 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
   }
 
   // Events within a larger event (the Red Sea in the Exodus) fold into it until it's long
-  // enough to draw as a bar, and routine births and deaths are marks on the people lane while
+  // enough to draw as a bar, and routine births and deaths are marks on their person's lane while
   // it's shown. A selected one always shows.
   const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
   const byId = new Map(all.map((r) => [r.ev.id, r]));
   const rows = all.filter((r) => {
     if (isSelected(r.ev)) return true;
-    if (peopleShown && lifeMarkPerson(r.ev, chron)) return false;
+    const markedOn = lifeMarkPerson(r.ev, chron);
+    if (markedOn && lanes.includes(peopleById.get(markedOn)!.lane)) return false;
     const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
     return !parent || parent.asSpan;
   });

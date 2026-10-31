@@ -2,8 +2,8 @@ import {
   data, datesFor, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
-import type { Era, Event, Location } from "../data/schema";
-import { specBounds, specExtent, specMidpoint } from "./dates";
+import type { Era, Event, Location, Person } from "../data/schema";
+import { formatDateSpec, specBounds, specExtent, specMidpoint, type DateSpec, type EraStyle } from "./dates";
 
 export type Bounds = [number, number];
 
@@ -82,6 +82,33 @@ export function adjacentEvent(
   return dir === 1
     ? ordered.find((ev) => eventOrderKey(ev, chron) > currentYear + eps)
     : ordered.findLast((ev) => eventOrderKey(ev, chron) < currentYear - eps);
+}
+
+/**
+ * Where a person's bar runs: their dates (`specExtent`), or else from their first event to
+ * their last (`derived`), so people Scripture gives no lifespan, like Peter, still have a
+ * place on the timeline. That's for people in two or more events, and prophets (dated by
+ * their ministry, often a single event); others, like Leah, would only crowd the lane.
+ * Undefined when there's nothing to span.
+ */
+export function personSpan(person: Person, chron: string): { bounds: Bounds; spec: DateSpec; derived: boolean } | undefined {
+  const own = datesFor(person, chron);
+  if (own) return { bounds: specExtent(own), spec: own, derived: false };
+  const extents = eventsForPerson(person.id, chron).map((ev) => specExtent(datesFor(ev, chron)!));
+  if (extents.length === 0 || (extents.length < 2 && person.lane !== "prophets")) return undefined;
+  const bounds: Bounds = [Math.min(...extents.map((e) => e[0])), Math.max(...extents.map((e) => e[1]))];
+  if (bounds[1] - bounds[0] < 1) return undefined;
+  // For describing it: the years it runs between.
+  const spec: DateSpec = { start: { year: Math.floor(bounds[0]) }, end: { year: Math.floor(bounds[1]) }, confidence: "approx" };
+  return { bounds, spec, derived: true };
+}
+
+/** A person's dates for display: their own, or "known c. …" for a span drawn from their events. */
+export function personDatesText(person: Person, chron: string, eraStyle: EraStyle): string | undefined {
+  const span = personSpan(person, chron);
+  if (!span) return undefined;
+  const text = formatDateSpec(span.spec, eraStyle);
+  return span.derived ? `known c. ${text.replace(/^c\. /, "")}` : text;
 }
 
 export function eventsForPerson(personId: string, chron: string): Event[] {

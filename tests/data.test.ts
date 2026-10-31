@@ -3,6 +3,7 @@ import { data, datesFor } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
+import { personSpan } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -62,5 +63,22 @@ describe("births and deaths", () => {
         expect({ year, month, day }, `${ev.id} and ${person.id} (${chron})`).toEqual({ year: at.year, month: at.month, day: at.day });
       }
     }
+  });
+});
+
+describe("people's bars", () => {
+  const span = (id: string) => personSpan(data.people.find((p) => p.id === id)!, DEFAULT_CHRONOLOGY);
+
+  test("without dates, span the person's events", () => {
+    expect(span("peter")?.derived).toBe(true);
+    expect(span("jeremiah")?.derived).toBe(true); // A prophet, from his one ministry event.
+  });
+
+  test("need two or more events unless they're a prophet", () => {
+    expect(span("leah")).toBeUndefined();
+  });
+
+  test("use dates when there are some", () => {
+    expect(span("moses")?.derived).toBe(false);
   });
 });
