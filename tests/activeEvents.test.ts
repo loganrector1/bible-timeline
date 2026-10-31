@@ -3,7 +3,8 @@ import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { eventsById } from "../src/data";
 import { activeEvents, distanceFrom, NEAREST_COUNT } from "../src/lib/activeEvents";
 import { adjacentEvent, eventsInOrder } from "../src/lib/entities";
-import { eventShown, shownBy } from "../src/lib/filters";
+import { drawnAsLifeMark, eventShown, filteredPeople, shownBy } from "../src/lib/filters";
+import { data } from "../src/data";
 
 describe("activeEvents", () => {
   test("returns a fixed number of events, nearest first", () => {
@@ -108,5 +109,19 @@ describe("filters", () => {
     const shown = eventsInOrder(chron).filter((ev) => eventShown(ev, f));
     expect(shown.length).toBeGreaterThan(0);
     expect(shown.every((ev) => ev.type === "battle" && ev.people.includes("david"))).toBe(true);
+  });
+
+  test("people stand out: those filtered to, else everyone in a shown event", () => {
+    expect(filteredPeople(data.events, { types: [], people: [] })).toBeUndefined();
+    expect([...filteredPeople(data.events, { types: ["battle"], people: ["david"] })!]).toEqual(["david"]);
+    const judged = filteredPeople(data.events, { types: ["judgment"], people: [] })!;
+    expect(judged.has("noah")).toBe(true);
+    expect(judged.has("ruth")).toBe(false);
+  });
+
+  test("births and deaths filtered to are dots, not marks on a bar", () => {
+    const birth = data.events.find((ev) => ev.type === "birth" && !ev.major)!;
+    expect(drawnAsLifeMark(birth, { types: [], people: [] })).toBe(true);
+    expect(drawnAsLifeMark(birth, { types: ["birth"], people: [] })).toBe(false);
   });
 });

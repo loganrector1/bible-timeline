@@ -3,7 +3,7 @@ import { data, datesFor } from "../../data";
 import type { Lane } from "../../data/schema";
 import { formatDateSpec, specMidpoint } from "../../lib/dates";
 import { hasLifeMarks, lifeMarkPerson, personDatesText, personSpan, shownLanes } from "../../lib/entities";
-import { eventShown } from "../../lib/filters";
+import { drawnAsLifeMark, eventShown, filteredPeople } from "../../lib/filters";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -62,7 +62,8 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
     });
   }, [lives, chron, lane]);
   const selectedId = selection?.kind === "event" ? selection.id : undefined;
-  const shownMarks = marks.filter((m) => m.ev.id === selectedId || eventShown(m.ev, filters));
+  const shownMarks = marks.filter((m) => drawnAsLifeMark(m.ev, filters) && (m.ev.id === selectedId || eventShown(m.ev, filters)));
+  const standOut = useMemo(() => filteredPeople(data.events, filters), [filters]);
 
   const width = (Math.max(0, ...lives.map((l) => l.column)) + 1) * COLUMN + 8;
 
@@ -74,8 +75,8 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
         if (bottom < 0 || top > scale.height) return null;
         const height = bottom - top;
         const selected = selection?.kind === "person" && selection.id === person.id;
-        // With nothing selected, the people filtered to stand out.
-        const lit = highlight ? highlight.people.has(person.id) : !filters.people.length || filters.people.includes(person.id);
+        // With nothing selected, the people filtered to (or in the events shown) stand out.
+        const lit = highlight ? highlight.people.has(person.id) : !standOut || standOut.has(person.id);
         // Keep the name in view while any part of the bar is on screen.
         const labelOffset = Math.max(0, Math.min(-top, height - 80)) + 6;
         const dateText = personDatesText(person, chron, eraStyle) ?? "";
@@ -89,7 +90,7 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
             aria-pressed={selected}
             className={`absolute overflow-hidden rounded-full border transition-opacity ${
               selected ? "border-accent bg-accent text-paper"
-              : lit && (highlight || filters.people.length) ? "border-accent bg-accent-soft text-ink"
+              : lit && (highlight || standOut) ? "border-accent bg-accent-soft text-ink"
               : derived ? "border-ink/30 bg-ink/5 text-ink hover:border-accent"
               : lane === "kings" && person.kingdom ? `${KINGDOM_TINT[person.kingdom]} text-ink hover:border-accent`
               : "border-ink/25 bg-ink/10 text-ink hover:border-accent"

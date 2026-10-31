@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { data, peopleById } from "../data";
 import type { EventType } from "../data/schema";
 import { eventShown, FILTER_TYPES, NO_FILTERS, TYPE_FILTER_LABEL } from "../lib/filters";
@@ -20,14 +20,35 @@ export function FilterControls() {
   const setFilters = useStore((s) => s.setFilters);
   const matches = useMatchCount();
   const [query, setQuery] = useState("");
+  // The suggestion Enter picks: the first, until the arrow keys move it.
+  const [active, setActive] = useState(0);
 
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
+    const names = (p: (typeof data.people)[number]) => [p.name, ...p.altNames].map((n) => n.toLowerCase());
+    // Names that start with the search come first: "Jo" is Joseph before Ahaziah of Judah's mother.
+    const starts = (p: (typeof data.people)[number]) => names(p).some((n) => n.startsWith(q));
     return data.people
-      .filter((p) => !people.includes(p.id) && [p.name, ...p.altNames].some((n) => n.toLowerCase().includes(q)))
+      .filter((p) => !people.includes(p.id) && names(p).some((n) => n.includes(q)))
+      .sort((a, b) => Number(starts(b)) - Number(starts(a)))
       .slice(0, 6);
   }, [query, people]);
+  const pickPerson = (id: string) => {
+    setFilters({ people: [...people, id] });
+    setQuery("");
+  };
+  const onKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!suggestions.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      const dir = e.key === "ArrowDown" ? 1 : -1;
+      setActive((i) => (i + dir + suggestions.length) % suggestions.length);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      pickPerson(suggestions[Math.min(active, suggestions.length - 1)].id);
+    }
+  };
 
   const toggleType = (t: EventType) =>
     setFilters({ types: types.includes(t) ? types.filter((x) => x !== t) : [...types, t] });
@@ -63,26 +84,34 @@ export function FilterControls() {
         )}
         <input
           type="search"
+          role="combobox"
+          aria-expanded={suggestions.length > 0}
+          aria-controls="filter-people"
+          aria-activedescendant={suggestions.length ? `filter-person-${suggestions[Math.min(active, suggestions.length - 1)].id}` : undefined}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActive(0);
+          }}
+          onKeyDown={onKeyDown}
           placeholder="Add a person…"
           aria-label="Add a person"
           className="w-full rounded-md border border-line bg-paper-2 px-3 py-1.5 text-sm outline-none focus:border-accent"
         />
         {suggestions.length > 0 && (
-          <ul className="mt-1 rounded-md border border-line bg-paper py-1 shadow-sm">
-            {suggestions.map((p) => (
-              <li key={p.id}>
-                <button
-                  onClick={() => {
-                    setFilters({ people: [...people, p.id] });
-                    setQuery("");
-                  }}
-                  className="flex w-full items-baseline justify-between gap-3 px-3 py-1 text-left text-sm hover:bg-paper-2"
-                >
-                  <span className="truncate">{p.name}</span>
-                  <span className="shrink-0 truncate text-xs text-ink-muted">{p.roles[0]}</span>
-                </button>
+          <ul id="filter-people" role="listbox" aria-label="People" className="mt-1 rounded-md border border-line bg-paper py-1 shadow-sm">
+            {suggestions.map((p, i) => (
+              <li
+                key={p.id}
+                id={`filter-person-${p.id}`}
+                role="option"
+                aria-selected={i === active}
+                onClick={() => pickPerson(p.id)}
+                onPointerMove={() => setActive(i)}
+                className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-1 text-sm ${i === active ? "bg-paper-2" : ""}`}
+              >
+                <span className="truncate">{p.name}</span>
+                <span className="shrink-0 truncate text-xs text-ink-muted">{p.roles[0]}</span>
               </li>
             ))}
           </ul>
@@ -157,7 +186,7 @@ export function FilterButton() {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="dialog"
-        className={`flex items-center gap-1.5 rounded-lg border border-line px-2.5 py-1 text-sm ${
+        className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2.5 text-sm ${
           open || count ? "bg-ink text-paper" : "bg-paper text-ink-muted hover:text-ink"
         }`}
       >

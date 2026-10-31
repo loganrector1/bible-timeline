@@ -49,3 +49,20 @@ body {
 .maplibregl-ctrl-bottom-right {
   left: 9rem;
 }
+
+/* Folded, the credits are just their ⓘ: the theme's ink with the "i" cut out, no disc behind it. */
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
+  min-height: 20px;
+  padding: 0 20px 0 0;
+  background: transparent;
+}
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-button {
+  width: 20px;
+  height: 20px;
+  background: var(--color-ink);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M10 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17ZM9 8.5h2V15H9Zm0-3.5h2v2H9Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.8;
+}
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) .maplibregl-ctrl-attrib-button:hover {
+  opacity: 1;
+}

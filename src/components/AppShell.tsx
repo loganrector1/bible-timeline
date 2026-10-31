@@ -36,7 +36,7 @@ export default function AppShell() {
             aria-pressed={browseOpen}
             aria-keyshortcuts="/"
             title="Browse and search (/)"
-            className={`flex items-center gap-1.5 rounded-lg border border-line px-2.5 py-1 text-sm ${
+            className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2.5 text-sm ${
               browseOpen ? "bg-ink text-paper" : "bg-paper text-ink-muted hover:text-ink"
             }`}
           >
@@ -48,14 +48,14 @@ export default function AppShell() {
           </button>
           <FilterButton />
         </div>
-        <div role="radiogroup" aria-label="View" className="flex rounded-lg border border-line bg-paper p-0.5 text-sm">
+        <div role="radiogroup" aria-label="View" className="flex h-8 rounded-lg border border-line bg-paper p-0.5 text-sm">
           {MODES.map((m) => (
             <button
               key={m.id}
               role="radio"
               aria-checked={mode === m.id}
               onClick={() => setMode(m.id)}
-              className={`rounded-md px-3 py-1 transition-colors ${
+              className={`rounded-md px-3 transition-colors ${
                 mode === m.id ? "bg-accent text-paper" : "text-ink-muted hover:text-ink"
               }`}
             >
