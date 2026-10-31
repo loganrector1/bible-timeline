@@ -7,12 +7,14 @@ import {
   drawnLegs, eventForJourney, JOURNEY_DELAY_MS, journeyDuration, journeyLegs, routeCoords, stopIndexOf, type Coord, type Leg,
 } from "../../lib/journeys";
 import { useStore } from "../../state/store";
-import { ARROW_IMAGE } from "./arrowImage";
+import { ARROW_IMAGE, BLANK_IMAGE } from "./arrowImage";
 import type { MapColors } from "./mapColors";
 
 export const JOURNEY_HIT_LAYER = "journey-hit";
 /** The journey's lowest layer, for drawing beneath the route. */
 export const JOURNEY_BASE_LAYER = "journey-full";
+/** The stop markers' lowest layer: the event's own place labels sit just beneath it. */
+export const JOURNEY_STOPS_LAYER = "journey-stops";
 
 const legFeatures = (legs: Leg[], journeyId: string): GeoJSON.FeatureCollection => ({
   type: "FeatureCollection",
@@ -141,15 +143,29 @@ export default function JourneyLayer({
         <Layer id="journey-head" type="circle"
           paint={{ "circle-radius": 6, "circle-color": colors.halo, "circle-stroke-color": colors.accent, "circle-stroke-width": 3 }} />
       </Source>
+      {/* Invisible marks along the whole route that background labels keep clear of (see
+          EventLayer: MapLibre places symbols from the top layer down). */}
+      <Source id="journey-clearance" type="geojson" data={journeyId ? legFeatures(legs, journeyId) : EMPTY}>
+        <Layer id="journey-clearance" type="symbol"
+          layout={{
+            "symbol-placement": "line",
+            "symbol-spacing": 8,
+            "icon-image": BLANK_IMAGE,
+            "icon-padding": 3,
+            "icon-allow-overlap": true,
+          }}
+          />
+      </Source>
       <Source id="journey-stops" type="geojson" data={stops}>
-        <Layer id="journey-stops" type="circle"
+        <Layer id={JOURNEY_STOPS_LAYER} type="circle"
           paint={{
             "circle-radius": ["case", ["get", "wide"], 12, 9],
             "circle-color": colors.accent, "circle-stroke-color": colors.halo,
             "circle-stroke-width": ["case", ["get", "current"], 4, 2],
           }} />
+        {/* Padded to the circle's size, so place labels keep clear of the stop. */}
         <Layer id="journey-stop-numbers" type="symbol"
-          layout={{ "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-allow-overlap": true }}
+          layout={{ "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-allow-overlap": true, "text-padding": 3 }}
           paint={{ "text-color": colors.halo }} />
         {/* What happened at the stop, beside it. */}
         <Layer id="journey-stop-events" type="symbol"
