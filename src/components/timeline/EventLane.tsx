@@ -3,7 +3,7 @@ import { data, datesFor } from "../../data";
 import type { Event } from "../../data/schema";
 import { formatDateSpec, specExtent, type DateSpec } from "../../lib/dates";
 import { lifeMarkPerson } from "../../lib/entities";
-import { pxToYear, yearToPx, type TimeScale } from "../../lib/timeScale";
+import type { TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { hoverProps, type OnHover } from "./hover";
@@ -51,15 +51,21 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
   type Row = Placed & {
     top: number; bottom: number; asSpan: boolean; labelY: number; nudge: number; labelShift: number;
   };
-  // Everything is laid out, not just what's on screen, so clusters and labels depend only on
-  // zoom: if they started from the topmost visible dot, they'd regroup (jitter) while scrolling.
+  // Layout happens in fixed coordinates (year × zoom), over every event, not just those on
+  // screen, and is shifted into view only when drawn. Then clusters and labels depend only on
+  // zoom: in screen pixels, rounding as the cursor moves flipped dots exactly a dot apart in
+  // and out of clusters, and starting from the topmost visible dot regrouped them (jitter).
+  const shift = scale.currentYear * scale.pxPerYear - scale.height / 2;
+  const viewTop = shift;
+  const viewBottom = shift + scale.height;
   const all: Row[] = [];
   for (const p of placed) {
-    const top = yearToPx(scale, p.lo);
-    const bottom = yearToPx(scale, p.hi);
+    const top = p.lo * scale.pxPerYear;
+    const bottom = p.hi * scale.pxPerYear;
     const asSpan = p.spec.end !== undefined && bottom - top >= MIN_SPAN_PX;
     const mid = (top + bottom) / 2;
-    const labelY = asSpan ? Math.min(Math.max(top, 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
+    // A span's label stays in view while its bar is.
+    const labelY = asSpan ? Math.min(Math.max(top, viewTop + 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
     all.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
   }
 
@@ -105,16 +111,19 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
   }
 
   // Greedy label placement, best-ranked first. A span's label can slide down its bar to
-  // find room, so a journey stays labelled beside the events at its start.
-  const onScreen = (r: Row) => r.bottom >= -40 && r.top <= scale.height + 40;
+  // find room, so a journey stays labelled beside the events at its start. Labels that
+  // follow the scroll (a span whose start is above the view) go last, so they don't knock
+  // fixed labels in and out of view as they pass.
+  const onScreen = (r: Row) => r.bottom >= viewTop - 40 && r.top <= viewBottom + 40;
   const visible = rows.filter((r) => !hidden.has(r));
   const taken: number[] = [];
   const showLabel = new Set<string>();
   const free = (y: number) => !taken.some((t) => Math.abs(t - y) < LABEL_HEIGHT);
-  for (const r of [...visible].sort(byRank)) {
+  const follows = (r: Row) => r.asSpan && r.top < viewTop + 4;
+  for (const r of [...visible].sort((a, b) => Number(follows(a)) - Number(follows(b)) || byRank(a, b))) {
     let y = r.labelY;
     if (r.asSpan) {
-      const last = Math.min(r.bottom, scale.height) - LABEL_HEIGHT / 2;
+      const last = Math.min(r.bottom, viewBottom) - LABEL_HEIGHT / 2;
       while (!free(y) && y + LABEL_HEIGHT <= last) y += LABEL_HEIGHT;
     }
     if (!free(y)) continue;
@@ -123,20 +132,24 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
     showLabel.add(r.ev.id);
   }
 
-  // Span labels line up with the dot labels, after any cluster beside them.
+  // Labels start after every cluster beside them, not just their own, so a label never covers
+  // the dots of a wider cluster just above or below. Span labels line up with the dot labels.
+  const widthBeside = (y: number) => Math.max(
+    DOT_STEP,
+    ...clusters
+      .filter((c) => c.top - DOT_SIZE / 2 < y + LABEL_HEIGHT / 2 && c.bottom + DOT_SIZE / 2 > y - LABEL_HEIGHT / 2)
+      .map((c) => c.width),
+  );
   for (const r of rows) {
-    if (!r.asSpan) continue;
-    const beside = clusters.filter(
-      (c) => c.top - DOT_SIZE / 2 < r.labelY + LABEL_HEIGHT / 2 && c.bottom + DOT_SIZE / 2 > r.labelY - LABEL_HEIGHT / 2,
-    );
-    r.labelShift = Math.max(DOT_STEP, ...beside.map((c) => c.width)) + 4;
+    if (r.asSpan) r.labelShift = widthBeside(r.labelY) + 4;
+    else if (showLabel.has(r.ev.id)) r.labelShift = widthBeside(r.labelY) - r.nudge - DOT_STEP;
   }
 
   // Zoom in on a folded cluster until its dots spread out.
   const spreadCluster = (c: Cluster) => {
     const n = c.folded.length + MAX_CLUSTER;
     const spreadPx = Math.max(c.bottom - c.top, 1);
-    goTo(pxToYear(scale, (c.top + c.bottom) / 2), scale.pxPerYear * Math.max(2, (n * LABEL_HEIGHT) / spreadPx));
+    goTo((c.top + c.bottom) / 2 / scale.pxPerYear, scale.pxPerYear * Math.max(2, (n * LABEL_HEIGHT) / spreadPx));
   };
 
   return (
@@ -162,7 +175,7 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
                 className={`absolute w-1.5 rounded-full ${selected ? "bg-accent" : "bg-ink/60 group-hover/event:bg-accent"}`}
                 style={{
                   left: r.column * SPAN_COLUMN + 6,
-                  top: r.top,
+                  top: r.top - shift,
                   height: r.bottom - r.top,
                   // Approximate spans fade at the ends.
                   maskImage: fuzzy ? "linear-gradient(transparent, black 8px, black calc(100% - 8px), transparent)" : undefined,
@@ -175,7 +188,7 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
               aria-label={`${ev.title}, ${dateText}`}
               aria-pressed={selected}
               className="absolute flex -translate-y-1/2 items-center gap-1.5 rounded pr-1 text-left"
-              style={{ top: r.labelY, left, maxWidth: `calc(100% - ${left}px)` }}
+              style={{ top: r.labelY - shift, left, maxWidth: `calc(100% - ${left}px)` }}
             >
               {!r.asSpan && (
                 <span
@@ -201,13 +214,13 @@ export default function EventLane({ scale, onHover, peopleShown }: { scale: Time
         );
       })}
       {/* Last, so the labels of the dots beside them don't cover them. */}
-      {clusters.filter((c) => c.folded.length > 0 && c.bottom >= -40 && c.top <= scale.height + 40).map((c) => (
+      {clusters.filter((c) => c.folded.length > 0 && c.bottom >= viewTop - 40 && c.top <= viewBottom + 40).map((c) => (
         <button
           key={`more-${c.folded[0].ev.id}`}
           onClick={() => spreadCluster(c)}
           aria-label={`${c.folded.length} more events here; zoom in`}
           className={`absolute flex h-4 -translate-y-1/2 items-center rounded-full border border-ink/50 bg-paper px-1 text-[10px] leading-none font-semibold text-ink-muted hover:border-accent hover:text-accent ${c.folded.some((r) => isLit(r.ev)) ? "" : "opacity-35"}`}
-          style={{ top: (c.top + c.bottom) / 2, left: dotX - 6 + (c.width - BADGE_WIDTH), minWidth: BADGE_WIDTH - 4 }}
+          style={{ top: (c.top + c.bottom) / 2 - shift, left: dotX - 6 + (c.width - BADGE_WIDTH), minWidth: BADGE_WIDTH - 4 }}
         >
           +{c.folded.length}
         </button>
