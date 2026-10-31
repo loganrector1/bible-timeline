@@ -3,7 +3,7 @@ import { data, datesFor } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
-import { personSpan, shownLane } from "../src/lib/entities";
+import { personSpan, shownLane, shownLanes } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -87,6 +87,12 @@ describe("people's bars", () => {
     expect(shownLane(peter, ["people", "church"])).toBe("people");
     expect(shownLane(peter, ["church"])).toBe("church");
     expect(shownLane(peter, ["kings"])).toBeUndefined();
+  });
+
+  test("kings show in the Kings lane too, as their reign", () => {
+    const david = data.people.find((p) => p.id === "david")!;
+    expect(shownLanes(david, ["people", "kings"])).toEqual(["people", "kings"]);
+    expect(shownLanes(david, ["kings"])).toEqual(["kings"]);
   });
 
   test("each kingdom's reigns follow on without overlapping, as their one column needs", () => {

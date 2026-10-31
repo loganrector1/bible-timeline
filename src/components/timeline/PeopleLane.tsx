@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { data, datesFor } from "../../data";
 import type { Lane } from "../../data/schema";
 import { formatDateSpec, specMidpoint } from "../../lib/dates";
-import { lifeMarkPerson, personDatesText, personSpan, shownLane } from "../../lib/entities";
+import { hasLifeMarks, lifeMarkPerson, personDatesText, personSpan, shownLanes } from "../../lib/entities";
 import { yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -27,7 +27,7 @@ export const LANE_NAMES: Record<Lane, string> = {
 /**
  * One lane of people (the main figures, or a group like the prophets) as vertical bars,
  * packed into columns so overlapping lives sit side by side. Someone in two lanes (Peter) shows
- * in the first that's on. A bar is the person's dates, or,
+ * in the first that's on, except that kings always show in the Kings lane (`shownLanes`). A bar is the person's dates, or,
  * lighter and dashed, the span of their events when Scripture gives no dates (`personSpan`).
  * Routine births and deaths are small marks on the bar rather than dots in the event lane.
  */
@@ -40,7 +40,7 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
   const highlight = useHighlight();
 
   const lives = useMemo(() => {
-    const items = data.people.filter((p) => shownLane(p, shown) === lane).flatMap((person) => {
+    const items = data.people.filter((p) => shownLanes(p, shown).includes(lane)).flatMap((person) => {
       const span = personSpan(person, chron, lane === "kings");
       return span ? [{ person, ...span }] : [];
     });
@@ -51,14 +51,14 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
   }, [chron, lane, shown]);
 
   const marks = useMemo(() => {
-    const columnOf = new Map(lives.map((l) => [l.person.id, l.column]));
+    const columnOf = new Map(lives.filter((l) => hasLifeMarks(l.person, lane)).map((l) => [l.person.id, l.column]));
     return data.events.flatMap((ev) => {
       const personId = lifeMarkPerson(ev, chron);
       const spec = datesFor(ev, chron);
       const column = personId ? columnOf.get(personId) : undefined;
       return column !== undefined && spec ? [{ ev, spec, year: specMidpoint(spec), column }] : [];
     });
-  }, [lives, chron]);
+  }, [lives, chron, lane]);
 
   const width = (Math.max(0, ...lives.map((l) => l.column)) + 1) * COLUMN + 8;
 

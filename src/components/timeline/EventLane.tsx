@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { data, datesFor, peopleById } from "../../data";
 import type { Event, Lane } from "../../data/schema";
 import { formatDateSpec, specExtent, type DateSpec } from "../../lib/dates";
-import { lifeMarkPerson, shownLane } from "../../lib/entities";
+import { hasLifeMarks, lifeMarkPerson, shownLanes } from "../../lib/entities";
 import type { TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -77,7 +77,8 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
   const rows = all.filter((r) => {
     if (isSelected(r.ev)) return true;
     const markedOn = lifeMarkPerson(r.ev, chron);
-    if (markedOn && shownLane(peopleById.get(markedOn)!, lanes)) return false;
+    const person = markedOn ? peopleById.get(markedOn)! : undefined;
+    if (person && shownLanes(person, lanes).some((l) => hasLifeMarks(person, l))) return false;
     const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
     return !parent || parent.asSpan;
   });

@@ -93,6 +93,22 @@ export function shownLane(person: Person, shown: Lane[]): Lane | undefined {
 }
 
 /**
+ * Every lane a person is drawn in: the first shown lane they belong to, and the Kings lane too,
+ * since there a king's bar is his reign in an unbroken line (David with the main figures and
+ * among the kings).
+ */
+export function shownLanes(person: Person, shown: Lane[]): Lane[] {
+  const first = shownLane(person, shown.filter((l) => l !== "kings"));
+  const king = shownLane(person, shown.filter((l) => l === "kings"));
+  return [first, king].filter((l) => l !== undefined);
+}
+
+/** Births and deaths mark the ends of a lifespan, so not a bar that's a reign. */
+export function hasLifeMarks(person: Person, lane: Lane): boolean {
+  return lane !== "kings" || !person.reign;
+}
+
+/**
  * Where a person's bar runs: their dates (`specExtent`), or else from their first event to
  * their last (`derived`), so people Scripture gives no lifespan, like Peter, still have a
  * place on the timeline. That's for people in two or more events, and prophets (dated by
