@@ -245,7 +245,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
   },
   {
-    "id": "passover", "title": "The first Passover", "type": "worship", "major": true,
+    "id": "passover", "title": "The first Passover", "type": "worship", "major": true, "partOf": "plagues",
     "summary": "Israel marks its doorposts with the blood of a lamb, and the Lord passes over them when he strikes the firstborn of Egypt.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },

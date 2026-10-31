@@ -3,7 +3,7 @@ import {
   type EntityRef,
 } from "../data";
 import type { Event, Location } from "../data/schema";
-import { specBounds, specMidpoint } from "./dates";
+import { specBounds, specExtent, specMidpoint } from "./dates";
 
 export type Bounds = [number, number];
 
@@ -18,13 +18,13 @@ export function eventMidpoint(ev: Event, chron: string): number | undefined {
 }
 
 /**
- * Where an event falls in date order. A span counts from its start, so a journey comes
- * before what happens along it; a moment counts from its midpoint, since "4th month" is a
- * best guess at mid-month, not the 1st.
+ * Where an event falls in date order: where it's drawn (`specExtent`), from its start. A span
+ * counts from its start, so a journey comes before what happens along it. Dates count from
+ * the middle of their precision, since "4th month" is a best guess at mid-month, not the 1st.
  */
 export function eventOrderKey(ev: Event, chron: string): number {
   const spec = datesFor(ev, chron)!;
-  const own = spec.end ? specBounds(spec)[0] : specMidpoint(spec);
+  const own = specExtent(spec)[0];
   // Never before the event it's part of.
   const parent = parentEvent(ev);
   return parent && datesFor(parent, chron) ? Math.max(own, eventOrderKey(parent, chron)) : own;
@@ -45,15 +45,27 @@ export function journeyOf(ev: Event): string | undefined {
   return ev.journeyId ?? parentEvent(ev)?.journeyId;
 }
 
-/** Events sorted by date under a chronology, longer first on ties. Undated events are left out. */
+/**
+ * Events sorted by date under a chronology. On ties a parent comes before the events within
+ * it, and otherwise the file's order (the order Scripture tells them) stands. Undated events
+ * are left out.
+ */
 export function eventsInOrder(chron: string): Event[] {
-  const length = (ev: Event) => {
-    const [lo, hi] = eventBounds(ev, chron)!;
-    return hi - lo;
-  };
+  const parentFirst = (a: Event, b: Event) => (b.partOf === a.id ? -1 : a.partOf === b.id ? 1 : 0);
   return data.events
     .filter((ev) => datesFor(ev, chron))
-    .sort((a, b) => eventOrderKey(a, chron) - eventOrderKey(b, chron) || length(b) - length(a));
+    .sort((a, b) => eventOrderKey(a, chron) - eventOrderKey(b, chron) || parentFirst(a, b));
+}
+
+/**
+ * The person whose birth or death this event is (the first person listed), when the event
+ * is a routine one drawn as a mark on that person's lifespan rather than as its own dot.
+ * Births and deaths the story dwells on are marked `major` and stay ordinary events.
+ */
+export function lifeMarkPerson(ev: Event, chron: string): string | undefined {
+  if ((ev.type !== "birth" && ev.type !== "death") || ev.major) return undefined;
+  const person = peopleById.get(ev.people[0]);
+  return person && datesFor(person, chron) ? person.id : undefined;
 }
 
 /**

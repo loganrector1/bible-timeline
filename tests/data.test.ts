@@ -48,3 +48,19 @@ describe("events that are part of another", () => {
     }
   });
 });
+
+describe("births and deaths", () => {
+  // The event's dot (or its mark on the people lane) must sit at the end of the person's bar.
+  test("match the lifespan of the person they're about", () => {
+    for (const ev of data.events.filter((e) => e.type === "birth" || e.type === "death")) {
+      const person = data.people.find((p) => p.id === ev.people[0]);
+      if (!person?.dates) continue;
+      for (const chron of new Set([DEFAULT_CHRONOLOGY, ...Object.keys(ev.dates), ...Object.keys(person.dates)])) {
+        const life = datesFor(person, chron)!;
+        const { year, month, day } = (ev.type === "birth" ? life.start : life.end) ?? {};
+        const at = datesFor(ev, chron)!.start;
+        expect({ year, month, day }, `${ev.id} and ${person.id} (${chron})`).toEqual({ year: at.year, month: at.month, day: at.day });
+      }
+    }
+  });
+});

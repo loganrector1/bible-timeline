@@ -77,7 +77,7 @@ export default function Timeline() {
       <Axis scale={scale} />
       <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
         {showPeople && <PeopleLane scale={scale} onHover={setHover} />}
-        <EventLane scale={scale} onHover={setHover} />
+        <EventLane scale={scale} onHover={setHover} peopleShown={showPeople} />
       </div>
       <TimeCursor scale={scale} />
       <Overview scale={scale} />

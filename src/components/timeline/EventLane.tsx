@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { data, datesFor } from "../../data";
 import type { Event } from "../../data/schema";
-import { formatDateSpec, specBounds, specMidpoint, type DateSpec } from "../../lib/dates";
+import { formatDateSpec, specExtent, type DateSpec } from "../../lib/dates";
+import { lifeMarkPerson } from "../../lib/entities";
 import { pxToYear, yearToPx, type TimeScale } from "../../lib/timeScale";
 import { useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
@@ -22,7 +23,7 @@ const MIN_SPAN_PX = 14;
 type Placed = { ev: Event; spec: DateSpec; lo: number; hi: number; column: number };
 
 /** Events as dots (points) and bars (spans), with labels that hide rather than overlap. */
-export default function EventLane({ scale, onHover }: { scale: TimeScale; onHover: OnHover }) {
+export default function EventLane({ scale, onHover, peopleShown }: { scale: TimeScale; onHover: OnHover; peopleShown: boolean }) {
   const chron = useStore((s) => s.chronologyId);
   const eraStyle = useStore((s) => s.eraStyle);
   const selection = useStore((s) => s.selection);
@@ -36,7 +37,7 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
     for (const ev of data.events) {
       const spec = datesFor(ev, chron);
       if (!spec) continue;
-      const [lo, hi] = specBounds(spec);
+      const [lo, hi] = specExtent(spec);
       items.push({ ev, spec, lo, hi, column: 0 });
     }
     const spans = items.filter((p) => p.spec.end);
@@ -57,18 +58,21 @@ export default function EventLane({ scale, onHover }: { scale: TimeScale; onHove
     const top = yearToPx(scale, p.lo);
     const bottom = yearToPx(scale, p.hi);
     const asSpan = p.spec.end !== undefined && bottom - top >= MIN_SPAN_PX;
-    const mid = yearToPx(scale, specMidpoint(p.spec));
+    const mid = (top + bottom) / 2;
     const labelY = asSpan ? Math.min(Math.max(top, 4) + LABEL_HEIGHT / 2, bottom - LABEL_HEIGHT / 2) : mid;
     all.push({ ...p, top, bottom, asSpan, labelY, nudge: 0, labelShift: 0 });
   }
 
   // Events within a larger event (the Red Sea in the Exodus) fold into it until it's long
-  // enough to draw as a bar; a selected one always shows.
+  // enough to draw as a bar, and routine births and deaths are marks on the people lane while
+  // it's shown. A selected one always shows.
   const isSelected = (ev: Event) => selection?.kind === "event" && selection.id === ev.id;
   const byId = new Map(all.map((r) => [r.ev.id, r]));
   const rows = all.filter((r) => {
+    if (isSelected(r.ev)) return true;
+    if (peopleShown && lifeMarkPerson(r.ev, chron)) return false;
     const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
-    return !parent || parent.asSpan || isSelected(r.ev);
+    return !parent || parent.asSpan;
   });
 
   // Which events win when space is short: the selection, then highlighted, then major events.

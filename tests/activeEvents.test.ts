@@ -60,6 +60,14 @@ describe("date order", () => {
   test("a moment known only to the month sorts mid-month", () => {
     before("manna", "amalek"); // 15th of the 2nd month, then Rephidim later that month
   });
+
+  test("a span known only to the year starts mid-year, level with a moment that year", () => {
+    before("burning-bush", "plagues"); // Both 1446 BC; the file's (Scripture's) order breaks the tie.
+  });
+
+  test("on a tie, the larger event comes before the events within it", () => {
+    before("plagues", "passover");
+  });
 });
 
 describe("events along a journey", () => {
