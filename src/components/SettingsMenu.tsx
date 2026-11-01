@@ -40,6 +40,8 @@ export default function SettingsMenu() {
   const setTheme = useStore((s) => s.setTheme);
   const eraStyle = useStore((s) => s.eraStyle);
   const setEraStyle = useStore((s) => s.setEraStyle);
+  const redLetters = useStore((s) => s.redLetters);
+  const setRedLetters = useStore((s) => s.setRedLetters);
   const chron = useStore((s) => s.chronologyId);
   const setChronology = useStore((s) => s.setChronology);
   const [open, setOpen] = useState(false);
@@ -94,6 +96,12 @@ export default function SettingsMenu() {
             options={[{ id: "BC", label: "BC / AD" }, { id: "BCE", label: "BCE / CE" }]}
             value={eraStyle}
             onChange={setEraStyle}
+          />
+          <Choice
+            title="Words of Jesus"
+            options={[{ id: "red", label: "In red" }, { id: "plain", label: "Plain" }]}
+            value={redLetters ? "red" : "plain"}
+            onChange={(v) => setRedLetters(v === "red")}
           />
           <Choice
             title="Date of the Exodus"

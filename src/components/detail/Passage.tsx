@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { ScriptureRef } from "../../data/schema";
 import { loadBook, refBookId, versesOf, type Verse } from "../../lib/bible";
 import { formatRef, refUrl } from "../../lib/scripture";
+import { useStore } from "../../state/store";
 import { smallCaps } from "../ScriptureText";
 
 /** Passages longer than this many verses start cut short, with "Read more". */
@@ -33,6 +34,7 @@ type Loaded = { verses: Verse[] } | { error: true } | undefined;
 function PassageText({ scripture }: { scripture: ScriptureRef }) {
   const [loaded, setLoaded] = useState<Loaded>();
   const [full, setFull] = useState(false);
+  const redLetters = useStore((s) => s.redLetters);
   useEffect(() => {
     const id = refBookId(scripture);
     if (!id) return setLoaded({ error: true });
@@ -84,7 +86,9 @@ function PassageText({ scripture }: { scripture: ScriptureRef }) {
               {!(newChapter && v.verse === 1) && (
                 <sup className="mr-0.5 font-sans text-[10px] font-medium text-ink-muted">{v.verse}</sup>
               )}
-              {smallCaps(v.text)}{" "}
+              {v.parts.map((p, j) => (
+                <span key={j} className={p.jesus && redLetters ? "text-jesus" : undefined}>{smallCaps(p.text)}</span>
+              ))}{" "}
             </span>
           );
         })}
