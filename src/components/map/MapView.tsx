@@ -14,6 +14,7 @@ import { useIsDark, useIsPhone } from "../../lib/useMediaQuery";
 import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
+import { provideStopImages } from "./stopImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
 import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
@@ -23,6 +24,9 @@ import NowPanel from "./NowPanel";
 import OffscreenSelection from "./OffscreenSelection";
 import RegionLayer, { REGION_FILL_LAYER } from "./RegionLayer";
 import TimeStrip from "./TimeStrip";
+
+/** Maps already drawing journey stop markers on demand. */
+const withStopImages = new WeakSet<maplibregl.Map>();
 
 // MapLibre finds its worker relative to its own module, which breaks once Vite bundles it.
 setWorkerUrl(workerUrl);
@@ -252,7 +256,13 @@ export default function MapView() {
             onMouseLeave={() => setHover(null)}
             // The arrow image must exist before the journey layer first draws, so add it as
             // soon as style data arrives (and again whenever the style reloads).
-            onStyleData={(e) => addArrowImage(e.target)}
+            onStyleData={(e) => {
+              addArrowImage(e.target);
+              if (!withStopImages.has(e.target)) {
+                withStopImages.add(e.target);
+                provideStopImages(e.target);
+              }
+            }}
             onLoad={(e) => {
               setMap(e.target);
               applyBorders();
