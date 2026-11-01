@@ -33,13 +33,27 @@ const REPORT_OVERLAP = 0.5;
  * `from`/`to` narrow those (or bound a power with no empire, whose `links` say what it belongs
  * to). `until` cuts one polity short where Cliopatria runs it on past a conquest, and `since`
  * starts one earlier where its first snapshot comes late. `yieldTo` names powers whose land this
- * one's outline gives up while both stand. `province` splits off the land a power held beyond
- * its homeland, drawn lighter (`subject`), as the lands subject to David are. `tint` colours
- * Israel's own states as the Kings lane does (Judah warm).
+ * one's outline gives up while both stand. `sway` splits off land a power was overlord of
+ * rather than ruled (vassal kings paying tribute): drawn lighter (`subject`), as the lands
+ * subject to David are, named "Under ‹power›'s sway", with a note. `tint` colours Israel's own
+ * states as the Kings lane does (Judah warm).
  */
+
+/**
+ * Canaan and Syria under Egypt: east of Egypt's frontier (Rafah to the head of the Gulf of
+ * Aqaba) and of a line off the Levant coast, so Sinai and Cyprus aren't counted in it. Egypt
+ * withdrew from Canaan about 1150 BC (`until`).
+ */
+const EGYPT_SWAY = {
+  until: -1150,
+  lands: [[[[34.22, 31.32], [34.9, 29.5], [35.2, 25], [60, 25], [60, 45], [35.9, 45], [35.9, 36.9], [35.5, 35.9], [35.4, 34.5], [34.7, 33.5], [34.2, 32.5], [34.22, 31.32]]]],
+  note:
+    "Canaan's city-states kept their own kings, who paid Pharaoh tribute; Egypt kept governors and garrisons at a few strongholds (Gaza, Joppa, Beth-shean). The hill country, where Israel settled, saw little of Egypt, and Joshua and Judges don't mention it.",
+};
+
 // Where one power ends the year the next begins (empires.json), the year goes to the next.
 const POWERS = [
-  { empire: "egypt-middle", name: "Egypt", rows: ["Middle Kingdom of Egypt"], to: -1649, province: "asia" },
+  { empire: "egypt-middle", name: "Egypt", rows: ["Middle Kingdom of Egypt"], to: -1649, sway: EGYPT_SWAY },
   { empire: "old-babylon", name: "Babylon", rows: ["Babylonia"] },
   // Cliopatria's Delta dynasties start at 1600 BC; the Hyksos held the Delta from about 1650.
   {
@@ -54,18 +68,18 @@ const POWERS = [
     since: { "Seventeenth Dynasty of Egypt": -1649 }, links: [{ kind: "empire", id: "hyksos" }],
   },
   { empire: "hittites", name: "Hittites", rows: ["Hittites"] },
-  { empire: "egypt-new", name: "Egypt", rows: ["New Kingdom of Egypt"], to: -1069, province: "asia" },
+  { empire: "egypt-new", name: "Egypt", rows: ["New Kingdom of Egypt"], to: -1069, sway: EGYPT_SWAY },
   // Until Esarhaddon took Memphis in 671 BC; Assyria held Egypt until Psamtik I threw it off,
   // about 656 BC. Cliopatria keeps Egypt in Assyria's outline until 616.
   {
-    empire: "egypt-divided", name: "Egypt", to: -670, province: "asia",
+    empire: "egypt-divided", name: "Egypt", to: -670, sway: EGYPT_SWAY,
     rows: ["New Kingdom of Egypt", "Twenty-second Dynasty of Egypt", "Twenty-third Dynasty of Egypt"],
   },
   // Babylon broke away under Nabopolassar in 626 BC; Cliopatria keeps it Assyrian until 616.
   { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"], yieldTo: ["egypt-divided", "egypt-late", "babylon"] },
   // The 26th dynasty fell to Cambyses in 525 BC; the 30th to Artaxerxes III in 343 BC.
   {
-    empire: "egypt-late", name: "Egypt", from: -655, to: -342, province: "asia",
+    empire: "egypt-late", name: "Egypt", from: -655, to: -342,
     rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 },
   },
   { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 } },
@@ -73,7 +87,7 @@ const POWERS = [
   { empire: "alexander-empire", name: "Alexander's empire", rows: ["Macedonian Empire"] },
   // Rome took Syria in 64–63 BC and Egypt in 30 BC.
   { empire: "seleucids", name: "Seleucids", rows: ["Seleucid Empire"], yieldTo: ["roman-republic"] },
-  { empire: "ptolemies", name: "Ptolemies", rows: ["Ptolemaic Kingdom"], yieldTo: ["roman-republic"], province: "asia" },
+  { empire: "ptolemies", name: "Ptolemies", rows: ["Ptolemaic Kingdom"], yieldTo: ["roman-republic"] },
   { empire: "hasmoneans", name: "Hasmoneans", rows: ["Judea"], tint: "judah" },
   { empire: "roman-republic", name: "Rome", rows: ["Roman Republic"], to: -26 },
   // The timeline ends soon after AD 100.
@@ -82,15 +96,6 @@ const POWERS = [
   // Hasmoneans end, to his death (4 BC).
   { id: "herod", name: "Herod's kingdom", rows: ["Judea"], from: -35, to: -3, links: [{ kind: "person", id: "herod-the-great" }], tint: "judah" },
 ];
-
-/**
- * Lands beyond a homeland, for `province`. "asia": Canaan and Syria, east of Egypt's frontier
- * (Rafah to the head of the Gulf of Aqaba) and of a line off the Levant coast, so Sinai and
- * Cyprus aren't counted in it.
- */
-const PROVINCES = {
-  asia: [[[[34.22, 31.32], [34.9, 29.5], [35.2, 25], [60, 25], [60, 45], [35.9, 45], [35.9, 36.9], [35.5, 35.9], [35.4, 34.5], [34.7, 33.5], [34.2, 32.5], [34.22, 31.32]]]],
-};
 
 const zip = await load(process.argv.includes("--refresh"));
 console.log("Reading Cliopatria…");
@@ -167,16 +172,17 @@ const final = features.flatMap((f) => {
 
 reportOverlaps(final);
 
-// A power's land beyond its homeland is a separate, lighter outline (Egypt's province in Canaan),
+// Land a power was only overlord of is a separate, lighter outline (Egypt's vassals in Canaan),
 // so Israel's drawn outlines over it stay clear.
 const split = final.flatMap((f) => {
-  const beyond = f.power.province && PROVINCES[f.power.province];
-  if (!beyond) return [f];
-  const home = polygonClipping.difference(f.coordinates, beyond).map(dropSmall).filter(Boolean);
-  const away = polygonClipping.intersection(f.coordinates, beyond).map(dropSmall).filter(Boolean);
+  const sway = f.power.sway;
+  if (!sway) return [f];
+  const home = polygonClipping.difference(f.coordinates, sway.lands).map(dropSmall).filter(Boolean);
+  // After the sway ended, what's left beyond the frontier is Cliopatria's rough edge: dropped.
+  const away = f.from >= sway.until ? [] : polygonClipping.intersection(f.coordinates, sway.lands).map(dropSmall).filter(Boolean);
   return [
     ...(home.length ? [{ ...f, coordinates: home }] : []),
-    ...(away.length ? [{ ...f, key: `${f.key}-province`, subject: true, coordinates: away }] : []),
+    ...(away.length ? [{ ...f, key: `${f.key}-sway`, subject: true, coordinates: away }] : []),
   ];
 });
 
@@ -184,7 +190,8 @@ const geojson_ = split.map((f) => ({
   type: "Feature",
   properties: {
     id: `${f.key}@${f.from}`,
-    name: f.power.name,
+    name: f.subject ? `Under ${f.power.name}'s sway` : f.power.name,
+    ...(f.subject && { note: f.power.sway.note }),
     ...(f.power.empire ? { empire: f.power.empire } : { links: f.power.links }),
     ...(f.power.tint && { tint: f.power.tint }),
     ...(f.subject && { subject: true, small: true }),

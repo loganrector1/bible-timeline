@@ -40,7 +40,10 @@ export function RuledBy({ loc }: { loc: Location }) {
               onClick={() => select({ kind: "empire", id: r.empire })}
               className="flex w-full items-baseline justify-between gap-3 rounded px-1.5 py-1 text-left text-sm hover:bg-paper-2"
             >
-              <span className="hover:text-accent">{empiresById.get(r.empire)?.name ?? r.empire}</span>
+              <span className="hover:text-accent">
+                {empiresById.get(r.empire)?.name ?? r.empire}
+                {r.overlord && <span className="text-ink-muted"> · overlord</span>}
+              </span>
               <span className="shrink-0 text-xs text-ink-muted tabular-nums">
                 {stillHeld(r) ? `from ${formatYear(r.from, eraStyle)}` : formatDateSpec({ start: { year: r.from }, end: { year: r.to - 1 }, confidence: "approx" }, eraStyle, { yearsOnly: true })}
               </span>

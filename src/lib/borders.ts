@@ -75,11 +75,12 @@ export function borderContains(f: BorderFeature, pt: readonly number[]): boolean
 /**
  * The empires whose borders took in a point, each with the years it held it, earliest first.
  * An empire that lost the place and took it back is listed once per stretch. `open` marks a
- * stretch still running where the outlines stop (Rome's are drawn only to AD 200).
+ * stretch still running where the outlines stop (Rome's are drawn only to AD 200). `overlord`
+ * marks one where it was only overlord, over vassal kings (Egypt in Canaan).
  */
 export function empiresOver(
   all: BorderFeature[], pt: readonly number[], chron: string,
-): { empire: string; from: number; to: number; open: boolean }[] {
+): { empire: string; from: number; to: number; open: boolean; overlord: boolean }[] {
   // Where the outlines stop altogether. An empire's own last outline isn't enough: many end
   // early on purpose, at a conquest (Egypt's to Assyria), and those stretches are closed.
   const end = Math.max(...all.map((f) => borderYears(f, chron)[1]));
@@ -87,12 +88,12 @@ export function empiresOver(
     .filter((f) => f.properties.empire && borderContains(f, pt))
     .map((f) => {
       const [from, to] = borderYears(f, chron);
-      return { empire: f.properties.empire!, from, to, open: false };
+      return { empire: f.properties.empire!, from, to, open: false, overlord: !!f.properties.subject };
     })
     .sort((a, b) => a.from - b.from);
   const out: typeof spans = [];
   for (const s of spans) {
-    const prev = out.findLast((o) => o.empire === s.empire);
+    const prev = out.findLast((o) => o.empire === s.empire && o.overlord === s.overlord);
     if (prev && s.from <= prev.to) prev.to = Math.max(prev.to, s.to);
     else out.push({ ...s });
   }
