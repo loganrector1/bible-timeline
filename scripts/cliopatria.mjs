@@ -2,8 +2,10 @@
 // (the Seshat Global History Databank's polity borders, CC BY 4.0,
 // github.com/Seshat-Global-History-Databank/cliopatria). Each power in POWERS takes the named
 // Cliopatria polities, cut to its dates in empires.json: the first and last snapshots are
-// stretched to the empire's start and end, gaps inside are kept (Egypt under Persia). Shapes are
-// simplified for the map and given a label point.
+// stretched to the empire's start and end, gaps inside are kept (Egypt under Persia). A power's
+// polities are merged into one shape, a power gives up land another holds where history says so
+// (`yieldTo`), and the shapes are simplified for the map and given a label point. Overlaps left
+// between powers are reported, to be checked against history.
 //
 //   node scripts/cliopatria.mjs              rebuild from the cached download
 //   node scripts/cliopatria.mjs --refresh    download Cliopatria again first
@@ -12,6 +14,7 @@
 // Israel's own outlines, and anything Cliopatria lacks, are drawn by hand in borders/drawn.json.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import polygonClipping from "polygon-clipping";
 import { unzip } from "./unzip.mjs";
 
 const URL = "https://github.com/Seshat-Global-History-Databank/cliopatria/raw/main/cliopatria.geojson.zip";
@@ -22,33 +25,44 @@ const EMPIRES = join("src", "data", "empires.json");
 const TOLERANCE = 0.04;
 /** Rings smaller than this (square degrees) are dropped: islets the map can't show. */
 const MIN_RING_AREA = 0.004;
+/** Overlaps between two powers bigger than this (square degrees) are reported. */
+const REPORT_OVERLAP = 0.5;
 
 /**
  * Which Cliopatria polities make up each power. `empire` ties it to empires.json (and its dates);
- * otherwise `from`/`to` bound it (`to` alone cuts an empire short) and `links` say what it belongs to. `until` cuts one
- * polity short where Cliopatria runs it on past a conquest. `tint` colours Israel's own states
- * as the Kings lane does (Judah warm).
+ * `from`/`to` narrow those (or bound a power with no empire, whose `links` say what it belongs
+ * to). `until` cuts one polity short where Cliopatria runs it on past a conquest. `yieldTo`
+ * names powers whose land this one's outline gives up while both stand. `tint` colours
+ * Israel's own states as the Kings lane does (Judah warm).
  */
+// Where one power ends the year the next begins (empires.json), the year goes to the next.
 const POWERS = [
   { empire: "egypt-middle", name: "Egypt", rows: ["Middle Kingdom of Egypt"] },
   { empire: "old-babylon", name: "Babylon", rows: ["Babylonia"] },
-  { empire: "hyksos", name: "Hyksos", rows: ["Hyksos"] },
+  { empire: "hyksos", name: "Hyksos", rows: ["Hyksos"], to: -1549 },
   { empire: "hittites", name: "Hittites", rows: ["Hittites"] },
-  { empire: "egypt-new", name: "Egypt", rows: ["New Kingdom of Egypt"] },
+  { empire: "egypt-new", name: "Egypt", rows: ["New Kingdom of Egypt"], to: -1069 },
+  // Until Esarhaddon took Memphis in 671 BC; Assyria held Egypt until Psamtik I threw it off,
+  // about 656 BC. Cliopatria keeps Egypt in Assyria's outline until 616.
   {
-    empire: "egypt-divided", name: "Egypt",
+    empire: "egypt-divided", name: "Egypt", to: -670,
     rows: ["New Kingdom of Egypt", "Twenty-second Dynasty of Egypt", "Twenty-third Dynasty of Egypt"],
   },
-  { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"] },
-  // The 26th dynasty fell to Cambyses in 525 BC.
-  { empire: "egypt-late", name: "Egypt", rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 } },
+  // Babylon broke away under Nabopolassar in 626 BC; Cliopatria keeps it Assyrian until 616.
+  { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"], yieldTo: ["egypt-divided", "egypt-late", "babylon"] },
+  // The 26th dynasty fell to Cambyses in 525 BC; the 30th to Artaxerxes III in 343 BC.
+  {
+    empire: "egypt-late", name: "Egypt", from: -655, to: -342,
+    rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 },
+  },
   { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 } },
   { empire: "persia", name: "Persia", rows: ["Achaemenid Empire"] },
   { empire: "alexander-empire", name: "Alexander's empire", rows: ["Macedonian Empire"] },
-  { empire: "seleucids", name: "Seleucids", rows: ["Seleucid Empire"] },
-  { empire: "ptolemies", name: "Ptolemies", rows: ["Ptolemaic Kingdom"] },
+  // Rome took Syria in 64–63 BC and Egypt in 30 BC.
+  { empire: "seleucids", name: "Seleucids", rows: ["Seleucid Empire"], yieldTo: ["roman-republic"] },
+  { empire: "ptolemies", name: "Ptolemies", rows: ["Ptolemaic Kingdom"], yieldTo: ["roman-republic"] },
   { empire: "hasmoneans", name: "Hasmoneans", rows: ["Judea"], tint: "judah" },
-  { empire: "roman-republic", name: "Rome", rows: ["Roman Republic"] },
+  { empire: "roman-republic", name: "Rome", rows: ["Roman Republic"], to: -26 },
   // The timeline ends soon after AD 100.
   { empire: "rome", name: "Rome", rows: ["Roman Empire"], to: 200 },
   // Herod's kingdom, a Roman client, from the year after he took Jerusalem (37 BC), when the
@@ -70,7 +84,7 @@ for (const power of POWERS) {
     const e = empires.get(power.empire);
     if (!e) throw new Error(`no empire ${power.empire}`);
     // Bounds cover whole years, as the timeline's do: a span "549–329 BC" lasts to the end of 329.
-    lo = e.dates.early.start.year;
+    lo = Math.max(e.dates.early.start.year, power.from ?? -Infinity);
     hi = Math.min(e.dates.early.end.year + 1, power.to ?? Infinity);
   }
   // Cliopatria's rows run FromYear to ToYear inclusive.
@@ -103,32 +117,90 @@ for (const power of POWERS) {
 
   const key = power.empire ?? power.id;
   for (const p of pieces) {
-    const polys = p.rows.flatMap((r) => (r.geometry.type === "Polygon" ? [r.geometry.coordinates] : r.geometry.coordinates));
-    const coordinates = polys.map(simplifyPolygon).filter(Boolean);
+    // One shape per power: the polities' shared borders ("Egypt divided") aren't drawn.
+    const merged = p.rows.length === 1 ? multi(p.rows[0].geometry) : polygonClipping.union(...p.rows.map((r) => multi(r.geometry)));
+    const coordinates = merged.map(simplifyPolygon).filter(Boolean);
     if (coordinates.length === 0) continue;
-    features.push({
-      type: "Feature",
-      properties: {
-        id: `${key}@${p.from}`,
-        name: power.name,
-        ...(power.empire ? { empire: power.empire } : { links: power.links }),
-        ...(power.tint && { tint: power.tint }),
-        from: p.from,
-        to: p.to,
-        label: labelPoint(coordinates),
-      },
-      geometry: coordinates.length === 1 ? { type: "Polygon", coordinates: coordinates[0] } : { type: "MultiPolygon", coordinates },
-    });
+    features.push({ key, power, from: p.from, to: p.to, coordinates });
   }
 }
+
+// A power gives up the land of those it yields to, while both stand.
+const final = features.flatMap((f) => {
+  const others = features.filter((o) => f.power.yieldTo?.includes(o.key) && o.from < f.to && o.to > f.from);
+  if (others.length === 0) return [f];
+  const cuts = [...new Set([f.from, f.to, ...others.flatMap((o) => [o.from, o.to])])]
+    .filter((y) => y >= f.from && y <= f.to)
+    .sort((a, b) => a - b);
+  const out = [];
+  for (let i = 0; i < cuts.length - 1; i++) {
+    const [a, b] = [cuts[i], cuts[i + 1]];
+    const over = others.filter((o) => o.from < b && o.to > a);
+    const left = over.length ? polygonClipping.difference(f.coordinates, ...over.map((o) => o.coordinates)) : f.coordinates;
+    const coordinates = left.map(dropSmall).filter(Boolean);
+    if (coordinates.length) out.push({ ...f, from: a, to: b, coordinates });
+  }
+  return out;
+});
+
+reportOverlaps(final);
+
+const geojson_ = final.map((f) => ({
+  type: "Feature",
+  properties: {
+    id: `${f.key}@${f.from}`,
+    name: f.power.name,
+    ...(f.power.empire ? { empire: f.power.empire } : { links: f.power.links }),
+    ...(f.power.tint && { tint: f.power.tint }),
+    from: f.from,
+    to: f.to,
+    label: labelPoint(f.coordinates),
+  },
+  geometry: f.coordinates.length === 1
+    ? { type: "Polygon", coordinates: f.coordinates[0] }
+    : { type: "MultiPolygon", coordinates: f.coordinates },
+}));
 
 mkdirSync(dirname(OUT), { recursive: true });
 // One feature per line keeps diffs readable.
 writeFileSync(
   OUT,
-  `{"type":"FeatureCollection","features":[\n${features.map((f) => JSON.stringify(f)).join(",\n")}\n]}\n`,
+  `{"type":"FeatureCollection","features":[\n${geojson_.map((f) => JSON.stringify(f)).join(",\n")}\n]}\n`,
 );
-console.log(`${features.length} outlines, ${Math.round(readFileSync(OUT).length / 1024)} KB → ${OUT}`);
+console.log(`${geojson_.length} outlines, ${Math.round(readFileSync(OUT).length / 1024)} KB → ${OUT}`);
+
+/** A geometry as MultiPolygon coordinates. */
+function multi(g) {
+  return g.type === "Polygon" ? [g.coordinates] : g.coordinates;
+}
+
+/** A polygon without the slivers and islets a cut can leave, or null if nothing's left. */
+function dropSmall(rings) {
+  const kept = rings.filter((r) => Math.abs(ringArea(r)) >= MIN_RING_AREA);
+  return kept.length && kept[0] === rings[0] ? kept : null;
+}
+
+/** Prints overlaps between different powers' outlines that stand at the same time. */
+function reportOverlaps(fs) {
+  const box = (f) => {
+    const pts = f.coordinates.flatMap((p) => p[0]);
+    return [Math.min(...pts.map((c) => c[0])), Math.min(...pts.map((c) => c[1])), Math.max(...pts.map((c) => c[0])), Math.max(...pts.map((c) => c[1]))];
+  };
+  const boxes = new Map(fs.map((f) => [f, box(f)]));
+  for (let i = 0; i < fs.length; i++) {
+    for (let j = i + 1; j < fs.length; j++) {
+      const [a, b] = [fs[i], fs[j]];
+      if (a.key === b.key || a.from >= b.to || b.from >= a.to) continue;
+      const [p, q] = [boxes.get(a), boxes.get(b)];
+      if (p[0] > q[2] || q[0] > p[2] || p[1] > q[3] || q[1] > p[3]) continue;
+      const area = polygonClipping.intersection(a.coordinates, b.coordinates)
+        .reduce((s, poly) => s + Math.abs(ringArea(poly[0])) - poly.slice(1).reduce((h, r) => h + Math.abs(ringArea(r)), 0), 0);
+      if (area > REPORT_OVERLAP) {
+        console.log(`overlap ${area.toFixed(1)} sq°: ${a.key} and ${b.key}, ${Math.max(a.from, b.from)} to ${Math.min(a.to, b.to)}`);
+      }
+    }
+  }
+}
 
 function sameRows(a, b) {
   return a.length === b.length && a.every((r) => b.includes(r));
