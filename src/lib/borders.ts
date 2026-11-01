@@ -56,3 +56,48 @@ export function borderBox(f: BorderFeature): [number, number][] {
   const lons = pts.map((c) => c[0]), lats = pts.map((c) => c[1]);
   return [[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]];
 }
+
+function inRing([x, y]: readonly number[], ring: readonly (readonly number[])[]): boolean {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i], [xj, yj] = ring[j];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+/** Whether a point lies inside an outline (and not in one of its holes). */
+export function borderContains(f: BorderFeature, pt: readonly number[]): boolean {
+  const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+  return polys.some((rings) => inRing(pt, rings[0]) && !rings.slice(1).some((hole) => inRing(pt, hole)));
+}
+
+/**
+ * The empires whose borders took in a point, each with the years it held it, earliest first.
+ * An empire that lost the place and took it back is listed once per stretch. `open` marks a
+ * stretch still running where the outlines stop (Rome's are drawn only to AD 200).
+ */
+export function empiresOver(
+  all: BorderFeature[], pt: readonly number[], chron: string,
+): { empire: string; from: number; to: number; open: boolean }[] {
+  const last = new Map<string, number>();
+  for (const f of all) {
+    const e = f.properties.empire;
+    if (e) last.set(e, Math.max(last.get(e) ?? -Infinity, borderYears(f, chron)[1]));
+  }
+  const spans = all
+    .filter((f) => f.properties.empire && borderContains(f, pt))
+    .map((f) => {
+      const [from, to] = borderYears(f, chron);
+      return { empire: f.properties.empire!, from, to, open: false };
+    })
+    .sort((a, b) => a.from - b.from);
+  const out: typeof spans = [];
+  for (const s of spans) {
+    const prev = out.findLast((o) => o.empire === s.empire);
+    if (prev && s.from <= prev.to) prev.to = Math.max(prev.to, s.to);
+    else out.push({ ...s });
+  }
+  for (const o of out) o.open = o.to === last.get(o.empire);
+  return out;
+}

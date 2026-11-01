@@ -3,7 +3,7 @@ import { data, datesFor, empiresById, erasById, eventsById, peopleById } from ".
 import cliopatria from "../src/data/borders/cliopatria.json";
 import drawn from "../src/data/borders/drawn.json";
 import { BorderCollection } from "../src/data/schema";
-import { borderPower, bordersAt, borderYears } from "../src/lib/borders";
+import { borderContains, borderPower, bordersAt, borderYears, empiresOver } from "../src/lib/borders";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
@@ -181,19 +181,15 @@ describe("borders on the map", () => {
   });
 
   test("labels sit inside their outlines", () => {
-    const inRing = ([x, y]: number[], ring: number[][]) => {
-      let inside = false;
-      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-        const [xi, yi] = ring[i], [xj, yj] = ring[j];
-        if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
-      }
-      return inside;
-    };
-    for (const f of borders) {
-      const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
-      const inside = polys.some((rings) => inRing(f.properties.label, rings[0]) && !rings.slice(1).some((h) => inRing(f.properties.label, h)));
-      expect(inside, f.properties.id).toBe(true);
-    }
+    for (const f of borders) expect(borderContains(f, f.properties.label), f.properties.id).toBe(true);
+  });
+
+  test("a place lists the empires that held it, in order", () => {
+    const jerusalem = data.locations.find((l) => l.id === "jerusalem")!;
+    const rulers = empiresOver(borders, jerusalem.coords, "early").map((r) => r.empire);
+    expect(rulers.indexOf("babylon")).toBeGreaterThanOrEqual(0);
+    expect(rulers.indexOf("babylon")).toBeLessThan(rulers.indexOf("persia"));
+    expect(rulers.at(-1)).toBe("rome");
   });
 
   test("the map's story beats are there", () => {

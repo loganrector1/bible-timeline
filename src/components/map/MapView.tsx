@@ -176,8 +176,9 @@ export default function MapView() {
     if (isPhone) setNowOpen(mode === "map");
   }, [isPhone, mode]);
   /**
-   * The popup was closed (× or Escape): no popup and no marked row in Nearest events while the
-   * reader scrubs (to watch the empires, say), until they pick an event again.
+   * The popup was closed (× or Escape), or the selection cleared: no focus event (no popup,
+   * journey, outlines or marked row in Nearest events) while the reader scrubs, to watch the
+   * empires say, until they pick an event again.
    */
   const [quiet, setQuiet] = useState(false);
 
@@ -215,18 +216,23 @@ export default function MapView() {
   // a nearby event never reads as the selection (Herod's reign ends beside Jesus' birth).
   const showsSelection = selection !== null && selection.kind !== "event" && selection.kind !== "location";
   const focus: Event | undefined = selectedEvent ?? hinted
-    ?? (showsSelection ? undefined : highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+    ?? (showsSelection || quiet ? undefined : highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
   // Escape with nothing else open hides the popup, like its ×.
   const escapeNonce = useStore((s) => s.escapeNonce);
   useEffect(() => {
     if (escapeNonce && focus && focus !== selectedEvent) setQuiet(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escapeNonce]);
-  // Selecting anything, stepping to an event, or playing brings them back.
+  // Stepping to an event, selecting anything, or playing brings them back; clearing the
+  // selection doesn't, so the event just closed doesn't stay lit as the nearest one.
   const playing = useStore((s) => s.playing);
   useEffect(() => {
-    setQuiet(false);
-  }, [selectionNonce, focusHint]);
+    if (focusHint) setQuiet(false);
+  }, [focusHint]);
+  useEffect(() => {
+    setQuiet(selectionNonce > 0 && selection === null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectionNonce]);
   useEffect(() => {
     if (playing) setQuiet(false);
   }, [playing]);
@@ -363,9 +369,9 @@ export default function MapView() {
           </div>
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
-        <NowPanel events={active} focusId={quiet ? undefined : focus?.id} open={nowOpen} setOpen={setNowOpen} />
+        <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
         {/* The details panel already describes a selected event. Phones have no room for it. */}
-        {!isPhone && focus && focus !== selectedEvent && !quiet && (
+        {!isPhone && focus && focus !== selectedEvent && (
           <EventPopup map={map} ev={focus} onClose={() => setQuiet(true)} />
         )}
         <OffscreenSelection

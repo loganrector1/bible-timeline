@@ -54,7 +54,9 @@ export default function EventLayer({
         id={REGION_LABEL_LAYER}
         type="symbol"
         beforeId={JOURNEY_BASE_LAYER}
-        filter={["==", ["get", "kind"], "region"]}
+        // Only while something uses the region (an event nearby, the selection or the focus
+        // event): a land's name is timeless, but CANAAN shouldn't sit on the map in AD 20.
+        filter={["all", ["==", ["get", "kind"], "region"], [">", ["get", "state"], 0]]}
         layout={{
           "text-field": ["upcase", ["get", "name"]],
           "text-font": ["Noto Sans Regular"],
