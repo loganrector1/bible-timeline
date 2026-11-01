@@ -163,10 +163,12 @@ export default function MapView() {
   );
 
   // One focus event gets its journey and regions drawn: the selected event, the event just
-  // stepped to in Nearest events, or the nearest event happening now (among the selection's
-  // events, if something else is selected).
+  // stepped to in Nearest events, or the nearest event happening now (among the place's events,
+  // if a place is selected). A selected person, empire or era is what the map shows instead, so
+  // a nearby event never reads as the selection (Herod's reign ends beside Jesus' birth).
+  const showsSelection = selection !== null && selection.kind !== "event" && selection.kind !== "location";
   const focus: Event | undefined = selectedEvent ?? hinted
-    ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+    ?? (showsSelection ? undefined : highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
   // Escape with nothing else open hides the popup, like its ×.
   const escapeNonce = useStore((s) => s.escapeNonce);
   useEffect(() => {
