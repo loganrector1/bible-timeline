@@ -33,10 +33,20 @@ export function borderPower(f: BorderFeature): string {
   return f.properties.id.split("@")[0];
 }
 
-/** What selecting an outline opens: its empire, or else what it links to. */
-export function borderTarget(f: BorderFeature): EntityRef | undefined {
+/** What an outline belongs to: its empire, then what it links to. Selecting any shows it strongly. */
+export function borderTargets(f: BorderFeature): EntityRef[] {
   const p = f.properties;
-  return p.empire ? { kind: "empire", id: p.empire } : p.link;
+  return [...(p.empire ? [{ kind: "empire" as const, id: p.empire }] : []), ...(p.links ?? [])];
+}
+
+/** What clicking an outline opens: the first thing it belongs to. */
+export function borderTarget(f: BorderFeature): EntityRef | undefined {
+  return borderTargets(f)[0];
+}
+
+/** Whether an outline belongs to an entity. */
+export function borderOf(f: BorderFeature, ref: EntityRef): boolean {
+  return borderTargets(f).some((t) => t.kind === ref.kind && t.id === ref.id);
 }
 
 /** The corners of an outline's bounding box, for framing it. */

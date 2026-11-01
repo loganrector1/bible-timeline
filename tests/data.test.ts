@@ -152,7 +152,7 @@ describe("borders on the map", () => {
     expect(ids.length).toBe(new Set(ids).size);
     for (const { properties: p } of borders) {
       if (p.empire) expect(empiresById.has(p.empire), `${p.id}: empire ${p.empire}`).toBe(true);
-      if (p.link) expect(known[p.link.kind].has(p.link.id), `${p.id}: ${p.link.kind} ${p.link.id}`).toBe(true);
+      for (const l of p.links ?? []) expect(known[l.kind].has(l.id), `${p.id}: ${l.kind} ${l.id}`).toBe(true);
     }
   });
 

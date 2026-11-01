@@ -7,7 +7,7 @@ import { datesFor, eventsById, journeysById, locationsById, regionsById, type En
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
-import { borderBox, borderTarget, bordersAt, loadBorders } from "../../lib/borders";
+import { borderBox, borderOf, bordersAt, loadBorders } from "../../lib/borders";
 import { entityBounds, entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { shownBy } from "../../lib/filters";
 import { eventForJourney } from "../../lib/journeys";
@@ -114,7 +114,7 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
     title = String(p.name);
     const from = Number(p.from), to = Number(p.to);
     const years = formatDateSpec({ start: { year: from }, end: { year: to - 1 }, confidence: "approx" }, eraStyle, { yearsOnly: true });
-    lines = [`Borders ${years}`, p.note ? String(p.note) : "Outline from Cliopatria", p.targetKind ? "Click for details" : ""].filter(Boolean);
+    lines = [`Borders ${years}`, p.targetKind ? "Click for details" : ""].filter(Boolean);
   } else if (hover.layer === JOURNEY_HIT_LAYER) {
     const journey = journeysById.get(hover.id);
     const ev = eventForJourney(hover.id);
@@ -171,8 +171,11 @@ export default function MapView() {
   useEffect(() => {
     if (isPhone) setNowOpen(mode === "map");
   }, [isPhone, mode]);
-  /** The focus event whose popup was closed; it stays closed until the focus moves on. */
-  const [dismissed, setDismissed] = useState<string | null>(null);
+  /**
+   * The popup was closed (× or Escape): no popup and no marked row in Nearest events while the
+   * reader scrubs (to watch the empires, say), until they pick an event again.
+   */
+  const [quiet, setQuiet] = useState(false);
 
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
@@ -212,13 +215,17 @@ export default function MapView() {
   // Escape with nothing else open hides the popup, like its ×.
   const escapeNonce = useStore((s) => s.escapeNonce);
   useEffect(() => {
-    if (escapeNonce && focus && focus !== selectedEvent) setDismissed(focus.id);
+    if (escapeNonce && focus && focus !== selectedEvent) setQuiet(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escapeNonce]);
+  // Selecting anything, stepping to an event, or playing brings them back.
+  const playing = useStore((s) => s.playing);
   useEffect(() => {
-    if (focus?.id !== dismissed) setDismissed(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focus?.id]);
+    setQuiet(false);
+  }, [selectionNonce, focusHint]);
+  useEffect(() => {
+    if (playing) setQuiet(false);
+  }, [playing]);
   const focusHighlight = useMemo(
     () => (focus ? computeHighlight({ kind: "event", id: focus.id }, chron) : null),
     [focus, chron],
@@ -242,10 +249,7 @@ export default function MapView() {
     loadBorders()
       .then((all) => {
         if (useStore.getState().selection !== target) return;
-        const land = bordersAt(all, year, chron).filter((f) => {
-          const t = borderTarget(f);
-          return t?.kind === target.kind && t.id === target.id;
-        });
+        const land = bordersAt(all, year, chron).filter((f) => borderOf(f, target));
         frame(map, [...places, ...land.flatMap(borderBox)], nowOpen);
       })
       .catch(() => frame(map, places, nowOpen));
@@ -349,10 +353,10 @@ export default function MapView() {
           </div>
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
-        <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
+        <NowPanel events={active} focusId={quiet ? undefined : focus?.id} open={nowOpen} setOpen={setNowOpen} />
         {/* The details panel already describes a selected event. Phones have no room for it. */}
-        {!isPhone && focus && focus !== selectedEvent && focus.id !== dismissed && (
-          <EventPopup map={map} ev={focus} onClose={() => setDismissed(focus.id)} />
+        {!isPhone && focus && focus !== selectedEvent && !quiet && (
+          <EventPopup map={map} ev={focus} onClose={() => setQuiet(true)} />
         )}
         <OffscreenSelection
           map={map}

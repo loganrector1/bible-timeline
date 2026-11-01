@@ -194,7 +194,7 @@ export const RegionCollection = z.object({
  * One dated outline of a power on the map (`borders/`): an empire from Cliopatria, or Israel's
  * own states drawn by hand. It shows from `from` until `to` (astronomical years, `to` excluded);
  * `lateFrom`/`lateTo` replace them under the late chronology, for outlines tied to the Exodus.
- * Selecting it opens its `empire`, or else its `link`.
+ * Selecting it opens its `empire`, or else its first link.
  */
 export const BorderFeature = z.object({
   type: z.literal("Feature"),
@@ -204,7 +204,8 @@ export const BorderFeature = z.object({
     /** The map label. */
     name: z.string(),
     empire: id.optional(),
-    link: z.object({ kind: z.enum(["person", "era", "empire"]), id }).optional(),
+    /** What else it belongs to (a king, an era); selecting any of them shows it strongly. */
+    links: z.array(z.object({ kind: z.enum(["person", "era", "empire"]), id })).optional(),
     from: z.number().int(),
     to: z.number().int(),
     lateFrom: z.number().int().optional(),

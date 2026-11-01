@@ -5,6 +5,7 @@ import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, ScriptureList, Section } from "./parts";
 import { Prose } from "../ScriptureText";
+import { MapBorders } from "./MapBorders";
 
 export default function PersonDetail({ person }: { person: Person }) {
   const chron = useStore((s) => s.chronologyId);
@@ -51,6 +52,8 @@ export default function PersonDetail({ person }: { person: Person }) {
       </Section>
 
       <ScriptureList refs={person.scripture} />
+
+      <MapBorders of={{ kind: "person", id: person.id }} />
 
       <FilterShortcut person={person} />
     </>

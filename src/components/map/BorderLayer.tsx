@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { data, regionsById, type EntityRef } from "../../data";
 import type { BorderFeature } from "../../data/schema";
-import { borderTarget, borderYears, bordersAt, loadBorders } from "../../lib/borders";
+import { borderOf, borderTarget, borderYears, bordersAt, loadBorders } from "../../lib/borders";
 import { REGION_FILL_LAYER } from "./RegionLayer";
 
 export const BORDER_LABEL_LAYER = "borders-label";
@@ -82,10 +82,7 @@ export default function BorderLayer({
     };
   }, []);
 
-  const isSelected = (f: BorderFeature) => {
-    const t = borderTarget(f);
-    return !!selection && !!t && t.kind === selection.kind && t.id === selection.id;
-  };
+  const isSelected = (f: BorderFeature) => !!selection && borderOf(f, selection);
   const now = useMemo(() => (all ? bordersAt(all, year, chron) : []), [all, year, chron]);
   const shown = now.filter((f) => on || isSelected(f));
   const shownKey = shown.map((f) => f.properties.id).join(",");
@@ -173,7 +170,6 @@ export default function BorderLayer({
         name: f.properties.name,
         from: borderYears(f, chron)[0],
         to: borderYears(f, chron)[1],
-        note: f.properties.note,
         targetKind: borderTarget(f)?.kind,
         targetId: borderTarget(f)?.id,
         color: dark ? lighten(hueOf(f), 0.45) : hueOf(f),

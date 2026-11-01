@@ -25,7 +25,7 @@ const MIN_RING_AREA = 0.004;
 
 /**
  * Which Cliopatria polities make up each power. `empire` ties it to empires.json (and its dates);
- * otherwise `from`/`to` bound it (`to` alone cuts an empire short) and `link` says what selecting it opens. `until` cuts one
+ * otherwise `from`/`to` bound it (`to` alone cuts an empire short) and `links` say what it belongs to. `until` cuts one
  * polity short where Cliopatria runs it on past a conquest. `tint` colours Israel's own states
  * as the Kings lane does (Judah warm).
  */
@@ -53,7 +53,7 @@ const POWERS = [
   { empire: "rome", name: "Rome", rows: ["Roman Empire"], to: 200 },
   // Herod's kingdom, a Roman client, from the year after he took Jerusalem (37 BC), when the
   // Hasmoneans end, to his death (4 BC).
-  { id: "herod", name: "Herod's kingdom", rows: ["Judea"], from: -35, to: -3, link: { kind: "person", id: "herod-the-great" }, tint: "judah" },
+  { id: "herod", name: "Herod's kingdom", rows: ["Judea"], from: -35, to: -3, links: [{ kind: "person", id: "herod-the-great" }], tint: "judah" },
 ];
 
 const zip = await load(process.argv.includes("--refresh"));
@@ -109,7 +109,7 @@ for (const power of POWERS) {
       properties: {
         id: `${key}@${p.from}`,
         name: power.name,
-        ...(power.empire ? { empire: power.empire } : { link: power.link }),
+        ...(power.empire ? { empire: power.empire } : { links: power.links }),
         ...(power.tint && { tint: power.tint }),
         from: p.from,
         to: p.to,
