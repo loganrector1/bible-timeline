@@ -1,5 +1,6 @@
 import { entityBounds, eventOrderKey, eventsInOrder } from "../lib/entities";
 import { eventShown } from "../lib/filters";
+import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { formatLink, parseLink } from "../lib/shareLink";
 import { useStore } from "./store";
 
@@ -15,6 +16,7 @@ export function currentLink(): string {
   const inView = !b || (b[1] > s.currentYear - half && b[0] < s.currentYear + half);
   const query = formatLink({
     mode: s.mode, selection: s.selection, year: inView ? s.currentYear : undefined, pxPerYear: s.pxPerYear, filters: s.filters,
+    chronology: s.chronologyId,
   });
   return `${location.origin}${location.pathname}?${query}`;
 }
@@ -26,6 +28,10 @@ export function currentLink(): string {
  */
 export function startUrlSync() {
   const link = parseLink(location.search);
+  // The link's chronology, for this visit only (the reader's own choice stays saved). A year
+  // without one was written in the default; with no year, the reader's choice stands.
+  const chron = link.chronology ?? (link.year !== undefined ? DEFAULT_CHRONOLOGY : undefined);
+  if (chron) useStore.setState({ chronologyId: chron });
   const store = useStore.getState();
   if (link.mode) store.setMode(link.mode);
   if (link.pxPerYear) store.setZoom(link.pxPerYear);
@@ -43,7 +49,8 @@ export function startUrlSync() {
   let timer = 0;
   useStore.subscribe((s, prev) => {
     const same = s.mode === prev.mode && s.selection === prev.selection && s.currentYear === prev.currentYear
-      && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx && s.filters === prev.filters;
+      && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx && s.filters === prev.filters
+      && s.chronologyId === prev.chronologyId;
     if (same) return;
     // Only once things settle: gliding and dragging change the year every frame.
     clearTimeout(timer);

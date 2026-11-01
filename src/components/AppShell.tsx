@@ -1,4 +1,4 @@
-import { lazy, Suspense, type CSSProperties } from "react";
+import { lazy, Suspense, useEffect, type CSSProperties } from "react";
 import { useStore, type ViewMode } from "../state/store";
 import BrowsePanel from "./BrowsePanel";
 import DetailPanel, { PEEK_HEIGHT } from "./DetailPanel";
@@ -23,6 +23,13 @@ export default function AppShell() {
   const browseOpen = useStore((s) => s.browseOpen);
   const timeStripPx = useStore((s) => s.timeStripPx);
   const setBrowseOpen = useStore((s) => s.setBrowseOpen);
+
+  // Escape closes one layer per press, wherever the focus is (see `escape`).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && useStore.getState().escape();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const showTimeline = mode !== "map";
   const showMap = mode !== "timeline";

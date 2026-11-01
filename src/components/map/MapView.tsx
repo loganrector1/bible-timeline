@@ -167,6 +167,12 @@ export default function MapView() {
   // events, if something else is selected).
   const focus: Event | undefined = selectedEvent ?? hinted
     ?? (highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+  // Escape with nothing else open hides the popup, like its ×.
+  const escapeNonce = useStore((s) => s.escapeNonce);
+  useEffect(() => {
+    if (escapeNonce && focus && focus !== selectedEvent) setDismissed(focus.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [escapeNonce]);
   useEffect(() => {
     if (focus?.id !== dismissed) setDismissed(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps

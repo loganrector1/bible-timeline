@@ -65,6 +65,13 @@ describe("links", () => {
     expect(formatLink({ mode: "split", selection: null, pxPerYear: 1, filters })).toBe("zoom=1&passage=Exod.12-14,Matt.5.1-7.29");
   });
 
+  test("carry the chronology when it isn't the default", () => {
+    expect(formatLink({ mode: "split", selection: null, pxPerYear: 1, chronology: "late" })).toBe("zoom=1&chron=late");
+    expect(formatLink({ mode: "split", selection: null, pxPerYear: 1, chronology: "early" })).toBe("zoom=1");
+    expect(parseLink("?chron=late").chronology).toBe("late");
+    expect(parseLink("?chron=someday").chronology).toBeUndefined();
+  });
+
   test("ignore unknown ids, views and bad numbers", () => {
     expect(parseLink("?event=no-such-event&view=sideways&zoom=-3&year=soon")).toEqual({});
     expect(parseLink("?event=exodus&person=moses").selection).toEqual({ kind: "event", id: "exodus" });

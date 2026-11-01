@@ -5,7 +5,8 @@
     "color": "#8a7a5c",
     "summary": "Creation, the Fall, the Flood and the Tower of Babel (Genesis 1–11). The story of humanity before God's call of Abram.",
     "dates": {
-      "early": { "start": { "year": -4113 }, "end": { "year": -2091 }, "confidence": "unknown" }
+      "early": { "start": { "year": -4113 }, "end": { "year": -2091 }, "confidence": "unknown" },
+      "late": { "start": { "year": -3927 }, "end": { "year": -1905 }, "confidence": "unknown" }
     },
     "dateNote": "Placed using the genealogies of Genesis 5 and 11 (Masoretic text). Many readers and scholars do not take these as an exact chronology, so no firm dates are shown."
   },
@@ -15,9 +16,10 @@
     "color": "#b5763a",
     "summary": "Abraham, Isaac, Jacob and Joseph: God's covenant family, from Abram's call to Jacob's move to Egypt (Genesis 12–50).",
     "dates": {
-      "early": { "start": { "year": -2090 }, "end": { "year": -1876 }, "confidence": "approx" }
+      "early": { "start": { "year": -2090 }, "end": { "year": -1876 }, "confidence": "approx" },
+      "late": { "start": { "year": -1904 }, "end": { "year": -1690 }, "confidence": "approx" }
     },
-    "dateNote": "Counted back from an Exodus in 1446 BC, 430 years in Egypt (Exodus 12:40) and the ages given in Genesis."
+    "dateNote": "Counted back from the Exodus, 430 years in Egypt (Exodus 12:40) and the ages given in Genesis: Jacob goes to Egypt c. 1876 BC with an Exodus in 1446 BC, or c. 1690 BC with one in 1260 BC. Scholars who hold the late date usually give only a period for the patriarchs, the Middle Bronze Age (c. 2000–1550 BC). The Septuagint and Samaritan Pentateuch count the 430 years from Abraham's time in Canaan (compare Galatians 3:17), which would leave about 215 years in Egypt."
   },
   {
     "id": "egypt-exodus",
@@ -26,7 +28,7 @@
     "summary": "Israel grows into a nation in Egypt, is enslaved, and is brought out by God through Moses (Exodus 1–15).",
     "dates": {
       "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 4 }, "confidence": "approx" },
-      "late": { "start": { "year": -1875 }, "end": { "year": -1259, "month": 4 }, "confidence": "approx" }
+      "late": { "start": { "year": -1689 }, "end": { "year": -1259, "month": 4 }, "confidence": "approx" }
     }
   },
   {

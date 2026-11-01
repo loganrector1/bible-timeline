@@ -1,4 +1,5 @@
 import { erasById, eventsById, locationsById, peopleById, type EntityKind, type EntityRef } from "../data";
+import { CHRONOLOGIES, DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { EventType } from "../data/schema";
 import type { ViewMode } from "../state/store";
 import { fromHistorical, toHistorical } from "./dates";
@@ -7,7 +8,8 @@ import { formatPassageParam, parsePassage, type Passage } from "./passages";
 
 /**
  * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map&types=battle,miracle&people=david`,
- * or `?passage=Exod.12-14` (OSIS, comma-separated; the reading-plans app links this way).
+ * or `?passage=Exod.12-14` (OSIS, comma-separated; the reading-plans app links this way), and
+ * `chron=late` when it isn't the default chronology (the one its year was written in).
  * Every part is optional. Keep these names stable once published: links get pasted into lesson notes.
  */
 export type LinkState = {
@@ -16,6 +18,7 @@ export type LinkState = {
   year?: number;
   pxPerYear?: number;
   filters?: Filters;
+  chronology?: string;
 };
 
 /** The URL parameter for each kind of selection. */
@@ -69,6 +72,8 @@ export function parseLink(search: string): LinkState {
   if (year !== undefined) out.year = year;
   const zoom = Number(p.get("zoom"));
   if (zoom > 0) out.pxPerYear = zoom;
+  const chron = p.get("chron");
+  if (chron && CHRONOLOGIES.some((c) => c.id === chron)) out.chronology = chron;
   const list = (name: string) => (p.get(name) ?? "").split(",").filter(Boolean);
   const types = list("types").filter((t): t is EventType => (EventType.options as string[]).includes(t));
   const people = list("people").filter((id) => peopleById.has(id));
@@ -82,7 +87,9 @@ export function parseLink(search: string): LinkState {
  * so is the year when there's none (opening the link then goes where selecting would).
  */
 export function formatLink(
-  s: Required<Pick<LinkState, "mode" | "pxPerYear">> & { selection: EntityRef | null; year?: number; filters?: Filters },
+  s: Required<Pick<LinkState, "mode" | "pxPerYear">> & {
+    selection: EntityRef | null; year?: number; filters?: Filters; chronology?: string;
+  },
 ): string {
   const p = new URLSearchParams();
   if (s.selection) p.set(KIND_PARAM[s.selection.kind], s.selection.id);
@@ -91,6 +98,7 @@ export function formatLink(
   if (s.year !== undefined) p.set("year", formatYearParam(s.year, digits));
   p.set("zoom", String(Number(s.pxPerYear.toPrecision(3))));
   if (s.mode !== "split") p.set("view", s.mode);
+  if (s.chronology && s.chronology !== DEFAULT_CHRONOLOGY) p.set("chron", s.chronology);
   if (s.filters?.types.length) p.set("types", s.filters.types.join(","));
   if (s.filters?.people.length) p.set("people", s.filters.people.join(","));
   if (s.filters?.passages.length) p.set("passage", s.filters.passages.map(formatPassageParam).join(","));

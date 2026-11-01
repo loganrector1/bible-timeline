@@ -232,19 +232,28 @@ export function FilterButton() {
   useEffect(() => {
     if (!open) return;
     const onDown = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // Escape closes just this menu, not the details panel under it (it listens later, unless stopped here).
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.stopPropagation();
+      setOpen(false);
+    };
     window.addEventListener("pointerdown", onDown, true);
-    window.addEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, true);
     return () => {
       window.removeEventListener("pointerdown", onDown, true);
-      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("keydown", onKey, true);
     };
   }, [open]);
 
   return (
     <div ref={ref} className="sm:relative">
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          // On phones Browse covers the screen, so a menu opened over it closes it.
+          if (!open && matchMedia("(max-width: 767px)").matches) useStore.getState().setBrowseOpen(false);
+          setOpen(!open);
+        }}
         aria-expanded={open}
         aria-haspopup="dialog"
         className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2 text-sm sm:px-2.5 ${

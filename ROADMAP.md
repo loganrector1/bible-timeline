@@ -50,13 +50,12 @@ The view, time, zoom and selection are in the URL, kept current as you move, and
 
 ## Filters and settings (done)
 
-Filters by event type and person, applied to both views (timeline, map, Nearest events, step and play) and carried in links, with a Filter button and a chip bar under the header, dimmed hidden events and a filter suggestion in Browse, and shortcuts in the event and person panels. A selected event always shows. Births and deaths filtered to become event dots, and people not in a shown event dim. Books and passages filter too, and `?passage=Exod.12-14` links (OSIS) are live, the contract the reading-plans app links through. Adding a filter glides to the nearest match when none is on screen and nothing is selected. A Settings menu (the gear) holds the theme: System, Light or Dark.
+Filters by event type and person, applied to both views (timeline, map, Nearest events, step and play) and carried in links, with a Filter button and a chip bar under the header, dimmed hidden events and a filter suggestion in Browse, and shortcuts in the event and person panels. A selected event always shows. Births and deaths filtered to become event dots, and people not in a shown event dim. Books and passages filter too, and `?passage=Exod.12-14` links (OSIS) are live, the contract the reading-plans app links through. Adding a filter glides to the nearest match when none is on screen and nothing is selected. A Settings menu (the gear) holds the theme (System, Light or Dark), BC/AD or BCE/CE, and the date of the Exodus: early (c. 1446 BC, the default) or late (c. 1260 BC), also chosen from an event's "Use this date" and carried in links.
 
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
-- **Chronology switcher:** the data and store already hold alternate chronologies; this needs the UI, and a decision on which one is the default. A BC/AD vs BCE/CE toggle fits here too (the store already has `eraStyle`). Both can go in the Settings menu, which so far holds the theme.
 - **More filters:** theme (needs tags on every event), region and date range, all as event filters.
 - **Guided tours:** step-by-step stories that drive both views, such as "The Exodus" or "The Life of Abraham".
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
