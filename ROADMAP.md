@@ -64,18 +64,19 @@ Each Scripture reference opens its passage inline in the details panel, in the B
 
 An optional World history lane: the great powers from Ur's Third Dynasty to Rome as bars, their rulers' reigns beside them (foreign rulers moved out of the Kings lane, which is now Israel and Judah), and world events from outside Scripture (Hammurabi's laws to the Jewish revolt) as squares in the event lane. Off by default; while it's off, world history stays out of the map and of stepping and play. Empires have their own panels and links (`?empire=assyria`). The "People" menu became "Lanes".
 
-## Empires on the map (in progress, branch `feature/empire-map`)
+## Empires on the map (done)
 
 The great powers and Israel's own states drawn on the map as they stood at the cursor's time, so scrubbing through the Divided Kingdom shows Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
 
 Decided: outlines change in steps at each dated snapshot with a quick cross-fade (no morphing, which would invent borders); an Empires toggle beside Modern borders, on by default; the great powers from [Cliopatria](https://github.com/Seshat-Global-History-Databank/cliopatria) (CC BY 4.0), cut to the dates in `empires.json`; Israel drawn by hand (Cliopatria's Israel and Judah end in 701 BC): the tribal allotments, Saul's kingdom, David and Solomon's with the lands subject to them, Israel and Judah, Yehud, Herod's kingdom and his sons' tetrarchies, and Roman Judea. Selecting an empire shows its extent strongly and frames it. Takes over Milestone 2's "Region outlines" step.
+
+Also built: Israel's neighbours (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, the Nabataeans), opening their lands as places; "Ruled by" on every place, listing the empires and Israel's own states over it; the map shows rule, not overlordship (Egypt's in Canaan is told in words); Egypt's and Canaan's regions redrawn to follow the Nile and Scripture's borders; unused places hidden when zoomed out.
 
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
 - **Theme filter:** covenants, prophecy fulfilled, women of the Bible and the like; needs tags on every event first.
-- **Israel's neighbours on the map:** Philistia, Phoenicia, Aram, Ammon, Moab and Edom as outlines over time, mostly hand-drawn, beside the empires and Israel's states.
 
 ## Last: a full content audit
 
