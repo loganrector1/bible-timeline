@@ -121,7 +121,6 @@ Curated, step-by-step walkthroughs that drive both the timeline and the map:
 - An optional **World History lane** on the timeline: major contemporary empires, rulers, and events (Egyptian dynasties, Assyrian and Babylonian kings, Persian rulers, Alexander, Roman emperors).
 - An **empire layer on the map** showing the extent of surrounding powers at the current time.
 - Clear visual distinction between biblical events and outside historical context.
-- Where relevant, note archaeological or extra-biblical sources (e.g. the Tel Dan Stele, the Cyrus Cylinder) in simple, approachable language.
 
 ---
 

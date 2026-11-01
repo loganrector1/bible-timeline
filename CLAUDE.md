@@ -76,7 +76,6 @@ node scripts/bsb.mjs [--refresh]   # rebuild src/data/bible/ (the BSB text, one 
 - "The twelve spies" isn't `partOf` anything: "Israel leaves Sinai" is a single date, not a span covering the journey to Kadesh.
 - Seven events have no places, so they get no map popup or dots: Creation, Birth of Ishmael, Birth of Jacob and Esau, Job's trials (Uz can't be located), and the writing of Matthew's Gospel, Hebrews and Jude (where they were written isn't known).
 - With the World history lane on, phones have little room left for the event lane (as with the Kings lane): the lanes' widths are fixed by their busiest stretch.
-- Archaeological finds (Merneptah, Tel Dan and Mesha stelae, the Taylor Prism, the Cyrus Cylinder) were left for later, by the user's choice; key_features.md §9 asks for them.
 - At the map's closest framing (zoom 7.5), places a few hundred metres apart in Jerusalem (Golgotha, Gethsemane, Moriah) hide each other's labels.
 
 ## Working style
