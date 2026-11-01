@@ -148,11 +148,19 @@
     "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
   },
   {
-    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant", "major": true,
+    "id": "jacob-returns", "title": "Jacob returns to Canaan", "type": "journey",
+    "summary": "After twenty years with Laban, Jacob brings his family home: past Esau at Peniel, through Shechem and Bethel, to Isaac at Hebron.",
+    "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" }, "late": { "start": { "year": -1722 }, "confidence": "approx" } },
+    "dateNote": "Twenty years after he fled (Genesis 31:38, 41). How long the journey took isn't told.",
+    "people": ["jacob", "laban", "rachel", "leah", "esau"], "locations": ["haran", "hebron"],
+    "journeyId": "jacob-return",
+    "scripture": [{ "book": "Genesis", "chapter": 31, "endChapter": 35 }]
+  },
+  {
+    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant", "major": true, "partOf": "jacob-returns",
     "summary": "Returning to Canaan, Jacob wrestles with God at Peniel, is renamed Israel, and is reconciled with Esau.",
     "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" }, "late": { "start": { "year": -1722 }, "confidence": "approx" } },
     "people": ["jacob", "esau"], "locations": ["peniel"],
-    "journeyId": "jacob-return",
     "scripture": [{ "book": "Genesis", "chapter": 32, "endChapter": 33 }]
   },
   {

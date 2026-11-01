@@ -121,12 +121,6 @@ export default function BrowsePanel() {
   return (
     <aside
       aria-label="Browse"
-      onKeyDown={(e) => {
-        if (e.key === "Escape") {
-          e.stopPropagation();
-          setOpen(false);
-        }
-      }}
       className="absolute inset-y-0 left-0 z-30 flex w-80 max-w-full flex-col border-r border-line bg-paper shadow-2xl"
     >
       <div className="space-y-2 border-b border-line p-3">

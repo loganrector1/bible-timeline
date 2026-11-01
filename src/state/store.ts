@@ -139,6 +139,10 @@ type State = {
   showOnTimeline: (ref: EntityRef) => void;
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
+  /** Bumped when Escape reaches the bottom layer, with nothing else to close: the map hides its popup. */
+  escapeNonce: number;
+  /** Escape from anywhere closes the topmost layer: Browse, then the selection, then the map's popup. */
+  escape: () => void;
 };
 
 let animation = 0;
@@ -219,6 +223,14 @@ export const useStore = create<State>()((set, get) => {
     browseOpen: false,
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
+    escapeNonce: 0,
+    escape: () => {
+      // Menus (Filter, Settings) catch Escape themselves before it gets here.
+      const { browseOpen, selection } = get();
+      if (browseOpen) set({ browseOpen: false });
+      else if (selection) get().select(null);
+      else set({ escapeNonce: get().escapeNonce + 1 });
+    },
     setYear: (year) => {
       cancelAnimation();
       set({ currentYear: clampYear(year) });

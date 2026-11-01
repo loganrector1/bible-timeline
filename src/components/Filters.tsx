@@ -249,7 +249,11 @@ export function FilterButton() {
   return (
     <div ref={ref} className="sm:relative">
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          // On phones Browse covers the screen, so a menu opened over it closes it.
+          if (!open && matchMedia("(max-width: 767px)").matches) useStore.getState().setBrowseOpen(false);
+          setOpen(!open);
+        }}
         aria-expanded={open}
         aria-haspopup="dialog"
         className={`flex h-8 items-center gap-1.5 rounded-lg border border-line px-2 text-sm sm:px-2.5 ${

@@ -153,18 +153,6 @@ export default function DetailPanel() {
     headingRef.current?.focus({ preventScroll: true });
   }, [selectionNonce]);
 
-  // Escape closes the topmost panel from anywhere: Browse if it's open, otherwise this one.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      const s = useStore.getState();
-      if (s.browseOpen) s.setBrowseOpen(false);
-      else select(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [select]);
-
   if (!selection) return null;
 
   const body = (() => {
