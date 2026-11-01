@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { NO_FILTERS } from "../src/lib/filters";
 import { formatLink, formatYearParam, parseLink, parseYearParam } from "../src/lib/shareLink";
 
 describe("year parameter", () => {
@@ -49,11 +50,12 @@ describe("links", () => {
 
   test("carry filters", () => {
     const query = formatLink({
-      mode: "split", selection: null, pxPerYear: 1, filters: { types: ["battle", "miracle"], people: ["david"], passages: [] },
+      mode: "split", selection: null, pxPerYear: 1, filters: { ...NO_FILTERS, types: ["battle", "miracle"], people: ["david"] },
     });
     expect(query).toBe("zoom=1&types=battle,miracle&people=david");
-    expect(parseLink(`?${query}`).filters).toEqual({ types: ["battle", "miracle"], people: ["david"], passages: [] });
-    expect(parseLink("?types=battle,dancing&people=nobody").filters).toEqual({ types: ["battle"], people: [], passages: [] });
+    expect(parseLink(`?${query}`).filters).toEqual({ ...NO_FILTERS, types: ["battle", "miracle"], people: ["david"] });
+    expect(parseLink("?types=battle,dancing&people=nobody").filters).toEqual({ ...NO_FILTERS, types: ["battle"] });
+    expect(parseLink("?eras=judges,nowhen&places=jerusalem,atlantis").filters).toEqual({ ...NO_FILTERS, eras: ["judges"], places: ["jerusalem"] });
   });
 
   test("carry passages the OSIS way", () => {

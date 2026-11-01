@@ -211,7 +211,7 @@ export const useStore = create<State>()((set, get) => {
       const { chronologyId: from, currentYear, selection } = get();
       if (id === from || !CHRONOLOGY_IDS.includes(id as (typeof CHRONOLOGY_IDS)[number])) return;
       const selected = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
-      const anchor = selected ?? activeEvents(currentYear, from, undefined, shownBy(get().filters))[0];
+      const anchor = selected ?? activeEvents(currentYear, from, undefined, shownBy(get().filters, from))[0];
       saveSetting(CHRONOLOGY_KEY, id, DEFAULT_CHRONOLOGY);
       set({ chronologyId: id });
       if (anchor && datesFor(anchor, id)) {
@@ -237,7 +237,7 @@ export const useStore = create<State>()((set, get) => {
         filters[k].some((x) => !(before[k] as unknown[]).some((y) => JSON.stringify(y) === JSON.stringify(x))));
       const { selection, currentYear, viewportPx, pxPerYear, chronologyId: chron } = get();
       if (!added || selection) return;
-      const shown = shownBy(filters);
+      const shown = shownBy(filters, chron);
       const half = viewportPx / 2 / pxPerYear;
       const onScreen = eventsInOrder(chron).some((ev) => {
         const b = shown?.(ev) && eventBounds(ev, chron);

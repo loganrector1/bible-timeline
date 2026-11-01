@@ -47,7 +47,7 @@ export function startUrlSync() {
   // neither (a reading plan's `?passage=Exod.12-14`) starts at the first event it shows.
   if (link.year !== undefined) store.setYear(link.year);
   else if (link.filters && !link.selection) {
-    const first = eventsInOrder(store.chronologyId).find((ev) => eventShown(ev, link.filters!));
+    const first = eventsInOrder(store.chronologyId).find((ev) => eventShown(ev, link.filters!, store.chronologyId));
     if (first) store.stepTo(first.id, eventOrderKey(first, store.chronologyId));
   }
 

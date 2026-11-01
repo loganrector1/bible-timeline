@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { data, peopleById } from "../data";
+import { data, erasById, locationsById, peopleById } from "../data";
 import type { EventType } from "../data/schema";
 import { eventShown, FILTER_TYPES, hasFilters, NO_FILTERS, TYPE_FILTER_LABEL } from "../lib/filters";
 import { BOOK_LIST, formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
 
 export function useFilterCount(): number {
-  const { types, people, passages } = useStore((s) => s.filters);
-  return types.length + people.length + passages.length;
+  const { types, people, passages, eras, places } = useStore((s) => s.filters);
+  return types.length + people.length + passages.length + eras.length + places.length;
 }
 
 function useMatchCount(): number {
   const filters = useStore((s) => s.filters);
-  return useMemo(() => data.events.filter((ev) => eventShown(ev, filters)).length, [filters]);
+  const chron = useStore((s) => s.chronologyId);
+  return useMemo(() => data.events.filter((ev) => eventShown(ev, filters, chron)).length, [filters, chron]);
 }
 
 type Option = { id: string; label: string; detail: string };
@@ -87,10 +88,10 @@ function Heading({ children }: { children: string }) {
   return <h3 className="mb-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{children}</h3>;
 }
 
-/** The filter choices: event types as toggles, people picked by name, and books or passages. */
+/** The filter choices: event types and eras as toggles; people, books or passages, and places picked by name. */
 export function FilterControls() {
   const filters = useStore((s) => s.filters);
-  const { types, people, passages } = filters;
+  const { types, people, passages, eras, places } = filters;
   const setFilters = useStore((s) => s.setFilters);
   const matches = useMatchCount();
 
@@ -117,8 +118,25 @@ export function FilterControls() {
     ].filter((o) => !on.has(o.id));
   }, [passages]);
 
+  // Places by name or modern name: a name starting with the search first, then a modern name
+  // ("jeru" is Jerusalem before Mount Moriah, today in Jerusalem).
+  const placeOptions = useMemo(() => (query: string): Option[] => {
+    const q = query.toLowerCase();
+    const names = (l: (typeof data.locations)[number]) => [l.name, l.modernName ?? ""].map((n) => n.toLowerCase());
+    const rank = (l: (typeof data.locations)[number]) => {
+      const [name, modern] = names(l);
+      return name.startsWith(q) ? 2 : modern.startsWith(q) ? 1 : 0;
+    };
+    return data.locations
+      .filter((l) => !places.includes(l.id) && names(l).some((n) => n.includes(q)))
+      .sort((a, b) => rank(b) - rank(a))
+      .map((l) => ({ id: l.id, label: l.name, detail: l.modernName ?? l.type }));
+  }, [places]);
+
   const toggleType = (t: EventType) =>
     setFilters({ types: types.includes(t) ? types.filter((x) => x !== t) : [...types, t] });
+  const toggleEra = (id: string) =>
+    setFilters({ eras: eras.includes(id) ? eras.filter((x) => x !== id) : [...eras, id] });
 
   return (
     <div className="space-y-4">
@@ -155,6 +173,42 @@ export function FilterControls() {
           placeholder="Add a person…"
           options={peopleOptions}
           onPick={(id) => setFilters({ people: [...people, id] })}
+        />
+      </section>
+      <section>
+        <Heading>Eras</Heading>
+        <div className="flex flex-wrap gap-1.5">
+          {data.eras.map((era) => {
+            const on = eras.includes(era.id);
+            return (
+              <button
+                key={era.id}
+                onClick={() => toggleEra(era.id)}
+                aria-pressed={on}
+                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-sm ${on ? "border-accent bg-accent text-paper" : "border-line text-ink-muted hover:border-accent hover:text-ink"}`}
+              >
+                <span aria-hidden className="size-2 rounded-full" style={{ background: era.color }} />
+                {era.name}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+      <section>
+        <Heading>Places</Heading>
+        {places.length > 0 && (
+          <div className="mb-2 flex flex-wrap gap-1.5">
+            {places.map((id) => (
+              <Chip key={id} label={locationsById.get(id)?.name ?? id} onRemove={() => setFilters({ places: places.filter((p) => p !== id) })} />
+            ))}
+          </div>
+        )}
+        <Picker
+          id="filter-places"
+          label="Add a place"
+          placeholder="Jerusalem, Galilee, Egypt…"
+          options={placeOptions}
+          onPick={(id) => setFilters({ places: [...places, id] })}
         />
       </section>
       <section>
@@ -200,7 +254,7 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
 /** The active filters as removable chips, under the header, so it's clear why events are missing. */
 export function FilterBar() {
   const filters = useStore((s) => s.filters);
-  const { types, people, passages } = filters;
+  const { types, people, passages, eras, places } = filters;
   const setFilters = useStore((s) => s.setFilters);
   const matches = useMatchCount();
   if (!hasFilters(filters)) return null;
@@ -215,6 +269,12 @@ export function FilterBar() {
       ))}
       {passages.map((p) => (
         <Chip key={formatPassageParam(p)} label={formatPassage(p)} onRemove={() => setFilters({ passages: passages.filter((x) => x !== p) })} />
+      ))}
+      {eras.map((id) => (
+        <Chip key={id} label={erasById.get(id)?.name ?? id} onRemove={() => setFilters({ eras: eras.filter((x) => x !== id) })} />
+      ))}
+      {places.map((id) => (
+        <Chip key={id} label={locationsById.get(id)?.name ?? id} onRemove={() => setFilters({ places: places.filter((x) => x !== id) })} />
       ))}
       <button onClick={() => setFilters(NO_FILTERS)} className="ml-auto shrink-0 text-accent hover:underline">
         Clear
@@ -279,19 +339,23 @@ export function FilterButton() {
   );
 }
 
+type Named = { id: string; name: string };
+
 /**
- * A detail panel's shortcut to filter by what it shows: an event's type, or a person's events.
- * Pressed again, it removes that filter.
+ * A detail panel's shortcut to filter by what it shows: an event's type, a person's events, the
+ * events in an era or at a place. Pressed again, it removes that filter.
  */
-export function FilterShortcut({ type, person }: { type?: EventType; person?: { id: string; name: string } }) {
+export function FilterShortcut({ type, person, era, place }: { type?: EventType; person?: Named; era?: Named; place?: Named }) {
   const filters = useStore((s) => s.filters);
   const setFilters = useStore((s) => s.setFilters);
-  const on = type ? filters.types.includes(type) : person ? filters.people.includes(person.id) : false;
-  const label = type ? TYPE_FILTER_LABEL.get(type)!.toLowerCase() : `${person?.name}’s events`;
-  const toggle = () => {
-    if (type) setFilters({ types: on ? filters.types.filter((t) => t !== type) : [...filters.types, type] });
-    else if (person) setFilters({ people: on ? filters.people.filter((p) => p !== person.id) : [...filters.people, person.id] });
-  };
+  const [key, id, label] =
+    type ? (["types", type, TYPE_FILTER_LABEL.get(type)!.toLowerCase()] as const)
+    : person ? (["people", person.id, `${person.name}’s events`] as const)
+    : era ? (["eras", era.id, `events in ${era.name}`] as const)
+    : (["places", place!.id, `events at ${place!.name}`] as const);
+  const list = filters[key] as string[];
+  const on = list.includes(id);
+  const toggle = () => setFilters({ [key]: on ? list.filter((x) => x !== id) : [...list, id] });
   return (
     <button
       onClick={toggle}

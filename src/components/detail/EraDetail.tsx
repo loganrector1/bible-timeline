@@ -3,6 +3,7 @@ import type { Era } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { entityBounds, eventsInEra } from "../../lib/entities";
 import { useStore } from "../../state/store";
+import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, Section } from "./parts";
 
 export default function EraDetail({ era }: { era: Era }) {
@@ -39,6 +40,8 @@ export default function EraDetail({ era }: { era: Era }) {
       <Section title={`Events (${events.length})`}>
         <EventList events={events} />
       </Section>
+
+      <FilterShortcut era={era} />
     </>
   );
 }

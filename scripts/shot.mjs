@@ -30,7 +30,8 @@ for (const a of JSON.parse(actionsJson)) {
   if (a.select) {
     await page.locator('button:has-text("Browse")').first().click();
     await page.keyboard.type(a.select);
-    await page.locator(`[role=dialog] button:has-text("${a.select}"), aside button:has-text("${a.select}")`).first().click();
+    // Not the "Filter: show only …" suggestion rows, which can name the same thing.
+    await page.locator(`[role=dialog] button:has-text("${a.select}"), aside button:has-text("${a.select}"):not(:has-text("Filter:"))`).first().click();
     await page.waitForTimeout(900);
     await page.keyboard.press("Escape");
   }

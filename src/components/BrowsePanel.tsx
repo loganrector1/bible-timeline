@@ -25,8 +25,9 @@ type Item = { ref: EntityRef; name: string; detail: string; search: string; hidd
 type Suggestion = { label: string; apply: () => void };
 
 /**
- * Filters the search names, not yet on: an event type ("battle") or one person ("David"), and a
- * book or passage ("Exodus 12-14"). "Job" and "Ruth" are both a person and a book, so both show.
+ * Filters the search names, not yet on: an event type ("battle") or one person ("David"), a place
+ * ("Jerusalem"), an era ("Judges"), and a book or passage ("Exodus 12-14"). "Job" and "Ruth" are
+ * both a person and a book, so both show.
  */
 function useSuggestions(query: string): Suggestion[] {
   const filters = useStore((s) => s.filters);
@@ -44,6 +45,20 @@ function useSuggestions(query: string): Suggestion[] {
     out.push({ label: type.label, apply: () => setFilters({ types: [...filters.types, type.type] }) });
   } else if (person && !filters.people.includes(person.id)) {
     out.push({ label: `${person.name}’s events`, apply: () => setFilters({ people: [...filters.people, person.id] }) });
+  }
+  const one = <T,>(items: T[], names: (t: T) => string[]) => {
+    const exact = items.filter((t) => names(t).some((n) => n.toLowerCase() === q));
+    const starts = items.filter((t) => names(t).some((n) => n.toLowerCase().startsWith(q)));
+    return exact.length === 1 ? exact[0] : starts.length === 1 ? starts[0] : undefined;
+  };
+  // By the place's own name: "Jerusalem" is also Mount Moriah's modern name.
+  const place = one(data.locations, (l) => [l.name]);
+  if (place && !filters.places.includes(place.id)) {
+    out.push({ label: `events at ${place.name}`, apply: () => setFilters({ places: [...filters.places, place.id] }) });
+  }
+  const era = one(data.eras, (e) => [e.name, e.name.replace(/^The /, "")]);
+  if (era && !filters.eras.includes(era.id)) {
+    out.push({ label: `events in ${era.name}`, apply: () => setFilters({ eras: [...filters.eras, era.id] }) });
   }
   const passage = parsePassage(q);
   const passageOn = passage && filters.passages.some((p) => formatPassageParam(p) === formatPassageParam(passage));
@@ -90,7 +105,7 @@ export default function BrowsePanel() {
         ref: { kind: "era", id: e.id }, name: e.name, detail: dateOf(e), search: e.name,
       })),
       event: eventsInOrder(chron).map((e) => ({
-        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title, hidden: !eventShown(e, filters),
+        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title, hidden: !eventShown(e, filters, chron),
       })),
       person: data.people.map((p) => ({
         ref: { kind: "person", id: p.id } as EntityRef,
@@ -113,9 +128,11 @@ export default function BrowsePanel() {
   }, [query, tab, chron, eraStyle, filters]);
 
   // Tours come first in All, since they're a way in for someone who doesn't know where to start.
+  // There a search matches their titles only; their summaries name so many places and people
+  // that they'd crowd out the results. The Tours tab searches both.
   const q = query.trim().toLowerCase();
   const tours = tab === "all" || tab === "tour"
-    ? data.tours.filter((t) => !q || `${t.title} ${t.summary}`.toLowerCase().includes(q))
+    ? data.tours.filter((t) => !q || (tab === "tour" ? `${t.title} ${t.summary}` : t.title).toLowerCase().includes(q))
     : [];
   const activeTour = useStore((s) => s.tour?.id);
   const progress = useStore((s) => s.tourProgress);
@@ -235,7 +252,8 @@ export default function BrowsePanel() {
                       }`}
                     >
                       <span className={`min-w-0 truncate ${item.hidden && !selected ? "text-ink-muted/70" : ""}`}>{item.name}</span>
-                      <span className={`shrink-0 truncate text-xs ${selected ? "text-paper/80" : item.hidden ? "text-ink-muted/70" : "text-ink-muted"}`}>
+                      {/* A long date ("10th of 10th month, 588 BC – …") is capped so the name still shows. */}
+                      <span className={`max-w-[55%] shrink-0 truncate text-xs ${selected ? "text-paper/80" : item.hidden ? "text-ink-muted/70" : "text-ink-muted"}`}>
                         {item.hidden ? `Hidden · ${item.detail}` : item.detail}
                       </span>
                     </button>

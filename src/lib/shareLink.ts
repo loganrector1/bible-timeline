@@ -83,7 +83,11 @@ export function parseLink(search: string): LinkState {
   const types = list("types").filter((t): t is EventType => (EventType.options as string[]).includes(t));
   const people = list("people").filter((id) => peopleById.has(id));
   const passages = list("passage").map(parsePassage).filter((p): p is Passage => p !== undefined);
-  if (types.length || people.length || passages.length) out.filters = { types, people, passages };
+  const eras = list("eras").filter((id) => erasById.has(id));
+  const places = list("places").filter((id) => locationsById.has(id));
+  if (types.length || people.length || passages.length || eras.length || places.length) {
+    out.filters = { types, people, passages, eras, places };
+  }
   return out;
 }
 
@@ -112,6 +116,8 @@ export function formatLink(
   if (s.filters?.types.length) p.set("types", s.filters.types.join(","));
   if (s.filters?.people.length) p.set("people", s.filters.people.join(","));
   if (s.filters?.passages.length) p.set("passage", s.filters.passages.map(formatPassageParam).join(","));
+  if (s.filters?.eras.length) p.set("eras", s.filters.eras.join(","));
+  if (s.filters?.places.length) p.set("places", s.filters.places.join(","));
   // Commas are safe in a query and easier to read than %2C.
   return p.toString().replace(/%2C/g, ",");
 }

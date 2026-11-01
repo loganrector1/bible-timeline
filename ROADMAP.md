@@ -56,7 +56,7 @@ Filters by event type and person, applied to both views (timeline, map, Nearest 
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
-- **More filters:** theme (needs tags on every event), region and date range, all as event filters.
+- **More filters:** eras and places are built (branch `feature/tours`); theme is still to come and needs tags on every event first.
 - **Guided tours** (branch `feature/tours`): eight (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step in the details panel, shared by link, with progress remembered.
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
 - **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.

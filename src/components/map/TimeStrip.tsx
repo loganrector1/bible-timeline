@@ -42,7 +42,7 @@ export default function TimeStrip() {
   const step = (dir: 1 | -1, keepPlaying = false) => {
     const s = useStore.getState();
     const selectedId = s.selection?.kind === "event" ? s.selection.id : undefined;
-    const target = adjacentEvent(dir, chron, s.currentYear, selectedId, shownBy(s.filters));
+    const target = adjacentEvent(dir, chron, s.currentYear, selectedId, shownBy(s.filters, chron));
     if (target) s.select({ kind: "event", id: target.id }, { keepPlaying });
     return target;
   };
