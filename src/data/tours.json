@@ -4,17 +4,17 @@
     "title": "The life of Abraham",
     "summary": "From Haran to Moriah: the man God called, and the promise that shapes the rest of the Bible.",
     "steps": [
-      { "event": "call-of-abram", "text": "The story of Israel begins with one man and a promise. Abram's family has already moved from Ur to Haran; now God sends him on, \"not knowing where he was going\" (Hebrews 11:8)." },
+      { "event": "call-of-abram", "text": "The story of Israel begins with one man and a promise. Abram's family has already moved from Ur to Haran; now God sends him on, \"without knowing where he was going\" (Hebrews 11:8)." },
       { "event": "abram-in-egypt", "text": "Barely in the land, Abram leaves it in a famine, and fear leads him to deceive Pharaoh. The promise survives his failure, the first of many times in Genesis." },
       { "event": "abram-lot-part", "text": "Abram lets his nephew choose first. Lot takes the well-watered plain near Sodom, and God promises Abram all the land he can see (Genesis 13:14–17)." },
-      { "event": "covenant-pieces", "text": "Still childless, Abram asks how the promise can come true. He believes God, \"and he counted it to him as righteousness\" (Genesis 15:6), words Paul builds on in Romans 4." },
-      { "event": "ishmael-born", "text": "Tired of waiting, Sarai gives Abram her servant Hagar. When Hagar flees, God finds her in the wilderness, and she calls him \"a God of seeing\" (Genesis 16:13)." },
-      { "event": "covenant-circumcision", "text": "Thirteen years later, at 99, Abram becomes Abraham, \"father of a multitude\", and God names the son still to come: Isaac, born to Sarah." },
+      { "event": "covenant-pieces", "text": "Still childless, Abram asks how the promise can come true. He believes the LORD, \"and it was credited to him as righteousness\" (Genesis 15:6), words Paul builds on in Romans 4." },
+      { "event": "ishmael-born", "text": "Tired of waiting, Sarai gives Abram her servant Hagar. When Hagar flees, God finds her in the wilderness, and she calls him \"the God who sees me\" (Genesis 16:13)." },
+      { "event": "covenant-circumcision", "text": "Thirteen years later, at 99, Abram becomes Abraham, \"a father of many nations\", and God names the son still to come: Isaac, born to Sarah." },
       { "event": "sodom-destroyed", "text": "Before judging Sodom, God tells Abraham his plan, and Abraham pleads for the city down to ten righteous people. Ten are not found, but Lot is rescued." },
       { "event": "isaac-born", "text": "Twenty-five years after the call, the promise arrives. Isaac's name means \"he laughs\": Sarah's laughter of doubt becomes laughter of joy (Genesis 18:12; 21:6)." },
-      { "event": "binding-of-isaac", "text": "The hardest test is the son of promise himself. Abraham goes, trusting that \"God will provide\" (Genesis 22:8); Hebrews 11:19 says he reasoned that God could even raise the dead." },
+      { "event": "binding-of-isaac", "text": "The hardest test is the son of promise himself. Abraham goes, trusting that \"God Himself will provide\" (Genesis 22:8); Hebrews 11:19 says he reasoned that God could even raise the dead." },
       { "event": "isaac-rebekah", "text": "With Sarah buried at Hebron, Abraham looks to the next generation and sends to his own family near Haran for a wife for Isaac." },
-      { "event": "abraham-dies", "text": "Abraham dies owning only a burial cave in the land promised to him. He \"died in faith, not having received the things promised\" (Hebrews 11:13), and the promise passes to Isaac and Jacob." }
+      { "event": "abraham-dies", "text": "Abraham dies owning only a burial cave in the land promised to him. He and his heirs \"died in faith, without having received the things they were promised\" (Hebrews 11:13), and the promise passes to Isaac and Jacob." }
     ]
   },
   {
@@ -24,13 +24,13 @@
     "steps": [
       { "event": "oppression", "text": "Jacob's family came to Egypt as seventy people and grew into a nation. Generations after Joseph, a new Pharaoh sees them as a threat." },
       { "event": "moses-born", "text": "Pharaoh orders the Hebrews' baby boys thrown into the Nile. One is laid in the Nile in a basket instead, and grows up in Pharaoh's own house." },
-      { "event": "burning-bush", "text": "After forty years as a shepherd in Midian, Moses meets God at Horeb, the mountain Israel will come back to. God has heard his people's cry, and reveals his name: \"I am who I am\" (Exodus 3:14)." },
+      { "event": "burning-bush", "text": "After forty years as a shepherd in Midian, Moses meets God at Horeb, the mountain Israel will come back to. God has heard his people's cry, and reveals his name: \"I AM WHO I AM\" (Exodus 3:14)." },
       { "event": "plagues", "text": "Pharaoh will not let Israel go, and plague after plague shows the gods of Egypt powerless before the Lord (Exodus 12:12)." },
       { "event": "passover", "text": "The last plague comes with a way of escape: a lamb's blood on the door. Israel keeps this night every year, and Jesus will eat his last supper at Passover." },
       { "event": "exodus", "text": "Israel walks out the next morning, after 430 years in Egypt, carrying Joseph's bones as he had asked (Exodus 12:41; 13:19)." },
-      { "event": "red-sea", "text": "Trapped between the sea and Pharaoh's chariots, Israel hears Moses: \"The Lord will fight for you, and you have only to be silent\" (Exodus 14:14)." },
+      { "event": "red-sea", "text": "Trapped between the sea and Pharaoh's chariots, Israel hears Moses: \"The LORD will fight for you; you need only to be still\" (Exodus 14:14)." },
       { "event": "sinai-covenant", "text": "Three months out, Israel camps at the mountain of the burning bush. God calls them his treasured possession and gives the Ten Commandments: rescue comes first, then the law." },
-      { "event": "golden-calf", "text": "Within weeks the people break the first commandments. Moses pleads for them, and God shows himself \"merciful and gracious, slow to anger\" (Exodus 34:6)." },
+      { "event": "golden-calf", "text": "Within weeks the people break the first commandments. Moses pleads for them, and God shows himself \"compassionate and gracious, slow to anger\" (Exodus 34:6)." },
       { "event": "spies", "text": "At Kadesh, on the edge of the land, Israel believes the fearful report over God's promise. Only Joshua and Caleb of that generation will enter." },
       { "event": "wandering", "text": "For forty years, a year for each day the spies searched (Numbers 14:34), Israel lives in the wilderness, fed by manna, while a new generation grows up." },
       { "event": "moses-dies", "text": "Moses sees the land from Mount Nebo but does not enter it. Joshua leads the new generation across the Jordan, and the promise to Abraham begins to come true." }
@@ -41,8 +41,8 @@
     "title": "David",
     "summary": "From shepherd boy to king in Jerusalem: the man after God's own heart, his failures, and the promise of a son on his throne forever.",
     "steps": [
-      { "event": "david-anointed", "text": "Saul has failed as king, and God sends Samuel to find another: not the tallest of Jesse's sons but the youngest, out with the sheep. \"The Lord looks on the heart\" (1 Samuel 16:7)." },
-      { "event": "david-goliath", "text": "While Israel's army trembles, the shepherd boy sees what they don't: \"the battle is the Lord's\" (1 Samuel 17:47). Soon he is a hero, and Saul grows jealous." },
+      { "event": "david-anointed", "text": "Saul has failed as king, and God sends Samuel to find another: not the tallest of Jesse's sons but the youngest, out with the sheep. \"The LORD sees the heart\" (1 Samuel 16:7)." },
+      { "event": "david-goliath", "text": "While Israel's army trembles, the shepherd boy sees what they don't: \"the battle is the LORD's\" (1 Samuel 17:47). Soon he is a hero, and Saul grows jealous." },
       { "event": "saul-dies", "text": "For years David runs from Saul, and twice spares his life. When Saul and Jonathan fall on Mount Gilboa, David mourns them both (2 Samuel 1)." },
       { "event": "david-reign", "text": "David is anointed king at Hebron, first over Judah, then over all Israel. He was thirty when he began to reign (2 Samuel 5:4)." },
       { "event": "david-psalms", "text": "David is remembered as \"the sweet psalmist of Israel\" (2 Samuel 23:1). His psalms give words to fear and trust, grief and praise." },
@@ -59,12 +59,12 @@
     "steps": [
       { "event": "temple-built", "text": "Under Solomon Israel is at its height, and God's glory fills the new temple. But Solomon's wives turn his heart to other gods, and the kingdom will pay for it (1 Kings 11)." },
       { "event": "kingdom-divides", "text": "After Solomon, the ten northern tribes break away. From now on there are two kingdoms: Israel in the north, and Judah in the south, with David's line in Jerusalem." },
-      { "event": "elijah-carmel", "text": "Under Ahab and Jezebel, Israel worships Baal. Elijah asks the people, \"How long will you go limping between two different opinions?\" (1 Kings 18:21), and God answers by fire." },
+      { "event": "elijah-carmel", "text": "Under Ahab and Jezebel, Israel worships Baal. Elijah asks the people, \"How long will you waver between two opinions?\" (1 Kings 18:21), and God answers by fire." },
       { "event": "elijah-taken", "text": "Elijah is taken up to heaven and Elisha carries on his work. From now on the prophets are God's voice to kings who seldom listen." },
       { "event": "jonah-nineveh", "text": "God's concern reaches even Nineveh, the capital of Assyria, Israel's coming conqueror, and Jonah is angry that God spares it." },
       { "event": "amos-ministry", "text": "In a time of wealth, Amos sees the needy sold \"for a pair of sandals\" (Amos 2:6) and warns that worship means nothing without justice." },
-      { "event": "isaiah-ministry", "text": "In Judah, Isaiah sees the Lord \"high and lifted up\" (Isaiah 6:1). He warns of judgment, and promises a child who will sit on David's throne (Isaiah 9:6–7)." },
-      { "event": "fall-of-samaria", "text": "Israel ignores the prophets. Assyria takes Samaria and scatters the northern tribes, \"because they did not obey the voice of the Lord their God\" (2 Kings 18:12)." },
+      { "event": "isaiah-ministry", "text": "In Judah, Isaiah sees the Lord \"high and exalted\" (Isaiah 6:1). He warns of judgment, and promises a child who will sit on David's throne (Isaiah 9:6–7)." },
+      { "event": "fall-of-samaria", "text": "Israel ignores the prophets. Assyria takes Samaria and scatters the northern tribes, \"because they did not listen to the voice of the LORD their God\" (2 Kings 18:12)." },
       { "event": "sennacherib-siege", "text": "Twenty years later Assyria surrounds Jerusalem too. Hezekiah spreads the enemy's letter before the Lord, and the city is spared." },
       { "event": "jeremiah-ministry", "text": "As Assyria fades, Babylon rises. Young Jeremiah is called to warn Judah for forty years, and to promise a new covenant written on the heart (Jeremiah 31:31–33)." },
       { "event": "josiah-reform", "text": "King Josiah finds the forgotten Book of the Law and leads one last great return to God. After him, Judah's kings slide back." },
@@ -78,14 +78,14 @@
     "steps": [
       { "event": "daniel-taken", "text": "Babylon's first deportation takes some of Judah's brightest young nobles. In a foreign court, Daniel resolves not to defile himself (Daniel 1:8)." },
       { "event": "ezekiel-ministry", "text": "Among the exiles by the river Chebar, Ezekiel sees the glory of God, not confined to Jerusalem's temple but with his people in Babylon." },
-      { "event": "fall-of-jerusalem", "text": "The worst happens: Jerusalem and the temple are destroyed. Lamentations grieves, \"How lonely sits the city\" (1:1), and still says, \"his mercies never come to an end\" (3:22)." },
+      { "event": "fall-of-jerusalem", "text": "The worst happens: Jerusalem and the temple are destroyed. Lamentations grieves, \"How lonely lies the city\" (1:1), and still says, \"His mercies never fail\" (3:22)." },
       { "event": "fall-of-babylon", "text": "Nearly seventy years after Daniel was taken, Babylon falls in a single night, as the writing on the wall foretold." },
       { "event": "lions-den", "text": "Under the Persians Daniel, now an old man, still prays toward Jerusalem three times a day, and God shuts the lions' mouths." },
       { "event": "cyrus-decree", "text": "Cyrus of Persia lets the exiles go home, the king Isaiah had named long before (Isaiah 44:28; 45:1)." },
       { "event": "first-return", "text": "About fifty thousand return with Zerubbabel. When the temple's foundation is laid, many shout for joy, and the old men who remember Solomon's temple weep (Ezra 3:12)." },
       { "event": "temple-rebuilt", "text": "Opposition stalls the work for years, until Haggai and Zechariah stir the people. The second temple is smaller, but Haggai promises its glory will be greater (Haggai 2:9)." },
       { "event": "esther", "text": "Not everyone went home. In Persia, in a book that never names God, a queen is placed \"for such a time as this\" (Esther 4:14)." },
-      { "event": "ezra-return", "text": "Ezra the scribe brings a second group home. He \"had set his heart to study the Law of the Lord, and to do it and to teach\" it (Ezra 7:10)." },
+      { "event": "ezra-return", "text": "Ezra the scribe brings a second group home. He \"had set his heart to study the Law of the LORD, to practice it, and to teach\" it (Ezra 7:10)." },
       { "event": "nehemiah-walls", "text": "Nehemiah rebuilds Jerusalem's walls in fifty-two days (Nehemiah 6:15), and the people gather to hear the Law read and renew the covenant." },
       { "event": "malachi-ministry", "text": "The Old Testament closes with a promise: the Lord will send Elijah before he comes (Malachi 4:5). Four centuries later, John the Baptist comes \"in the spirit and power of Elijah\" (Luke 1:17)." }
     ]
@@ -95,7 +95,7 @@
     "title": "The life of Jesus",
     "summary": "From Nazareth to the Mount of Olives: the birth, ministry, death and resurrection of Jesus.",
     "steps": [
-      { "event": "annunciation", "text": "Centuries of waiting end quietly, in a small town in Galilee. The child promised to Mary will be given \"the throne of his father David\" (Luke 1:32)." },
+      { "event": "annunciation", "text": "Centuries of waiting end quietly, in a small town in Galilee. The child promised to Mary will be given \"the throne of His father David\" (Luke 1:32)." },
       { "event": "jesus-born", "text": "Jesus is born in David's town, as Micah foretold (Micah 5:2), and laid in a manger. Herod's threat soon sends the family to Egypt, and then home to Nazareth." },
       { "event": "jesus-baptized", "text": "About thirty years old (Luke 3:23), Jesus comes to John at the Jordan. Father, Son and Spirit appear together, and his public ministry begins." },
       { "event": "calling-disciples", "text": "Jesus makes Capernaum his base and calls ordinary fishermen to follow him. Peter, Andrew, James and John will be with him to the end." },
@@ -103,11 +103,11 @@
       { "event": "feeding-five-thousand", "text": "By the lake a hungry crowd is fed from a boy's lunch. In John's Gospel Jesus goes on to say, \"I am the bread of life\" (John 6:35)." },
       { "event": "peter-confession", "text": "Far to the north, at Caesarea Philippi, Peter says who Jesus is. It's the turning point: from here Jesus speaks plainly about the cross." },
       { "event": "transfiguration", "text": "Days later, three disciples glimpse his glory. Moses and Elijah, the Law and the Prophets, speak with him about the departure he will accomplish at Jerusalem (Luke 9:31)." },
-      { "event": "triumphal-entry", "text": "Jesus \"set his face to go to Jerusalem\" (Luke 9:51). He arrives as the king Zechariah foretold, humble and riding on a donkey (Zechariah 9:9)." },
+      { "event": "triumphal-entry", "text": "Jesus \"resolutely set out for Jerusalem\" (Luke 9:51). He arrives as the king Zechariah foretold, humble and riding on a donkey (Zechariah 9:9)." },
       { "event": "last-supper", "text": "At Passover, the feast of the Exodus, Jesus gives the meal a new meaning: bread and wine as his body and blood, a new covenant." },
       { "event": "crucifixion", "text": "Condemned by the council and by Pilate, Jesus dies outside the city wall. \"It is finished\" (John 19:30)." },
       { "event": "resurrection", "text": "On the first day of the week the women find the tomb empty. Over forty days the risen Jesus appears to many who could say they had seen him." },
-      { "event": "ascension", "text": "Jesus sends his followers out from Jerusalem \"to the end of the earth\" (Acts 1:8). That mission is the story of Acts, and of Paul's journeys." }
+      { "event": "ascension", "text": "Jesus sends his followers out from Jerusalem \"to the ends of the earth\" (Acts 1:8). That mission is the story of Acts, and of Paul's journeys." }
     ]
   },
   {
@@ -115,15 +115,15 @@
     "title": "The early church",
     "summary": "From Jerusalem to Antioch: the Spirit comes, the church grows through persecution, and the gospel reaches the Gentiles.",
     "steps": [
-      { "event": "ascension", "text": "Acts begins where Luke's Gospel ends. Jesus sends his followers to be his witnesses \"in Jerusalem and in all Judea and Samaria, and to the end of the earth\" (Acts 1:8), and the rest of Acts follows that order." },
+      { "event": "ascension", "text": "Acts begins where Luke's Gospel ends. Jesus sends his followers to be his witnesses \"in Jerusalem, and in all Judea and Samaria, and to the ends of the earth\" (Acts 1:8), and the rest of Acts follows that order." },
       { "event": "pentecost", "text": "Ten days later, at the feast of Pentecost, the Spirit comes. Peter, who denied Jesus only weeks before, preaches boldly, and about three thousand are baptized (Acts 2:41)." },
       { "event": "temple-gate-healing", "text": "The believers share what they have and meet daily at the temple. A healing there brings Peter and John before the same council that condemned Jesus (Acts 4)." },
       { "event": "stephen-martyred", "text": "Stephen, chosen to help serve the church's widows, becomes its first martyr, praying as Jesus did for those who kill him (Acts 7:60)." },
       { "event": "philip-ethiopian", "text": "Persecution scatters the church, and the gospel goes with it: Philip preaches in Samaria, then baptizes an Ethiopian official on his way home." },
       { "event": "paul-conversion", "text": "The church's fiercest enemy meets the risen Jesus on the road to Damascus. Saul will become Paul, the apostle to the Gentiles." },
-      { "event": "cornelius", "text": "God shows Peter that the gospel is for Gentiles too. As the Spirit falls on a Roman centurion's household, Peter says, \"God shows no partiality\" (Acts 10:34)." },
+      { "event": "cornelius", "text": "God shows Peter that the gospel is for Gentiles too. As the Spirit falls on a Roman centurion's household, Peter says, \"God does not show favoritism\" (Acts 10:34)." },
       { "event": "antioch-church", "text": "In Antioch, Jews and Gentiles believe together, and the disciples are first called Christians (Acts 11:26). This church will send Paul out." },
-      { "event": "peter-freed", "text": "Herod Agrippa kills the apostle James and jails Peter, but the church prays and an angel opens the prison. \"The word of God increased and multiplied\" (Acts 12:24)." },
+      { "event": "peter-freed", "text": "Herod Agrippa kills the apostle James and jails Peter, but the church prays and an angel opens the prison. \"The word of God continued to spread and multiply\" (Acts 12:24)." },
       { "event": "first-journey", "text": "The Spirit sends Barnabas and Saul out from Antioch on the first missionary journey. From here Acts follows Paul: the tour of his journeys takes up the story." }
     ]
   },
@@ -133,7 +133,7 @@
     "summary": "From persecutor to apostle: Paul carries the gospel from Jerusalem across Asia Minor and Greece to Rome.",
     "steps": [
       { "event": "stephen-martyred", "text": "Paul enters the story as Saul of Tarsus, a zealous Pharisee, watching over the coats of the men who stone Stephen (Acts 7:58)." },
-      { "event": "paul-conversion", "text": "The persecutor becomes an apostle. Jesus sends him to carry his name \"before the Gentiles and kings and the children of Israel\" (Acts 9:15)." },
+      { "event": "paul-conversion", "text": "The persecutor becomes an apostle. Jesus sends him to carry his name \"before the Gentiles and their kings, and before the people of Israel\" (Acts 9:15)." },
       { "event": "first-journey", "text": "Years later the Spirit sets Barnabas and Saul apart. From here Luke calls him Paul, and Gentiles come to faith across Cyprus and Galatia." },
       { "event": "jerusalem-council", "text": "Must Gentile believers become Jews first? The apostles agree that all are saved \"through the grace of the Lord Jesus\" (Acts 15:11)." },
       { "event": "second-journey", "text": "Kept from going where he planned, Paul sees a man of Macedonia in a vision, saying \"Come over to Macedonia and help us\" (Acts 16:9), and the gospel crosses into Europe." },
@@ -142,7 +142,7 @@
       { "event": "third-journey", "text": "Paul's longest stay is in Ephesus, three years in all (Acts 20:31). From there he writes to the troubled church at Corinth." },
       { "event": "romans", "text": "Wintering in Corinth, Paul writes to a church he has never visited, setting out the gospel he preaches before he comes." },
       { "event": "paul-arrested", "text": "Warned that chains await him, Paul goes to Jerusalem anyway. Arrested at the temple, he testifies before crowds, the council, two governors and King Agrippa." },
-      { "event": "voyage-to-rome", "text": "Paul reaches Rome at last, as a prisoner. For two years he preaches from a rented house \"with all boldness and without hindrance\" (Acts 28:31), and there Acts ends." },
+      { "event": "voyage-to-rome", "text": "Paul reaches Rome at last, as a prisoner. For two years he preaches from a rented house \"boldly and freely\" (Acts 28:31), and there Acts ends." },
       { "event": "second-timothy", "text": "Tradition says Paul was executed in Rome under Nero. His last letter hands the work on: \"preach the word\" (2 Timothy 4:2)." }
     ]
   }

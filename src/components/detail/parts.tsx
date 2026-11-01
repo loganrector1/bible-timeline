@@ -3,8 +3,10 @@ import { datesFor, type EntityRef } from "../../data";
 import type { Event, ScriptureRef } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { entityTitle } from "../../lib/entities";
-import { formatRef, refUrl } from "../../lib/scripture";
+import { formatRef } from "../../lib/scripture";
 import { useStore } from "../../state/store";
+import { Prose } from "../ScriptureText";
+import { Passage } from "./Passage";
 
 export function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -66,25 +68,18 @@ export function ScriptureList({ refs }: { refs: ScriptureRef[] }) {
   if (refs.length === 0) return null;
   return (
     <Section title="Scripture">
-      <ul className="flex flex-wrap gap-x-3 gap-y-1">
+      <ul className="space-y-1.5">
         {refs.map((r) => (
           <li key={formatRef(r)}>
-            <a
-              href={refUrl(r)}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent"
-            >
-              {formatRef(r)}
-              <span className="sr-only"> (opens Bible Gateway in a new tab)</span>
-            </a>
+            <Passage scripture={r} />
           </li>
         ))}
       </ul>
+      <p className="mt-2 text-xs text-ink-muted">Berean Standard Bible</p>
     </Section>
   );
 }
 
 export function Note({ children }: { children: ReactNode }) {
-  return <p className="mt-2 border-l-2 border-line pl-3 text-sm text-ink-muted italic">{children}</p>;
+  return <p className="mt-2 border-l-2 border-line pl-3 text-sm text-ink-muted italic">{typeof children === "string" ? <Prose text={children} /> : children}</p>;
 }

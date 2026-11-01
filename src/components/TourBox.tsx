@@ -1,5 +1,6 @@
 import { toursById } from "../data";
 import { useStore } from "../state/store";
+import { Prose } from "./ScriptureText";
 
 /**
  * The guided tour, at the top of the details panel: the step's narration with Back and Next
@@ -49,7 +50,7 @@ export default function TourBox({ clamp }: { clamp: boolean }) {
           <button data-sheet-close onClick={() => endTour()} aria-label="End tour" className="rounded p-1 text-ink-muted hover:text-ink">✕</button>
         </span>
       </div>
-      <p className={`mt-1 text-[15px] leading-snug ${clamp ? "line-clamp-2" : ""}`}>{step.text}</p>
+      <p className={`mt-1 text-[15px] leading-snug ${clamp ? "line-clamp-2" : ""}`}><Prose text={step.text} /></p>
     </section>
   );
 }

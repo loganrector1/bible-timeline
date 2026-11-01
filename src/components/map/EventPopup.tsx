@@ -7,6 +7,7 @@ import { eventLocations } from "../../lib/entities";
 import { routePath } from "../../lib/journeys";
 import { useStore } from "../../state/store";
 import { arrowToward, centroid, inView, useMapRedraw, type Point } from "./useMapView";
+import { Prose } from "../ScriptureText";
 
 const MARGIN = 12;
 /** Space between the popup and the place it describes. */
@@ -141,7 +142,7 @@ export default function EventPopup({ map, ev, onClose }: { map: MapLibreMap | nu
           )}
         </span>
         {spec && <span className="mt-0.5 block text-xs font-medium text-accent">{formatDateSpec(spec, eraStyle)}</span>}
-        <span className="mt-1 line-clamp-2 text-ink-muted">{ev.summary}</span>
+        <span className="mt-1 line-clamp-2 text-ink-muted"><Prose text={ev.summary} /></span>
         <span className="mt-1 block text-xs font-medium text-accent">Details →</span>
       </button>
       <button

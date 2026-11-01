@@ -7,6 +7,7 @@ import { eventShown } from "../../lib/filters";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { Chip, Chips, Note, ScriptureList, Section } from "./parts";
+import { Prose } from "../ScriptureText";
 
 export default function EventDetail({ ev }: { ev: Event }) {
   const chron = useStore((s) => s.chronologyId);
@@ -54,7 +55,7 @@ export default function EventDetail({ ev }: { ev: Event }) {
       )}
       {ev.dateNote && <Note>{ev.dateNote}</Note>}
 
-      <p className="mt-4 leading-relaxed">{ev.summary}</p>
+      <p className="mt-4 leading-relaxed"><Prose text={ev.summary} /></p>
       {ev.description && <p className="mt-2 leading-relaxed text-ink/90">{ev.description}</p>}
 
       {parent && (
