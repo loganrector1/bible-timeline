@@ -22,7 +22,8 @@ const KINGDOM_TINT = {
 };
 
 export const LANE_NAMES: Record<Lane, string> = {
-  people: "Important people", kings: "Kings & rulers", prophets: "Prophets", church: "Apostles & church",
+  people: "Important people", kings: "Kings of Israel & Judah", prophets: "Prophets", church: "Apostles & church",
+  world: "World history",
 };
 
 /**
@@ -43,7 +44,7 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
 
   const lives = useMemo(() => {
     const items = data.people.filter((p) => shownLanes(p, shown).includes(lane)).flatMap((person) => {
-      const span = personSpan(person, chron, lane === "kings");
+      const span = personSpan(person, chron, lane === "kings" || lane === "world");
       return span ? [{ person, ...span }] : [];
     });
     // Kings: Judah (after the united kingdom) on the left, Israel beside it; other rulers fill in.

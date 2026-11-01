@@ -9,7 +9,14 @@ import { overlaps, type Passage } from "./passages";
  * everything through, and each kind in use must match. Filters only hide events; people, places
  * and eras stay.
  */
-export type Filters = { types: EventType[]; people: string[]; passages: Passage[]; eras: string[]; places: string[] };
+export type Filters = {
+  types: EventType[]; people: string[]; passages: Passage[]; eras: string[]; places: string[];
+  /**
+   * Whether world history shows: it follows the World history lane, so it isn't a filter the
+   * reader sets here, and clearing filters (NO_FILTERS, which leaves it out) keeps it.
+   */
+  world?: boolean;
+};
 
 export const NO_FILTERS: Filters = { types: [], people: [], passages: [], eras: [], places: [] };
 
@@ -77,7 +84,8 @@ function atPlace(ev: Event, placeId: string): boolean {
 }
 
 export function eventShown(ev: Event, f: Filters, chron: string): boolean {
-  return (!f.types.length || f.types.includes(ev.type))
+  return (!ev.world || !!f.world)
+    && (!f.types.length || f.types.includes(ev.type))
     && (!f.people.length || ev.people.some((p) => f.people.includes(p)))
     && (!f.passages.length || ev.scripture.some((r) => f.passages.some((p) => overlaps(r, p))))
     && (!f.eras.length || f.eras.some((e) => inEra(ev, e, chron)))
@@ -102,7 +110,7 @@ export function filteredPeople(events: Event[], f: Filters, chron: string): Set<
   return new Set(events.filter((ev) => eventShown(ev, f, chron)).flatMap((ev) => ev.people));
 }
 
-/** A predicate for the events shown, or undefined (every event) when nothing is filtered. */
+/** A predicate for the events shown, or undefined (every event) when nothing is filtered or hidden. */
 export function shownBy(f: Filters, chron: string): ((ev: Event) => boolean) | undefined {
-  return hasFilters(f) ? (ev) => eventShown(ev, f, chron) : undefined;
+  return hasFilters(f) || !f.world ? (ev) => eventShown(ev, f, chron) : undefined;
 }

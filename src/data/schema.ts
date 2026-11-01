@@ -64,6 +64,11 @@ export const Event = z.object({
   journeyId: id.optional(),
   /** The larger event this happens within, e.g. the Red Sea crossing during the Exodus. */
   partOf: id.optional(),
+  /**
+   * History from outside Scripture (the fall of Nineveh, Pompey takes Jerusalem): shown only
+   * while the World history lane is on, and drawn apart from Scripture's events.
+   */
+  world: z.boolean().default(false),
   scripture: z.array(ScriptureRef).default([]),
 });
 
@@ -71,7 +76,7 @@ export const Event = z.object({
  * Which lane of the timeline a person's bar sits in: the main figures, or one of the optional
  * groups (off by default) that would crowd the main lane.
  */
-export const Lane = z.enum(["people", "kings", "prophets", "church"]);
+export const Lane = z.enum(["people", "kings", "prophets", "church", "world"]);
 export type Lane = z.infer<typeof Lane>;
 
 /** The throne a king of God's people sat on, which sets his column and colour in the Kings lane. */
@@ -98,9 +103,27 @@ export const Person = z.object({
    */
   reign: Dates.optional(),
   kingdom: Kingdom.optional(),
+  /** For rulers in the World history lane: the empire they ruled, or ruled for (Pilate, Rome). */
+  empire: id.optional(),
   parents: ids,
   spouses: ids,
   scripture: z.array(ScriptureRef).default([]),
+});
+
+/**
+ * A great power of the world around Israel (Assyria, Persia, Rome), drawn as a bar in the World
+ * history lane. Dated from history, so its dates don't change with the chronology.
+ */
+export const Empire = z.object({
+  id,
+  name: z.string(),
+  summary: z.string(),
+  dates: Dates,
+  dateNote: z.string().optional(),
+  /** Where it was ruled from, as far as our places go. */
+  capitals: ids,
+  /** Its column in the World history lane, so a line of powers (Egypt's, Mesopotamia's) stays in one. */
+  column: z.number().int().min(0).optional(),
 });
 
 export const LocationType = z.enum([
@@ -170,6 +193,7 @@ export const RegionCollection = z.object({
 // TimePoint and DateSpec types live in lib/dates.ts; these schemas match them.
 export type ScriptureRef = z.infer<typeof ScriptureRef>;
 export type Era = z.infer<typeof Era>;
+export type Empire = z.infer<typeof Empire>;
 export type EventType = z.infer<typeof EventType>;
 export type Event = z.infer<typeof Event>;
 export type Person = z.infer<typeof Person>;

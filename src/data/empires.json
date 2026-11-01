@@ -1,0 +1,115 @@
+[
+  {
+    "id": "ur-iii", "name": "Ur's Third Dynasty", "column": 1,
+    "summary": "Sumer's last great age, when the kings of Ur ruled southern Mesopotamia and built its great ziggurat: the world Abram's family left.",
+    "dates": { "early": { "start": { "year": -2111 }, "end": { "year": -2003 }, "confidence": "approx" } },
+    "dateNote": "About 2112–2004 BC. On the early dating Abram leaves Ur near its end; on the late dating, after its fall, under the Old Babylonian kings.",
+    "capitals": ["ur"]
+  },
+  {
+    "id": "egypt-middle", "name": "Egypt's Middle Kingdom", "column": 0,
+    "summary": "Egypt reunited under strong pharaohs, wealthy and settled, trading with Canaan: on the early dating, the Egypt Abram visits and Joseph rules.",
+    "dates": { "early": { "start": { "year": -2054 }, "end": { "year": -1649 }, "confidence": "approx" } },
+    "dateNote": "About 2055–1650 BC (the 11th to 13th dynasties). Egyptian dates this early can be off by a few decades."
+  },
+  {
+    "id": "old-babylon", "name": "The Old Babylonian kingdom", "column": 1,
+    "summary": "Babylon rises to rule Mesopotamia, most famously under Hammurabi and his laws, until the Hittites sack the city.",
+    "dates": { "early": { "start": { "year": -1893 }, "end": { "year": -1594 }, "confidence": "approx" } },
+    "dateNote": "About 1894–1595 BC, in the middle chronology most historians use.",
+    "capitals": ["babel"]
+  },
+  {
+    "id": "hyksos", "name": "The Hyksos in Egypt", "column": 0,
+    "summary": "Rulers from Canaan and Syria, \"foreign kings\" to the Egyptians, govern the Nile Delta from Avaris. Late-daters place Joseph and Jacob's family here.",
+    "dates": { "early": { "start": { "year": -1649 }, "end": { "year": -1549 }, "confidence": "approx" } },
+    "dateNote": "About 1650–1550 BC (the 15th dynasty). Avaris lay beside the later city of Rameses."
+  },
+  {
+    "id": "hittites", "name": "The Hittite Empire",
+    "summary": "A great power of Anatolia that rivalled Egypt for Syria, until it collapsed with the end of the Bronze Age. Scripture's Hittites in Canaan (Ephron, Uriah) are a related people.",
+    "dates": { "early": { "start": { "year": -1649 }, "end": { "year": -1179 }, "confidence": "approx" } },
+    "dateNote": "About 1650–1180 BC, ruled from Hattusa in central Turkey."
+  },
+  {
+    "id": "egypt-new", "name": "Egypt's New Kingdom", "column": 0,
+    "summary": "Egypt at its height, ruling Canaan through vassal kings. Its pharaohs include Thutmose III and Amenhotep II, the early-date candidates for the Exodus, and Ramesses II, the late-date one.",
+    "dates": { "early": { "start": { "year": -1549 }, "end": { "year": -1069 }, "confidence": "approx" } },
+    "dateNote": "About 1550–1070 BC (the 18th to 20th dynasties)."
+  },
+  {
+    "id": "egypt-divided", "name": "Egypt divided", "column": 0,
+    "summary": "Egypt split between rival dynasties, Libyan and then Kushite, and no longer a power in Canaan except in raids like Shishak's, and as an ally Israel and Judah hoped in.",
+    "dates": { "early": { "start": { "year": -1069 }, "end": { "year": -663 }, "confidence": "approx" } },
+    "dateNote": "About 1070–664 BC, Egypt's Third Intermediate Period. Shishak (Shoshenq I) and Tirhakah are its pharaohs in Scripture."
+  },
+  {
+    "id": "assyria", "name": "The Assyrian Empire", "column": 1,
+    "summary": "The first great empire of the iron age, feared for its cruelty. It takes Samaria and scatters the northern tribes, and besieges Jerusalem under Hezekiah.",
+    "dates": { "early": { "start": { "year": -910 }, "end": { "year": -608 }, "confidence": "approx" } },
+    "dateNote": "The Neo-Assyrian Empire, 911–609 BC: Nineveh fell in 612, and its last king's stand at Haran in 609.",
+    "capitals": ["nineveh"]
+  },
+  {
+    "id": "egypt-late", "name": "Egypt's Late Period", "column": 0,
+    "summary": "Egypt revives under the Saite pharaohs, Neco among them, then falls to Persia. Jeremiah warns Judah not to trust it.",
+    "dates": { "early": { "start": { "year": -663 }, "end": { "year": -331 }, "confidence": "approx" } },
+    "dateNote": "664–332 BC, including two spells of Persian rule (525–404 and 343–332 BC), until Alexander took Egypt."
+  },
+  {
+    "id": "babylon", "name": "The Babylonian Empire",
+    "summary": "Nebuchadnezzar's empire, which destroys Jerusalem and its temple and carries Judah into exile.",
+    "dates": { "early": { "start": { "year": -625 }, "end": { "year": -538 }, "confidence": "approx" } },
+    "dateNote": "The Neo-Babylonian Empire, from Nabopolassar in 626 BC until Cyrus took Babylon in 539.",
+    "capitals": ["babel"]
+  },
+  {
+    "id": "persia", "name": "The Persian Empire", "column": 1,
+    "summary": "The largest empire yet, from India to Egypt. Its kings let the exiles go home and rebuild the temple, and Esther is its queen.",
+    "dates": { "early": { "start": { "year": -549 }, "end": { "year": -329 }, "confidence": "approx" } },
+    "dateNote": "The Achaemenid Empire, from Cyrus's rise about 550 BC until Alexander defeated Darius III in 330.",
+    "capitals": ["susa"]
+  },
+  {
+    "id": "alexander-empire", "name": "Alexander's empire",
+    "summary": "In a dozen years Alexander of Macedon conquers the Persian Empire and spreads Greek language and culture across the east; at his death his generals divide it.",
+    "dates": { "early": { "start": { "year": -335 }, "end": { "year": -322 }, "confidence": "approx" } },
+    "dateNote": "336–323 BC. He died in Babylon.",
+    "capitals": ["babel"]
+  },
+  {
+    "id": "seleucids", "name": "The Seleucid Empire", "column": 1,
+    "summary": "The Greek kingdom of Syria, founded by one of Alexander's generals. It takes Judea from the Ptolemies in 200 BC; its king Antiochus IV outlaws Judaism, sparking the Maccabean revolt.",
+    "dates": { "early": { "start": { "year": -311 }, "end": { "year": -62 }, "confidence": "approx" } },
+    "dateNote": "312–63 BC, when Pompey made Syria a Roman province.",
+    "capitals": ["antioch-syria"]
+  },
+  {
+    "id": "ptolemies", "name": "The Ptolemaic kingdom", "column": 0,
+    "summary": "The Greek kingdom of Egypt, ruled from Alexandria by Alexander's general Ptolemy and his heirs. It rules Judea for a century, and its Jews translate the Septuagint.",
+    "dates": { "early": { "start": { "year": -304 }, "end": { "year": -29 }, "confidence": "approx" } },
+    "dateNote": "305–30 BC, ending with Cleopatra. It ruled Judea from about 301 to 200 BC.",
+    "capitals": ["alexandria"]
+  },
+  {
+    "id": "hasmoneans", "name": "The Hasmonean kingdom",
+    "summary": "The Maccabees' heirs rule an independent Jewish state as high priests and then kings, until civil war brings in Rome.",
+    "dates": { "early": { "start": { "year": -139 }, "end": { "year": -36 }, "confidence": "approx" } },
+    "dateNote": "From 140 BC, when Simon was made ruler, until Herod took Jerusalem in 37 BC; under Rome's rule from 63 BC.",
+    "capitals": ["jerusalem"]
+  },
+  {
+    "id": "roman-republic", "name": "The Roman Republic", "column": 2,
+    "summary": "Rome governed by its senate and elected consuls, growing from a city on the Tiber to master of the Mediterranean. Its general Pompey takes Jerusalem.",
+    "dates": { "early": { "start": { "year": -508 }, "end": { "year": -26 }, "confidence": "approx" } },
+    "dateNote": "Traditionally from 509 BC, when Rome expelled its last king, until Augustus became emperor in 27 BC.",
+    "capitals": ["rome"]
+  },
+  {
+    "id": "rome", "name": "The Roman Empire", "column": 2,
+    "summary": "Rome under its emperors: the world of the New Testament, whose roads and peace carry the gospel, and whose governors try Jesus and Paul.",
+    "dates": { "early": { "start": { "year": -26 }, "end": { "year": 476 }, "confidence": "approx" } },
+    "dateNote": "From Augustus in 27 BC. The western empire ended in AD 476; the eastern lasted until 1453.",
+    "capitals": ["rome"]
+  }
+]

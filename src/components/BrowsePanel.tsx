@@ -17,10 +17,13 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "tour", label: "Tours" },
 ];
 
-const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", event: "Events", person: "People", location: "Places" };
+const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", empire: "Empires", event: "Events", person: "People", location: "Places" };
 
-/** `hidden`: an event the filters hide. It's still listed (dimmed), and picking it shows it. */
-type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: boolean };
+/**
+ * `hidden`: an event the filters hide, or world history while its lane is off. It's still listed
+ * (dimmed), and picking it shows it.
+ */
+type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: string };
 
 type Suggestion = { label: string; apply: () => void };
 
@@ -104,8 +107,13 @@ export default function BrowsePanel() {
       era: data.eras.map((e) => ({
         ref: { kind: "era", id: e.id }, name: e.name, detail: dateOf(e), search: e.name,
       })),
+      empire: data.empires.map((e) => ({
+        ref: { kind: "empire", id: e.id }, name: e.name, detail: dateOf(e), search: e.name,
+      })),
       event: eventsInOrder(chron).map((e) => ({
-        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title, hidden: !eventShown(e, filters, chron),
+        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title,
+        hidden: eventShown(e, filters, chron) ? undefined
+          : e.world && eventShown(e, { ...filters, world: true }, chron) ? "World history" : "Hidden",
       })),
       person: data.people.map((p) => ({
         ref: { kind: "person", id: p.id } as EntityRef,
@@ -121,7 +129,9 @@ export default function BrowsePanel() {
       })).sort(byName),
     };
     const q = query.trim().toLowerCase();
-    const kinds: EntityKind[] = tab === "all" ? ["era", "event", "person", "location"] : tab === "tour" ? [] : [tab];
+    // Empires sit with the eras: both are spans of time.
+    const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "location"]
+      : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : [tab];
     return kinds
       .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
       .filter((g) => g.items.length > 0);
@@ -254,7 +264,7 @@ export default function BrowsePanel() {
                       <span className={`min-w-0 truncate ${item.hidden && !selected ? "text-ink-muted/70" : ""}`}>{item.name}</span>
                       {/* A long date ("10th of 10th month, 588 BC – …") is capped so the name still shows. */}
                       <span className={`max-w-[55%] shrink-0 truncate text-xs ${selected ? "text-paper/80" : item.hidden ? "text-ink-muted/70" : "text-ink-muted"}`}>
-                        {item.hidden ? `Hidden · ${item.detail}` : item.detail}
+                        {item.hidden ? `${item.hidden} · ${item.detail}` : item.detail}
                       </span>
                     </button>
                   </li>

@@ -1,5 +1,5 @@
 import type { PointerEvent } from "react";
-import { datesFor, erasById, eventsById, peopleById, type EntityRef } from "../../data";
+import { datesFor, empiresById, erasById, eventsById, peopleById, type EntityRef } from "../../data";
 import type { EventType } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
 import { personDatesText } from "../../lib/entities";
@@ -45,6 +45,12 @@ export function HoverCard({ hover, container }: { hover: TimelineHover; containe
     title = p.name;
     kicker = p.roles.join(", ");
     dates = personDatesText(p, chron, eraStyle) ?? "";
+  } else if (ref.kind === "empire") {
+    const empire = empiresById.get(ref.id)!;
+    const spec = datesFor(empire, chron);
+    title = empire.name;
+    kicker = "Empire";
+    dates = spec ? formatDateSpec(spec, eraStyle) : "";
   } else if (ref.kind === "era") {
     const era = erasById.get(ref.id)!;
     const spec = datesFor(era, chron);
