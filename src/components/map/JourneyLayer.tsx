@@ -97,6 +97,7 @@ export default function JourneyLayer({
         type: "Feature",
         properties: {
           label: numbers.join("·"),
+          order: numbers[0],
           wide: numbers.length > 1,
           events: (eventsAt.get(place) ?? []).map((ev) => ev.title).join("\n"),
           current: along !== undefined && along.locations.includes(place),
@@ -158,22 +159,29 @@ export default function JourneyLayer({
       </Source>
       <Source id="journey-stops" type="geojson" data={stops}>
         <Layer id={JOURNEY_STOPS_LAYER} type="circle"
+          // Later stops on top, so their numbers (which win collisions, below) are the ones seen.
+          layout={{ "circle-sort-key": ["get", "order"] }}
           paint={{
             "circle-radius": ["case", ["get", "wide"], 12, 9],
             "circle-color": colors.accent, "circle-stroke-color": colors.halo,
             "circle-stroke-width": ["case", ["get", "current"], 4, 2],
           }} />
-        {/* Padded to the circle's size, so place labels keep clear of the stop. */}
-        <Layer id="journey-stop-numbers" type="symbol"
-          layout={{ "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-allow-overlap": true, "text-padding": 3 }}
-          paint={{ "text-color": colors.halo }} />
-        {/* What happened at the stop, beside it. */}
+        {/* What happened at the stop, beside it. Beneath the numbers, so they're placed first. */}
         <Layer id="journey-stop-events" type="symbol"
           layout={{
             "text-field": ["get", "events"], "text-font": ["Noto Sans Bold"], "text-size": 12,
             "text-anchor": "left", "text-offset": [1.3, 0], "text-justify": "left", "text-max-width": 10,
           }}
           paint={{ "text-color": colors.accent, "text-halo-color": colors.halo, "text-halo-width": 1.5 }} />
+        {/* Padded to the circle's size, so place labels keep clear of the stop. Where stops
+            overlap, the number of the one beneath is hidden rather than showing through the
+            one on top (MapLibre draws a layer's circles before any of its text). */}
+        <Layer id="journey-stop-numbers" type="symbol"
+          layout={{
+            "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-padding": 3,
+            "symbol-sort-key": ["-", 0, ["get", "order"]],
+          }}
+          paint={{ "text-color": colors.halo }} />
       </Source>
     </>
   );
