@@ -95,7 +95,7 @@ export default function SettingsMenu() {
             options={[{ id: "early", label: "Early, c. 1446 BC" }, { id: "late", label: "Late, c. 1260 BC" }]}
             value={chron}
             onChange={setChronology}
-            note={`${current?.summary ?? ""} Moves the slavery in Egypt, the Exodus, the wilderness, the conquest and the first judges; other dates stay the same.`}
+            note={`${current?.summary ?? ""} Moves every date from Creation to Deborah, the patriarchs included; from Gideon on, both agree.`}
           />
         </div>
       )}
