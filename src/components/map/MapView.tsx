@@ -3,11 +3,12 @@ import { setWorkerUrl, type StyleSpecification } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Map, { NavigationControl, useControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
-import { datesFor, eventsById, journeysById, locationsById, regionsById } from "../../data";
+import { datesFor, eventsById, journeysById, locationsById, regionsById, type EntityKind } from "../../data";
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
-import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
+import { borderBox, borderTarget, bordersAt, loadBorders } from "../../lib/borders";
+import { entityBounds, entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { shownBy } from "../../lib/filters";
 import { eventForJourney } from "../../lib/journeys";
 import { useIsDark, useIsPhone } from "../../lib/useMediaQuery";
@@ -15,6 +16,7 @@ import { computeHighlight, useHighlight } from "../../state/highlight";
 import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
+import BorderLayer, { BORDER_LABEL_LAYER } from "./BorderLayer";
 import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
@@ -38,15 +40,34 @@ const MIN_ZOOM = 2.5;
  */
 const CREDITS = [
   '<a href="https://www.openbible.info/geo/">Places: OpenBible.info</a> (CC BY 4.0)',
+  '<a href="https://github.com/Seshat-Global-History-Databank/cliopatria">Empires: Cliopatria</a> (CC BY 4.0)',
   '<a href="https://www.naturalearthdata.com/">Natural Earth</a>',
 ];
 const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
 /** Listed top-most first: when layers overlap, the first one under the pointer wins. */
-const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER];
+const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER];
 
-type Hover = { layer: string; id: string; x: number; y: number };
+/** A power's label carries what its hover card says and what clicking it opens. */
+type Hover = { layer: string; id: string; x: number; y: number; props?: Record<string, unknown> };
+
+const EMPIRES_KEY = "bible-timeline:empires";
+function loadShowEmpires(): boolean {
+  try {
+    return localStorage.getItem(EMPIRES_KEY) !== "off";
+  } catch {
+    return true;
+  }
+}
+function saveShowEmpires(on: boolean) {
+  try {
+    if (on) localStorage.removeItem(EMPIRES_KEY);
+    else localStorage.setItem(EMPIRES_KEY, "off");
+  } catch {
+    // Not remembered; it still applies now.
+  }
+}
 
 /**
  * MapLibre's compact credits, starting folded behind their ⓘ button. Its own control opens them
@@ -88,7 +109,13 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
   const eraStyle = useStore((s) => s.eraStyle);
   let title = "";
   let lines: string[] = [];
-  if (hover.layer === JOURNEY_HIT_LAYER) {
+  if (hover.layer === BORDER_LABEL_LAYER) {
+    const p = hover.props ?? {};
+    title = String(p.name);
+    const from = Number(p.from), to = Number(p.to);
+    const years = formatDateSpec({ start: { year: from }, end: { year: to - 1 }, confidence: "approx" }, eraStyle, { yearsOnly: true });
+    lines = [`Borders ${years}`, p.note ? String(p.note) : "Outline from Cliopatria", p.targetKind ? "Click for details" : ""].filter(Boolean);
+  } else if (hover.layer === JOURNEY_HIT_LAYER) {
     const journey = journeysById.get(hover.id);
     const ev = eventForJourney(hover.id);
     const spec = ev && datesFor(ev, chron);
@@ -113,6 +140,18 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
   );
 }
 
+function MapToggle({ on, onChange, children }: { on: boolean; onChange: (on: boolean) => void; children: string }) {
+  return (
+    <button
+      onClick={() => onChange(!on)}
+      aria-pressed={on}
+      className={`rounded-md border border-line px-2 py-1 text-xs shadow-sm ${on ? "bg-ink text-paper" : "bg-paper/90 text-ink-muted"}`}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function MapView() {
   const dark = useIsDark();
   const colors = dark ? DARK : LIGHT;
@@ -120,6 +159,7 @@ export default function MapView() {
   const [style, setStyle] = useState<StyleSpecification | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showBorders, setShowBorders] = useState(false);
+  const [showEmpires, setShowEmpires] = useState(loadShowEmpires);
   const [hover, setHover] = useState<Hover | null>(null);
   /** The map instance once loaded, for overlays positioned in screen space. */
   const [map, setMap] = useState<maplibregl.Map | null>(null);
@@ -193,7 +233,22 @@ export default function MapView() {
     const map = mapRef.current;
     if (!map || !selection) return;
     map.resize();
-    frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen);
+    const places = entityLocations(selection, chron).map((l) => l.coords as [number, number]);
+    // An empire (or a king or era with an outline) is framed by its land as well as its places,
+    // at the time selecting it moves to.
+    const b = entityBounds(selection, chron);
+    const year = b ? Math.min(Math.max(currentYear, b[0]), b[1] - 0.01) : currentYear;
+    const target = selection;
+    loadBorders()
+      .then((all) => {
+        if (useStore.getState().selection !== target) return;
+        const land = bordersAt(all, year, chron).filter((f) => {
+          const t = borderTarget(f);
+          return t?.kind === target.kind && t.id === target.id;
+        });
+        frame(map, [...places, ...land.flatMap(borderBox)], nowOpen);
+      })
+      .catch(() => frame(map, places, nowOpen));
   };
   // Fly to whatever was just selected, from either view. Wait a frame so the map has
   // its final size (opening the detail panel narrows it). A selection made before the map
@@ -219,7 +274,8 @@ export default function MapView() {
     const f = e.features?.[0];
     if (!f) return null;
     const id = f.layer.id === JOURNEY_HIT_LAYER ? f.properties?.journeyId : f.properties?.id;
-    return typeof id === "string" ? { layer: f.layer.id, id, x: e.point.x, y: e.point.y } : null;
+    if (typeof id !== "string") return null;
+    return { layer: f.layer.id, id, x: e.point.x, y: e.point.y, props: f.layer.id === BORDER_LABEL_LAYER ? f.properties : undefined };
   };
 
   const onClick = (e: MapLayerMouseEvent) => {
@@ -228,12 +284,16 @@ export default function MapView() {
     if (hit.layer === JOURNEY_HIT_LAYER) {
       const ev = eventForJourney(hit.id);
       if (ev) select({ kind: "event", id: ev.id });
+    } else if (hit.layer === BORDER_LABEL_LAYER) {
+      const { targetKind, targetId } = hit.props ?? {};
+      if (typeof targetKind === "string" && typeof targetId === "string") select({ kind: targetKind as EntityKind, id: targetId });
     } else {
       select({ kind: "location", id: hit.id });
     }
   };
 
-  const hoveredRegion = hover && regionsById.has(hover.id) && hover.layer !== JOURNEY_HIT_LAYER ? hover.id : undefined;
+  const hoveredRegion = hover && regionsById.has(hover.id) && (hover.layer === REGION_LABEL_LAYER || hover.layer === REGION_FILL_LAYER)
+    ? hover.id : undefined;
 
   return (
     <div className="flex h-full flex-col">
@@ -265,6 +325,15 @@ export default function MapView() {
             <NavigationControl position="top-right" showCompass={false} />
             <Credits />
             <RegionLayer selected={strongRegions} focus={focusRegions} hovered={hoveredRegion} colors={colors} />
+            {/* After the regions: its labels go beneath theirs. */}
+            <BorderLayer
+              year={currentYear}
+              chron={chron}
+              on={showEmpires}
+              selection={selection}
+              hovered={hover?.layer === BORDER_LABEL_LAYER ? hover.id : undefined}
+              dark={dark}
+            />
             <JourneyLayer
               journeyId={focus && journeyOf(focus)}
               along={focus?.partOf ? focus : undefined}
@@ -289,16 +358,18 @@ export default function MapView() {
           map={map}
           onShow={() => map && selection && frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen)}
         />
-        <button
-          data-map-obstacle
-          onClick={() => setShowBorders(!showBorders)}
-          aria-pressed={showBorders}
-          className={`absolute bottom-3 left-3 z-10 rounded-md border border-line px-2 py-1 text-xs shadow-sm ${
-            showBorders ? "bg-ink text-paper" : "bg-paper/90 text-ink-muted"
-          }`}
-        >
-          Modern borders
-        </button>
+        <div data-map-obstacle className="absolute bottom-3 left-3 z-10 flex gap-1.5">
+          <MapToggle
+            on={showEmpires}
+            onChange={(on) => {
+              setShowEmpires(on);
+              saveShowEmpires(on);
+            }}
+          >
+            Empires
+          </MapToggle>
+          <MapToggle on={showBorders} onChange={setShowBorders}>Modern borders</MapToggle>
+        </div>
       </div>
       <TimeStrip />
     </div>

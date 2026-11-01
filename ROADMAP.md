@@ -42,7 +42,7 @@ Steps:
    - ~~Journeys~~ (branch `feature/journeys`): Paul's three journeys and voyage to Rome, with seven events along them; the deportations to Assyria and Babylon; Zerubbabel's and Ezra's returns; Bethlehem and the flight to Egypt. Stops can now have `via` points, so sea legs go round islands. Stop numbers, hidden under place dots since the first map version, show again.
    - ~~Kings and prophets~~ (branches `feature/people`, `feature/prophets`): people lanes (Important people, Kings & rulers, Prophets, Church) chosen in a People menu; every king of the united kingdom, Israel and Judah, by sole reign, with Judah and Israel in their own tinted columns; the foreign rulers who act on Israel and the church, from Tiglath-pileser to Nero; and all twelve minor prophets, so you can see which prophets spoke under which kings. The dataset now has 148 people.
    - ~~More of the Gospels and Acts, and the letters~~ (branch `feature/nt-content`): fourteen more Gospel events, four more from Acts, and the letters and Gospels dated by their writing. Later (branch `feature/wisdom`): Jude, David's psalms, Solomon's wisdom books, and Job's story.
-   - Region outlines: tribal allotments, the two kingdoms, and the empires (key_features.md's empire layer may be the better home for these).
+   - ~~Region outlines~~: tribal allotments, the two kingdoms and the empires moved to Empires on the map.
 
 ## Shareable links (done)
 
@@ -64,15 +64,18 @@ Each Scripture reference opens its passage inline in the details panel, in the B
 
 An optional World history lane: the great powers from Ur's Third Dynasty to Rome as bars, their rulers' reigns beside them (foreign rulers moved out of the Kings lane, which is now Israel and Judah), and world events from outside Scripture (Hammurabi's laws to the Jewish revolt) as squares in the event lane. Off by default; while it's off, world history stays out of the map and of stepping and play. Empires have their own panels and links (`?empire=assyria`). The "People" menu became "Lanes".
 
+## Empires on the map (in progress, branch `feature/empire-map`)
+
+The great powers and Israel's own states drawn on the map as they stood at the cursor's time, so scrubbing through the Divided Kingdom shows Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
+
+Decided: outlines change in steps at each dated snapshot with a quick cross-fade (no morphing, which would invent borders); an Empires toggle beside Modern borders, on by default; the great powers from [Cliopatria](https://github.com/Seshat-Global-History-Databank/cliopatria) (CC BY 4.0), cut to the dates in `empires.json`; Israel drawn by hand (Cliopatria's Israel and Judah end in 701 BC): the tribal allotments, Saul's kingdom, David and Solomon's with the lands subject to them, Israel and Judah, Yehud, Herod's kingdom and his sons' tetrarchies, and Roman Judea. Selecting an empire shows its extent strongly and frames it. Takes over Milestone 2's "Region outlines" step.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
 - **Theme filter:** covenants, prophecy fulfilled, women of the Bible and the like; needs tags on every event first.
-- **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
-  - **Data:** each power is a series of dated outlines (Assyria c. 850 BC, c. 700 BC, c. 640 BC…) with a rise and fall date, kept apart from the place-shaped outlines in `regions.json`. Each outline gets a note on its source and how sure it is; borders before about 1000 BC are especially rough.
-  - **Sources:** check open historical-boundary datasets and their licences before drawing by hand (for example Cliopatria from the Seshat project, or historical-basemaps), and credit them like OpenBible.info.
-  - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World history lane (built, with `empires.json`), so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
+- **Israel's neighbours on the map:** Philistia, Phoenicia, Aram, Ammon, Moab and Edom as outlines over time, mostly hand-drawn, beside the empires and Israel's states.
 
 ## Last: a full content audit
 
