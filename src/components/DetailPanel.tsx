@@ -98,8 +98,11 @@ function ShareButton({ title }: { title: string }) {
         <span role="status">Link copied</span>
       ) : (
         <svg aria-hidden viewBox="0 0 20 20" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M10 2.5v10M6.5 6 10 2.5 13.5 6" />
-          <path d="M6 9H5a1.5 1.5 0 0 0-1.5 1.5v5A1.5 1.5 0 0 0 5 17h10a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 15 9h-1" />
+          {/* Android's share mark: three dots joined by two lines. */}
+          <circle cx="14.5" cy="4.5" r="2.25" />
+          <circle cx="5.5" cy="10" r="2.25" />
+          <circle cx="14.5" cy="15.5" r="2.25" />
+          <path d="m7.5 8.8 5-3.1M7.5 11.2l5 3.1" />
         </svg>
       )}
     </button>

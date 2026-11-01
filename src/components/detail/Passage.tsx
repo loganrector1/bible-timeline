@@ -45,8 +45,12 @@ function PassageText({ scripture }: { scripture: ScriptureRef }) {
   }, [scripture]);
 
   const gateway = (
-    <a href={refUrl(scripture)} target="_blank" rel="noreferrer" className="text-xs text-ink-muted hover:text-accent">
-      ESV on Bible Gateway ↗<span className="sr-only"> (opens in a new tab)</span>
+    <a href={refUrl(scripture)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-accent">
+      View on Bible Gateway
+      <svg aria-hidden viewBox="0 0 16 16" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M11.5 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3" />
+      </svg>
+      <span className="sr-only"> (opens in a new tab)</span>
     </a>
   );
 
