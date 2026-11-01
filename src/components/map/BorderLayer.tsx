@@ -100,23 +100,25 @@ export default function BorderLayer({
     setSlots(nextSlots(prevKey, shownKey));
   }
 
-  // Start each fade from its far end with no transition, then let MapLibre animate it.
+  // Fade by setting the opacity each frame. MapLibre's own paint transitions start from
+  // whatever it last drew, which depends on frame timing, so toggling flickered.
   useLayoutEffect(() => {
     const map = mapRef?.getMap();
     if (!map) return;
-    const set = (slot: "in" | "out", opacity: number, ms: number) => {
+    const set = (slot: "in" | "out", opacity: number) => {
       for (const [layer, prop] of [[`borders-fill-${slot}`, "fill-opacity"], [`borders-line-${slot}`, "line-opacity"]] as const) {
-        if (!map.getLayer(layer)) continue;
-        map.setPaintProperty(layer, `${prop}-transition`, { duration: ms, delay: 0 });
-        map.setPaintProperty(layer, prop, opacity);
+        if (map.getLayer(layer)) map.setPaintProperty(layer, prop, opacity);
       }
     };
-    set("in", 0, 0);
-    set("out", 1, 0);
-    const id = requestAnimationFrame(() => {
-      set("in", 1, FADE_MS);
-      set("out", 0, FADE_MS);
-    });
+    const start = performance.now();
+    let id = 0;
+    const step = () => {
+      const t = Math.min(1, (performance.now() - start) / FADE_MS);
+      set("in", t);
+      set("out", 1 - t);
+      if (t < 1) id = requestAnimationFrame(step);
+    };
+    step();
     return () => cancelAnimationFrame(id);
   }, [slots, mapRef, all]);
 
@@ -197,7 +199,10 @@ export default function BorderLayer({
               type="fill"
               beforeId={BENEATH}
               filter={filter}
-              paint={{ "fill-color": ["case", isStrong, ["get", "fillStrong"], ["get", "fill"]] as never }}
+              paint={{
+                "fill-color": ["case", isStrong, ["get", "fillStrong"], ["get", "fill"]] as never,
+                "fill-opacity-transition": { duration: 0 },
+              }}
             />,
             <Layer
               key={`line-${slot}`}
@@ -209,6 +214,7 @@ export default function BorderLayer({
               paint={{
                 "line-color": ["case", isStrong, ["get", "lineStrong"], ["get", "line"]] as never,
                 "line-width": ["case", isStrong, 2.25, ["get", "width"]] as never,
+                "line-opacity-transition": { duration: 0 },
               }}
             />,
           ];
