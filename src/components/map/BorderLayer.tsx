@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import type { Map as MapLibreMap } from "maplibre-gl";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { data, regionsById, type EntityRef } from "../../data";
 import type { BorderFeature } from "../../data/schema";
@@ -6,8 +7,8 @@ import { borderOf, borderTarget, borderYears, bordersAt, loadBorders } from "../
 import { REGION_FILL_LAYER } from "./RegionLayer";
 
 export const BORDER_LABEL_LAYER = "borders-label";
-/** The fills a resting pointer can ask about (not those fading out). */
-export const BORDER_FILL_LAYERS = ["borders-fill-steady", "borders-fill-in"];
+/** The fills a resting pointer can ask about: those shown, not those fading out. Invisible. */
+export const BORDER_FILL_LAYERS = ["borders-hit"];
 /** The base map's sea: outlines go beneath it, so Cliopatria's rough coasts are trimmed by the real one. */
 const BENEATH = "water";
 /** How long outlines take to fade in or out when the cursor crosses into another snapshot. */
@@ -45,21 +46,17 @@ function lighten(hex: string, t: number) {
   return `rgb(${mix(n >> 16)},${mix((n >> 8) & 255)},${mix(n & 255)})`;
 }
 
-/** A power named like a place drawn as a region (Egypt) leaves the naming to the place's label. */
-const regionNames = new Set(data.locations.filter((l) => regionsById.has(l.id)).map((l) => l.name.toLowerCase()));
+/**
+ * A power named like a place drawn as a region (Egypt) leaves the naming to the place's label
+ * while that label shows; region labels show only while something uses them.
+ */
+const regionByName = new Map(data.locations.filter((l) => regionsById.has(l.id)).map((l) => [l.name.toLowerCase(), l.id]));
 
-/** Outlines unchanged since the last snapshot, fading out, and fading in. */
-type Slots = { steady: string[]; out: string[]; in: string[] };
-const SLOTS = ["out", "steady", "in"] as const;
-
-function nextSlots(beforeKey: string, afterKey: string): Slots {
-  const before = new Set(beforeKey ? beforeKey.split(",") : []);
+/** The outlines whose labels are drawn: those shown now and those shown just before, fading out. */
+function labelled(beforeKey: string, afterKey: string): string[] {
   const after = afterKey ? afterKey.split(",") : [];
-  return {
-    steady: after.filter((id) => before.has(id)),
-    out: [...before].filter((id) => !after.includes(id)),
-    in: after.filter((id) => !before.has(id)),
-  };
+  const before = beforeKey ? beforeKey.split(",") : [];
+  return [...before.filter((id) => !after.includes(id)), ...after];
 }
 
 /**
@@ -70,9 +67,11 @@ function nextSlots(beforeKey: string, afterKey: string): Slots {
  * belongs to) show strongly either way.
  */
 export default function BorderLayer({
-  year, chron, on, selection, hovered, dark,
+  year, chron, on, selection, hovered, dark, regionLabels,
 }: {
   year: number; chron: string; on: boolean; selection: EntityRef | null; hovered?: string; dark: boolean;
+  /** The regions whose labels show on the map now, as a comma-separated key of their ids. */
+  regionLabels: string;
 }) {
   const { current: mapRef } = useMap();
   const [all, setAll] = useState<BorderFeature[] | null>(null);
@@ -95,42 +94,56 @@ export default function BorderLayer({
   const strongKey = strong.join(",");
   const selectedKey = selected.join(",");
 
-  // What was shown before and still is stays put; the rest cross-fades.
   const [prevKey, setPrevKey] = useState("");
-  const [slots, setSlots] = useState<Slots>({ steady: [], out: [], in: [] });
+  const [labelIds, setLabelIds] = useState<string[]>([]);
   if (prevKey !== shownKey) {
     setPrevKey(shownKey);
-    setSlots(nextSlots(prevKey, shownKey));
+    setLabelIds(labelled(prevKey, shownKey));
   }
 
-  // Fade by setting the opacity each frame. MapLibre's own paint transitions start from
-  // whatever it last drew, which depends on frame timing, so toggling flickered.
+  // Each outline's opacity is feature state ("o"), stepped every frame toward 1 if shown, else 0,
+  // so what changed cross-fades and the rest stays put. Feature state shows on the next frame.
+  // A layer's filter or paint wouldn't: a new filter waits for the tiles to rebuild while the old
+  // ones draw with the new opacity (outlines flashed), and paint transitions start from whatever
+  // was last drawn.
+  const opacity = useRef(new Map<string, number>());
   useLayoutEffect(() => {
     const map = mapRef?.getMap();
-    if (!map) return;
-    const set = (slot: "in" | "out", opacity: number) => {
-      for (const [layer, prop] of [[`borders-fill-${slot}`, "fill-opacity"], [`borders-line-${slot}`, "line-opacity"]] as const) {
-        if (map.getLayer(layer)) map.setPaintProperty(layer, prop, opacity);
-      }
-    };
-    // Labels share one layer, so theirs is by each label's slot.
-    const setLabels = (t: number) => {
-      if (map.getLayer(BORDER_LABEL_LAYER)) {
-        map.setPaintProperty(BORDER_LABEL_LAYER, "text-opacity", ["match", ["get", "slot"], "in", t, "out", 1 - t, 1]);
-      }
-    };
+    if (!map || !all) return;
+    const target = new Set(shownKey ? shownKey.split(",") : []);
+    const from = new Map(opacity.current);
+    for (const id of target) if (!from.has(id)) from.set(id, 0);
+    for (const [id, a] of from) if (a === (target.has(id) ? 1 : 0)) from.delete(id);
     const start = performance.now();
-    let id = 0;
+    let frame = 0;
     const step = () => {
       const t = Math.min(1, (performance.now() - start) / FADE_MS);
-      set("in", t);
-      set("out", 1 - t);
-      setLabels(t);
-      if (t < 1) id = requestAnimationFrame(step);
+      for (const [id, a] of from) {
+        const o = a + ((target.has(id) ? 1 : 0) - a) * t;
+        if (o === 0) opacity.current.delete(id);
+        else opacity.current.set(id, o);
+        setOpacity(map, id, o);
+      }
+      if (t < 1) frame = requestAnimationFrame(step);
     };
     step();
-    return () => cancelAnimationFrame(id);
-  }, [slots, mapRef, all]);
+    return () => cancelAnimationFrame(frame);
+  }, [shownKey, mapRef, all]);
+  // Feature state is lost when a source is made afresh (a theme change), and a label's source
+  // may not exist yet when its fade starts.
+  useEffect(() => {
+    const map = mapRef?.getMap();
+    if (!map) return;
+    const onData = (e: { sourceId?: string }) => {
+      if (e.sourceId === "borders" || e.sourceId === "border-labels") {
+        for (const [id, o] of opacity.current) setOpacity(map, id, o);
+      }
+    };
+    map.on("sourcedata", onData);
+    return () => {
+      map.off("sourcedata", onData);
+    };
+  }, [mapRef]);
 
   // Strength (the selection's or the hovered outline) is feature state, so it needs no new data.
   // It's set again whenever the source (re)loads: on first load and after a theme change.
@@ -183,9 +196,11 @@ export default function BorderLayer({
   const byId = useMemo(() => new Map((all ?? []).map((f) => [f.properties.id, f])), [all]);
   const labels = useMemo<GeoJSON.FeatureCollection>(() => ({
     type: "FeatureCollection",
-    features: SLOTS.flatMap((slot) => slots[slot].map((id) => ({ slot, f: byId.get(id)! }))).filter(
-      ({ f }) => f && (!regionNames.has(f.properties.name.toLowerCase()) || selected.includes(f.properties.id)),
-    ).map(({ slot, f }) => ({
+    features: labelIds.map((id) => byId.get(id)!).filter((f) => {
+      if (!f || selected.includes(f.properties.id)) return !!f;
+      const region = regionByName.get(f.properties.name.toLowerCase());
+      return !region || !regionLabels.split(",").includes(region);
+    }).map((f) => ({
       type: "Feature",
       geometry: { type: "Point", coordinates: f.properties.label },
       properties: {
@@ -198,49 +213,48 @@ export default function BorderLayer({
         color: dark ? lighten(hueOf(f), 0.45) : hueOf(f),
         small: !!f.properties.small,
         strong: selected.includes(f.properties.id),
-        slot,
       },
     })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [slots, byId, selectedKey, chron, dark]);
+  }), [labelIds, byId, selectedKey, chron, dark, regionLabels]);
 
   if (!all) return null;
   const isStrong = ["boolean", ["feature-state", "strong"], false];
+  const faded = ["number", ["feature-state", "o"], 0] as never;
 
   return (
     <>
+      {/* Every outline is always in the source; those not shown have opacity 0. */}
       <Source id="borders" type="geojson" data={outlines} promoteId="id">
-        {SLOTS.flatMap((slot) => {
-          const filter = ["in", ["get", "id"], ["literal", slots[slot]]] as never;
-          return [
-            <Layer
-              key={`fill-${slot}`}
-              id={`borders-fill-${slot}`}
-              type="fill"
-              beforeId={BENEATH}
-              filter={filter}
-              paint={{
-                "fill-color": ["case", isStrong, ["get", "fillStrong"], ["get", "fill"]] as never,
-                "fill-opacity-transition": { duration: 0 },
-              }}
-            />,
-            <Layer
-              key={`line-${slot}`}
-              id={`borders-line-${slot}`}
-              type="line"
-              beforeId={BENEATH}
-              filter={filter}
-              layout={{ "line-join": "round" }}
-              paint={{
-                "line-color": ["case", isStrong, ["get", "lineStrong"], ["get", "line"]] as never,
-                "line-width": ["case", isStrong, 2.25, ["get", "width"]] as never,
-                "line-opacity-transition": { duration: 0 },
-              }}
-            />,
-          ];
-        })}
+        <Layer
+          id="borders-fill"
+          type="fill"
+          beforeId={BENEATH}
+          paint={{
+            "fill-color": ["case", isStrong, ["get", "fillStrong"], ["get", "fill"]] as never,
+            "fill-opacity": faded,
+          }}
+        />
+        <Layer
+          id="borders-line"
+          type="line"
+          beforeId={BENEATH}
+          layout={{ "line-join": "round" }}
+          paint={{
+            "line-color": ["case", isStrong, ["get", "lineStrong"], ["get", "line"]] as never,
+            "line-width": ["case", isStrong, 2.25, ["get", "width"]] as never,
+            "line-opacity": faded,
+          }}
+        />
+        <Layer
+          id={BORDER_FILL_LAYERS[0]}
+          type="fill"
+          beforeId={BENEATH}
+          filter={["in", ["get", "id"], ["literal", shown.map((f) => f.properties.id)]] as never}
+          paint={{ "fill-opacity": 0 }}
+        />
       </Source>
-      <Source id="border-labels" type="geojson" data={labels}>
+      <Source id="border-labels" type="geojson" data={labels} promoteId="id">
         {/* Beneath every other label the app draws, so places, regions and journeys win. */}
         <Layer
           id={BORDER_LABEL_LAYER}
@@ -265,10 +279,16 @@ export default function BorderLayer({
             "text-color": ["get", "color"],
             "text-halo-color": dark ? "#1c1915" : "#faf6ee",
             "text-halo-width": 1.5,
-            "text-opacity-transition": { duration: 0 },
+            "text-opacity": faded,
           }}
         />
       </Source>
     </>
   );
+}
+
+function setOpacity(map: MapLibreMap, id: string, o: number) {
+  for (const source of ["borders", "border-labels"]) {
+    if (map.getSource(source)) map.setFeatureState({ source, id }, { o });
+  }
 }

@@ -248,6 +248,8 @@ export default function MapView() {
   const strongPlaces = highlight?.locations ?? focusHighlight?.locations ?? new Set<string>();
   const strongRegions = highlight?.regions ?? new Set<string>();
   const focusRegions = focusHighlight?.regions ?? new Set<string>();
+  // The regions labelled on the map (EventLayer labels a region only while something uses it).
+  const regionLabels = [...new Set([...strongPlaces, ...activeLocations])].filter((id) => regionsById.has(id)).sort().join(",");
 
   const frameSelection = () => {
     const map = mapRef.current;
@@ -374,6 +376,7 @@ export default function MapView() {
               selection={selection}
               hovered={hover && isBorder(hover.layer) ? hover.id : undefined}
               dark={dark}
+              regionLabels={regionLabels}
             />
             <JourneyLayer
               journeyId={focus && journeyOf(focus)}
