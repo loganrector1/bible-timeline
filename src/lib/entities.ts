@@ -2,7 +2,7 @@ import {
   data, datesFor, empiresById, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
-import type { Era, Event, Lane, Location, Person } from "../data/schema";
+import type { Era, Event, EventType, Lane, Location, Person } from "../data/schema";
 import { formatDateSpec, specBounds, specExtent, specMidpoint, type DateSpec, type EraStyle } from "./dates";
 
 export type Bounds = [number, number];
@@ -285,4 +285,16 @@ export function datasetRange(chron: string): Bounds {
   const range: Bounds = [lo - pad, hi + pad];
   rangeCache.set(chron, range);
   return range;
+}
+
+const EVENT_TYPE_LABEL: Record<EventType, string> = {
+  birth: "Birth", death: "Death", battle: "Battle", covenant: "Covenant", miracle: "Miracle",
+  journey: "Journey", reign: "Reign", prophecy: "Prophecy", judgment: "Judgment",
+  worship: "Worship", family: "Family", ministry: "Ministry", writing: "Writing", other: "Event",
+};
+
+/** What kind of event it is, as its kicker says: "Battle", "World history · Battle". */
+export function eventKind(ev: Event) {
+  if (!ev.world) return EVENT_TYPE_LABEL[ev.type];
+  return ev.type === "other" ? "World history" : `World history · ${EVENT_TYPE_LABEL[ev.type]}`;
 }

@@ -7,7 +7,7 @@
 //   {"select": "The Exodus"}            pick an entity via Browse (moves time like a click)
 //   {"zoomIn": 4}                       press the timeline's + button n times
 //   {"click": css} {"dispatch": css} {"hover": css} {"key": "Escape"} {"type": text}
-//   {"wheel": [x, y, dy, ctrl?]} {"drag": [x1, y1, x2, y2]} {"move": [x, y]}
+//   {"wheel": [x, y, dy, ctrl?]} {"drag": [x1, y1, x2, y2]} {"move": [x, y]} {"tap": [x, y]} (phone widths)
 //   {"eval": js}                        logs the JSON result
 // Env: CLIP="x,y,w,h" crops; ONBOARD=1 keeps the first-run hint; QUERY="?event=exodus" opens a link.
 // Don't import app modules from "eval": that loads a second copy of the store.
@@ -45,6 +45,7 @@ for (const a of JSON.parse(actionsJson)) {
   if (a.key) await page.keyboard.press(a.key);
   if (a.type) await page.keyboard.type(a.type);
   if (a.move) await page.mouse.move(a.move[0], a.move[1]);
+  if (a.tap) await page.touchscreen.tap(a.tap[0], a.tap[1]);
   if (a.wheel) {
     const [x, y, dy, ctrl] = a.wheel;
     await page.mouse.move(x, y);

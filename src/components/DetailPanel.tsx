@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent, type RefObject } from "react";
 import { empiresById, erasById, eventsById, locationsById, peopleById } from "../data";
-import { entityTitle } from "../lib/entities";
+import { entityTitle, eventKind } from "../lib/entities";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
 import { currentLink } from "../state/urlSync";
@@ -221,7 +221,10 @@ export default function DetailPanel() {
         <TourBox clamp={peek} />
         <div className="flex items-start justify-between gap-2 px-5 pt-2 pb-2 md:pt-4">
           <div>
-            <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{KIND_LABEL[selection.kind]}</p>
+            <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{selection.kind === "event" && eventsById.has(selection.id)
+                ? eventKind(eventsById.get(selection.id)!)
+                : KIND_LABEL[selection.kind]}
+            </p>
             <h2 ref={headingRef} tabIndex={-1} className="font-serif text-2xl leading-tight font-semibold outline-none">
               {entityTitle(selection)}
             </h2>

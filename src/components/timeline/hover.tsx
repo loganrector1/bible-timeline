@@ -1,8 +1,7 @@
 import type { PointerEvent } from "react";
 import { datesFor, empiresById, erasById, eventsById, peopleById, type EntityRef } from "../../data";
-import type { EventType } from "../../data/schema";
 import { formatDateSpec } from "../../lib/dates";
-import { personDatesText } from "../../lib/entities";
+import { eventKind, personDatesText } from "../../lib/entities";
 import { useStore } from "../../state/store";
 
 export type TimelineHover = { ref: EntityRef; clientX: number; clientY: number };
@@ -19,12 +18,6 @@ export function hoverProps(ref: EntityRef, onHover: OnHover) {
   };
 }
 
-const TYPE_LABEL: Record<EventType, string> = {
-  birth: "Birth", death: "Death", battle: "Battle", covenant: "Covenant", miracle: "Miracle",
-  journey: "Journey", reign: "Reign", prophecy: "Prophecy", judgment: "Judgment",
-  worship: "Worship", family: "Family", ministry: "Ministry", writing: "Writing", other: "Event",
-};
-
 /** A small card next to the pointer naming the hovered item and its dates. */
 export function HoverCard({ hover, container }: { hover: TimelineHover; container: HTMLElement }) {
   const chron = useStore((s) => s.chronologyId);
@@ -38,7 +31,7 @@ export function HoverCard({ hover, container }: { hover: TimelineHover; containe
     const ev = eventsById.get(ref.id)!;
     const spec = datesFor(ev, chron);
     title = ev.title;
-    kicker = TYPE_LABEL[ev.type];
+    kicker = eventKind(ev);
     dates = spec ? formatDateSpec(spec, eraStyle) : "";
   } else if (ref.kind === "person") {
     const p = peopleById.get(ref.id)!;

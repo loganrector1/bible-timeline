@@ -298,7 +298,14 @@ export default function MapView() {
     return { layer: f.layer.id, id, x: e.point.x, y: e.point.y, props: isBorder(f.layer.id) ? f.properties : undefined };
   };
 
+  // Inside a power's borders the card waits for the pointer to rest, so it doesn't follow every
+  // pass across the map; a drag never shows it.
+  const restTimer = useRef<number>(undefined);
   const onClick = (e: MapLayerMouseEvent) => {
+    // The panel names what was clicked, so its card goes. A tap leaves no pointer behind to
+    // move off it, so on phones it would stay up over the map.
+    window.clearTimeout(restTimer.current);
+    setHover(null);
     const hit = featureAt(e);
     if (!hit) return;
     if (hit.layer === JOURNEY_HIT_LAYER) {
@@ -312,11 +319,11 @@ export default function MapView() {
     }
   };
 
-  // Inside a power's borders the card waits for the pointer to rest, so it doesn't follow every
-  // pass across the map; a drag never shows it.
-  const restTimer = useRef<number>(undefined);
+  // Browsers follow a tap with a made-up mousemove; touches get no hover cards.
+  const lastTouch = useRef(0);
   const onMouseMove = (e: MapLayerMouseEvent) => {
     window.clearTimeout(restTimer.current);
+    if (performance.now() - lastTouch.current < 1000) return setHover(null);
     const hit = featureAt(e);
     if (!hit || !BORDER_FILL_LAYERS.includes(hit.layer)) return setHover(hit);
     setHover(null);
@@ -340,6 +347,7 @@ export default function MapView() {
             interactiveLayerIds={INTERACTIVE}
             onClick={onClick}
             onMouseMove={onMouseMove}
+            onTouchStart={() => (lastTouch.current = performance.now())}
             onMouseLeave={() => {
               window.clearTimeout(restTimer.current);
               setHover(null);
