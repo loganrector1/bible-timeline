@@ -75,6 +75,13 @@ Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
   - **Sources:** check open historical-boundary datasets and their licences before drawing by hand (for example Cliopatria from the Seshat project, or historical-basemaps), and credit them like OpenBible.info.
   - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World history lane (built, with `empires.json`), so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
 
+## Last: a full content audit
+
+When the app is close to finished, review all of its data in one pass rather than era by era:
+
+- **Events:** do we have the right ones? Are any missing that shouldn't be? Are any unnecessary and cluttering the app? Are they in the right order with the right dates, and are their types right?
+- **People, places, eras, empires, journeys and tours:** check each for accuracy, order and whether it earns its place.
+
 ## Later: reading plans (separate app)
 
 Customized daily Bible reading plans with accounts, saved progress and statistics (current streak, percent of days read, and more), for me and a few others. It will be its own repo, not part of this public app.
