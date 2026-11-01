@@ -1,5 +1,5 @@
 import { BorderCollection, type BorderFeature } from "../data/schema";
-import type { EntityRef } from "../data";
+import { empiresById, type EntityRef } from "../data";
 
 let loading: Promise<BorderFeature[]> | undefined;
 
@@ -72,31 +72,41 @@ export function borderContains(f: BorderFeature, pt: readonly number[]): boolean
   return polys.some((rings) => inRing(pt, rings[0]) && !rings.slice(1).some((hole) => inRing(pt, hole)));
 }
 
+/** One stretch of a place's "Ruled by": who held it, from when until (not including) when. */
+export type Ruler = { name: string; target?: EntityRef; from: number; to: number; open: boolean };
+
 /**
- * The empires whose borders took in a point, each with the years it held it, earliest first.
- * An empire that lost the place and took it back is listed once per stretch. `open` marks a
- * stretch still running where the outlines stop (Rome's are drawn only to AD 200). `overlord`
- * marks one where it was only overlord, over vassal kings (Egypt in Canaan).
+ * Who held a point, from the outlines that took it in, earliest first: the empires, and Israel's
+ * own states (the tribes' allotments, Saul, the united kingdom, Judah, Yehud, Herod's kingdom…),
+ * named as on the map. Adjacent outlines with one name are one stretch (Saul's Israel and
+ * David's), opening what they share (the united kingdom); a power that lost the place and took
+ * it back is listed once per stretch. `open` marks a stretch still running where the outlines
+ * stop (Rome's are drawn only to AD 200).
  */
-export function empiresOver(
-  all: BorderFeature[], pt: readonly number[], chron: string,
-): { empire: string; from: number; to: number; open: boolean; overlord: boolean }[] {
-  // Where the outlines stop altogether. An empire's own last outline isn't enough: many end
+export function rulersOver(all: BorderFeature[], pt: readonly number[], chron: string): Ruler[] {
+  // Where the outlines stop altogether. A power's own last outline isn't enough: many end
   // early on purpose, at a conquest (Egypt's to Assyria), and those stretches are closed.
   const end = Math.max(...all.map((f) => borderYears(f, chron)[1]));
   const spans = all
-    .filter((f) => f.properties.empire && borderContains(f, pt))
+    .filter((f) => borderContains(f, pt))
     .map((f) => {
+      const p = f.properties;
       const [from, to] = borderYears(f, chron);
-      return { empire: f.properties.empire!, from, to, open: false, overlord: !!f.properties.subject };
+      // The tribes' outlines are what Joshua allotted them, not what they held (Jebus, in
+      // Benjamin's, stood until David), so they're named as allotments.
+      const allotment = p.links?.[0]?.kind === "event";
+      const name = p.empire ? empiresById.get(p.empire)?.name ?? p.empire : allotment ? `${p.name}'s allotment` : p.name;
+      return { name, targets: borderTargets(f), from, to };
     })
     .sort((a, b) => a.from - b.from);
-  const out: typeof spans = [];
+  const out: (typeof spans)[number][] = [];
   for (const s of spans) {
-    const prev = out.findLast((o) => o.empire === s.empire && o.overlord === s.overlord);
-    if (prev && s.from <= prev.to) prev.to = Math.max(prev.to, s.to);
-    else out.push({ ...s });
+    const prev = out.findLast((o) => o.name === s.name);
+    if (prev && s.from <= prev.to) {
+      prev.to = Math.max(prev.to, s.to);
+      const shared = prev.targets.filter((t) => s.targets.some((u) => u.kind === t.kind && u.id === t.id));
+      if (shared.length) prev.targets = shared;
+    } else out.push({ ...s });
   }
-  for (const o of out) o.open = o.to === end;
-  return out;
+  return out.map(({ name, targets, from, to }) => ({ name, target: targets[0], from, to, open: to === end }));
 }

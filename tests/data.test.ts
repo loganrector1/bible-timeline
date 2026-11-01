@@ -3,7 +3,7 @@ import { data, datesFor, empiresById, erasById, eventsById, peopleById } from ".
 import cliopatria from "../src/data/borders/cliopatria.json";
 import drawn from "../src/data/borders/drawn.json";
 import { BorderCollection } from "../src/data/schema";
-import { borderContains, borderPower, bordersAt, borderYears, empiresOver } from "../src/lib/borders";
+import { borderContains, borderPower, bordersAt, borderYears, rulersOver } from "../src/lib/borders";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
@@ -184,12 +184,17 @@ describe("borders on the map", () => {
     for (const f of borders) expect(borderContains(f, f.properties.label), f.properties.id).toBe(true);
   });
 
-  test("a place lists the empires that held it, in order", () => {
+  test("a place lists the powers that held it, in order", () => {
     const jerusalem = data.locations.find((l) => l.id === "jerusalem")!;
-    const rulers = empiresOver(borders, jerusalem.coords, "early").map((r) => r.empire);
-    expect(rulers.indexOf("babylon")).toBeGreaterThanOrEqual(0);
-    expect(rulers.indexOf("babylon")).toBeLessThan(rulers.indexOf("persia"));
-    expect(rulers.at(-1)).toBe("rome");
+    const rulers = rulersOver(borders, jerusalem.coords, "early");
+    const names = rulers.map((r) => r.name);
+    expect(names.filter((n) => n.startsWith("Egypt"))).toEqual([]); // overlord, not ruler
+    expect(names).toContain("Benjamin's allotment");
+    expect(names.filter((n) => n === "Israel")).toHaveLength(1); // Saul's and David's, one stretch
+    expect(rulers.find((r) => r.name === "Israel")?.target).toEqual({ kind: "era", id: "united-kingdom" });
+    expect(names.indexOf("Judah")).toBeLessThan(names.indexOf("The Babylonian Empire"));
+    expect(names.indexOf("The Babylonian Empire")).toBeLessThan(names.indexOf("The Persian Empire"));
+    expect(rulers.find((r) => r.name === "The Roman Empire")?.open).toBe(true);
   });
 
   test("the map's story beats are there", () => {
