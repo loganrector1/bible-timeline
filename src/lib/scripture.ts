@@ -14,8 +14,9 @@ export function formatRef(ref: ScriptureRef): string {
   return out;
 }
 
-// World English Bible: public domain, available on Bible Gateway.
-const VERSION = "WEB";
+// The app shows the Berean Standard Bible; the link out offers the ESV, which many readers'
+// churches use (its licence doesn't allow bundling it).
+const VERSION = "ESV";
 
 export function refUrl(ref: ScriptureRef): string {
   const search = formatRef(ref).replace(/–/g, "-");

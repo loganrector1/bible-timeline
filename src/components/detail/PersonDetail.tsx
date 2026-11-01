@@ -4,6 +4,7 @@ import { eventsForPerson, personDatesText } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, ScriptureList, Section } from "./parts";
+import { Prose } from "../ScriptureText";
 
 export default function PersonDetail({ person }: { person: Person }) {
   const chron = useStore((s) => s.chronologyId);
@@ -29,7 +30,7 @@ export default function PersonDetail({ person }: { person: Person }) {
       )}
       {person.dateNote && <Note>{person.dateNote}</Note>}
 
-      <p className="mt-4 leading-relaxed">{person.summary}</p>
+      <p className="mt-4 leading-relaxed"><Prose text={person.summary} /></p>
 
       {family.length > 0 && (
         <Section title="Family">

@@ -5,6 +5,7 @@ import { entityBounds, eventsInEra } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, Section } from "./parts";
+import { Prose } from "../ScriptureText";
 
 export default function EraDetail({ era }: { era: Era }) {
   const chron = useStore((s) => s.chronologyId);
@@ -29,7 +30,7 @@ export default function EraDetail({ era }: { era: Era }) {
       </p>
       {era.dateNote && <Note>{era.dateNote}</Note>}
 
-      <p className="mt-4 leading-relaxed">{era.summary}</p>
+      <p className="mt-4 leading-relaxed"><Prose text={era.summary} /></p>
 
       {people.length > 0 && (
         <Section title="People">

@@ -3,6 +3,7 @@ import { eventsAtLocation } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { EventList, Note, Section } from "./parts";
+import { Prose } from "../ScriptureText";
 
 const TYPE_LABEL: Record<Location["type"], string> = {
   city: "City", region: "Region", mountain: "Mountain", river: "River",
@@ -24,7 +25,7 @@ export default function LocationDetail({ loc }: { loc: Location }) {
       )}
       {loc.note && <Note>{loc.note}</Note>}
 
-      <p className="mt-4 leading-relaxed">{loc.summary}</p>
+      <p className="mt-4 leading-relaxed"><Prose text={loc.summary} /></p>
 
       {loc.alternateSites.length > 0 && (
         <Section title="Other proposed sites">

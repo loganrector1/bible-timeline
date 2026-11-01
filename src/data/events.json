@@ -19,7 +19,7 @@
     "id": "babel", "title": "The Tower of Babel", "type": "judgment", "major": true,
     "summary": "People unite to build a tower to the heavens; God confuses their language and scatters them.",
     "dates": { "early": { "start": { "year": -2356 }, "confidence": "unknown" }, "late": { "start": { "year": -2170 }, "confidence": "unknown" } },
-    "dateNote": "Sometimes linked to the days of Peleg, \"in whose days the earth was divided\" (Genesis 10:25).",
+    "dateNote": "Sometimes linked to the days of Peleg, because \"in his days the earth was divided\" (Genesis 10:25).",
     "locations": ["babel"],
     "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 1, "endVerse": 9 }]
   },
@@ -322,7 +322,7 @@
       "early": { "start": { "year": -1445, "month": 6, "label": "3rd month" }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 6, "label": "3rd month" }, "confidence": "approx" }
     },
-    "dateNote": "Israel arrived \"on the third new moon\" after leaving Egypt (Exodus 19:1).",
+    "dateNote": "Israel arrived \"in the third month\" after leaving Egypt (Exodus 19:1).",
     "people": ["moses", "aaron", "joshua"], "locations": ["sinai"], "regions": ["sinai-wilderness"],
     "scripture": [{ "book": "Exodus", "chapter": 19, "endChapter": 24 }]
   },
@@ -367,7 +367,7 @@
       "early": { "start": { "year": -1444, "month": 7, "label": "Season of first grapes" }, "confidence": "approx" },
       "late": { "start": { "year": -1258, "month": 7, "label": "Season of first grapes" }, "confidence": "approx" }
     },
-    "dateNote": "\"The time of the first ripe grapes\" (Numbers 13:20), in summer.",
+    "dateNote": "\"It was the season for the first ripe grapes\" (Numbers 13:20), in summer.",
     "people": ["moses", "joshua", "caleb", "aaron"], "locations": ["kadesh-barnea"], "regions": ["canaan"],
     "scripture": [{ "book": "Numbers", "chapter": 13, "endChapter": 14 }]
   },
@@ -480,7 +480,7 @@
   },
   {
     "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant",
-    "summary": "Near the end of his life Joshua gathers Israel at Shechem: \"As for me and my house, we will serve the Lord.\" He dies at 110.",
+    "summary": "Near the end of his life Joshua gathers Israel at Shechem: \"As for me and my house, we will serve the LORD!\" He dies at 110.",
     "dates": {
       "early": { "start": { "year": -1390 }, "confidence": "approx" },
       "late": { "start": { "year": -1204 }, "confidence": "approx" }
@@ -926,7 +926,7 @@
   },
   {
     "id": "boy-jesus-temple", "title": "The boy Jesus in the temple", "type": "worship",
-    "summary": "At twelve, Jesus stays behind in Jerusalem after Passover, listening to the teachers and asking them questions: \"I must be in my Father's house.\"",
+    "summary": "At twelve, Jesus stays behind in Jerusalem after Passover, listening to the teachers and asking them questions: \"Did you not know that I had to be in My Father's house?\"",
     "dates": { "early": { "start": { "year": 8 }, "confidence": "approx" } },
     "people": ["jesus", "mary", "joseph-of-nazareth"], "locations": ["jerusalem", "nazareth"],
     "scripture": [{ "book": "Luke", "chapter": 2, "verse": 41, "endVerse": 52 }]
@@ -941,7 +941,7 @@
   },
   {
     "id": "jesus-baptized", "title": "Jesus is baptized", "type": "covenant", "partOf": "jesus-ministry",
-    "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are my beloved Son.\"",
+    "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are My beloved Son.\"",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
     "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
     "people": ["jesus", "john-the-baptist", "tiberius"], "locations": ["jordan-river"],
@@ -963,7 +963,7 @@
   },
   {
     "id": "nicodemus", "title": "Jesus and Nicodemus", "type": "ministry", "partOf": "jesus-ministry",
-    "summary": "A Pharisee comes to Jesus by night and hears that he must be born again: \"For God so loved the world, that he gave his only Son.\"",
+    "summary": "A Pharisee comes to Jesus by night and hears that he must be born again: \"For God so loved the world that He gave His one and only Son.\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
     "dateNote": "At Jesus' first Passover in Jerusalem (John 2:13, 23).",
     "people": ["jesus", "nicodemus"], "locations": ["jerusalem"],
@@ -978,7 +978,7 @@
   },
   {
     "id": "calling-disciples", "title": "Jesus calls fishermen", "type": "ministry", "partOf": "jesus-ministry",
-    "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Follow me, and I will make you fishers of men.\"",
+    "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Come, follow Me, and I will make you fishers of men.\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
     "dateNote": "After John the Baptist was arrested, when Jesus began preaching in Galilee (Mark 1:14).",
     "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle"], "locations": ["sea-of-galilee", "capernaum"],
@@ -994,7 +994,7 @@
   },
   {
     "id": "storm-calmed", "title": "Jesus calms the storm", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "A storm swamps the disciples' boat while Jesus sleeps. He rebukes the wind, and the sea becomes calm: \"Who then is this?\"",
+    "summary": "A storm swamps the disciples' boat while Jesus sleeps. He rebukes the wind, and the sea becomes calm: \"Who is this, that even the wind and the sea obey Him?\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
     "people": ["jesus", "peter"], "locations": ["sea-of-galilee"],
     "scripture": [{ "book": "Mark", "chapter": 4, "verse": 35, "endVerse": 41 }]
@@ -1003,7 +1003,7 @@
     "id": "feeding-five-thousand", "title": "Feeding the five thousand", "type": "miracle", "partOf": "jesus-ministry",
     "summary": "Jesus feeds a crowd of five thousand men, besides women and children, with five loaves and two fish. The only miracle all four Gospels record.",
     "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
-    "dateNote": "\"The Passover was at hand\" (John 6:4).",
+    "dateNote": "\"Now the Jewish Feast of the Passover was near\" (John 6:4).",
     "people": ["jesus", "peter"], "locations": ["bethsaida"],
     "scripture": [{ "book": "John", "chapter": 6, "verse": 1, "endVerse": 14 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }]
   },
@@ -1016,14 +1016,14 @@
   },
   {
     "id": "peter-confession", "title": "Peter's confession", "type": "covenant", "partOf": "jesus-ministry",
-    "summary": "\"Who do you say that I am?\" Peter answers, \"You are the Christ, the Son of the living God.\" From then on Jesus tells them he must suffer, die and rise.",
+    "summary": "\"Who do you say I am?\" Peter answers, \"You are the Christ, the Son of the living God.\" From then on Jesus tells them he must suffer, die and rise.",
     "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
     "people": ["jesus", "peter"], "locations": ["caesarea-philippi"],
     "scripture": [{ "book": "Matthew", "chapter": 16, "verse": 13, "endVerse": 28 }]
   },
   {
     "id": "transfiguration", "title": "The transfiguration", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "On a high mountain Jesus' face shines like the sun; Moses and Elijah appear with him, and a voice says, \"This is my beloved Son; listen to him.\"",
+    "summary": "On a high mountain Jesus' face shines like the sun; Moses and Elijah appear with him, and a voice says, \"This is My beloved Son. Listen to Him!\"",
     "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
     "dateNote": "Six days after Peter's confession (Matthew 17:1). Tradition places it on Mount Tabor; many prefer Mount Hermon, near Caesarea Philippi.",
     "people": ["jesus", "peter", "james-son-of-zebedee", "john-apostle"], "locations": ["mount-tabor"],
@@ -1054,7 +1054,7 @@
   },
   {
     "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment",
-    "summary": "Jesus drives out the money-changers and sellers: \"My house shall be called a house of prayer, but you make it a den of robbers.\"",
+    "summary": "Jesus drives out the money-changers and sellers: \"My house will be called a house of prayer. But you are making it a den of robbers.\"",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 3, "label": "Monday" }, "confidence": "approx" } },
     "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing early in the ministry (John 2:13–17).",
     "people": ["jesus"], "locations": ["jerusalem"],
@@ -1093,7 +1093,7 @@
   },
   {
     "id": "breakfast-by-the-sea", "title": "Breakfast by the sea", "type": "miracle",
-    "summary": "In Galilee the risen Jesus gives the fishing disciples a great catch and cooks them breakfast. Three times he asks Peter, \"Do you love me?\" and tells him, \"Feed my sheep.\"",
+    "summary": "In Galilee the risen Jesus gives the fishing disciples a great catch and cooks them breakfast. Three times he asks Peter, \"Do you love Me?\" and tells him, \"Feed My sheep.\"",
     "dates": { "early": { "start": { "year": 30, "month": 4 }, "confidence": "approx" } },
     "dateNote": "Between the resurrection and the ascension.",
     "people": ["jesus", "peter", "john-apostle"], "locations": ["sea-of-galilee"],
@@ -1117,7 +1117,7 @@
   },
   {
     "id": "temple-gate-healing", "title": "A lame man healed at the temple", "type": "miracle",
-    "summary": "\"In the name of Jesus Christ of Nazareth, rise up and walk!\" Peter and John heal a man lame from birth, preach to the crowd, and are arrested and warned by the council.",
+    "summary": "\"In the name of Jesus Christ of Nazareth, get up and walk!\" Peter and John heal a man lame from birth, preach to the crowd, and are arrested and warned by the council.",
     "dates": { "early": { "start": { "year": 30 }, "confidence": "approx" } },
     "dateNote": "Not dated; soon after Pentecost.",
     "people": ["peter", "john-apostle"], "locations": ["jerusalem"],
@@ -1260,7 +1260,7 @@
   },
   {
     "id": "areopagus", "title": "Paul at the Areopagus", "type": "ministry", "partOf": "second-journey",
-    "summary": "Troubled by the idols of Athens, Paul tells its philosophers about the \"unknown god\" who made the world and raised Jesus from the dead.",
+    "summary": "Troubled by the idols of Athens, Paul tells its philosophers about their altar \"TO AN UNKNOWN GOD\" and the God who made the world and raised Jesus from the dead.",
     "dates": { "early": { "start": { "year": 50 }, "confidence": "approx" } },
     "people": ["paul"], "locations": ["athens"],
     "scripture": [{ "book": "Acts", "chapter": 17, "verse": 16, "endVerse": 34 }]
@@ -1306,7 +1306,7 @@
   },
   {
     "id": "annunciation", "title": "The angel comes to Mary", "type": "prophecy",
-    "summary": "Gabriel tells Mary, a virgin engaged to Joseph, that she will bear the Son of God. \"Let it be to me according to your word.\" She visits her relative Elizabeth, who is expecting John.",
+    "summary": "Gabriel tells Mary, a virgin engaged to Joseph, that she will bear the Son of God. \"May it happen to me according to your word.\" She visits her relative Elizabeth, who is expecting John.",
     "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
     "dateNote": "About nine months before Jesus' birth, probably about 6–5 BC.",
     "people": ["mary"], "locations": ["nazareth"],
