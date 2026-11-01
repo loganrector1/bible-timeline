@@ -6,6 +6,8 @@ import { borderOf, borderTarget, borderYears, bordersAt, loadBorders } from "../
 import { REGION_FILL_LAYER } from "./RegionLayer";
 
 export const BORDER_LABEL_LAYER = "borders-label";
+/** The fills a resting pointer can ask about (not those fading out). */
+export const BORDER_FILL_LAYERS = ["borders-fill-steady", "borders-fill-in"];
 /** The base map's sea: outlines go beneath it, so Cliopatria's rough coasts are trimmed by the real one. */
 const BENEATH = "water";
 /** How long outlines take to fade in or out when the cursor crosses into another snapshot. */
@@ -86,8 +88,12 @@ export default function BorderLayer({
   const now = useMemo(() => (all ? bordersAt(all, year, chron) : []), [all, year, chron]);
   const shown = now.filter((f) => on || isSelected(f));
   const shownKey = shown.map((f) => f.properties.id).join(",");
-  const strong = shown.filter((f) => isSelected(f) || f.properties.id === hovered).map((f) => f.properties.id);
+  // The selection's outlines and labels stand out; a hovered outline does too, but its label
+  // stays as it is: changing it moves it (its anchor is chosen afresh), out from under the pointer.
+  const selected = shown.filter(isSelected).map((f) => f.properties.id);
+  const strong = hovered && shown.some((f) => f.properties.id === hovered) ? [...selected, hovered] : selected;
   const strongKey = strong.join(",");
+  const selectedKey = selected.join(",");
 
   // What was shown before and still is stays put; the rest cross-fades.
   const [prevKey, setPrevKey] = useState("");
@@ -157,6 +163,12 @@ export default function BorderLayer({
         geometry: f.geometry,
         properties: {
           id: f.properties.id,
+          // What a resting pointer's card says, and what a click opens.
+          name: f.properties.name,
+          from: borderYears(f, chron)[0],
+          to: borderYears(f, chron)[1],
+          targetKind: borderTarget(f)?.kind,
+          targetId: borderTarget(f)?.id,
           fill: rgba(hue, subject ? fillAlpha * 0.45 : fillAlpha),
           fillStrong: rgba(hue, fillAlpha * 2.2),
           line: rgba(hue, subject ? 0.4 : 0.6),
@@ -165,14 +177,14 @@ export default function BorderLayer({
         },
       };
     }),
-  }), [all, fillAlpha]);
+  }), [all, fillAlpha, chron]);
 
   // Labels fade with their outlines, so those fading out keep theirs until they're gone.
   const byId = useMemo(() => new Map((all ?? []).map((f) => [f.properties.id, f])), [all]);
   const labels = useMemo<GeoJSON.FeatureCollection>(() => ({
     type: "FeatureCollection",
     features: SLOTS.flatMap((slot) => slots[slot].map((id) => ({ slot, f: byId.get(id)! }))).filter(
-      ({ f }) => f && (!regionNames.has(f.properties.name.toLowerCase()) || strong.includes(f.properties.id)),
+      ({ f }) => f && (!regionNames.has(f.properties.name.toLowerCase()) || selected.includes(f.properties.id)),
     ).map(({ slot, f }) => ({
       type: "Feature",
       geometry: { type: "Point", coordinates: f.properties.label },
@@ -185,12 +197,12 @@ export default function BorderLayer({
         targetId: borderTarget(f)?.id,
         color: dark ? lighten(hueOf(f), 0.45) : hueOf(f),
         small: !!f.properties.small,
-        strong: strong.includes(f.properties.id),
+        strong: selected.includes(f.properties.id),
         slot,
       },
     })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [slots, byId, strongKey, chron, dark]);
+  }), [slots, byId, selectedKey, chron, dark]);
 
   if (!all) return null;
   const isStrong = ["boolean", ["feature-state", "strong"], false];

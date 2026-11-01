@@ -17,7 +17,7 @@ import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
 import { provideStopImages } from "./stopImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
-import BorderLayer, { BORDER_LABEL_LAYER } from "./BorderLayer";
+import BorderLayer, { BORDER_FILL_LAYERS, BORDER_LABEL_LAYER } from "./BorderLayer";
 import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
@@ -51,9 +51,12 @@ const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
 /** Listed top-most first: when layers overlap, the first one under the pointer wins. */
-const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER];
+const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER, ...BORDER_FILL_LAYERS];
+const isBorder = (layer: string) => layer === BORDER_LABEL_LAYER || BORDER_FILL_LAYERS.includes(layer);
+/** How long the pointer rests inside a power's borders before its card shows. */
+const REST_MS = 800;
 
-/** A power's label carries what its hover card says and what clicking it opens. */
+/** A power's label and fill carry what its hover card says and what clicking it opens. */
 type Hover = { layer: string; id: string; x: number; y: number; props?: Record<string, unknown> };
 
 const EMPIRES_KEY = "bible-timeline:empires";
@@ -113,7 +116,7 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
   const eraStyle = useStore((s) => s.eraStyle);
   let title = "";
   let lines: string[] = [];
-  if (hover.layer === BORDER_LABEL_LAYER) {
+  if (isBorder(hover.layer)) {
     const p = hover.props ?? {};
     title = String(p.name);
     const from = Number(p.from), to = Number(p.to);
@@ -176,9 +179,9 @@ export default function MapView() {
     if (isPhone) setNowOpen(mode === "map");
   }, [isPhone, mode]);
   /**
-   * The popup was closed (× or Escape), or the selection cleared: no focus event (no popup,
-   * journey, outlines or marked row in Nearest events) while the reader scrubs, to watch the
-   * empires say, until they pick an event again.
+   * The popup was closed (× or Escape): no focus event (no popup, journey, outlines or marked
+   * row in Nearest events) while the reader scrubs, to watch the empires say, until they pick
+   * an event again.
    */
   const [quiet, setQuiet] = useState(false);
 
@@ -223,15 +226,14 @@ export default function MapView() {
     if (escapeNonce && focus && focus !== selectedEvent) setQuiet(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escapeNonce]);
-  // Stepping to an event, selecting anything, or playing brings them back; clearing the
-  // selection doesn't, so the event just closed doesn't stay lit as the nearest one.
+  // Stepping to an event, selecting anything (or clearing the selection), or playing brings
+  // them back.
   const playing = useStore((s) => s.playing);
   useEffect(() => {
     if (focusHint) setQuiet(false);
   }, [focusHint]);
   useEffect(() => {
-    setQuiet(selectionNonce > 0 && selection === null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setQuiet(false);
   }, [selectionNonce]);
   useEffect(() => {
     if (playing) setQuiet(false);
@@ -289,7 +291,7 @@ export default function MapView() {
     if (!f) return null;
     const id = f.layer.id === JOURNEY_HIT_LAYER ? f.properties?.journeyId : f.properties?.id;
     if (typeof id !== "string") return null;
-    return { layer: f.layer.id, id, x: e.point.x, y: e.point.y, props: f.layer.id === BORDER_LABEL_LAYER ? f.properties : undefined };
+    return { layer: f.layer.id, id, x: e.point.x, y: e.point.y, props: isBorder(f.layer.id) ? f.properties : undefined };
   };
 
   const onClick = (e: MapLayerMouseEvent) => {
@@ -298,12 +300,23 @@ export default function MapView() {
     if (hit.layer === JOURNEY_HIT_LAYER) {
       const ev = eventForJourney(hit.id);
       if (ev) select({ kind: "event", id: ev.id });
-    } else if (hit.layer === BORDER_LABEL_LAYER) {
+    } else if (isBorder(hit.layer)) {
       const { targetKind, targetId } = hit.props ?? {};
       if (typeof targetKind === "string" && typeof targetId === "string") select({ kind: targetKind as EntityKind, id: targetId });
     } else {
       select({ kind: "location", id: hit.id });
     }
+  };
+
+  // Inside a power's borders the card waits for the pointer to rest, so it doesn't follow every
+  // pass across the map; a drag never shows it.
+  const restTimer = useRef<number>(undefined);
+  const onMouseMove = (e: MapLayerMouseEvent) => {
+    window.clearTimeout(restTimer.current);
+    const hit = featureAt(e);
+    if (!hit || !BORDER_FILL_LAYERS.includes(hit.layer)) return setHover(hit);
+    setHover(null);
+    if (e.originalEvent.buttons === 0) restTimer.current = window.setTimeout(() => setHover(hit), REST_MS);
   };
 
   const hoveredRegion = hover && regionsById.has(hover.id) && (hover.layer === REGION_LABEL_LAYER || hover.layer === REGION_FILL_LAYER)
@@ -322,8 +335,15 @@ export default function MapView() {
             mapStyle={style}
             interactiveLayerIds={INTERACTIVE}
             onClick={onClick}
-            onMouseMove={(e) => setHover(featureAt(e))}
-            onMouseLeave={() => setHover(null)}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => {
+              window.clearTimeout(restTimer.current);
+              setHover(null);
+            }}
+            onMoveStart={() => {
+              window.clearTimeout(restTimer.current);
+              setHover((h) => (h && BORDER_FILL_LAYERS.includes(h.layer) ? null : h));
+            }}
             // The arrow image must exist before the journey layer first draws, so add it as
             // soon as style data arrives (and again whenever the style reloads).
             onStyleData={(e) => {
@@ -351,7 +371,7 @@ export default function MapView() {
               chron={chron}
               on={showEmpires}
               selection={selection}
-              hovered={hover?.layer === BORDER_LABEL_LAYER ? hover.id : undefined}
+              hovered={hover && isBorder(hover.layer) ? hover.id : undefined}
               dark={dark}
             />
             <JourneyLayer
