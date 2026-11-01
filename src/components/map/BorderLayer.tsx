@@ -107,12 +107,19 @@ export default function BorderLayer({
         if (map.getLayer(layer)) map.setPaintProperty(layer, prop, opacity);
       }
     };
+    // Labels share one layer, so theirs is by each label's slot.
+    const setLabels = (t: number) => {
+      if (map.getLayer(BORDER_LABEL_LAYER)) {
+        map.setPaintProperty(BORDER_LABEL_LAYER, "text-opacity", ["match", ["get", "slot"], "in", t, "out", 1 - t, 1]);
+      }
+    };
     const start = performance.now();
     let id = 0;
     const step = () => {
       const t = Math.min(1, (performance.now() - start) / FADE_MS);
       set("in", t);
       set("out", 1 - t);
+      setLabels(t);
       if (t < 1) id = requestAnimationFrame(step);
     };
     step();
@@ -160,9 +167,13 @@ export default function BorderLayer({
     }),
   }), [all, fillAlpha]);
 
+  // Labels fade with their outlines, so those fading out keep theirs until they're gone.
+  const byId = useMemo(() => new Map((all ?? []).map((f) => [f.properties.id, f])), [all]);
   const labels = useMemo<GeoJSON.FeatureCollection>(() => ({
     type: "FeatureCollection",
-    features: shown.filter((f) => !regionNames.has(f.properties.name.toLowerCase()) || strong.includes(f.properties.id)).map((f) => ({
+    features: SLOTS.flatMap((slot) => slots[slot].map((id) => ({ slot, f: byId.get(id)! }))).filter(
+      ({ f }) => f && (!regionNames.has(f.properties.name.toLowerCase()) || strong.includes(f.properties.id)),
+    ).map(({ slot, f }) => ({
       type: "Feature",
       geometry: { type: "Point", coordinates: f.properties.label },
       properties: {
@@ -175,10 +186,11 @@ export default function BorderLayer({
         color: dark ? lighten(hueOf(f), 0.45) : hueOf(f),
         small: !!f.properties.small,
         strong: strong.includes(f.properties.id),
+        slot,
       },
     })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [shownKey, strongKey, chron, dark]);
+  }), [slots, byId, strongKey, chron, dark]);
 
   if (!all) return null;
   const isStrong = ["boolean", ["feature-state", "strong"], false];
@@ -241,6 +253,7 @@ export default function BorderLayer({
             "text-color": ["get", "color"],
             "text-halo-color": dark ? "#1c1915" : "#faf6ee",
             "text-halo-width": 1.5,
+            "text-opacity-transition": { duration: 0 },
           }}
         />
       </Source>
