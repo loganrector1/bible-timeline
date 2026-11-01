@@ -118,6 +118,7 @@ export default function BrowsePanel() {
     ? data.tours.filter((t) => !q || `${t.title} ${t.summary}`.toLowerCase().includes(q))
     : [];
   const activeTour = useStore((s) => s.tour?.id);
+  const progress = useStore((s) => s.tourProgress);
 
   if (!open) return null;
 
@@ -181,23 +182,35 @@ export default function BrowsePanel() {
               </h3>
             )}
             <ul>
-              {tours.map((t) => (
-                <li key={t.id}>
-                  <button
-                    onClick={() => {
-                      useStore.getState().startTour(t.id);
-                      closeOnPhone();
-                    }}
-                    className={`w-full rounded px-2 py-1.5 text-left text-sm ${activeTour === t.id ? "bg-accent-soft" : "hover:bg-paper-2"}`}
-                  >
-                    <span className="flex items-baseline justify-between gap-3">
-                      <span className="min-w-0 truncate font-medium">{t.title}</span>
-                      <span className="shrink-0 text-xs text-ink-muted">{t.steps.length} steps</span>
-                    </span>
-                    <span className={`mt-0.5 block text-xs leading-snug text-ink-muted ${tab === "all" ? "line-clamp-1" : ""}`}>{t.summary}</span>
-                  </button>
-                </li>
-              ))}
+              {tours.map((t) => {
+                // A tour left part-way continues where it stopped; "Start over" is beside it.
+                const at = progress[t.id];
+                const resumable = at !== undefined && at > 0 && activeTour !== t.id;
+                const start = (step: number) => {
+                  useStore.getState().startTour(t.id, step);
+                  closeOnPhone();
+                };
+                return (
+                  <li key={t.id} className={`rounded ${activeTour === t.id ? "bg-accent-soft" : "hover:bg-paper-2"}`}>
+                    <button onClick={() => start(resumable ? at : 0)} className="w-full px-2 pt-1.5 text-left text-sm">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="min-w-0 truncate font-medium">{t.title}</span>
+                        <span className={`shrink-0 text-xs ${resumable ? "text-accent" : "text-ink-muted"}`}>
+                          {resumable ? `Continue · step ${at + 1} of ${t.steps.length}` : `${t.steps.length} steps`}
+                        </span>
+                      </span>
+                      <span className={`mt-0.5 block text-xs leading-snug text-ink-muted ${tab === "all" ? "line-clamp-1" : ""}`}>{t.summary}</span>
+                    </button>
+                    <div className="flex justify-end px-2 pb-1.5">
+                      {resumable && (
+                        <button onClick={() => start(0)} className="text-xs text-accent hover:underline">
+                          Start over
+                        </button>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         )}

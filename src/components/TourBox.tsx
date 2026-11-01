@@ -26,7 +26,7 @@ export default function TourBox({ clamp }: { clamp: boolean }) {
         </span>
         <span className="flex shrink-0 items-center gap-1">
           <button data-sheet-close onClick={() => startTour(t.id, tour.step)} className={btn}>Resume</button>
-          <button data-sheet-close onClick={endTour} aria-label="End tour" className="rounded p-1 text-ink-muted hover:text-ink">✕</button>
+          <button data-sheet-close onClick={() => endTour()} aria-label="End tour" className="rounded p-1 text-ink-muted hover:text-ink">✕</button>
         </span>
       </div>
     );
@@ -42,11 +42,11 @@ export default function TourBox({ clamp }: { clamp: boolean }) {
         <span className="flex shrink-0 items-center gap-1">
           <button data-sheet-close onClick={() => startTour(t.id, tour.step - 1)} disabled={tour.step === 0} aria-label="Previous step" className={btn}>‹ Back</button>
           {last ? (
-            <button data-sheet-close onClick={endTour} className={btn}>Finish</button>
+            <button data-sheet-close onClick={() => endTour({ finished: true })} className={btn}>Finish</button>
           ) : (
             <button data-sheet-close onClick={() => startTour(t.id, tour.step + 1)} aria-label="Next step" className={btn}>Next ›</button>
           )}
-          <button data-sheet-close onClick={endTour} aria-label="End tour" className="rounded p-1 text-ink-muted hover:text-ink">✕</button>
+          <button data-sheet-close onClick={() => endTour()} aria-label="End tour" className="rounded p-1 text-ink-muted hover:text-ink">✕</button>
         </span>
       </div>
       <p className={`mt-1 text-[15px] leading-snug ${clamp ? "line-clamp-2" : ""}`}>{step.text}</p>

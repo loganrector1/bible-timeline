@@ -37,6 +37,60 @@
     ]
   },
   {
+    "id": "david",
+    "title": "David",
+    "summary": "From shepherd boy to king in Jerusalem: the man after God's own heart, his failures, and the promise of a son on his throne forever.",
+    "steps": [
+      { "event": "david-anointed", "text": "Saul has failed as king, and God sends Samuel to find another: not the tallest of Jesse's sons but the youngest, out with the sheep. \"The Lord looks on the heart\" (1 Samuel 16:7)." },
+      { "event": "david-goliath", "text": "While Israel's army trembles, the shepherd boy sees what they don't: \"the battle is the Lord's\" (1 Samuel 17:47). Soon he is a hero, and Saul grows jealous." },
+      { "event": "saul-dies", "text": "For years David runs from Saul, and twice spares his life. When Saul and Jonathan fall on Mount Gilboa, David mourns them both (2 Samuel 1)." },
+      { "event": "david-reign", "text": "David is anointed king at Hebron, first over Judah, then over all Israel. He was thirty when he began to reign (2 Samuel 5:4)." },
+      { "event": "david-psalms", "text": "David is remembered as \"the sweet psalmist of Israel\" (2 Samuel 23:1). His psalms give words to fear and trust, grief and praise." },
+      { "event": "jerusalem-captured", "text": "David takes Jerusalem, a city no tribe had held, makes it his capital, and brings the ark there, dancing before the Lord." },
+      { "event": "davidic-covenant", "text": "David wants to build God a house; instead God promises to build David a house, a dynasty forever. The New Testament opens by calling Jesus \"the son of David\" (Matthew 1:1)." },
+      { "event": "david-bathsheba", "text": "At the height of his power David falls: adultery, then murder. Confronted by Nathan, he repents, and Psalm 51 is his prayer, but his family is never the same." },
+      { "event": "solomon-reign", "text": "David's son Solomon succeeds him and builds the temple David longed to build. The promise of a son of David on the throne forever now waits for a greater king." }
+    ]
+  },
+  {
+    "id": "divided-kingdom",
+    "title": "The Divided Kingdom",
+    "summary": "From Solomon's temple to the fall of Jerusalem: two kingdoms, their kings, and the prophets who warned them.",
+    "steps": [
+      { "event": "temple-built", "text": "Under Solomon Israel is at its height, and God's glory fills the new temple. But Solomon's wives turn his heart to other gods, and the kingdom will pay for it (1 Kings 11)." },
+      { "event": "kingdom-divides", "text": "After Solomon, the ten northern tribes break away. From now on there are two kingdoms: Israel in the north, and Judah in the south, with David's line in Jerusalem." },
+      { "event": "elijah-carmel", "text": "Under Ahab and Jezebel, Israel worships Baal. Elijah asks the people, \"How long will you go limping between two different opinions?\" (1 Kings 18:21), and God answers by fire." },
+      { "event": "elijah-taken", "text": "Elijah is taken up to heaven and Elisha carries on his work. From now on the prophets are God's voice to kings who seldom listen." },
+      { "event": "jonah-nineveh", "text": "God's concern reaches even Nineveh, the capital of Assyria, Israel's coming conqueror, and Jonah is angry that God spares it." },
+      { "event": "amos-ministry", "text": "In a time of wealth, Amos sees the needy sold \"for a pair of sandals\" (Amos 2:6) and warns that worship means nothing without justice." },
+      { "event": "isaiah-ministry", "text": "In Judah, Isaiah sees the Lord \"high and lifted up\" (Isaiah 6:1). He warns of judgment, and promises a child who will sit on David's throne (Isaiah 9:6–7)." },
+      { "event": "fall-of-samaria", "text": "Israel ignores the prophets. Assyria takes Samaria and scatters the northern tribes, \"because they did not obey the voice of the Lord their God\" (2 Kings 18:12)." },
+      { "event": "sennacherib-siege", "text": "Twenty years later Assyria surrounds Jerusalem too. Hezekiah spreads the enemy's letter before the Lord, and the city is spared." },
+      { "event": "jeremiah-ministry", "text": "As Assyria fades, Babylon rises. Young Jeremiah is called to warn Judah for forty years, and to promise a new covenant written on the heart (Jeremiah 31:31–33)." },
+      { "event": "josiah-reform", "text": "King Josiah finds the forgotten Book of the Law and leads one last great return to God. After him, Judah's kings slide back." },
+      { "event": "fall-of-jerusalem", "text": "Babylon burns Jerusalem and the temple and takes the people into exile, as the prophets warned. But Jeremiah has already told the exiles: seventy years, then home (Jeremiah 29:10)." }
+    ]
+  },
+  {
+    "id": "exile-return",
+    "title": "Exile and return",
+    "summary": "From Babylon back to Jerusalem: God's people in exile, the return under Persia, and the temple and walls rebuilt.",
+    "steps": [
+      { "event": "daniel-taken", "text": "Babylon's first deportation takes some of Judah's brightest young nobles. In a foreign court, Daniel resolves not to defile himself (Daniel 1:8)." },
+      { "event": "ezekiel-ministry", "text": "Among the exiles by the river Chebar, Ezekiel sees the glory of God, not confined to Jerusalem's temple but with his people in Babylon." },
+      { "event": "fall-of-jerusalem", "text": "The worst happens: Jerusalem and the temple are destroyed. Lamentations grieves, \"How lonely sits the city\" (1:1), and still says, \"his mercies never come to an end\" (3:22)." },
+      { "event": "fall-of-babylon", "text": "Nearly seventy years after Daniel was taken, Babylon falls in a single night, as the writing on the wall foretold." },
+      { "event": "lions-den", "text": "Under the Persians Daniel, now an old man, still prays toward Jerusalem three times a day, and God shuts the lions' mouths." },
+      { "event": "cyrus-decree", "text": "Cyrus of Persia lets the exiles go home, the king Isaiah had named long before (Isaiah 44:28; 45:1)." },
+      { "event": "first-return", "text": "About fifty thousand return with Zerubbabel. When the temple's foundation is laid, many shout for joy, and the old men who remember Solomon's temple weep (Ezra 3:12)." },
+      { "event": "temple-rebuilt", "text": "Opposition stalls the work for years, until Haggai and Zechariah stir the people. The second temple is smaller, but Haggai promises its glory will be greater (Haggai 2:9)." },
+      { "event": "esther", "text": "Not everyone went home. In Persia, in a book that never names God, a queen is placed \"for such a time as this\" (Esther 4:14)." },
+      { "event": "ezra-return", "text": "Ezra the scribe brings a second group home. He \"had set his heart to study the Law of the Lord, and to do it and to teach\" it (Ezra 7:10)." },
+      { "event": "nehemiah-walls", "text": "Nehemiah rebuilds Jerusalem's walls in fifty-two days (Nehemiah 6:15), and the people gather to hear the Law read and renew the covenant." },
+      { "event": "malachi-ministry", "text": "The Old Testament closes with a promise: the Lord will send Elijah before he comes (Malachi 4:5). Four centuries later, John the Baptist comes \"in the spirit and power of Elijah\" (Luke 1:17)." }
+    ]
+  },
+  {
     "id": "jesus",
     "title": "The life of Jesus",
     "summary": "From Nazareth to the Mount of Olives: the birth, ministry, death and resurrection of Jesus.",
@@ -54,6 +108,23 @@
       { "event": "crucifixion", "text": "Condemned by the council and by Pilate, Jesus dies outside the city wall. \"It is finished\" (John 19:30)." },
       { "event": "resurrection", "text": "On the first day of the week the women find the tomb empty. Over forty days the risen Jesus appears to many who could say they had seen him." },
       { "event": "ascension", "text": "Jesus sends his followers out from Jerusalem \"to the end of the earth\" (Acts 1:8). That mission is the story of Acts, and of Paul's journeys." }
+    ]
+  },
+  {
+    "id": "early-church",
+    "title": "The early church",
+    "summary": "From Jerusalem to Antioch: the Spirit comes, the church grows through persecution, and the gospel reaches the Gentiles.",
+    "steps": [
+      { "event": "ascension", "text": "Acts begins where Luke's Gospel ends. Jesus sends his followers to be his witnesses \"in Jerusalem and in all Judea and Samaria, and to the end of the earth\" (Acts 1:8), and the rest of Acts follows that order." },
+      { "event": "pentecost", "text": "Ten days later, at the feast of Pentecost, the Spirit comes. Peter, who denied Jesus only weeks before, preaches boldly, and about three thousand are baptized (Acts 2:41)." },
+      { "event": "temple-gate-healing", "text": "The believers share what they have and meet daily at the temple. A healing there brings Peter and John before the same council that condemned Jesus (Acts 4)." },
+      { "event": "stephen-martyred", "text": "Stephen, chosen to help serve the church's widows, becomes its first martyr, praying as Jesus did for those who kill him (Acts 7:60)." },
+      { "event": "philip-ethiopian", "text": "Persecution scatters the church, and the gospel goes with it: Philip preaches in Samaria, then baptizes an Ethiopian official on his way home." },
+      { "event": "paul-conversion", "text": "The church's fiercest enemy meets the risen Jesus on the road to Damascus. Saul will become Paul, the apostle to the Gentiles." },
+      { "event": "cornelius", "text": "God shows Peter that the gospel is for Gentiles too. As the Spirit falls on a Roman centurion's household, Peter says, \"God shows no partiality\" (Acts 10:34)." },
+      { "event": "antioch-church", "text": "In Antioch, Jews and Gentiles believe together, and the disciples are first called Christians (Acts 11:26). This church will send Paul out." },
+      { "event": "peter-freed", "text": "Herod Agrippa kills the apostle James and jails Peter, but the church prays and an angel opens the prison. \"The word of God increased and multiplied\" (Acts 12:24)." },
+      { "event": "first-journey", "text": "The Spirit sends Barnabas and Saul out from Antioch on the first missionary journey. From here Acts follows Paul: the tour of his journeys takes up the story." }
     ]
   },
   {

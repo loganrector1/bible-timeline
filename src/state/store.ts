@@ -69,6 +69,26 @@ const CHRONOLOGY_KEY = "bible-timeline:chronology";
 const ERA_STYLE_KEY = "bible-timeline:era-style";
 const CHRONOLOGY_IDS = CHRONOLOGIES.map((c) => c.id);
 
+const TOURS_KEY = "bible-timeline:tours";
+function loadTourProgress(): Record<string, number> {
+  try {
+    const saved: unknown = JSON.parse(localStorage.getItem(TOURS_KEY) ?? "{}");
+    if (saved && typeof saved === "object") {
+      return Object.fromEntries(Object.entries(saved).filter(([id, n]) => toursById.has(id) && Number.isInteger(n)));
+    }
+  } catch {
+    // Not remembered; tours start from the beginning.
+  }
+  return {};
+}
+function saveTourProgress(progress: Record<string, number>) {
+  try {
+    localStorage.setItem(TOURS_KEY, JSON.stringify(progress));
+  } catch {
+    // Not remembered.
+  }
+}
+
 function applyTheme(theme: Theme) {
   if (theme === "system") delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = theme;
@@ -142,12 +162,15 @@ type State = {
   /**
    * The guided tour under way, and its step (from 0). Each step selects its event; selecting
    * something else pauses the tour (the details panel offers the way back), and clearing the
-   * selection ends it.
+   * selection ends it, though `tourProgress` remembers the step for Browse's "Continue".
    */
   tour: { id: string; step: number } | null;
+  /** The step reached in each tour left unfinished, remembered per browser. */
+  tourProgress: Record<string, number>;
   /** Start a tour (or jump to a step), selecting that step's event. */
   startTour: (id: string, step?: number, opts?: { instant?: boolean }) => void;
-  endTour: () => void;
+  /** Stop the tour. `finished` (the last step's Finish) forgets its progress. */
+  endTour: (opts?: { finished?: boolean }) => void;
   /** Bumped when Escape reaches the bottom layer, with nothing else to close: the map hides its popup. */
   escapeNonce: number;
   /** Escape from anywhere closes the topmost layer: Browse, then the selection, then the map's popup. */
@@ -233,14 +256,25 @@ export const useStore = create<State>()((set, get) => {
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
     tour: null,
+    tourProgress: loadTourProgress(),
     startTour: (id, step = 0, opts) => {
       const t = toursById.get(id);
       if (!t) return;
       const i = Math.min(Math.max(0, step), t.steps.length - 1);
       get().select({ kind: "event", id: t.steps[i].event }, { instant: opts?.instant });
-      set({ tour: { id, step: i } });
+      const tourProgress = { ...get().tourProgress, [id]: i };
+      saveTourProgress(tourProgress);
+      set({ tour: { id, step: i }, tourProgress });
     },
-    endTour: () => set({ tour: null }),
+    endTour: (opts) => {
+      const id = get().tour?.id;
+      if (opts?.finished && id) {
+        const { [id]: _, ...tourProgress } = get().tourProgress;
+        saveTourProgress(tourProgress);
+        set({ tourProgress });
+      }
+      set({ tour: null });
+    },
     escapeNonce: 0,
     escape: () => {
       // Menus (Filter, Settings) catch Escape themselves before it gets here.
