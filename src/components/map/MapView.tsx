@@ -18,7 +18,7 @@ import { addArrowImage } from "./arrowImage";
 import { provideStopImages } from "./stopImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
 import BorderLayer, { BORDER_FILL_LAYERS, BORDER_LABEL_LAYER, useNamedPlaces } from "./BorderLayer";
-import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
+import EventLayer, { LOCATION_BASE_LAYER, LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
 import EventPopup from "./EventPopup";
@@ -51,7 +51,7 @@ const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
 /** Listed top-most first: when layers overlap, the first one under the pointer wins. */
-const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER, ...BORDER_FILL_LAYERS];
+const INTERACTIVE = [LOCATION_LAYER, LOCATION_BASE_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER, ...BORDER_FILL_LAYERS];
 const isBorder = (layer: string) => layer === BORDER_LABEL_LAYER || BORDER_FILL_LAYERS.includes(layer);
 /** How long the pointer rests inside a power's borders before its card shows. */
 const REST_MS = 800;
