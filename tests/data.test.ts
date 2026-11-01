@@ -145,7 +145,7 @@ describe("borders on the map", () => {
     ...BorderCollection.parse(cliopatria).features,
     ...BorderCollection.parse(drawn).features,
   ];
-  const known = { empire: empiresById, person: peopleById, era: erasById };
+  const known = { empire: empiresById, person: peopleById, era: erasById, event: eventsById };
 
   test("ids are unique and links resolve", () => {
     const ids = borders.map((f) => f.properties.id);

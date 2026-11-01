@@ -3,7 +3,7 @@ import type { Map as MapLibreMap } from "maplibre-gl";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { data, regionsById, type EntityRef } from "../../data";
 import type { BorderFeature } from "../../data/schema";
-import { borderOf, borderTarget, borderYears, bordersAt, loadBorders } from "../../lib/borders";
+import { borderOf, borderPower, borderTarget, borderYears, bordersAt, loadBorders } from "../../lib/borders";
 import { REGION_FILL_LAYER } from "./RegionLayer";
 
 export const BORDER_LABEL_LAYER = "borders-label";
@@ -21,7 +21,7 @@ const FADE_MS = 350;
  */
 const HUES: Record<string, string> = {
   "egypt-middle": "#b07d1a", hyksos: "#8c6a3c", "egypt-new": "#b07d1a", "egypt-divided": "#b07d1a",
-  "egypt-late": "#b07d1a", ptolemies: "#b07d1a",
+  "egypt-late": "#b07d1a", ptolemies: "#b07d1a", thebes: "#b07d1a",
   "ur-iii": "#5a7d8c", "old-babylon": "#2e7d6f", babylon: "#2e7d6f",
   hittites: "#6b8a2a", assyria: "#87569b", persia: "#3d6aa0",
   "alexander-empire": "#4c8a44", seleucids: "#2f8a8a",
@@ -31,7 +31,7 @@ const HUES: Record<string, string> = {
 const FALLBACK = "#7a6a55";
 
 export function hueOf(f: BorderFeature): string {
-  return HUES[f.properties.tint ?? f.properties.empire ?? ""] ?? FALLBACK;
+  return HUES[f.properties.tint ?? f.properties.empire ?? borderPower(f)] ?? FALLBACK;
 }
 
 function rgba(hex: string, alpha: number) {

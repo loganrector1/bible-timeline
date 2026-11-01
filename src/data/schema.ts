@@ -205,7 +205,7 @@ export const BorderFeature = z.object({
     name: z.string(),
     empire: id.optional(),
     /** What else it belongs to (a king, an era); selecting any of them shows it strongly. */
-    links: z.array(z.object({ kind: z.enum(["person", "era", "empire"]), id })).optional(),
+    links: z.array(z.object({ kind: z.enum(["person", "era", "empire", "event"]), id })).optional(),
     from: z.number().int(),
     to: z.number().int(),
     lateFrom: z.number().int().optional(),

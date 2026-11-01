@@ -32,7 +32,13 @@ export function MapBorders({ of }: { of: EntityRef }) {
     return years(Math.min(...ys.map((y) => y[0])), Math.max(...ys.map((y) => y[1])));
   };
   const clio = outlines.filter((f) => !f.properties.note);
-  const drawn = outlines.filter((f) => f.properties.note);
+  // Outlines sharing a note (the tribes' allotments) are named together.
+  const byNote = new Map<string, BorderFeature[]>();
+  for (const f of outlines) {
+    const note = f.properties.note;
+    if (note) byNote.set(note, [...(byNote.get(note) ?? []), f]);
+  }
+  const drawn = [...byNote.values()];
 
   return (
     <Section title="Borders on the map">
@@ -46,12 +52,17 @@ export function MapBorders({ of }: { of: EntityRef }) {
             . Ancient borders are approximate, and the map shows them changing in steps.
           </p>
         )}
-        {drawn.map((f) => (
-          <p key={f.properties.id}>
-            <span className="font-medium text-ink">{f.properties.name}</span>, {span([f])}: {f.properties.note}
+        {drawn.map((fs) => (
+          <p key={fs[0].properties.id}>
+            <span className="font-medium text-ink">{listNames(fs.map((f) => f.properties.name))}</span>, {span(fs)}: {fs[0].properties.note}
           </p>
         ))}
       </div>
     </Section>
   );
+}
+
+/** "Judah, Simeon and Dan". */
+function listNames(names: string[]) {
+  return names.length < 2 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 }

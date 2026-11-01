@@ -6,6 +6,7 @@ import { childEvents, eraAt, eventMidpoint, eventsInOrder, parentEvent } from ".
 import { eventShown } from "../../lib/filters";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
+import { MapBorders } from "./MapBorders";
 import { Chip, Chips, Note, ScriptureList, Section } from "./parts";
 import { Prose } from "../ScriptureText";
 
@@ -106,6 +107,8 @@ export default function EventDetail({ ev }: { ev: Event }) {
       )}
 
       <ScriptureList refs={ev.scripture} />
+
+      <MapBorders of={{ kind: "event", id: ev.id }} />
 
       {(prev || next) && (
         <Section title="Before and after">
