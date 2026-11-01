@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { data, peopleById } from "../data";
 import type { EventType } from "../data/schema";
-import { eventShown, FILTER_TYPES, NO_FILTERS, TYPE_FILTER_LABEL } from "../lib/filters";
+import { eventShown, FILTER_TYPES, hasFilters, NO_FILTERS, TYPE_FILTER_LABEL } from "../lib/filters";
+import { BOOK_LIST, formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
 
 export function useFilterCount(): number {
-  const { types, people } = useStore((s) => s.filters);
-  return types.length + people.length;
+  const { types, people, passages } = useStore((s) => s.filters);
+  return types.length + people.length + passages.length;
 }
 
 function useMatchCount(): number {
@@ -14,41 +15,107 @@ function useMatchCount(): number {
   return useMemo(() => data.events.filter((ev) => eventShown(ev, filters)).length, [filters]);
 }
 
-/** The filter choices: event types as toggles, and people picked by name. */
+type Option = { id: string; label: string; detail: string };
+
+/**
+ * A text field with suggestions below it: the first is highlighted, the arrow keys move the
+ * highlight, and Enter (or a click) picks one.
+ */
+function Picker({ id, label, placeholder, options, onPick }: {
+  id: string; label: string; placeholder: string; options: (query: string) => Option[]; onPick: (id: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [active, setActive] = useState(0);
+  const shown = useMemo(() => (query.trim() ? options(query.trim()).slice(0, 6) : []), [query, options]);
+  const current = shown[Math.min(active, shown.length - 1)];
+  const pick = (o: Option) => {
+    onPick(o.id);
+    setQuery("");
+  };
+  const onKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!shown.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      const dir = e.key === "ArrowDown" ? 1 : -1;
+      setActive((i) => (i + dir + shown.length) % shown.length);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      pick(current);
+    }
+  };
+  return (
+    <>
+      <input
+        type="search"
+        role="combobox"
+        aria-expanded={shown.length > 0}
+        aria-controls={id}
+        aria-activedescendant={current ? `${id}-${current.id}` : undefined}
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setActive(0);
+        }}
+        onKeyDown={onKeyDown}
+        placeholder={placeholder}
+        aria-label={label}
+        className="w-full rounded-md border border-line bg-paper-2 px-3 py-1.5 text-sm outline-none focus:border-accent"
+      />
+      {shown.length > 0 && (
+        <ul id={id} role="listbox" aria-label={label} className="mt-1 rounded-md border border-line bg-paper py-1 shadow-sm">
+          {shown.map((o, i) => (
+            <li
+              key={o.id}
+              id={`${id}-${o.id}`}
+              role="option"
+              aria-selected={o === current}
+              onClick={() => pick(o)}
+              onPointerMove={() => setActive(i)}
+              className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-1 text-sm ${o === current ? "bg-paper-2" : ""}`}
+            >
+              <span className="truncate">{o.label}</span>
+              <span className="shrink-0 truncate text-xs text-ink-muted">{o.detail}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
+function Heading({ children }: { children: string }) {
+  return <h3 className="mb-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{children}</h3>;
+}
+
+/** The filter choices: event types as toggles, people picked by name, and books or passages. */
 export function FilterControls() {
-  const { types, people } = useStore((s) => s.filters);
+  const filters = useStore((s) => s.filters);
+  const { types, people, passages } = filters;
   const setFilters = useStore((s) => s.setFilters);
   const matches = useMatchCount();
-  const [query, setQuery] = useState("");
-  // The suggestion Enter picks: the first, until the arrow keys move it.
-  const [active, setActive] = useState(0);
 
-  const suggestions = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
+  const peopleOptions = useMemo(() => (query: string): Option[] => {
+    const q = query.toLowerCase();
     const names = (p: (typeof data.people)[number]) => [p.name, ...p.altNames].map((n) => n.toLowerCase());
-    // Names that start with the search come first: "Jo" is Joseph before Ahaziah of Judah's mother.
+    // Names that start with the search come first: "Jo" is Joseph before Ahaziah of Judah.
     const starts = (p: (typeof data.people)[number]) => names(p).some((n) => n.startsWith(q));
     return data.people
       .filter((p) => !people.includes(p.id) && names(p).some((n) => n.includes(q)))
       .sort((a, b) => Number(starts(b)) - Number(starts(a)))
-      .slice(0, 6);
-  }, [query, people]);
-  const pickPerson = (id: string) => {
-    setFilters({ people: [...people, id] });
-    setQuery("");
-  };
-  const onKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
-    if (!suggestions.length) return;
-    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      e.preventDefault();
-      const dir = e.key === "ArrowDown" ? 1 : -1;
-      setActive((i) => (i + dir + suggestions.length) % suggestions.length);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      pickPerson(suggestions[Math.min(active, suggestions.length - 1)].id);
-    }
-  };
+      .map((p) => ({ id: p.id, label: p.name, detail: p.roles[0] ?? "" }));
+  }, [people]);
+
+  // What's typed, if it reads as a passage ("Exodus 12-14"), then the books it could be the start of.
+  const passageOptions = useMemo(() => (query: string): Option[] => {
+    const typed = parsePassage(query);
+    const q = query.toLowerCase().replace(/\s+/g, " ");
+    const books = BOOK_LIST.filter((b) => b.name.toLowerCase().startsWith(q) && b.id !== typed?.book);
+    const on = new Set(passages.map(formatPassageParam));
+    return [
+      ...(typed ? [{ id: formatPassageParam(typed), label: formatPassage(typed), detail: typed.chapter ? "passage" : "book" }] : []),
+      ...books.map((b) => ({ id: b.id, label: b.name, detail: "book" })),
+    ].filter((o) => !on.has(o.id));
+  }, [passages]);
 
   const toggleType = (t: EventType) =>
     setFilters({ types: types.includes(t) ? types.filter((x) => x !== t) : [...types, t] });
@@ -56,7 +123,7 @@ export function FilterControls() {
   return (
     <div className="space-y-4">
       <section>
-        <h3 className="mb-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">Event types</h3>
+        <Heading>Event types</Heading>
         <div className="flex flex-wrap gap-1.5">
           {FILTER_TYPES.map(({ type, label }) => {
             const on = types.includes(type);
@@ -74,7 +141,7 @@ export function FilterControls() {
         </div>
       </section>
       <section>
-        <h3 className="mb-1.5 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">People</h3>
+        <Heading>People</Heading>
         {people.length > 0 && (
           <div className="mb-2 flex flex-wrap gap-1.5">
             {people.map((id) => (
@@ -82,44 +149,34 @@ export function FilterControls() {
             ))}
           </div>
         )}
-        <input
-          type="search"
-          role="combobox"
-          aria-expanded={suggestions.length > 0}
-          aria-controls="filter-people"
-          aria-activedescendant={suggestions.length ? `filter-person-${suggestions[Math.min(active, suggestions.length - 1)].id}` : undefined}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setActive(0);
-          }}
-          onKeyDown={onKeyDown}
+        <Picker
+          id="filter-people"
+          label="Add a person"
           placeholder="Add a person…"
-          aria-label="Add a person"
-          className="w-full rounded-md border border-line bg-paper-2 px-3 py-1.5 text-sm outline-none focus:border-accent"
+          options={peopleOptions}
+          onPick={(id) => setFilters({ people: [...people, id] })}
         />
-        {suggestions.length > 0 && (
-          <ul id="filter-people" role="listbox" aria-label="People" className="mt-1 rounded-md border border-line bg-paper py-1 shadow-sm">
-            {suggestions.map((p, i) => (
-              <li
-                key={p.id}
-                id={`filter-person-${p.id}`}
-                role="option"
-                aria-selected={i === active}
-                onClick={() => pickPerson(p.id)}
-                onPointerMove={() => setActive(i)}
-                className={`flex cursor-pointer items-baseline justify-between gap-3 px-3 py-1 text-sm ${i === active ? "bg-paper-2" : ""}`}
-              >
-                <span className="truncate">{p.name}</span>
-                <span className="shrink-0 truncate text-xs text-ink-muted">{p.roles[0]}</span>
-              </li>
+      </section>
+      <section>
+        <Heading>Book or passage</Heading>
+        {passages.length > 0 && (
+          <div className="mb-2 flex flex-wrap gap-1.5">
+            {passages.map((p) => (
+              <Chip key={formatPassageParam(p)} label={formatPassage(p)} onRemove={() => setFilters({ passages: passages.filter((x) => x !== p) })} />
             ))}
-          </ul>
+          </div>
         )}
+        <Picker
+          id="filter-passages"
+          label="Add a book or passage"
+          placeholder="Exodus, or Exodus 12–14…"
+          options={passageOptions}
+          onPick={(id) => setFilters({ passages: [...passages, parsePassage(id)!] })}
+        />
       </section>
       <p className="flex items-center justify-between text-sm text-ink-muted">
         <span>{matches} of {data.events.length} events</span>
-        {(types.length > 0 || people.length > 0) && (
+        {hasFilters(filters) && (
           <button onClick={() => setFilters(NO_FILTERS)} className="text-accent hover:underline">
             Clear all
           </button>
@@ -142,10 +199,11 @@ function Chip({ label, onRemove }: { label: string; onRemove: () => void }) {
 
 /** The active filters as removable chips, under the header, so it's clear why events are missing. */
 export function FilterBar() {
-  const { types, people } = useStore((s) => s.filters);
+  const filters = useStore((s) => s.filters);
+  const { types, people, passages } = filters;
   const setFilters = useStore((s) => s.setFilters);
   const matches = useMatchCount();
-  if (!types.length && !people.length) return null;
+  if (!hasFilters(filters)) return null;
   return (
     <div className="flex items-center gap-2 overflow-x-auto border-b border-line bg-paper-2 px-4 py-1.5 text-sm">
       <span className="shrink-0 text-ink-muted">Showing {matches} events:</span>
@@ -154,6 +212,9 @@ export function FilterBar() {
       ))}
       {people.map((id) => (
         <Chip key={id} label={peopleById.get(id)?.name ?? id} onRemove={() => setFilters({ people: people.filter((p) => p !== id) })} />
+      ))}
+      {passages.map((p) => (
+        <Chip key={formatPassageParam(p)} label={formatPassage(p)} onRemove={() => setFilters({ passages: passages.filter((x) => x !== p) })} />
       ))}
       <button onClick={() => setFilters(NO_FILTERS)} className="ml-auto shrink-0 text-accent hover:underline">
         Clear
@@ -200,7 +261,7 @@ export function FilterButton() {
         <div
           role="dialog"
           aria-label="Filter events"
-          className="absolute top-full z-40 mt-1.5 rounded-xl border border-line bg-paper p-4 shadow-2xl max-sm:inset-x-2 sm:left-0 sm:w-96"
+          className="absolute top-full z-40 mt-1.5 max-h-[calc(100dvh-4rem)] overflow-y-auto rounded-xl border border-line bg-paper p-4 shadow-2xl max-sm:inset-x-2 sm:left-0 sm:w-96"
         >
           <FilterControls />
         </div>

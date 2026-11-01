@@ -3,6 +3,7 @@ import { data, datesFor, type EntityKind, type EntityRef } from "../data";
 import { formatDateSpec } from "../lib/dates";
 import { eventsInOrder } from "../lib/entities";
 import { eventShown, FILTER_TYPES } from "../lib/filters";
+import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
 
 type Tab = "all" | EntityKind;
@@ -20,25 +21,35 @@ const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", event: "Events", 
 /** `hidden`: an event the filters hide. It's still listed (dimmed), and picking it shows it. */
 type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: boolean };
 
-/** A filter the search names: an event type ("battle") or one person ("David"), not yet on. */
-function useSuggestion(query: string): { label: string; apply: () => void } | null {
+type Suggestion = { label: string; apply: () => void };
+
+/**
+ * Filters the search names, not yet on: an event type ("battle") or one person ("David"), and a
+ * book or passage ("Exodus 12-14"). "Job" and "Ruth" are both a person and a book, so both show.
+ */
+function useSuggestions(query: string): Suggestion[] {
   const filters = useStore((s) => s.filters);
   const setFilters = useStore((s) => s.setFilters);
   const q = query.trim().toLowerCase();
-  if (q.length < 3) return null;
+  if (q.length < 3) return [];
+  const out: Suggestion[] = [];
   const type = FILTER_TYPES.find(({ type, label }) => label.toLowerCase().startsWith(q) || q.startsWith(type));
-  if (type && !filters.types.includes(type.type)) {
-    return { label: type.label, apply: () => setFilters({ types: [...filters.types, type.type] }) };
-  }
   // A person only when the search picks out one: their whole name, or the only name it starts.
   const names = (p: (typeof data.people)[number]) => [p.name, ...p.altNames].map((n) => n.toLowerCase());
   const exact = data.people.filter((p) => names(p).includes(q));
   const starts = data.people.filter((p) => names(p).some((n) => n.startsWith(q)));
   const person = exact.length === 1 ? exact[0] : starts.length === 1 ? starts[0] : undefined;
-  if (person && !filters.people.includes(person.id)) {
-    return { label: `${person.name}’s events`, apply: () => setFilters({ people: [...filters.people, person.id] }) };
+  if (type && !filters.types.includes(type.type)) {
+    out.push({ label: type.label, apply: () => setFilters({ types: [...filters.types, type.type] }) });
+  } else if (person && !filters.people.includes(person.id)) {
+    out.push({ label: `${person.name}’s events`, apply: () => setFilters({ people: [...filters.people, person.id] }) });
   }
-  return null;
+  const passage = parsePassage(q);
+  const passageOn = passage && filters.passages.some((p) => formatPassageParam(p) === formatPassageParam(passage));
+  if (passage && !passageOn) {
+    out.push({ label: `events in ${formatPassage(passage)}`, apply: () => setFilters({ passages: [...filters.passages, passage] }) });
+  }
+  return out;
 }
 
 /** A searchable index of everything in the dataset; picking an item opens its details. */
@@ -52,7 +63,7 @@ export default function BrowsePanel() {
   const [query, setQuery] = useState("");
   const [tab, setTab] = useState<Tab>("all");
   const filters = useStore((s) => s.filters);
-  const suggestion = useSuggestion(query);
+  const suggestions = useSuggestions(query);
 
   // "/" opens the panel from anywhere (except while typing).
   useEffect(() => {
@@ -147,17 +158,18 @@ export default function BrowsePanel() {
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-2 py-2">
-        {suggestion && (
+        {suggestions.map((sg) => (
           <button
-            onClick={suggestion.apply}
+            key={sg.label}
+            onClick={sg.apply}
             className="mb-2 flex w-full items-center gap-2 rounded-md border border-dashed border-accent/60 px-2 py-1.5 text-left text-sm hover:bg-accent/10"
           >
             <svg aria-hidden viewBox="0 0 20 20" className="size-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 4.5h14l-5.5 6.5v5l-3 -1.5v-3.5z" />
             </svg>
-            <span>Filter: show only <strong className="font-semibold">{suggestion.label}</strong></span>
+            <span>Filter: show only <strong className="font-semibold">{sg.label}</strong></span>
           </button>
-        )}
+        ))}
         {groups.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
         {groups.map((g) => (
           <section key={g.kind} className="mb-3">

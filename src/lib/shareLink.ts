@@ -3,9 +3,11 @@ import { EventType } from "../data/schema";
 import type { ViewMode } from "../state/store";
 import { fromHistorical, toHistorical } from "./dates";
 import type { Filters } from "./filters";
+import { formatPassageParam, parsePassage, type Passage } from "./passages";
 
 /**
- * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map&types=battle,miracle&people=david`.
+ * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map&types=battle,miracle&people=david`,
+ * or `?passage=Exod.12-14` (OSIS, comma-separated; the reading-plans app links this way).
  * Every part is optional. Keep these names stable once published: links get pasted into lesson notes.
  */
 export type LinkState = {
@@ -70,7 +72,8 @@ export function parseLink(search: string): LinkState {
   const list = (name: string) => (p.get(name) ?? "").split(",").filter(Boolean);
   const types = list("types").filter((t): t is EventType => (EventType.options as string[]).includes(t));
   const people = list("people").filter((id) => peopleById.has(id));
-  if (types.length || people.length) out.filters = { types, people };
+  const passages = list("passage").map(parsePassage).filter((p): p is Passage => p !== undefined);
+  if (types.length || people.length || passages.length) out.filters = { types, people, passages };
   return out;
 }
 
@@ -90,6 +93,7 @@ export function formatLink(
   if (s.mode !== "split") p.set("view", s.mode);
   if (s.filters?.types.length) p.set("types", s.filters.types.join(","));
   if (s.filters?.people.length) p.set("people", s.filters.people.join(","));
+  if (s.filters?.passages.length) p.set("passage", s.filters.passages.map(formatPassageParam).join(","));
   // Commas are safe in a query and easier to read than %2C.
   return p.toString().replace(/%2C/g, ",");
 }

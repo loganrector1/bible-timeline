@@ -4,6 +4,7 @@ import { eventsById } from "../src/data";
 import { activeEvents, distanceFrom, NEAREST_COUNT } from "../src/lib/activeEvents";
 import { adjacentEvent, eventsInOrder } from "../src/lib/entities";
 import { drawnAsLifeMark, eventShown, filteredPeople, shownBy } from "../src/lib/filters";
+import { parsePassage } from "../src/lib/passages";
 import { data } from "../src/data";
 
 describe("activeEvents", () => {
@@ -87,7 +88,7 @@ describe("events along a journey", () => {
 
 describe("filters", () => {
   const chron = DEFAULT_CHRONOLOGY;
-  const battles = shownBy({ types: ["battle"], people: [] })!;
+  const battles = shownBy({ types: ["battle"], people: [], passages: [] })!;
 
   test("Nearest events and stepping show only what the filters let through", () => {
     for (const year of [-1445, -1000, 30]) {
@@ -105,23 +106,32 @@ describe("filters", () => {
   });
 
   test("events and people combine: any of the types, involving any of the people", () => {
-    const f = { types: ["battle" as const], people: ["david"] };
+    const f = { types: ["battle" as const], people: ["david"], passages: [] };
     const shown = eventsInOrder(chron).filter((ev) => eventShown(ev, f));
     expect(shown.length).toBeGreaterThan(0);
     expect(shown.every((ev) => ev.type === "battle" && ev.people.includes("david"))).toBe(true);
   });
 
   test("people stand out: those filtered to, else everyone in a shown event", () => {
-    expect(filteredPeople(data.events, { types: [], people: [] })).toBeUndefined();
-    expect([...filteredPeople(data.events, { types: ["battle"], people: ["david"] })!]).toEqual(["david"]);
-    const judged = filteredPeople(data.events, { types: ["judgment"], people: [] })!;
+    expect(filteredPeople(data.events, { types: [], people: [], passages: [] })).toBeUndefined();
+    expect([...filteredPeople(data.events, { types: ["battle"], people: ["david"], passages: [] })!]).toEqual(["david"]);
+    const judged = filteredPeople(data.events, { types: ["judgment"], people: [], passages: [] })!;
     expect(judged.has("noah")).toBe(true);
     expect(judged.has("ruth")).toBe(false);
   });
 
   test("births and deaths filtered to are dots, not marks on a bar", () => {
     const birth = data.events.find((ev) => ev.type === "birth" && !ev.major)!;
-    expect(drawnAsLifeMark(birth, { types: [], people: [] })).toBe(true);
-    expect(drawnAsLifeMark(birth, { types: ["birth"], people: [] })).toBe(false);
+    expect(drawnAsLifeMark(birth, { types: [], people: [], passages: [] })).toBe(true);
+    expect(drawnAsLifeMark(birth, { types: ["birth"], people: [], passages: [] })).toBe(false);
+  });
+});
+
+describe("passage filters", () => {
+  test("show the events told in a passage", () => {
+    const f = { types: [], people: [], passages: [parsePassage("Exodus 12-14")!] };
+    const ids = eventsInOrder(DEFAULT_CHRONOLOGY).filter((ev) => eventShown(ev, f)).map((ev) => ev.id);
+    expect(ids).toContain("exodus");
+    expect(ids).not.toContain("burning-bush");
   });
 });

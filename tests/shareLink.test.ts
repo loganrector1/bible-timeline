@@ -49,11 +49,20 @@ describe("links", () => {
 
   test("carry filters", () => {
     const query = formatLink({
-      mode: "split", selection: null, pxPerYear: 1, filters: { types: ["battle", "miracle"], people: ["david"] },
+      mode: "split", selection: null, pxPerYear: 1, filters: { types: ["battle", "miracle"], people: ["david"], passages: [] },
     });
     expect(query).toBe("zoom=1&types=battle,miracle&people=david");
-    expect(parseLink(`?${query}`).filters).toEqual({ types: ["battle", "miracle"], people: ["david"] });
-    expect(parseLink("?types=battle,dancing&people=nobody").filters).toEqual({ types: ["battle"], people: [] });
+    expect(parseLink(`?${query}`).filters).toEqual({ types: ["battle", "miracle"], people: ["david"], passages: [] });
+    expect(parseLink("?types=battle,dancing&people=nobody").filters).toEqual({ types: ["battle"], people: [], passages: [] });
+  });
+
+  test("carry passages the OSIS way", () => {
+    const filters = parseLink("?passage=Exod.12-14,Matt.5.1-7.29,Nowhere.3").filters!;
+    expect(filters.passages).toEqual([
+      { book: "Exod", chapter: 12, endChapter: 14 },
+      { book: "Matt", chapter: 5, verse: 1, endChapter: 7, endVerse: 29 },
+    ]);
+    expect(formatLink({ mode: "split", selection: null, pxPerYear: 1, filters })).toBe("zoom=1&passage=Exod.12-14,Matt.5.1-7.29");
   });
 
   test("ignore unknown ids, views and bad numbers", () => {
