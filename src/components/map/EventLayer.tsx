@@ -16,16 +16,18 @@ const LABEL_ANCHORS = ["top", "bottom", "right", "left", "top-right", "bottom-ri
 /**
  * Places, styled by state: 2 = selected or the focus event's, 1 = an event is happening
  * there now, 0 = everything else (small, labelled only when zoomed in). Places drawn as an
- * outline (regions) get a spaced capital label instead of a dot. Alternate candidate
- * sites are shown for selected places whose location is disputed.
+ * outline (regions) get a spaced capital label instead of a dot. Places an empire outline on
+ * the map names (`named`: Moab) show only while in use. Alternate candidate sites are shown
+ * for selected places whose location is disputed.
  */
 export default function EventLayer({
-  selected, active, colors,
-}: { selected: Set<string>; active: Set<string>; colors: MapColors }) {
+  selected, active, named, colors,
+}: { selected: Set<string>; active: Set<string>; named: Set<string>; colors: MapColors }) {
   const places = useMemo<GeoJSON.FeatureCollection>(() => ({
     type: "FeatureCollection",
     features: data.locations.flatMap((loc) => {
       const state = selected.has(loc.id) ? 2 : active.has(loc.id) ? 1 : 0;
+      if (state === 0 && named.has(loc.id)) return [];
       const kind = regionsById.has(loc.id) ? "region" : "site";
       const site = {
         type: "Feature" as const,
@@ -41,7 +43,7 @@ export default function EventLayer({
         : [];
       return [site, ...alternates];
     }),
-  }), [selected, active]);
+  }), [selected, active, named]);
 
   return (
     <Source id="locations" type="geojson" data={places}>

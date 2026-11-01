@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { data, datesFor, empiresById, erasById, eventsById, peopleById } from "../src/data";
+import { data, datesFor, empiresById, erasById, eventsById, locationsById, peopleById } from "../src/data";
 import cliopatria from "../src/data/borders/cliopatria.json";
 import drawn from "../src/data/borders/drawn.json";
 import { BorderCollection } from "../src/data/schema";
@@ -145,7 +145,7 @@ describe("borders on the map", () => {
     ...BorderCollection.parse(cliopatria).features,
     ...BorderCollection.parse(drawn).features,
   ];
-  const known = { empire: empiresById, person: peopleById, era: erasById, event: eventsById };
+  const known = { empire: empiresById, person: peopleById, era: erasById, event: eventsById, location: locationsById };
 
   test("ids are unique and links resolve", () => {
     const ids = borders.map((f) => f.properties.id);

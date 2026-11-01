@@ -36,6 +36,10 @@ const REPORT_OVERLAP = 0.5;
  * starts one earlier where its first snapshot comes late. `yieldTo` names powers whose land this
  * one's outline gives up while both stand, POWERS' or drawn.json's (by the id before the @):
  * Judah stayed a kingdom while it paid Assyria and Babylon tribute, so their outlines leave it out.
+ * `within` keeps only a power's homeland (Cliopatria's Philistia spreads over half of Canaan,
+ * the Philistines' dominance in Saul's day, not their land).
+ * `coast` adds a strip Cliopatria's coastline misses (Tyre's island).
+ * `takes` adds a drawn outline's land from a conquest, where Cliopatria's snapshots come late.
  * `beyond` is land cut out of a power's outline altogether: Egypt's kings were overlords in
  * Canaan, not its rulers, so that's told in words. `tint` colours Israel's own states as the
  * Kings lane does (Judah warm).
@@ -74,24 +78,48 @@ const POWERS = [
     rows: ["New Kingdom of Egypt", "Twenty-second Dynasty of Egypt", "Twenty-third Dynasty of Egypt"],
   },
   // Babylon broke away under Nabopolassar in 626 BC; Cliopatria keeps it Assyrian until 616.
-  { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"], yieldTo: ["egypt-divided", "egypt-late", "babylon", "judah"] },
+  {
+    empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"],
+    yieldTo: ["egypt-divided", "egypt-late", "babylon", "judah", "israel-after-732", "philistia", "phoenicia", "ammon", "moab", "edom", "aram"],
+    // Galilee and Gilead in 732 BC (2 Kings 15:29), Samaria in 720 (it yields to what's left till then).
+    takes: [{ drawn: "israel", from: -731, to: -700 }],
+  },
   // The 26th dynasty fell to Cambyses in 525 BC; the 30th to Artaxerxes III in 343 BC.
   {
     empire: "egypt-late", name: "Egypt", from: -655, to: -342,
     rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 },
   },
-  { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 }, yieldTo: ["judah"] },
+  { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 }, yieldTo: ["judah", "phoenicia", "ammon", "moab", "edom"] },
   { empire: "persia", name: "Persia", rows: ["Achaemenid Empire"] },
   { empire: "alexander-empire", name: "Alexander's empire", rows: ["Macedonian Empire"] },
   // Rome took Syria in 64–63 BC and Egypt in 30 BC.
   { empire: "seleucids", name: "Seleucids", rows: ["Seleucid Empire"], yieldTo: ["roman-republic"] },
   { empire: "ptolemies", name: "Ptolemies", rows: ["Ptolemaic Kingdom"], yieldTo: ["roman-republic"] },
   { empire: "hasmoneans", name: "Hasmoneans", rows: ["Judea"], tint: "judah" },
-  { empire: "roman-republic", name: "Rome", rows: ["Roman Republic"], to: -26 },
+  { empire: "roman-republic", name: "Rome", rows: ["Roman Republic"], to: -26, yieldTo: ["nabataeans"] },
   // The timeline ends soon after AD 100.
-  { empire: "rome", name: "Rome", rows: ["Roman Empire"], to: 200 },
+  { empire: "rome", name: "Rome", rows: ["Roman Empire"], to: 200, yieldTo: ["nabataeans"] },
   // Herod's kingdom, a Roman client, from the year after he took Jerusalem (37 BC), when the
   // Hasmoneans end, to his death (4 BC).
+  // Israel's neighbours, each opening its land (Ammon, Moab, Edom and Aram are drawn by hand).
+  // Philistia kept its kings under Assyria, as Judah did, until Nebuchadnezzar took Ashkelon
+  // (604 BC); Phoenicia's cities kept theirs until Persia.
+  {
+    id: "philistia", name: "Philistia", rows: ["Philistia"], from: -1150, to: -603, links: [{ kind: "location", id: "philistia" }], tint: "neighbour",
+    // The coastal plain of the five cities, from south of Gaza to the Yarkon.
+    within: [[[[34.1, 31.15], [34.45, 31.15], [34.7, 31.4], [34.9, 31.62], [34.97, 31.85], [34.95, 32.12], [34.7, 32.15], [34.35, 31.6], [34.1, 31.15]]]],
+    yieldTo: ["saul", "united-kingdom", "israel", "israel-after-732", "judah"],
+  },
+  {
+    id: "phoenicia", name: "Phoenicia", rows: ["Phoenicia"], from: -1150, to: -537, links: [{ kind: "location", id: "phoenicia" }], tint: "neighbour",
+    // The coast north of Carmel, from Acco to Arvad, without the colonies overseas (Cyprus).
+    within: [[[[34.8, 32.85], [35.3, 32.85], [35.5, 33.3], [35.85, 33.9], [36.1, 34.6], [36.15, 35.2], [35.95, 35.5], [35.5, 35.3], [35.2, 34.6], [34.6, 33.6], [34.8, 32.85]]]],
+    // Cliopatria's coastline stops short of Tyre's island and the harbours: a strip along it.
+    coast: [[[[34.95, 32.85], [35.05, 33.27], [35.25, 33.58], [35.4, 33.92], [35.55, 34.15], [35.72, 34.47], [35.75, 34.9], [35.92, 34.9], [35.9, 34.45], [35.72, 34.12], [35.58, 33.88], [35.45, 33.55], [35.28, 33.25], [35.12, 32.88], [34.95, 32.85]]]],
+    yieldTo: ["united-kingdom", "united-kingdom-subjects", "israel", "aram"],
+  },
+  // The Nabataeans, until Rome made their kingdom the province of Arabia (AD 106).
+  { id: "nabataeans", name: "Nabataeans", rows: ["Nabataeans"], from: -164, to: 106, links: [{ kind: "location", id: "arabia" }], tint: "neighbour", yieldTo: ["hasmoneans", "herod"] },
   { id: "herod", name: "Herod's kingdom", rows: ["Judea"], from: -35, to: -3, links: [{ kind: "person", id: "herod-the-great" }], tint: "judah" },
 ];
 
@@ -143,7 +171,9 @@ for (const power of POWERS) {
   const key = power.empire ?? power.id;
   for (const p of pieces) {
     // One shape per power: the polities' shared borders ("Egypt divided") aren't drawn.
-    const merged = p.rows.length === 1 ? multi(p.rows[0].geometry) : polygonClipping.union(...p.rows.map((r) => multi(r.geometry)));
+    let merged = p.rows.length === 1 ? multi(p.rows[0].geometry) : polygonClipping.union(...p.rows.map((r) => multi(r.geometry)));
+    if (power.within) merged = polygonClipping.intersection(merged, power.within);
+    if (power.coast) merged = polygonClipping.union(merged, power.coast);
     const coordinates = merged.map(simplifyPolygon).filter(Boolean);
     if (coordinates.length === 0) continue;
     features.push({ key, power, from: p.from, to: p.to, coordinates });
@@ -155,9 +185,24 @@ const drawn = JSON.parse(readFileSync(DRAWN, "utf8")).features.map((f) => ({
   key: f.properties.id.split("@")[0], from: f.properties.from, to: f.properties.to, coordinates: multi(f.geometry),
 }));
 
+// A power takes a drawn outline's land from a conquest until its own snapshots show it
+// (Assyria takes Israel's in 732 BC; Cliopatria's Assyria holds it only from 700).
+const taken = features.flatMap((f) => {
+  const takes = (f.power.takes ?? []).filter((t) => t.from < f.to && t.to > f.from);
+  if (takes.length === 0) return [f];
+  const cuts = [...new Set([f.from, f.to, ...takes.flatMap((t) => [t.from, t.to])])]
+    .filter((y) => y >= f.from && y <= f.to)
+    .sort((a, b) => a - b);
+  return cuts.slice(0, -1).map((a, i) => {
+    const b = cuts[i + 1];
+    const lands = takes.filter((t) => t.from < b && t.to > a).flatMap((t) => drawn.filter((d) => d.key === t.drawn).map((d) => d.coordinates));
+    return { ...f, from: a, to: b, coordinates: lands.length ? polygonClipping.union(f.coordinates, ...lands) : f.coordinates };
+  });
+});
+
 // A power gives up the land of those it yields to, while both stand.
-const final = features.flatMap((f) => {
-  const others = [...features, ...drawn].filter((o) => f.power.yieldTo?.includes(o.key) && o.from < f.to && o.to > f.from);
+const final = taken.flatMap((f) => {
+  const others = [...taken, ...drawn].filter((o) => f.power.yieldTo?.includes(o.key) && o.from < f.to && o.to > f.from);
   if (others.length === 0) return [f];
   const cuts = [...new Set([f.from, f.to, ...others.flatMap((o) => [o.from, o.to])])]
     .filter((y) => y >= f.from && y <= f.to)
@@ -230,7 +275,14 @@ function reportOverlaps(fs) {
       if (a.key === b.key || a.from >= b.to || b.from >= a.to) continue;
       const [p, q] = [boxes.get(a), boxes.get(b)];
       if (p[0] > q[2] || q[0] > p[2] || p[1] > q[3] || q[1] > p[3]) continue;
-      const area = polygonClipping.intersection(a.coordinates, b.coordinates)
+      let shared;
+      try {
+        shared = polygonClipping.intersection(a.coordinates, b.coordinates);
+      } catch (e) {
+        console.log(`couldn't compare ${a.key}@${a.from} and ${b.key}@${b.from}: ${e.message}`);
+        continue;
+      }
+      const area = shared
         .reduce((s, poly) => s + Math.abs(ringArea(poly[0])) - poly.slice(1).reduce((h, r) => h + Math.abs(ringArea(r)), 0), 0);
       if (area > REPORT_OVERLAP) {
         console.log(`overlap ${area.toFixed(1)} sq°: ${a.key} and ${b.key}, ${Math.max(a.from, b.from)} to ${Math.min(a.to, b.to)}`);

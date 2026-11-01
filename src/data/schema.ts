@@ -205,7 +205,7 @@ export const BorderFeature = z.object({
     name: z.string(),
     empire: id.optional(),
     /** What else it belongs to (a king, an era); selecting any of them shows it strongly. */
-    links: z.array(z.object({ kind: z.enum(["person", "era", "empire", "event"]), id })).optional(),
+    links: z.array(z.object({ kind: z.enum(["person", "era", "empire", "event", "location"]), id })).optional(),
     from: z.number().int(),
     to: z.number().int(),
     lateFrom: z.number().int().optional(),
@@ -213,8 +213,8 @@ export const BorderFeature = z.object({
     label: Coords,
     /** How sure the outline is, and what it shows; drawn outlines always say. */
     note: z.string().optional(),
-    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain. */
-    tint: z.enum(["judah", "israel", "united"]).optional(),
+    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbours share one. */
+    tint: z.enum(["judah", "israel", "united", "neighbour"]).optional(),
     /** Lands that paid tribute rather than being ruled: drawn fainter, dashed. */
     subject: z.boolean().optional(),
     /** A smaller label, for tribes and provinces. */

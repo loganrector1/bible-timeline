@@ -17,7 +17,7 @@ import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
 import { provideStopImages } from "./stopImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
-import BorderLayer, { BORDER_FILL_LAYERS, BORDER_LABEL_LAYER } from "./BorderLayer";
+import BorderLayer, { BORDER_FILL_LAYERS, BORDER_LABEL_LAYER, useNamedPlaces } from "./BorderLayer";
 import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
@@ -249,6 +249,7 @@ export default function MapView() {
   const strongRegions = highlight?.regions ?? new Set<string>();
   const focusRegions = focusHighlight?.regions ?? new Set<string>();
   // The regions labelled on the map (EventLayer labels a region only while something uses it).
+  const namedPlaces = useNamedPlaces(currentYear, chron, showEmpires);
   const regionLabels = [...new Set([...strongPlaces, ...activeLocations])].filter((id) => regionsById.has(id)).sort().join(",");
 
   const frameSelection = () => {
@@ -385,7 +386,7 @@ export default function MapView() {
               hovered={hover?.layer === JOURNEY_HIT_LAYER}
               colors={colors}
             />
-            <EventLayer selected={strongPlaces} active={activeLocations} colors={colors} />
+            <EventLayer selected={strongPlaces} active={activeLocations} named={namedPlaces} colors={colors} />
           </Map>
         ) : (
           <div className="flex h-full items-center justify-center p-4 text-center text-ink-muted">

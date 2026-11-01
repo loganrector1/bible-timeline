@@ -17,7 +17,8 @@ const FADE_MS = 350;
 /**
  * Each line of powers keeps one hue, so Egypt reads as Egypt from kingdom to kingdom and
  * neighbours (Ptolemies and Seleucids) differ. Israel's own states take the Kings lane's tints:
- * Judah warm, Israel cool, the united kingdom plain.
+ * Judah warm, Israel cool, the united kingdom plain. Israel's neighbours (Moab, Philistia…) share
+ * one slate, so they read as the neighbours rather than as powers.
  */
 const HUES: Record<string, string> = {
   "egypt-middle": "#b07d1a", hyksos: "#8c6a3c", "egypt-new": "#b07d1a", "egypt-divided": "#b07d1a",
@@ -27,6 +28,7 @@ const HUES: Record<string, string> = {
   "alexander-empire": "#4c8a44", seleucids: "#2f8a8a",
   "roman-republic": "#a23a5f", rome: "#a23a5f",
   hasmoneans: "#c47f17", judah: "#c47f17", israel: "#2b7bb9", united: "#7a6a55",
+  neighbour: "#6b7686",
 };
 const FALLBACK = "#7a6a55";
 
@@ -57,6 +59,25 @@ function labelled(beforeKey: string, afterKey: string): string[] {
   const after = afterKey ? afterKey.split(",") : [];
   const before = beforeKey ? beforeKey.split(",") : [];
   return [...before.filter((id) => !after.includes(id)), ...after];
+}
+
+/**
+ * The places named by the outlines on the map now (Moab's land, while Moab's kingdom stands):
+ * their own dot and background label give way to the outline's, so MOAB isn't named twice.
+ */
+export function useNamedPlaces(year: number, chron: string, on: boolean): Set<string> {
+  const [all, setAll] = useState<BorderFeature[] | null>(null);
+  useEffect(() => {
+    let live = true;
+    loadBorders().then((b) => live && setAll(b)).catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+  const key = on && all
+    ? bordersAt(all, year, chron).flatMap((f) => (f.properties.links ?? []).filter((l) => l.kind === "location").map((l) => l.id)).sort().join(",")
+    : "";
+  return useMemo(() => new Set(key ? key.split(",") : []), [key]);
 }
 
 /**

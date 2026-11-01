@@ -3,6 +3,7 @@ import { eventsAtLocation } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { EventList, Note, Section } from "./parts";
+import { MapBorders } from "./MapBorders";
 import { RuledBy } from "./RuledBy";
 import { Prose } from "../ScriptureText";
 
@@ -42,6 +43,7 @@ export default function LocationDetail({ loc }: { loc: Location }) {
       </Section>
 
       <RuledBy loc={loc} />
+      <MapBorders of={{ kind: "location", id: loc.id }} />
 
       <FilterShortcut place={loc} />
     </>
