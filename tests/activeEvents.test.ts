@@ -157,3 +157,18 @@ describe("era and place filters", () => {
     expect(shown({ places: ["canaan"] })).toContain("binding-of-isaac");
   });
 });
+
+describe("world history", () => {
+  const nineveh = eventsById.get("nineveh-falls")!;
+  test("shows only while its lane is on", () => {
+    expect(eventShown(nineveh, NO_FILTERS, DEFAULT_CHRONOLOGY)).toBe(false);
+    expect(eventShown(nineveh, { ...NO_FILTERS, world: true }, DEFAULT_CHRONOLOGY)).toBe(true);
+    expect(shownBy(NO_FILTERS, DEFAULT_CHRONOLOGY)?.(nineveh)).toBe(false);
+    expect(shownBy({ ...NO_FILTERS, world: true }, DEFAULT_CHRONOLOGY)).toBeUndefined();
+  });
+
+  test("Scripture's events don't depend on it", () => {
+    const exodus = eventsById.get("exodus")!;
+    expect(eventShown(exodus, NO_FILTERS, DEFAULT_CHRONOLOGY)).toBe(true);
+  });
+});

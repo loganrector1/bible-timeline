@@ -11,6 +11,7 @@ export function findProblems(d: Dataset): string[] {
 
   const sets = {
     era: idSet(d.eras, "era", problems),
+    empire: idSet(d.empires, "empire", problems),
     event: idSet(d.events, "event", problems),
     person: idSet(d.people, "person", problems),
     location: idSet(d.locations, "location", problems),
@@ -31,6 +32,10 @@ export function findProblems(d: Dataset): string[] {
   };
 
   for (const era of d.eras) needsDefault(`era ${era.id}`, era.dates);
+  for (const em of d.empires) {
+    needsDefault(`empire ${em.id}`, em.dates);
+    check(`empire ${em.id}`, "location", em.capitals);
+  }
 
   for (const ev of d.events) {
     const owner = `event ${ev.id}`;
@@ -62,6 +67,8 @@ export function findProblems(d: Dataset): string[] {
     const owner = `person ${p.id}`;
     needsDefault(owner, p.dates);
     check(owner, "person", [...p.parents, ...p.spouses]);
+    if (p.empire) check(owner, "empire", [p.empire]);
+    if ((p.lane === "world") !== !!p.empire) problems.push(`${owner}: rulers in the world lane, and only they, name their empire`);
   }
 
   // Region outlines are the shapes of places, so each must share its id with a location.

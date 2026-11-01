@@ -5,6 +5,7 @@ import type { TimeScale } from "../../lib/timeScale";
 import { useStore } from "../../state/store";
 import Axis from "./Axis";
 import EraBands from "./EraBands";
+import EmpireBars from "./EmpireBars";
 import EventLane from "./EventLane";
 import { HoverCard, type TimelineHover } from "./hover";
 import OffscreenSelection from "./OffscreenSelection";
@@ -97,7 +98,13 @@ export default function Timeline() {
         <EraBands scale={scale} onHover={setHover} />
         <Axis scale={scale} />
         <div className="absolute inset-y-0 right-12 flex" style={{ left: AXIS_WIDTH }}>
-          {lanes.map((lane) => <PeopleLane key={lane} lane={lane} scale={scale} onHover={setHover} />)}
+          {lanes.map((lane) => lane === "world" ? (
+            // Tinted, so outside history reads as set apart from Scripture's people.
+            <div key={lane} className="flex shrink-0 bg-stone-500/[0.07]">
+              <EmpireBars scale={scale} onHover={setHover} />
+              <PeopleLane lane={lane} scale={scale} onHover={setHover} />
+            </div>
+          ) : <PeopleLane key={lane} lane={lane} scale={scale} onHover={setHover} />)}
           <EventLane scale={scale} onHover={setHover} lanes={lanes} />
         </div>
         <TimeCursor scale={scale} />

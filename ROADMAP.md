@@ -60,16 +60,20 @@ Eight tours (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile 
 
 Each Scripture reference opens its passage inline in the details panel, in the Berean Standard Bible (public domain), bundled one chunk per book so it needs no API and works offline; passages over 6 verses start cut short with "Read more", and each links out to the ESV on Bible Gateway. Quotes in summaries, notes and tours now follow the BSB word for word.
 
+## World history (done)
+
+An optional World history lane: the great powers from Ur's Third Dynasty to Rome as bars, their rulers' reigns beside them (foreign rulers moved out of the Kings lane, which is now Israel and Judah), and world events from outside Scripture (Hammurabi's laws to the Jewish revolt) as squares in the event lane. Off by default; while it's off, world history stays out of the map and of stepping and play. Empires have their own panels and links (`?empire=assyria`). The "People" menu became "Lanes". Archaeological finds are still to come.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
+- **Archaeology:** finds that touch the Bible (the Merneptah, Tel Dan and Mesha stelae, the Taylor Prism, the Cyrus Cylinder, the Dead Sea Scrolls), dated when they were made, with what they say and confirm, where they were found and where they are now, in plain language; they would join the World history lane.
 - **Theme filter:** covenants, prophecy fulfilled, women of the Bible and the like; needs tags on every event first.
-- **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
 - **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
   - **Data:** each power is a series of dated outlines (Assyria c. 850 BC, c. 700 BC, c. 640 BC…) with a rise and fall date, kept apart from the place-shaped outlines in `regions.json`. Each outline gets a note on its source and how sure it is; borders before about 1000 BC are especially rough.
   - **Sources:** check open historical-boundary datasets and their licences before drawing by hand (for example Cliopatria from the Seshat project, or historical-basemaps), and credit them like OpenBible.info.
-  - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World History lane, so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
+  - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World history lane (built, with `empires.json`), so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
 
 ## Later: reading plans (separate app)
 

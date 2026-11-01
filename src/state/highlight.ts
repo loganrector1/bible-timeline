@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { eventsById, regionsById, type EntityRef } from "../data";
 import {
-  childEvents, entityLocations, eventLocations, eventsAtLocation, eventsForPerson, eventsInEra,
+  childEvents, entityLocations, eventLocations, eventsAtLocation, eventsForEmpire, eventsForPerson, eventsInEra,
+  rulersOf,
 } from "../lib/entities";
 import { useStore } from "./store";
 
@@ -57,6 +58,15 @@ export function computeHighlight(sel: EntityRef | null, chron: string): Highligh
         locations: locationIds(entityLocations(sel, chron)),
         regions: new Set(),
         eraId: sel.id,
+      };
+    }
+    case "empire": {
+      const evs = eventsForEmpire(sel.id, chron);
+      return {
+        events: new Set(evs.map((e) => e.id)),
+        people: new Set(rulersOf(sel.id, chron).map((p) => p.id)),
+        locations: locationIds(entityLocations(sel, chron)),
+        regions: new Set(),
       };
     }
   }

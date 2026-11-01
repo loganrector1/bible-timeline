@@ -1,4 +1,4 @@
-import { erasById, eventsById, locationsById, peopleById, toursById, type EntityKind, type EntityRef } from "../data";
+import { empiresById, erasById, eventsById, locationsById, peopleById, toursById, type EntityKind, type EntityRef } from "../data";
 import { CHRONOLOGIES, DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { EventType } from "../data/schema";
 import type { ViewMode } from "../state/store";
@@ -25,9 +25,9 @@ export type LinkState = {
 };
 
 /** The URL parameter for each kind of selection. */
-const KIND_PARAM: Record<EntityKind, string> = { event: "event", person: "person", location: "place", era: "era" };
+const KIND_PARAM: Record<EntityKind, string> = { event: "event", person: "person", location: "place", era: "era", empire: "empire" };
 const BY_ID: Record<EntityKind, Map<string, unknown>> = {
-  event: eventsById, person: peopleById, location: locationsById, era: erasById,
+  event: eventsById, person: peopleById, location: locationsById, era: erasById, empire: empiresById,
 };
 const VIEWS: ViewMode[] = ["timeline", "split", "map"];
 

@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { data, datesFor, eventsById } from "../src/data";
+import { data, datesFor, eventsById, peopleById } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
-import { eventOrderKey, personSpan, shownLane, shownLanes } from "../src/lib/entities";
+import { eventOrderKey, eventsForEmpire, personSpan, rulersOf, shownLane, shownLanes } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -115,5 +115,23 @@ describe("tours", () => {
         expect(keys, tour.id).toEqual([...keys].sort((a, b) => a - b));
       }
     }
+  });
+});
+
+describe("empires and rulers", () => {
+  test("the Kings lane is Israel's and Judah's; other rulers are world history", () => {
+    for (const p of data.people.filter((p) => p.lane === "kings")) expect(p.kingdom, p.id).toBeDefined();
+    expect(peopleById.get("sennacherib")!.lane).toBe("world");
+  });
+
+  test("an empire's story: its rulers' events and world events at its capitals", () => {
+    const ids = eventsForEmpire("assyria", DEFAULT_CHRONOLOGY).map((e) => e.id);
+    expect(ids).toContain("sennacherib-siege");
+    expect(ids).toContain("nineveh-falls");
+    expect(rulersOf("persia", DEFAULT_CHRONOLOGY).map((p) => p.id).slice(0, 2)).toEqual(["cyrus", "darius"]);
+  });
+
+  test("world events say they're outside Scripture", () => {
+    for (const ev of data.events.filter((e) => e.world)) expect(ev.dateNote, ev.id).toBeDefined();
   });
 });

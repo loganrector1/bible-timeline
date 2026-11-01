@@ -209,6 +209,13 @@
     "scripture": [{ "book": "Genesis", "chapter": 50, "verse": 22, "endVerse": 26 }]
   },
   {
+    "id": "hammurabi-laws", "title": "Hammurabi's laws", "type": "other", "world": true,
+    "summary": "Hammurabi of Babylon sets up stone pillars carved with nearly 300 laws, among the oldest law codes known. Readers often compare them with the Law given at Sinai: some laws are alike, but the Law of Moses is a covenant with God.",
+    "dates": { "early": { "start": { "year": -1753 }, "confidence": "approx" } },
+    "dateNote": "About 1754 BC. The best-known copy, found at Susa in 1901, is in the Louvre.",
+    "locations": ["babel"]
+  },
+  {
     "id": "oppression", "title": "Israel enslaved in Egypt", "type": "other",
     "summary": "A new king who did not know Joseph forces the growing Israelite people into hard labor building store cities.",
     "dates": {
@@ -218,6 +225,13 @@
     "dateNote": "Scripture does not date the start of the oppression; these spans are estimates.",
     "people": [], "locations": ["pithom", "rameses"], "regions": ["goshen"],
     "scripture": [{ "book": "Exodus", "chapter": 1 }]
+  },
+  {
+    "id": "hyksos-expelled", "title": "Egypt drives out the Hyksos", "type": "battle", "world": true,
+    "summary": "Pharaoh Ahmose drives the Hyksos kings out of the Nile Delta and founds Egypt's New Kingdom.",
+    "dates": { "early": { "start": { "year": -1549 }, "confidence": "approx" } },
+    "dateNote": "About 1550 BC. Some readers link \"a new king, who did not know Joseph\" (Exodus 1:8) with the change of rulers here.",
+    "locations": ["egypt"]
   },
   {
     "id": "moses-born", "title": "Birth of Moses", "type": "birth",
@@ -500,6 +514,13 @@
     "scripture": [{ "book": "Judges", "chapter": 4, "endChapter": 5 }]
   },
   {
+    "id": "sea-peoples", "title": "The Sea Peoples and the Bronze Age collapse", "type": "battle", "world": true,
+    "summary": "Raiders from the Aegean sweep the eastern Mediterranean as the Hittite Empire and many cities fall. Ramesses III drives them back from Egypt, and one of their peoples, the Philistines, settles the coast of Canaan.",
+    "dates": { "early": { "start": { "year": -1176 }, "confidence": "approx" } },
+    "dateNote": "Ramesses III's victory, carved on his temple at Medinet Habu, is dated about 1177 BC; the collapse took decades.",
+    "locations": ["gaza"]
+  },
+  {
     "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle",
     "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches.",
     "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
@@ -649,6 +670,13 @@
     "scripture": [{ "book": "1 Kings", "chapter": 18 }]
   },
   {
+    "id": "qarqar", "title": "The battle of Qarqar", "type": "battle", "world": true,
+    "summary": "Ahab of Israel joins a coalition of kings, with 2,000 chariots, to stop Shalmaneser III of Assyria in Syria: the first time a king of Israel appears in another nation's records.",
+    "dates": { "early": { "start": { "year": -852 }, "confidence": "approx" } },
+    "dateNote": "853 BC, recorded on Shalmaneser's Kurkh Monolith; Scripture doesn't mention it. Qarqar was on the Orontes in Syria.",
+    "people": ["ahab"]
+  },
+  {
     "id": "elijah-taken", "title": "Elijah taken up to heaven", "type": "miracle",
     "summary": "Elijah parts the Jordan and is taken up in a whirlwind as chariots of fire appear. Elisha takes up his cloak and his ministry.",
     "dates": { "early": { "start": { "year": -849 }, "confidence": "approx" } },
@@ -679,6 +707,13 @@
     "dateNote": "In the days of Uzziah, Jotham, Ahaz and Hezekiah of Judah and Jeroboam II of Israel (Hosea 1:1): from before 753 BC, when Jeroboam died, into Hezekiah's reign, from 715 BC.",
     "people": ["hosea", "jeroboam-ii", "uzziah", "jotham", "ahaz", "hezekiah"], "locations": ["samaria"],
     "scripture": [{ "book": "Hosea", "chapter": 1, "verse": 1, "endVerse": 3 }, { "book": "Hosea", "chapter": 11, "verse": 1, "endVerse": 9 }]
+  },
+  {
+    "id": "rome-founded", "title": "Rome founded, by tradition", "type": "other", "world": true,
+    "summary": "Roman legend tells that Romulus founds the city on the Tiber that will one day rule Judea.",
+    "dates": { "early": { "start": { "year": -752 }, "confidence": "approx" } },
+    "dateNote": "The traditional date, 753 BC, comes from later Roman writers; the site was settled earlier.",
+    "locations": ["rome"]
   },
   {
     "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
@@ -745,6 +780,14 @@
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
     "people": ["jeremiah", "josiah", "jehoiakim", "zedekiah", "neco"], "locations": ["anathoth", "jerusalem"],
     "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
+  },
+  {
+    "id": "nineveh-falls", "title": "Nineveh falls", "type": "battle", "world": true,
+    "summary": "Babylonians and Medes take and destroy Nineveh, Assyria's capital, as Nahum had foretold. Within a few years the Assyrian Empire is gone.",
+    "dates": { "early": { "start": { "year": -611 }, "confidence": "approx" } },
+    "dateNote": "612 BC, recorded in the Babylonian Chronicles.",
+    "locations": ["nineveh"],
+    "scripture": [{ "book": "Nahum", "chapter": 3, "verse": 1, "endVerse": 7 }]
   },
   {
     "id": "habakkuk-ministry", "title": "Habakkuk questions God", "type": "ministry",
@@ -837,6 +880,14 @@
     "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
   },
   {
+    "id": "marathon", "title": "The battle of Marathon", "type": "battle", "world": true,
+    "summary": "Athens defeats Darius I's invading army at Marathon. Persia's wars with Greece go on under Xerxes, the Ahasuerus of Esther.",
+    "dates": { "early": { "start": { "year": -489 }, "confidence": "approx" } },
+    "dateNote": "490 BC, told by the Greek historian Herodotus.",
+    "people": ["darius"],
+    "locations": ["athens"]
+  },
+  {
     "id": "esther", "title": "Esther saves her people", "type": "other", "major": true,
     "summary": "Haman plots to destroy the Jews of the Persian Empire. Queen Esther risks her life to plead with the king, and the day set for their destruction becomes a day of deliverance, remembered at Purim.",
     "dates": { "early": { "start": { "year": -472, "month": 3, "label": "13 Adar" }, "confidence": "approx" } },
@@ -878,7 +929,8 @@
     "scripture": [{ "book": "Malachi", "chapter": 1, "endChapter": 4 }]
   },
   {
-    "id": "alexander", "title": "Alexander the Great conquers Persia", "type": "battle",
+    "id": "alexander", "title": "Alexander the Great conquers Persia", "type": "battle", "world": true,
+    "people": ["alexander-the-great"],
     "summary": "Alexander of Macedon sweeps through the Persian Empire, taking Tyre and then Judea. Greek becomes the common language of the east, the language the New Testament will be written in.",
     "dates": { "early": { "start": { "year": -331 }, "confidence": "approx" } },
     "dateNote": "History, not Scripture: Alexander took Tyre after a seven-month siege in 332 BC. Many readers see him in Daniel's vision of a swift goat from the west (Daniel 8:5–8, 21).",
@@ -886,14 +938,23 @@
     "scripture": [{ "book": "Daniel", "chapter": 8, "verse": 5, "endVerse": 8 }]
   },
   {
-    "id": "septuagint", "title": "The Septuagint", "type": "writing",
+    "id": "septuagint", "title": "The Septuagint", "type": "writing", "world": true,
     "summary": "Jewish scholars in Alexandria translate the Hebrew Scriptures into Greek. The apostles often quote this translation.",
     "dates": { "early": { "start": { "year": -249 }, "confidence": "approx" } },
     "dateNote": "The Torah was translated in the third century BC, by tradition under Ptolemy II; the other books followed over the next century or so.",
     "locations": ["alexandria"]
   },
   {
-    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship",
+    "id": "antiochus-temple", "title": "Antiochus IV desecrates the temple", "type": "judgment", "world": true,
+    "summary": "Antiochus IV outlaws the Sabbath and circumcision and sets up an altar to Zeus in the temple, sacrificing on it. Faithful Jews resist, and the Maccabees take up arms.",
+    "dates": { "early": { "start": { "year": -166 }, "confidence": "approx" } },
+    "dateNote": "December 167 BC, told in 1 Maccabees 1. Many readers see it in Daniel's \"abomination of desolation\" (Daniel 11:31).",
+    "people": ["antiochus-iv"],
+    "locations": ["jerusalem"],
+    "scripture": [{ "book": "Daniel", "chapter": 11, "verse": 31, "endVerse": 32 }]
+  },
+  {
+    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship", "world": true,
     "summary": "After Antiochus IV defiles the temple and outlaws Judaism, Judas Maccabeus leads a revolt, retakes Jerusalem and rededicates the temple. Jews remember it at Hanukkah, the Feast of Dedication Jesus kept (John 10:22).",
     "dates": { "early": { "start": { "year": -163, "month": 12, "label": "25 Kislev" }, "confidence": "approx" } },
     "dateNote": "History, not Scripture (except as Catholic and Orthodox Christians count 1 Maccabees): told in 1 Maccabees 4 and by Josephus, in December 164 BC.",
@@ -901,11 +962,18 @@
     "scripture": [{ "book": "John", "chapter": 10, "verse": 22, "endVerse": 23 }]
   },
   {
-    "id": "pompey", "title": "Rome takes Jerusalem", "type": "battle",
+    "id": "pompey", "title": "Rome takes Jerusalem", "type": "battle", "world": true,
     "summary": "The Roman general Pompey captures Jerusalem and enters the temple. Judea comes under Roman rule.",
     "dates": { "early": { "start": { "year": -62 }, "confidence": "approx" } },
     "dateNote": "History, not Scripture: recorded by Josephus, in 63 BC.",
     "locations": ["jerusalem"]
+  },
+  {
+    "id": "caesar-killed", "title": "Julius Caesar assassinated", "type": "death", "world": true,
+    "summary": "Senators kill Julius Caesar in Rome. The civil wars that follow end with his heir Octavian as Augustus, Rome's first emperor.",
+    "dates": { "early": { "start": { "year": -43 }, "confidence": "approx" } },
+    "dateNote": "The Ides of March, 44 BC.",
+    "locations": ["rome"]
   },
   {
     "id": "herod-reign", "title": "Herod the Great's reign", "type": "reign",
@@ -1229,7 +1297,7 @@
     "scripture": [{ "book": "2 Timothy", "chapter": 4, "verse": 6, "endVerse": 8 }]
   },
   {
-    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "major": true,
+    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "world": true, "major": true, "partOf": "jewish-revolt",
     "summary": "Rome crushes a Jewish revolt. Titus's army takes Jerusalem and burns the temple, as Jesus had foretold.",
     "dates": { "early": { "start": { "year": 70, "month": 8, "label": "10 Av" }, "confidence": "approx" } },
     "dateNote": "History, not narrated in Scripture: Josephus describes the siege and the burning of the temple in August AD 70. Jesus foretold it (Luke 21:20–24).",
@@ -1409,12 +1477,27 @@
     "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }]
   },
   {
+    "id": "rome-fire", "title": "The great fire of Rome", "type": "judgment", "world": true,
+    "summary": "Fire destroys much of Rome. Nero blames the Christians and has many put to death, the first persecution by Rome; tradition places the deaths of Peter and Paul under Nero.",
+    "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
+    "dateNote": "July AD 64, told by the Roman historian Tacitus.",
+    "people": ["nero"],
+    "locations": ["rome"]
+  },
+  {
     "id": "gospel-of-matthew", "title": "Matthew's Gospel", "type": "writing",
     "summary": "Matthew presents Jesus as the promised Messiah and King, the fulfillment of the Law and the Prophets, gathering his teaching into five great discourses.",
     "dates": { "early": { "start": { "year": 65 }, "confidence": "approx" } },
     "dateNote": "Usually dated between the 50s and the 80s; where it was written isn't known. Tradition says Matthew wrote first, for Jewish believers.",
     "people": ["matthew"],
     "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 1 }, { "book": "Matthew", "chapter": 28, "verse": 18, "endVerse": 20 }]
+  },
+  {
+    "id": "jewish-revolt", "title": "The Jewish revolt", "type": "battle", "world": true,
+    "summary": "Judea rises against Rome. Vespasian and then his son Titus crush the revolt, taking Jerusalem in AD 70 and Masada a few years later.",
+    "dates": { "early": { "start": { "year": 66 }, "end": { "year": 73 }, "confidence": "approx" } },
+    "dateNote": "AD 66–73 (or 74, when Masada fell), told by Josephus, who fought in it.",
+    "locations": ["jerusalem"]
   },
   {
     "id": "hebrews", "title": "The letter to the Hebrews", "type": "writing",

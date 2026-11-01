@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState, type PointerEvent, type RefObject } from "react";
-import { erasById, eventsById, locationsById, peopleById } from "../data";
+import { empiresById, erasById, eventsById, locationsById, peopleById } from "../data";
 import { entityTitle } from "../lib/entities";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
 import { currentLink } from "../state/urlSync";
+import EmpireDetail from "./detail/EmpireDetail";
 import EraDetail from "./detail/EraDetail";
 import EventDetail from "./detail/EventDetail";
 import LocationDetail from "./detail/LocationDetail";
 import PersonDetail from "./detail/PersonDetail";
 import TourBox from "./TourBox";
 
-const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era" } as const;
+const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era", empire: "Empire" } as const;
 
 /** Height of the phone sheet's collapsed peek. */
 export const PEEK_HEIGHT = "9.5rem";
@@ -173,6 +174,10 @@ export default function DetailPanel() {
       case "era": {
         const era = erasById.get(selection.id);
         return era && <EraDetail era={era} />;
+      }
+      case "empire": {
+        const empire = empiresById.get(selection.id);
+        return empire && <EmpireDetail empire={empire} />;
       }
     }
   })();

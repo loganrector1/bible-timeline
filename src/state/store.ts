@@ -17,7 +17,8 @@ const clampZoom = (z: number) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
 
 /** Which people lanes are shown, remembered per browser (a convenience; it may be unavailable). */
 const LANES_KEY = "bible-timeline:lanes";
-const LANE_ORDER: Lane[] = Lane.options;
+// Left to right: world history farthest from the events, as the backdrop.
+const LANE_ORDER: Lane[] = ["world", "people", "kings", "prophets", "church"];
 function loadLanes(): Lane[] {
   try {
     const saved: unknown = JSON.parse(localStorage.getItem(LANES_KEY) ?? "null");
@@ -189,6 +190,7 @@ export const useStore = create<State>()((set, get) => {
     const [lo, hi] = datasetRange(get().chronologyId);
     return Math.min(hi, Math.max(lo, y));
   };
+  const initialLanes = loadLanes();
 
   return {
     currentYear: -2090,
@@ -201,7 +203,7 @@ export const useStore = create<State>()((set, get) => {
     viewportPx: 700,
     timeStripPx: 0,
     focusHint: null,
-    lanes: loadLanes(),
+    lanes: initialLanes,
     theme: loadTheme(),
     setTheme: (theme) => {
       applyTheme(theme);
@@ -222,7 +224,7 @@ export const useStore = create<State>()((set, get) => {
       saveSetting(ERA_STYLE_KEY, eraStyle, "BC");
       set({ eraStyle });
     },
-    filters: NO_FILTERS,
+    filters: { ...NO_FILTERS, world: initialLanes.includes("world") },
     setFilters: (f) => {
       const before = get().filters;
       const filters = { ...before, ...f };
@@ -233,7 +235,8 @@ export const useStore = create<State>()((set, get) => {
       }
       // Narrowing what's shown can leave the screen empty. Not while something is selected (it
       // stays in view, and time shouldn't jump away from it), and never when removing a filter.
-      const added = (Object.keys(f) as (keyof Filters)[]).some((k) =>
+      const kinds = (Object.keys(f) as (keyof Filters)[]).filter((k): k is Exclude<keyof Filters, "world"> => k !== "world");
+      const added = kinds.some((k) =>
         filters[k].some((x) => !(before[k] as unknown[]).some((y) => JSON.stringify(y) === JSON.stringify(x))));
       const { selection, currentYear, viewportPx, pxPerYear, chronologyId: chron } = get();
       if (!added || selection) return;
@@ -249,7 +252,8 @@ export const useStore = create<State>()((set, get) => {
     setLaneShown: (lane, shown) => {
       const lanes = LANE_ORDER.filter((l) => (l === lane ? shown : get().lanes.includes(l)));
       saveLanes(lanes);
-      set({ lanes });
+      // World history shows on the map and in step and play only while its lane is on.
+      set({ lanes, filters: { ...get().filters, world: lanes.includes("world") } });
     },
     selectionNonce: 0,
     browseOpen: false,
@@ -325,9 +329,12 @@ export const useStore = create<State>()((set, get) => {
         selectionNonce: get().selectionNonce + 1,
         playing: opts?.keepPlaying ? get().playing : false,
       });
-      // A person in a hidden lane brings their lane into view.
+      // A person in a hidden lane brings their lane into view, as world history and empires
+      // bring the World history lane.
       const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
       if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
+      const world = ref?.kind === "empire" || (ref?.kind === "event" && eventsById.get(ref.id)?.world);
+      if (world && !get().lanes.includes("world")) get().setLaneShown("world", true);
       if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.
       const b = entityBounds(ref, get().chronologyId);
       if (!b) return;

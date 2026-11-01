@@ -178,7 +178,7 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
                 aria-hidden
                 onClick={() => select({ kind: "event", id: ev.id })}
                 {...hoverProps({ kind: "event", id: ev.id }, onHover)}
-                className={`absolute w-1.5 rounded-full ${selected ? "bg-accent" : "bg-ink/60 group-hover/event:bg-accent"}`}
+                className={`absolute w-1.5 ${ev.world ? "rounded-[1px]" : "rounded-full"} ${selected ? "bg-accent" : ev.world ? "bg-stone-500/60 group-hover/event:bg-accent" : "bg-ink/60 group-hover/event:bg-accent"}`}
                 style={{
                   left: r.column * SPAN_COLUMN + 6,
                   top: r.top - shift,
@@ -197,9 +197,11 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
               style={{ top: r.labelY - shift, left, maxWidth: `calc(100% - ${left}px)` }}
             >
               {!r.asSpan && (
+                // World history is a square, so it never reads as one of Scripture's events.
                 <span
-                  className={`size-3 shrink-0 rounded-full border-2 ${
+                  className={`size-3 shrink-0 border-2 ${ev.world ? "rounded-[2px]" : "rounded-full"} ${
                     selected ? "border-accent bg-accent ring-4 ring-accent/25"
+                    : ev.world ? "border-stone-500 bg-stone-500/20 group-hover/event:border-accent"
                     : spec.confidence === "unknown" ? "border-dashed border-ink/60 bg-paper"
                     : "border-ink/70 bg-paper group-hover/event:border-accent"
                   }`}
@@ -210,7 +212,7 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
                   style={{ marginLeft: r.asSpan ? 0 : r.labelShift }}
                   className={`truncate rounded px-1 text-[13px] leading-[18px] ${
                     selected ? "bg-accent text-paper" : "bg-paper/75 group-hover/event:text-accent"
-                  }`}
+                  } ${ev.world && !selected ? "text-ink-muted italic" : ""}`}
                 >
                   {ev.title}
                 </span>

@@ -30,7 +30,16 @@ export default function NowPanel({
   const drag = useRef<{ y: number; id?: string; moved: boolean } | null>(null);
 
   const ordered = eventsInOrder(chron).filter((ev) => events.includes(ev));
-  const shown = open ? ordered : ordered.filter((ev) => ev.id === focusId);
+  // With no focus (a person is selected), the collapsed panel still shows the nearest event, unmarked.
+  const peekId = focusId ?? events[0]?.id;
+  const shown = open ? ordered : ordered.filter((ev) => ev.id === peekId);
+  // Events along a journey sit under it when it's listed just above them, or a nested sibling is.
+  // Date order wins, so one with another event in between names its parent instead.
+  const nestedAt: boolean[] = [];
+  shown.forEach((ev, i) => {
+    const prev = shown[i - 1];
+    nestedAt.push(open && !!ev.partOf && !!prev && (prev.id === ev.partOf || (nestedAt[i - 1] && prev.partOf === ev.partOf)));
+  });
 
   useEffect(() => {
     listRef.current?.querySelector("[data-focus]")?.scrollIntoView({ block: "nearest" });
@@ -116,12 +125,12 @@ export default function NowPanel({
               ref={listRef}
               className="max-h-52 overflow-y-auto overscroll-contain"
             >
-              {shown.map((ev) => {
+              {shown.map((ev, i) => {
                 const selected = selection?.kind === "event" && selection.id === ev.id;
                 const isFocus = ev.id === focusId;
                 const spec = datesFor(ev, chron);
-                // Events along a journey sit under it when it's listed too.
-                const nested = open && ev.partOf !== undefined && ordered.some((p) => p.id === ev.partOf);
+                const parent = open && ev.partOf ? ordered.find((p) => p.id === ev.partOf) : undefined;
+                const nested = nestedAt[i];
                 return (
                   <li key={ev.id} data-focus={isFocus || undefined}>
                     <button
@@ -131,7 +140,14 @@ export default function NowPanel({
                         selected ? "bg-accent text-paper" : isFocus ? "bg-accent-soft" : "hover:bg-paper-2"
                       }`}
                     >
-                      <span className="min-w-0 flex-1 truncate">{ev.title}</span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate">{ev.title}</span>
+                        {parent && !nested && (
+                          <span className={`block truncate text-[11px] ${selected ? "text-paper/80" : "text-ink-muted"}`}>
+                            in {parent.title}
+                          </span>
+                        )}
+                      </span>
                       {spec && (
                         <span className={`shrink-0 text-[11px] tabular-nums ${selected ? "text-paper/80" : "text-ink-muted"}`}>
                           {formatDateSpec(spec, eraStyle, { yearsOnly: true }).replace(/^c\. /, "")}

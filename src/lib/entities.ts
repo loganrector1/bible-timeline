@@ -1,5 +1,5 @@
 import {
-  data, datesFor, erasById, eventsById, journeysById, locationsById, peopleById,
+  data, datesFor, empiresById, erasById, eventsById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
 import type { Era, Event, Lane, Location, Person } from "../data/schema";
@@ -107,7 +107,7 @@ export function shownLanes(person: Person, shown: Lane[]): Lane[] {
 
 /** Births and deaths mark the ends of a lifespan, so not a bar that's a reign. */
 export function hasLifeMarks(person: Person, lane: Lane): boolean {
-  return lane !== "kings" || !person.reign;
+  return (lane !== "kings" && lane !== "world") || !person.reign;
 }
 
 /**
@@ -147,6 +147,28 @@ export function personDatesText(person: Person, chron: string, eraStyle: EraStyl
 
 export function eventsForPerson(personId: string, chron: string): Event[] {
   return eventsInOrder(chron).filter((ev) => ev.people.includes(personId));
+}
+
+/** An empire's rulers in the World history lane, in order of their reigns. */
+export function rulersOf(empireId: string, chron: string): Person[] {
+  const start = (p: Person) => entityBounds({ kind: "person", id: p.id }, chron)?.[0] ?? 0;
+  return data.people.filter((p) => p.empire === empireId).sort((a, b) => start(a) - start(b));
+}
+
+/**
+ * An empire's part in the story: events involving its rulers, and world events at its capitals
+ * while it stood (Nineveh falls, for Assyria).
+ */
+export function eventsForEmpire(empireId: string, chron: string): Event[] {
+  const empire = empiresById.get(empireId);
+  const b = empire && entityBounds({ kind: "empire", id: empireId }, chron);
+  if (!empire || !b) return [];
+  const rulers = new Set(rulersOf(empireId, chron).map((p) => p.id));
+  return eventsInOrder(chron).filter((ev) => {
+    if (ev.people.some((p) => rulers.has(p))) return true;
+    const mid = eventMidpoint(ev, chron)!;
+    return ev.world && mid >= b[0] && mid < b[1] && ev.locations.some((l) => empire.capitals.includes(l));
+  });
 }
 
 export function eventsAtLocation(locationId: string, chron: string): Event[] {
@@ -194,6 +216,11 @@ export function entityBounds(ref: EntityRef, chron: string): Bounds | undefined 
       const spec = era && datesFor(era, chron);
       return spec && specBounds(spec);
     }
+    case "empire": {
+      const empire = empiresById.get(ref.id);
+      const spec = empire && datesFor(empire, chron);
+      return spec && specBounds(spec);
+    }
     case "person": {
       const p = peopleById.get(ref.id);
       if (!p) return undefined;
@@ -228,6 +255,8 @@ export function entityLocations(ref: EntityRef, chron: string): Location[] {
       return [...new Set(eventsForPerson(ref.id, chron).flatMap(eventLocations))];
     case "era":
       return [...new Set(eventsInEra(ref.id, chron).flatMap(eventLocations))];
+    case "empire":
+      return (empiresById.get(ref.id)?.capitals ?? []).map((id) => locationsById.get(id)!);
   }
 }
 
@@ -237,6 +266,7 @@ export function entityTitle(ref: EntityRef): string {
     case "person": return peopleById.get(ref.id)?.name ?? ref.id;
     case "location": return locationsById.get(ref.id)?.name ?? ref.id;
     case "era": return erasById.get(ref.id)?.name ?? ref.id;
+    case "empire": return empiresById.get(ref.id)?.name ?? ref.id;
   }
 }
 
