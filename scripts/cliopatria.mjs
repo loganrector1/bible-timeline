@@ -12,7 +12,7 @@
 // Israel's own outlines, and anything Cliopatria lacks, are drawn by hand in borders/drawn.json.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { inflateRawSync } from "node:zlib";
+import { unzip } from "./unzip.mjs";
 
 const URL = "https://github.com/Seshat-Global-History-Databank/cliopatria/raw/main/cliopatria.geojson.zip";
 const CACHE = join("node_modules", ".cache", "cliopatria", "cliopatria.geojson.zip");
@@ -58,7 +58,9 @@ const POWERS = [
 
 const zip = await load(process.argv.includes("--refresh"));
 console.log("Reading Cliopatria…");
-const clio = JSON.parse(unzipOnly(zip));
+const geojson = [...unzip(zip)].find(([name]) => name.endsWith(".geojson") && !name.includes("/."));
+if (!geojson) throw new Error("no .geojson in the Cliopatria zip");
+const clio = JSON.parse(geojson[1].toString("utf8"));
 const empires = new Map(JSON.parse(readFileSync(EMPIRES, "utf8")).map((e) => [e.id, e]));
 
 const features = [];
@@ -141,28 +143,6 @@ async function load(refresh) {
     writeFileSync(CACHE, Buffer.from(await res.arrayBuffer()));
   }
   return readFileSync(CACHE);
-}
-
-/** The .geojson inside the zip, read from its central directory (no unzip tool needed). */
-function unzipOnly(buf) {
-  const eocd = buf.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
-  const count = buf.readUInt16LE(eocd + 10);
-  let p = buf.readUInt32LE(eocd + 16);
-  for (let i = 0; i < count; i++) {
-    const method = buf.readUInt16LE(p + 10);
-    const size = buf.readUInt32LE(p + 20);
-    const nameLen = buf.readUInt16LE(p + 28);
-    const extraLen = buf.readUInt16LE(p + 30);
-    const commentLen = buf.readUInt16LE(p + 32);
-    const local = buf.readUInt32LE(p + 42);
-    const name = buf.toString("utf8", p + 46, p + 46 + nameLen);
-    p += 46 + nameLen + extraLen + commentLen;
-    if (!name.endsWith(".geojson") || name.includes("/.")) continue;
-    const start = local + 30 + buf.readUInt16LE(local + 26) + buf.readUInt16LE(local + 28);
-    const body = buf.subarray(start, start + size);
-    return (method === 0 ? body : inflateRawSync(body)).toString("utf8");
-  }
-  throw new Error("no .geojson in the Cliopatria zip");
 }
 
 function round(c) {
