@@ -52,12 +52,15 @@ The view, time, zoom and selection are in the URL, kept current as you move, and
 
 Filters by event type and person, applied to both views (timeline, map, Nearest events, step and play) and carried in links, with a Filter button and a chip bar under the header, dimmed hidden events and a filter suggestion in Browse, and shortcuts in the event and person panels. A selected event always shows. Births and deaths filtered to become event dots, and people not in a shown event dim. Books and passages filter too, and `?passage=Exod.12-14` links (OSIS) are live, the contract the reading-plans app links through. Adding a filter glides to the nearest match when none is on screen and nothing is selected. A Settings menu (the gear) holds the theme (System, Light or Dark), BC/AD or BCE/CE, and the date of the Exodus: early (c. 1446 BC, the default) or late (c. 1260 BC), also chosen from an event's "Use this date" and carried in links.
 
+## Guided tours (done)
+
+Eight tours (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step at the top of the details panel, listed in Browse, shared by link (`tour=exodus&step=3`), with progress remembered. Filters by era and place came with them.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
 
-- **More filters:** eras and places are built (branch `feature/tours`); theme is still to come and needs tags on every event first.
-- **Guided tours** (branch `feature/tours`): eight (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step in the details panel, shared by link, with progress remembered.
+- **Theme filter:** covenants, prophecy fulfilled, women of the Bible and the like; needs tags on every event first.
 - **World-history context:** a lane for surrounding empires and rulers on the timeline (Egyptian dynasties, Assyrian, Babylonian and Persian kings, Alexander, Roman emperors).
 - **Kingdoms and empires over time:** the map shows the great powers as they rise, grow, shrink and fall as the cursor moves: Egypt, Assyria, Babylon, Persia, the Greek kingdoms, Rome, and Israel itself (the tribal allotments, the united kingdom under David and Solomon, Israel and Judah after the division, the province of Judea). Scrubbing or playing through the Divided Kingdom would show Assyria swallowing Samaria, Babylon taking Judah, then Persia overtaking Babylon.
   - **Data:** each power is a series of dated outlines (Assyria c. 850 BC, c. 700 BC, c. 640 BC…) with a rise and fall date, kept apart from the place-shaped outlines in `regions.json`. Each outline gets a note on its source and how sure it is; borders before about 1000 BC are especially rough.
