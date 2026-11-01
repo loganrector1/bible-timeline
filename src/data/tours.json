@@ -1,0 +1,78 @@
+[
+  {
+    "id": "abraham",
+    "title": "The life of Abraham",
+    "summary": "From Haran to Moriah: the man God called, and the promise that shapes the rest of the Bible.",
+    "steps": [
+      { "event": "call-of-abram", "text": "The story of Israel begins with one man and a promise. Abram's family has already moved from Ur to Haran; now God sends him on, \"not knowing where he was going\" (Hebrews 11:8)." },
+      { "event": "abram-in-egypt", "text": "Barely in the land, Abram leaves it in a famine, and fear leads him to deceive Pharaoh. The promise survives his failure, the first of many times in Genesis." },
+      { "event": "abram-lot-part", "text": "Abram lets his nephew choose first. Lot takes the well-watered plain near Sodom, and God promises Abram all the land he can see (Genesis 13:14–17)." },
+      { "event": "covenant-pieces", "text": "Still childless, Abram asks how the promise can come true. He believes God, \"and he counted it to him as righteousness\" (Genesis 15:6), words Paul builds on in Romans 4." },
+      { "event": "ishmael-born", "text": "Tired of waiting, Sarai gives Abram her servant Hagar. When Hagar flees, God finds her in the wilderness, and she calls him \"a God of seeing\" (Genesis 16:13)." },
+      { "event": "covenant-circumcision", "text": "Thirteen years later, at 99, Abram becomes Abraham, \"father of a multitude\", and God names the son still to come: Isaac, born to Sarah." },
+      { "event": "sodom-destroyed", "text": "Before judging Sodom, God tells Abraham his plan, and Abraham pleads for the city down to ten righteous people. Ten are not found, but Lot is rescued." },
+      { "event": "isaac-born", "text": "Twenty-five years after the call, the promise arrives. Isaac's name means \"he laughs\": Sarah's laughter of doubt becomes laughter of joy (Genesis 18:12; 21:6)." },
+      { "event": "binding-of-isaac", "text": "The hardest test is the son of promise himself. Abraham goes, trusting that \"God will provide\" (Genesis 22:8); Hebrews 11:19 says he reasoned that God could even raise the dead." },
+      { "event": "isaac-rebekah", "text": "With Sarah buried at Hebron, Abraham looks to the next generation and sends to his own family near Haran for a wife for Isaac." },
+      { "event": "abraham-dies", "text": "Abraham dies owning only a burial cave in the land promised to him. He \"died in faith, not having received the things promised\" (Hebrews 11:13), and the promise passes to Isaac and Jacob." }
+    ]
+  },
+  {
+    "id": "exodus",
+    "title": "The Exodus",
+    "summary": "From slavery in Egypt to the edge of the Promised Land: God rescues his people and makes them his own.",
+    "steps": [
+      { "event": "oppression", "text": "Jacob's family came to Egypt as seventy people and grew into a nation. Generations after Joseph, a new Pharaoh sees them as a threat." },
+      { "event": "moses-born", "text": "Pharaoh orders the Hebrews' baby boys thrown into the Nile. One is laid in the Nile in a basket instead, and grows up in Pharaoh's own house." },
+      { "event": "burning-bush", "text": "After forty years as a shepherd in Midian, Moses meets God at Horeb, the mountain Israel will come back to. God has heard his people's cry, and reveals his name: \"I am who I am\" (Exodus 3:14)." },
+      { "event": "plagues", "text": "Pharaoh will not let Israel go, and plague after plague shows the gods of Egypt powerless before the Lord (Exodus 12:12)." },
+      { "event": "passover", "text": "The last plague comes with a way of escape: a lamb's blood on the door. Israel keeps this night every year, and Jesus will eat his last supper at Passover." },
+      { "event": "exodus", "text": "Israel walks out the next morning, after 430 years in Egypt, carrying Joseph's bones as he had asked (Exodus 12:41; 13:19)." },
+      { "event": "red-sea", "text": "Trapped between the sea and Pharaoh's chariots, Israel hears Moses: \"The Lord will fight for you, and you have only to be silent\" (Exodus 14:14)." },
+      { "event": "sinai-covenant", "text": "Three months out, Israel camps at the mountain of the burning bush. God calls them his treasured possession and gives the Ten Commandments: rescue comes first, then the law." },
+      { "event": "golden-calf", "text": "Within weeks the people break the first commandments. Moses pleads for them, and God shows himself \"merciful and gracious, slow to anger\" (Exodus 34:6)." },
+      { "event": "spies", "text": "At Kadesh, on the edge of the land, Israel believes the fearful report over God's promise. Only Joshua and Caleb of that generation will enter." },
+      { "event": "wandering", "text": "For forty years, a year for each day the spies searched (Numbers 14:34), Israel lives in the wilderness, fed by manna, while a new generation grows up." },
+      { "event": "moses-dies", "text": "Moses sees the land from Mount Nebo but does not enter it. Joshua leads the new generation across the Jordan, and the promise to Abraham begins to come true." }
+    ]
+  },
+  {
+    "id": "jesus",
+    "title": "The life of Jesus",
+    "summary": "From Nazareth to the Mount of Olives: the birth, ministry, death and resurrection of Jesus.",
+    "steps": [
+      { "event": "annunciation", "text": "Centuries of waiting end quietly, in a small town in Galilee. The child promised to Mary will be given \"the throne of his father David\" (Luke 1:32)." },
+      { "event": "jesus-born", "text": "Jesus is born in David's town, as Micah foretold (Micah 5:2), and laid in a manger. Herod's threat soon sends the family to Egypt, and then home to Nazareth." },
+      { "event": "jesus-baptized", "text": "About thirty years old (Luke 3:23), Jesus comes to John at the Jordan. Father, Son and Spirit appear together, and his public ministry begins." },
+      { "event": "calling-disciples", "text": "Jesus makes Capernaum his base and calls ordinary fishermen to follow him. Peter, Andrew, James and John will be with him to the end." },
+      { "event": "sermon-on-the-mount", "text": "Crowds come from all over the region, and Jesus teaches \"as one who had authority, and not as their scribes\" (Matthew 7:29)." },
+      { "event": "feeding-five-thousand", "text": "By the lake a hungry crowd is fed from a boy's lunch. In John's Gospel Jesus goes on to say, \"I am the bread of life\" (John 6:35)." },
+      { "event": "peter-confession", "text": "Far to the north, at Caesarea Philippi, Peter says who Jesus is. It's the turning point: from here Jesus speaks plainly about the cross." },
+      { "event": "transfiguration", "text": "Days later, three disciples glimpse his glory. Moses and Elijah, the Law and the Prophets, speak with him about the departure he will accomplish at Jerusalem (Luke 9:31)." },
+      { "event": "triumphal-entry", "text": "Jesus \"set his face to go to Jerusalem\" (Luke 9:51). He arrives as the king Zechariah foretold, humble and riding on a donkey (Zechariah 9:9)." },
+      { "event": "last-supper", "text": "At Passover, the feast of the Exodus, Jesus gives the meal a new meaning: bread and wine as his body and blood, a new covenant." },
+      { "event": "crucifixion", "text": "Condemned by the council and by Pilate, Jesus dies outside the city wall. \"It is finished\" (John 19:30)." },
+      { "event": "resurrection", "text": "On the first day of the week the women find the tomb empty. Over forty days the risen Jesus appears to many who could say they had seen him." },
+      { "event": "ascension", "text": "Jesus sends his followers out from Jerusalem \"to the end of the earth\" (Acts 1:8). That mission is the story of Acts, and of Paul's journeys." }
+    ]
+  },
+  {
+    "id": "paul",
+    "title": "Paul's journeys",
+    "summary": "From persecutor to apostle: Paul carries the gospel from Jerusalem across Asia Minor and Greece to Rome.",
+    "steps": [
+      { "event": "stephen-martyred", "text": "Paul enters the story as Saul of Tarsus, a zealous Pharisee, watching over the coats of the men who stone Stephen (Acts 7:58)." },
+      { "event": "paul-conversion", "text": "The persecutor becomes an apostle. Jesus sends him to carry his name \"before the Gentiles and kings and the children of Israel\" (Acts 9:15)." },
+      { "event": "first-journey", "text": "Years later the Spirit sets Barnabas and Saul apart. From here Luke calls him Paul, and Gentiles come to faith across Cyprus and Galatia." },
+      { "event": "jerusalem-council", "text": "Must Gentile believers become Jews first? The apostles agree that all are saved \"through the grace of the Lord Jesus\" (Acts 15:11)." },
+      { "event": "second-journey", "text": "Kept from going where he planned, Paul sees a man of Macedonia in a vision, saying \"Come over to Macedonia and help us\" (Acts 16:9), and the gospel crosses into Europe." },
+      { "event": "philippi-prison", "text": "Europe's first church begins at a riverside place of prayer and in a jail. Paul's later letter to Philippi is full of joy, written from another prison." },
+      { "event": "areopagus", "text": "In Athens Paul meets the philosophers on their own ground, quoting their poets, before proclaiming the risen Christ. Some mock; a few believe." },
+      { "event": "third-journey", "text": "Paul's longest stay is in Ephesus, three years in all (Acts 20:31). From there he writes to the troubled church at Corinth." },
+      { "event": "romans", "text": "Wintering in Corinth, Paul writes to a church he has never visited, setting out the gospel he preaches before he comes." },
+      { "event": "paul-arrested", "text": "Warned that chains await him, Paul goes to Jerusalem anyway. Arrested at the temple, he testifies before crowds, the council, two governors and King Agrippa." },
+      { "event": "voyage-to-rome", "text": "Paul reaches Rome at last, as a prisoner. For two years he preaches from a rented house \"with all boldness and without hindrance\" (Acts 28:31), and there Acts ends." },
+      { "event": "second-timothy", "text": "Tradition says Paul was executed in Rome under Nero. His last letter hands the work on: \"preach the word\" (2 Timothy 4:2)." }
+    ]
+  }
+]

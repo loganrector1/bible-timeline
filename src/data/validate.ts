@@ -55,6 +55,9 @@ export function findProblems(d: Dataset): string[] {
     }
   }
 
+  idSet(d.tours, "tour", problems);
+  for (const t of d.tours) check(`tour ${t.id}`, "event", t.steps.map((s) => s.event));
+
   for (const p of d.people) {
     const owner = `person ${p.id}`;
     needsDefault(owner, p.dates);

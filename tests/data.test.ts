@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { data, datesFor } from "../src/data";
+import { data, datesFor, eventsById } from "../src/data";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
-import { personSpan, shownLane, shownLanes } from "../src/lib/entities";
+import { eventOrderKey, personSpan, shownLane, shownLanes } from "../src/lib/entities";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -103,6 +103,17 @@ describe("people's bars", () => {
         .map((s) => s.bounds)
         .sort((a, b) => a[0] - b[0]);
       for (let i = 1; i < reigns.length; i++) expect(reigns[i][0]).toBeGreaterThanOrEqual(reigns[i - 1][1]);
+    }
+  });
+});
+
+describe("tours", () => {
+  test("step through events in date order, in both chronologies", () => {
+    for (const chron of ["early", "late"]) {
+      for (const tour of data.tours) {
+        const keys = tour.steps.map((s) => eventOrderKey(eventsById.get(s.event)!, chron));
+        expect(keys, tour.id).toEqual([...keys].sort((a, b) => a - b));
+      }
     }
   });
 });

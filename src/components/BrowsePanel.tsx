@@ -6,7 +6,7 @@ import { eventShown, FILTER_TYPES } from "../lib/filters";
 import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
 
-type Tab = "all" | EntityKind;
+type Tab = "all" | EntityKind | "tour";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "all", label: "All" },
@@ -14,6 +14,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "person", label: "People" },
   { id: "location", label: "Places" },
   { id: "era", label: "Eras" },
+  { id: "tour", label: "Tours" },
 ];
 
 const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", event: "Events", person: "People", location: "Places" };
@@ -105,17 +106,25 @@ export default function BrowsePanel() {
       })).sort(byName),
     };
     const q = query.trim().toLowerCase();
-    const kinds: EntityKind[] = tab === "all" ? ["era", "event", "person", "location"] : [tab];
+    const kinds: EntityKind[] = tab === "all" ? ["era", "event", "person", "location"] : tab === "tour" ? [] : [tab];
     return kinds
       .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
       .filter((g) => g.items.length > 0);
   }, [query, tab, chron, eraStyle, filters]);
 
+  // Tours come first in All, since they're a way in for someone who doesn't know where to start.
+  const q = query.trim().toLowerCase();
+  const tours = tab === "all" || tab === "tour"
+    ? data.tours.filter((t) => !q || `${t.title} ${t.summary}`.toLowerCase().includes(q))
+    : [];
+  const activeTour = useStore((s) => s.tour?.id);
+
   if (!open) return null;
 
+  const closeOnPhone = () => window.innerWidth < 768 && setOpen(false);
   const pick = (ref: EntityRef) => {
     select(ref);
-    if (window.innerWidth < 768) setOpen(false); // On phones the panel covers everything.
+    closeOnPhone(); // On phones the panel covers everything.
   };
 
   return (
@@ -164,7 +173,35 @@ export default function BrowsePanel() {
             <span>Filter: show only <strong className="font-semibold">{sg.label}</strong></span>
           </button>
         ))}
-        {groups.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
+        {tours.length > 0 && (
+          <section className="mb-3">
+            {tab === "all" && (
+              <h3 className="px-2 py-1 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                Guided tours <span className="font-normal">({tours.length})</span>
+              </h3>
+            )}
+            <ul>
+              {tours.map((t) => (
+                <li key={t.id}>
+                  <button
+                    onClick={() => {
+                      useStore.getState().startTour(t.id);
+                      closeOnPhone();
+                    }}
+                    className={`w-full rounded px-2 py-1.5 text-left text-sm ${activeTour === t.id ? "bg-accent-soft" : "hover:bg-paper-2"}`}
+                  >
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="min-w-0 truncate font-medium">{t.title}</span>
+                      <span className="shrink-0 text-xs text-ink-muted">{t.steps.length} steps</span>
+                    </span>
+                    <span className={`mt-0.5 block text-xs leading-snug text-ink-muted ${tab === "all" ? "line-clamp-1" : ""}`}>{t.summary}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {groups.length === 0 && tours.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
         {groups.map((g) => (
           <section key={g.kind} className="mb-3">
             {tab === "all" && (

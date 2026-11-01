@@ -72,6 +72,13 @@ describe("links", () => {
     expect(parseLink("?chron=someday").chronology).toBeUndefined();
   });
 
+  test("carry a tour and its step, counting from 1", () => {
+    expect(formatLink({ mode: "split", selection: null, pxPerYear: 1, tour: { id: "exodus", step: 2 } })).toBe("zoom=1&tour=exodus&step=3");
+    expect(parseLink("?tour=exodus&step=3").tour).toEqual({ id: "exodus", step: 2 });
+    expect(parseLink("?tour=exodus").tour).toEqual({ id: "exodus", step: 0 });
+    expect(parseLink("?tour=nowhere&step=2").tour).toBeUndefined();
+  });
+
   test("ignore unknown ids, views and bad numbers", () => {
     expect(parseLink("?event=no-such-event&view=sideways&zoom=-3&year=soon")).toEqual({});
     expect(parseLink("?event=exodus&person=moses").selection).toEqual({ kind: "event", id: "exodus" });

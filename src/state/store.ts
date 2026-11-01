@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
+import { datesFor, eventsById, peopleById, toursById, type EntityRef } from "../data";
 import { Lane } from "../data/schema";
 import { CHRONOLOGIES, DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
@@ -139,6 +139,15 @@ type State = {
   showOnTimeline: (ref: EntityRef) => void;
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
+  /**
+   * The guided tour under way, and its step (from 0). Each step selects its event; selecting
+   * something else pauses the tour (the details panel offers the way back), and clearing the
+   * selection ends it.
+   */
+  tour: { id: string; step: number } | null;
+  /** Start a tour (or jump to a step), selecting that step's event. */
+  startTour: (id: string, step?: number, opts?: { instant?: boolean }) => void;
+  endTour: () => void;
   /** Bumped when Escape reaches the bottom layer, with nothing else to close: the map hides its popup. */
   escapeNonce: number;
   /** Escape from anywhere closes the topmost layer: Browse, then the selection, then the map's popup. */
@@ -223,6 +232,15 @@ export const useStore = create<State>()((set, get) => {
     browseOpen: false,
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
+    tour: null,
+    startTour: (id, step = 0, opts) => {
+      const t = toursById.get(id);
+      if (!t) return;
+      const i = Math.min(Math.max(0, step), t.steps.length - 1);
+      get().select({ kind: "event", id: t.steps[i].event }, { instant: opts?.instant });
+      set({ tour: { id, step: i } });
+    },
+    endTour: () => set({ tour: null }),
     escapeNonce: 0,
     escape: () => {
       // Menus (Filter, Settings) catch Escape themselves before it gets here.
@@ -266,6 +284,7 @@ export const useStore = create<State>()((set, get) => {
     },
 
     select: (ref, opts) => {
+      if (!ref) set({ tour: null });
       set({
         selection: ref,
         focusHint: null,

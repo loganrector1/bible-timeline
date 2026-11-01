@@ -48,6 +48,10 @@ export default function Onboarding() {
             <strong>Click any event, person, place or era</strong> for details, Scripture and the route it
             traveled. Press ▶ under the map to play history forward.
           </li>
+          <li>
+            <strong>Not sure where to start?</strong> Open Browse and pick a guided tour: the life of Abraham,
+            the Exodus, the life of Jesus or Paul's journeys.
+          </li>
         </ul>
         <button
           autoFocus
