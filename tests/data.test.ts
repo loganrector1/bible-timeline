@@ -1,5 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { data, datesFor, eventsById, peopleById } from "../src/data";
+import { data, datesFor, empiresById, erasById, eventsById, locationsById, peopleById } from "../src/data";
+import cliopatria from "../src/data/borders/cliopatria.json";
+import drawn from "../src/data/borders/drawn.json";
+import { BorderCollection } from "../src/data/schema";
+import { borderContains, borderPower, bordersAt, borderYears, rulersOver } from "../src/lib/borders";
 import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
@@ -133,5 +137,73 @@ describe("empires and rulers", () => {
 
   test("world events say they're outside Scripture", () => {
     for (const ev of data.events.filter((e) => e.world)) expect(ev.dateNote, ev.id).toBeDefined();
+  });
+});
+
+describe("borders on the map", () => {
+  const borders = [
+    ...BorderCollection.parse(cliopatria).features,
+    ...BorderCollection.parse(drawn).features,
+  ];
+  const known = { empire: empiresById, person: peopleById, era: erasById, event: eventsById, location: locationsById };
+
+  test("ids are unique and links resolve", () => {
+    const ids = borders.map((f) => f.properties.id);
+    expect(ids.length).toBe(new Set(ids).size);
+    for (const { properties: p } of borders) {
+      if (p.empire) expect(empiresById.has(p.empire), `${p.id}: empire ${p.empire}`).toBe(true);
+      for (const l of p.links ?? []) expect(known[l.kind].has(l.id), `${p.id}: ${l.kind} ${l.id}`).toBe(true);
+    }
+  });
+
+  test("each shows for a while, within its empire's dates", () => {
+    for (const f of borders) {
+      for (const chron of ["early", "late"]) {
+        const [from, to] = borderYears(f, chron);
+        expect(from, `${f.properties.id} (${chron})`).toBeLessThan(to);
+      }
+      const empire = f.properties.empire && empiresById.get(f.properties.empire);
+      if (!empire) continue;
+      const [lo, hi] = specBounds(datesFor(empire, DEFAULT_CHRONOLOGY)!);
+      expect(f.properties.from, f.properties.id).toBeGreaterThanOrEqual(lo);
+      expect(f.properties.to, f.properties.id).toBeLessThanOrEqual(hi);
+    }
+  });
+
+  // A power shows one outline at a time; its snapshots share the id before the @.
+  test("a power's snapshots follow one another without overlapping", () => {
+    const byPower = new Map<string, typeof borders>();
+    for (const f of borders) byPower.set(borderPower(f), [...(byPower.get(borderPower(f)) ?? []), f]);
+    for (const [power, outlines] of byPower) {
+      const spans = outlines.map((f) => [f.properties.from, f.properties.to]).sort((a, b) => a[0] - b[0]);
+      for (let i = 1; i < spans.length; i++) expect(spans[i][0], power).toBeGreaterThanOrEqual(spans[i - 1][1]);
+    }
+  });
+
+  test("labels sit inside their outlines", () => {
+    for (const f of borders) expect(borderContains(f, f.properties.label), f.properties.id).toBe(true);
+  });
+
+  test("a place lists the powers that held it, in order", () => {
+    const jerusalem = data.locations.find((l) => l.id === "jerusalem")!;
+    const rulers = rulersOver(borders, jerusalem.coords, "early");
+    const names = rulers.map((r) => r.name);
+    expect(names.filter((n) => n.startsWith("Egypt"))).toEqual([]); // overlord, not ruler
+    expect(names).toContain("Benjamin's allotment");
+    expect(names.filter((n) => n === "Israel")).toHaveLength(1); // Saul's and David's, one stretch
+    expect(rulers.find((r) => r.name === "Israel")?.target).toEqual({ kind: "era", id: "united-kingdom" });
+    expect(names.indexOf("Judah")).toBeLessThan(names.indexOf("The Babylonian Empire"));
+    expect(names.indexOf("The Babylonian Empire")).toBeLessThan(names.indexOf("The Persian Empire"));
+    expect(rulers.find((r) => r.name === "The Roman Empire")?.open).toBe(true);
+  });
+
+  test("the map's story beats are there", () => {
+    const at = (year: number, chron = "early") => bordersAt(borders, year, chron).map((f) => f.properties.name);
+    expect(at(-720)).toContain("Assyria");
+    expect(at(-720)).not.toContain("Israel"); // Samaria has fallen
+    expect(at(-650)).toContain("Judah");
+    expect(at(-500)).toEqual(expect.arrayContaining(["Persia", "Yehud"]));
+    expect(at(-1300)).toContain("Judah"); // the tribes, early date
+    expect(at(-1300, "late")).not.toContain("Judah"); // Israel is still in Egypt
   });
 });

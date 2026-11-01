@@ -21,7 +21,7 @@
   },
   {
     "id": "hyksos", "name": "The Hyksos in Egypt", "column": 0,
-    "summary": "Rulers from Canaan and Syria, \"foreign kings\" to the Egyptians, govern the Nile Delta from Avaris. Late-daters place Joseph and Jacob's family here.",
+    "summary": "Rulers from Canaan and Syria, \"foreign kings\" to the Egyptians, govern the Nile Delta from Avaris, while Egyptian kings hold the south from Thebes. Late-daters place Joseph and Jacob's family here.",
     "dates": { "early": { "start": { "year": -1649 }, "end": { "year": -1549 }, "confidence": "approx" } },
     "dateNote": "About 1650–1550 BC (the 15th dynasty). Avaris lay beside the later city of Rameses."
   },
@@ -33,7 +33,7 @@
   },
   {
     "id": "egypt-new", "name": "Egypt's New Kingdom", "column": 0,
-    "summary": "Egypt at its height, ruling Canaan through vassal kings. Its pharaohs include Thutmose III and Amenhotep II, the early-date candidates for the Exodus, and Ramesses II, the late-date one.",
+    "summary": "Egypt at its height, and overlord of Canaan: its city-states kept their own kings, who paid Pharaoh tribute, while Egypt held a few strongholds (Gaza, Joppa, Beth-shean). The hill country, where Israel settled, saw little of Egypt, and Joshua and Judges don't mention it. Its pharaohs include Thutmose III and Amenhotep II, the early-date candidates for the Exodus, and Ramesses II, the late-date one.",
     "dates": { "early": { "start": { "year": -1549 }, "end": { "year": -1069 }, "confidence": "approx" } },
     "dateNote": "About 1550–1070 BC (the 18th to 20th dynasties)."
   },

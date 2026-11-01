@@ -3,11 +3,12 @@ import { setWorkerUrl, type StyleSpecification } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Map, { NavigationControl, useControl, type MapLayerMouseEvent, type MapRef } from "react-map-gl/maplibre";
-import { datesFor, eventsById, journeysById, locationsById, regionsById } from "../../data";
+import { datesFor, eventsById, journeysById, locationsById, regionsById, type EntityKind } from "../../data";
 import type { Event } from "../../data/schema";
 import { activeEvents } from "../../lib/activeEvents";
 import { formatDateSpec } from "../../lib/dates";
-import { entityLocations, eventLocations, journeyOf } from "../../lib/entities";
+import { borderBox, borderOf, bordersAt, loadBorders } from "../../lib/borders";
+import { entityBounds, entityLocations, eventLocations, journeyOf } from "../../lib/entities";
 import { shownBy } from "../../lib/filters";
 import { eventForJourney } from "../../lib/journeys";
 import { useIsDark, useIsPhone } from "../../lib/useMediaQuery";
@@ -16,7 +17,8 @@ import { useStore } from "../../state/store";
 import { addArrowImage } from "./arrowImage";
 import { provideStopImages } from "./stopImage";
 import { BORDER_LAYER, loadBaseStyle } from "./baseStyle";
-import EventLayer, { LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
+import BorderLayer, { BORDER_FILL_LAYERS, BORDER_LABEL_LAYER, useNamedPlaces } from "./BorderLayer";
+import EventLayer, { LOCATION_BASE_LAYER, LOCATION_LAYER, REGION_LABEL_LAYER } from "./EventLayer";
 import JourneyLayer, { JOURNEY_HIT_LAYER } from "./JourneyLayer";
 import { DARK, LIGHT } from "./mapColors";
 import EventPopup from "./EventPopup";
@@ -42,15 +44,37 @@ const MIN_ZOOM = 2.5;
  */
 const CREDITS = [
   '<a href="https://www.openbible.info/geo/">Places: OpenBible.info</a> (CC BY 4.0)',
+  '<a href="https://github.com/Seshat-Global-History-Databank/cliopatria">Empires: Cliopatria</a> (CC BY 4.0)',
   '<a href="https://www.naturalearthdata.com/">Natural Earth</a>',
 ];
 const FRAME_MIN_ZOOM = 3.5;
 const FRAME_MAX_ZOOM = 7.5;
 
 /** Listed top-most first: when layers overlap, the first one under the pointer wins. */
-const INTERACTIVE = [LOCATION_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER];
+const INTERACTIVE = [LOCATION_LAYER, LOCATION_BASE_LAYER, JOURNEY_HIT_LAYER, REGION_LABEL_LAYER, REGION_FILL_LAYER, BORDER_LABEL_LAYER, ...BORDER_FILL_LAYERS];
+const isBorder = (layer: string) => layer === BORDER_LABEL_LAYER || BORDER_FILL_LAYERS.includes(layer);
+/** How long the pointer rests inside a power's borders before its card shows. */
+const REST_MS = 800;
 
-type Hover = { layer: string; id: string; x: number; y: number };
+/** A power's label and fill carry what its hover card says and what clicking it opens. */
+type Hover = { layer: string; id: string; x: number; y: number; props?: Record<string, unknown> };
+
+const EMPIRES_KEY = "bible-timeline:empires";
+function loadShowEmpires(): boolean {
+  try {
+    return localStorage.getItem(EMPIRES_KEY) !== "off";
+  } catch {
+    return true;
+  }
+}
+function saveShowEmpires(on: boolean) {
+  try {
+    if (on) localStorage.removeItem(EMPIRES_KEY);
+    else localStorage.setItem(EMPIRES_KEY, "off");
+  } catch {
+    // Not remembered; it still applies now.
+  }
+}
 
 /**
  * MapLibre's compact credits, starting folded behind their ⓘ button. Its own control opens them
@@ -92,7 +116,13 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
   const eraStyle = useStore((s) => s.eraStyle);
   let title = "";
   let lines: string[] = [];
-  if (hover.layer === JOURNEY_HIT_LAYER) {
+  if (isBorder(hover.layer)) {
+    const p = hover.props ?? {};
+    title = String(p.name);
+    const from = Number(p.from), to = Number(p.to);
+    const years = formatDateSpec({ start: { year: from }, end: { year: to - 1 }, confidence: "approx" }, eraStyle, { yearsOnly: true });
+    lines = [`Borders ${years}`, p.targetKind ? "Click for details" : ""].filter(Boolean);
+  } else if (hover.layer === JOURNEY_HIT_LAYER) {
     const journey = journeysById.get(hover.id);
     const ev = eventForJourney(hover.id);
     const spec = ev && datesFor(ev, chron);
@@ -117,6 +147,18 @@ function HoverCard({ hover, chron }: { hover: Hover; chron: string }) {
   );
 }
 
+function MapToggle({ on, onChange, children }: { on: boolean; onChange: (on: boolean) => void; children: string }) {
+  return (
+    <button
+      onClick={() => onChange(!on)}
+      aria-pressed={on}
+      className={`rounded-md border border-line px-2 py-1 text-xs shadow-sm ${on ? "bg-ink text-paper" : "bg-paper/90 text-ink-muted"}`}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function MapView() {
   const dark = useIsDark();
   const colors = dark ? DARK : LIGHT;
@@ -124,6 +166,7 @@ export default function MapView() {
   const [style, setStyle] = useState<StyleSpecification | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showBorders, setShowBorders] = useState(false);
+  const [showEmpires, setShowEmpires] = useState(loadShowEmpires);
   const [hover, setHover] = useState<Hover | null>(null);
   /** The map instance once loaded, for overlays positioned in screen space. */
   const [map, setMap] = useState<maplibregl.Map | null>(null);
@@ -135,8 +178,12 @@ export default function MapView() {
   useEffect(() => {
     if (isPhone) setNowOpen(mode === "map");
   }, [isPhone, mode]);
-  /** The focus event whose popup was closed; it stays closed until the focus moves on. */
-  const [dismissed, setDismissed] = useState<string | null>(null);
+  /**
+   * The popup was closed (× or Escape): no focus event (no popup, journey, outlines or marked
+   * row in Nearest events) while the reader scrubs, to watch the empires say, until they do
+   * something with an event again. Nearest events says so, with a way back.
+   */
+  const [quiet, setQuiet] = useState(false);
 
   const chron = useStore((s) => s.chronologyId);
   const currentYear = useStore((s) => s.currentYear);
@@ -172,17 +219,26 @@ export default function MapView() {
   // a nearby event never reads as the selection (Herod's reign ends beside Jesus' birth).
   const showsSelection = selection !== null && selection.kind !== "event" && selection.kind !== "location";
   const focus: Event | undefined = selectedEvent ?? hinted
-    ?? (showsSelection ? undefined : highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
+    ?? (showsSelection || quiet ? undefined : highlight ? active.find((ev) => highlight.events.has(ev.id)) : active[0]);
   // Escape with nothing else open hides the popup, like its ×.
   const escapeNonce = useStore((s) => s.escapeNonce);
   useEffect(() => {
-    if (escapeNonce && focus && focus !== selectedEvent) setDismissed(focus.id);
+    if (escapeNonce && focus && focus !== selectedEvent) setQuiet(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escapeNonce]);
+  // Only events bring them back: selecting one, stepping to one, or playing. Selecting a place
+  // (or a person) and closing it leaves the map quiet.
+  const playing = useStore((s) => s.playing);
   useEffect(() => {
-    if (focus?.id !== dismissed) setDismissed(null);
+    if (focusHint) setQuiet(false);
+  }, [focusHint]);
+  useEffect(() => {
+    if (selection?.kind === "event") setQuiet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focus?.id]);
+  }, [selectionNonce]);
+  useEffect(() => {
+    if (playing) setQuiet(false);
+  }, [playing]);
   const focusHighlight = useMemo(
     () => (focus ? computeHighlight({ kind: "event", id: focus.id }, chron) : null),
     [focus, chron],
@@ -192,12 +248,27 @@ export default function MapView() {
   const strongPlaces = highlight?.locations ?? focusHighlight?.locations ?? new Set<string>();
   const strongRegions = highlight?.regions ?? new Set<string>();
   const focusRegions = focusHighlight?.regions ?? new Set<string>();
+  // The regions labelled on the map (EventLayer labels a region only while something uses it).
+  const namedPlaces = useNamedPlaces(currentYear, chron, showEmpires);
+  const regionLabels = [...new Set([...strongPlaces, ...activeLocations])].filter((id) => regionsById.has(id)).sort().join(",");
 
   const frameSelection = () => {
     const map = mapRef.current;
     if (!map || !selection) return;
     map.resize();
-    frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen);
+    const places = entityLocations(selection, chron).map((l) => l.coords as [number, number]);
+    // An empire (or a king or era with an outline) is framed by its land as well as its places,
+    // at the time selecting it moves to.
+    const b = entityBounds(selection, chron);
+    const year = b ? Math.min(Math.max(currentYear, b[0]), b[1] - 0.01) : currentYear;
+    const target = selection;
+    loadBorders()
+      .then((all) => {
+        if (useStore.getState().selection !== target) return;
+        const land = bordersAt(all, year, chron).filter((f) => borderOf(f, target));
+        frame(map, [...places, ...land.flatMap(borderBox)], nowOpen);
+      })
+      .catch(() => frame(map, places, nowOpen));
   };
   // Fly to whatever was just selected, from either view. Wait a frame so the map has
   // its final size (opening the detail panel narrows it). A selection made before the map
@@ -223,7 +294,8 @@ export default function MapView() {
     const f = e.features?.[0];
     if (!f) return null;
     const id = f.layer.id === JOURNEY_HIT_LAYER ? f.properties?.journeyId : f.properties?.id;
-    return typeof id === "string" ? { layer: f.layer.id, id, x: e.point.x, y: e.point.y } : null;
+    if (typeof id !== "string") return null;
+    return { layer: f.layer.id, id, x: e.point.x, y: e.point.y, props: isBorder(f.layer.id) ? f.properties : undefined };
   };
 
   const onClick = (e: MapLayerMouseEvent) => {
@@ -232,12 +304,27 @@ export default function MapView() {
     if (hit.layer === JOURNEY_HIT_LAYER) {
       const ev = eventForJourney(hit.id);
       if (ev) select({ kind: "event", id: ev.id });
+    } else if (isBorder(hit.layer)) {
+      const { targetKind, targetId } = hit.props ?? {};
+      if (typeof targetKind === "string" && typeof targetId === "string") select({ kind: targetKind as EntityKind, id: targetId });
     } else {
       select({ kind: "location", id: hit.id });
     }
   };
 
-  const hoveredRegion = hover && regionsById.has(hover.id) && hover.layer !== JOURNEY_HIT_LAYER ? hover.id : undefined;
+  // Inside a power's borders the card waits for the pointer to rest, so it doesn't follow every
+  // pass across the map; a drag never shows it.
+  const restTimer = useRef<number>(undefined);
+  const onMouseMove = (e: MapLayerMouseEvent) => {
+    window.clearTimeout(restTimer.current);
+    const hit = featureAt(e);
+    if (!hit || !BORDER_FILL_LAYERS.includes(hit.layer)) return setHover(hit);
+    setHover(null);
+    if (e.originalEvent.buttons === 0) restTimer.current = window.setTimeout(() => setHover(hit), REST_MS);
+  };
+
+  const hoveredRegion = hover && regionsById.has(hover.id) && (hover.layer === REGION_LABEL_LAYER || hover.layer === REGION_FILL_LAYER)
+    ? hover.id : undefined;
 
   return (
     <div className="flex h-full flex-col">
@@ -252,8 +339,15 @@ export default function MapView() {
             mapStyle={style}
             interactiveLayerIds={INTERACTIVE}
             onClick={onClick}
-            onMouseMove={(e) => setHover(featureAt(e))}
-            onMouseLeave={() => setHover(null)}
+            onMouseMove={onMouseMove}
+            onMouseLeave={() => {
+              window.clearTimeout(restTimer.current);
+              setHover(null);
+            }}
+            onMoveStart={() => {
+              window.clearTimeout(restTimer.current);
+              setHover((h) => (h && BORDER_FILL_LAYERS.includes(h.layer) ? null : h));
+            }}
             // The arrow image must exist before the journey layer first draws, so add it as
             // soon as style data arrives (and again whenever the style reloads).
             onStyleData={(e) => {
@@ -275,6 +369,16 @@ export default function MapView() {
             <NavigationControl position="top-right" showCompass={false} />
             <Credits />
             <RegionLayer selected={strongRegions} focus={focusRegions} hovered={hoveredRegion} colors={colors} />
+            {/* After the regions: its labels go beneath theirs. */}
+            <BorderLayer
+              year={currentYear}
+              chron={chron}
+              on={showEmpires}
+              selection={selection}
+              hovered={hover && isBorder(hover.layer) ? hover.id : undefined}
+              dark={dark}
+              regionLabels={regionLabels}
+            />
             <JourneyLayer
               journeyId={focus && journeyOf(focus)}
               along={focus?.partOf ? focus : undefined}
@@ -282,7 +386,7 @@ export default function MapView() {
               hovered={hover?.layer === JOURNEY_HIT_LAYER}
               colors={colors}
             />
-            <EventLayer selected={strongPlaces} active={activeLocations} colors={colors} />
+            <EventLayer selected={strongPlaces} active={activeLocations} named={namedPlaces} colors={colors} />
           </Map>
         ) : (
           <div className="flex h-full items-center justify-center p-4 text-center text-ink-muted">
@@ -290,25 +394,33 @@ export default function MapView() {
           </div>
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
-        <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
+        <NowPanel
+          events={active}
+          focusId={focus?.id}
+          open={nowOpen}
+          setOpen={setNowOpen}
+          onShow={quiet && !selectedEvent && !showsSelection ? () => setQuiet(false) : undefined}
+        />
         {/* The details panel already describes a selected event. Phones have no room for it. */}
-        {!isPhone && focus && focus !== selectedEvent && focus.id !== dismissed && (
-          <EventPopup map={map} ev={focus} onClose={() => setDismissed(focus.id)} />
+        {!isPhone && focus && focus !== selectedEvent && (
+          <EventPopup map={map} ev={focus} onClose={() => setQuiet(true)} />
         )}
         <OffscreenSelection
           map={map}
           onShow={() => map && selection && frame(map, entityLocations(selection, chron).map((l) => l.coords as [number, number]), nowOpen)}
         />
-        <button
-          data-map-obstacle
-          onClick={() => setShowBorders(!showBorders)}
-          aria-pressed={showBorders}
-          className={`absolute bottom-3 left-3 z-10 rounded-md border border-line px-2 py-1 text-xs shadow-sm ${
-            showBorders ? "bg-ink text-paper" : "bg-paper/90 text-ink-muted"
-          }`}
-        >
-          Modern borders
-        </button>
+        <div data-map-obstacle className="absolute bottom-3 left-3 z-10 flex gap-1.5">
+          <MapToggle
+            on={showEmpires}
+            onChange={(on) => {
+              setShowEmpires(on);
+              saveShowEmpires(on);
+            }}
+          >
+            Empires
+          </MapToggle>
+          <MapToggle on={showBorders} onChange={setShowBorders}>Modern borders</MapToggle>
+        </div>
       </div>
       <TimeStrip />
     </div>

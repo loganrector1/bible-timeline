@@ -6,6 +6,7 @@ import { useStore } from "../../state/store";
 import { FilterShortcut } from "../Filters";
 import { Chips, EventList, Note, Section } from "./parts";
 import { Prose } from "../ScriptureText";
+import { MapBorders } from "./MapBorders";
 
 export default function EraDetail({ era }: { era: Era }) {
   const chron = useStore((s) => s.chronologyId);
@@ -41,6 +42,8 @@ export default function EraDetail({ era }: { era: Era }) {
       <Section title={`Events (${events.length})`}>
         <EventList events={events} />
       </Section>
+
+      <MapBorders of={{ kind: "era", id: era.id }} />
 
       <FilterShortcut era={era} />
     </>

@@ -5,6 +5,12 @@ import { JOURNEY_BASE_LAYER, JOURNEY_STOPS_LAYER } from "./JourneyLayer";
 import type { MapColors } from "./mapColors";
 
 export const LOCATION_LAYER = "locations-circle";
+export const LOCATION_BASE_LAYER = "locations-circle-base";
+/**
+ * Places nothing uses show from this zoom, with their labels: further out, Israel's dozens of
+ * dots pile into one blot. The places in use (the nearest events', the selection's) always show.
+ */
+const BASE_DOT_ZOOM = 5.5;
 export const REGION_LABEL_LAYER = "region-labels";
 
 /**
@@ -16,16 +22,19 @@ const LABEL_ANCHORS = ["top", "bottom", "right", "left", "top-right", "bottom-ri
 /**
  * Places, styled by state: 2 = selected or the focus event's, 1 = an event is happening
  * there now, 0 = everything else (small, labelled only when zoomed in). Places drawn as an
- * outline (regions) get a spaced capital label instead of a dot. Alternate candidate
- * sites are shown for selected places whose location is disputed.
+ * outline (regions) get a spaced capital label instead of a dot. Unused places show only from
+ * `BASE_DOT_ZOOM`. Places an empire outline on
+ * the map names (`named`: Moab) show only while in use. Alternate candidate sites are shown
+ * for selected places whose location is disputed.
  */
 export default function EventLayer({
-  selected, active, colors,
-}: { selected: Set<string>; active: Set<string>; colors: MapColors }) {
+  selected, active, named, colors,
+}: { selected: Set<string>; active: Set<string>; named: Set<string>; colors: MapColors }) {
   const places = useMemo<GeoJSON.FeatureCollection>(() => ({
     type: "FeatureCollection",
     features: data.locations.flatMap((loc) => {
       const state = selected.has(loc.id) ? 2 : active.has(loc.id) ? 1 : 0;
+      if (state === 0 && named.has(loc.id)) return [];
       const kind = regionsById.has(loc.id) ? "region" : "site";
       const site = {
         type: "Feature" as const,
@@ -41,7 +50,7 @@ export default function EventLayer({
         : [];
       return [site, ...alternates];
     }),
-  }), [selected, active]);
+  }), [selected, active, named]);
 
   return (
     <Source id="locations" type="geojson" data={places}>
@@ -54,7 +63,9 @@ export default function EventLayer({
         id={REGION_LABEL_LAYER}
         type="symbol"
         beforeId={JOURNEY_BASE_LAYER}
-        filter={["==", ["get", "kind"], "region"]}
+        // Only while something uses the region (an event nearby, the selection or the focus
+        // event): a land's name is timeless, but CANAAN shouldn't sit on the map in AD 20.
+        filter={["all", ["==", ["get", "kind"], "region"], [">", ["get", "state"], 0]]}
         layout={{
           "text-field": ["upcase", ["get", "name"]],
           "text-font": ["Noto Sans Regular"],
@@ -69,16 +80,23 @@ export default function EventLayer({
         }}
       />
       <Layer
+        id={LOCATION_BASE_LAYER}
+        type="circle"
+        beforeId={JOURNEY_BASE_LAYER}
+        minzoom={BASE_DOT_ZOOM}
+        filter={["all", ["==", ["get", "kind"], "site"], ["==", ["get", "state"], 0]]}
+        paint={{ "circle-radius": 3.5, "circle-color": colors.muted, "circle-opacity": 0.7, "circle-stroke-color": colors.halo, "circle-stroke-width": 1.5 }}
+      />
+      <Layer
         id={LOCATION_LAYER}
         type="circle"
         // Beneath the journey, so a stop's number isn't hidden by the place's own dot.
         beforeId={JOURNEY_BASE_LAYER}
-        filter={["==", ["get", "kind"], "site"]}
+        filter={["all", ["==", ["get", "kind"], "site"], ["!=", ["get", "state"], 0]]}
         layout={{ "circle-sort-key": ["get", "state"] }}
         paint={{
-          "circle-radius": ["match", ["get", "state"], 2, 7, 1, 6, -1, 5, 3.5],
-          "circle-color": ["match", ["get", "state"], 2, colors.accent, 1, colors.ink, -1, "rgba(0,0,0,0)", colors.muted],
-          "circle-opacity": ["match", ["get", "state"], 0, 0.7, 1],
+          "circle-radius": ["match", ["get", "state"], 2, 7, 1, 6, 5],
+          "circle-color": ["match", ["get", "state"], 2, colors.accent, 1, colors.ink, "rgba(0,0,0,0)"],
           "circle-stroke-color": ["match", ["get", "state"], -1, colors.accent, colors.halo],
           "circle-stroke-width": ["match", ["get", "state"], -1, 2, 1.5],
         }}
@@ -88,7 +106,7 @@ export default function EventLayer({
         id="locations-label-base"
         type="symbol"
         beforeId={JOURNEY_BASE_LAYER}
-        minzoom={5.5}
+        minzoom={BASE_DOT_ZOOM}
         filter={["all", ["==", ["get", "kind"], "site"], ["==", ["get", "state"], 0]]}
         layout={{
           "text-field": ["get", "name"], "text-font": ["Noto Sans Italic"], "text-size": 11,

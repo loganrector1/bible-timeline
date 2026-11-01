@@ -190,6 +190,47 @@ export const RegionCollection = z.object({
   features: z.array(RegionFeature),
 });
 
+/**
+ * One dated outline of a power on the map (`borders/`): an empire from Cliopatria, or Israel's
+ * own states drawn by hand. It shows from `from` until `to` (astronomical years, `to` excluded);
+ * `lateFrom`/`lateTo` replace them under the late chronology, for outlines tied to the Exodus.
+ * Selecting it opens its `empire`, or else its first link.
+ */
+export const BorderFeature = z.object({
+  type: z.literal("Feature"),
+  properties: z.object({
+    /** Unique; Cliopatria's are "‹power›@‹from›", so one power's outlines share what's before the @. */
+    id: z.string().regex(/^[a-z0-9-]+(@-?\d+)?$/),
+    /** The map label. */
+    name: z.string(),
+    empire: id.optional(),
+    /** What else it belongs to (a king, an era); selecting any of them shows it strongly. */
+    links: z.array(z.object({ kind: z.enum(["person", "era", "empire", "event", "location"]), id })).optional(),
+    from: z.number().int(),
+    to: z.number().int(),
+    lateFrom: z.number().int().optional(),
+    lateTo: z.number().int().optional(),
+    label: Coords,
+    /** How sure the outline is, and what it shows; drawn outlines always say. */
+    note: z.string().optional(),
+    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbours share one. */
+    tint: z.enum(["judah", "israel", "united", "neighbour"]).optional(),
+    /** Lands that paid tribute rather than being ruled: drawn fainter, dashed. */
+    subject: z.boolean().optional(),
+    /** A smaller label, for tribes and provinces. */
+    small: z.boolean().optional(),
+  }),
+  geometry: z.union([
+    z.object({ type: z.literal("Polygon"), coordinates: z.array(Ring) }),
+    z.object({ type: z.literal("MultiPolygon"), coordinates: z.array(z.array(Ring)) }),
+  ]),
+});
+
+export const BorderCollection = z.object({
+  type: z.literal("FeatureCollection"),
+  features: z.array(BorderFeature),
+});
+
 // TimePoint and DateSpec types live in lib/dates.ts; these schemas match them.
 export type ScriptureRef = z.infer<typeof ScriptureRef>;
 export type Era = z.infer<typeof Era>;
@@ -202,3 +243,5 @@ export type Tour = z.infer<typeof Tour>;
 export type Journey = z.infer<typeof Journey>;
 export type RegionFeature = z.infer<typeof RegionFeature>;
 export type RegionCollection = z.infer<typeof RegionCollection>;
+export type BorderFeature = z.infer<typeof BorderFeature>;
+export type BorderCollection = z.infer<typeof BorderCollection>;

@@ -4,6 +4,7 @@ import { formatDateSpec } from "../../lib/dates";
 import { eventsForEmpire, rulersOf } from "../../lib/entities";
 import { useStore } from "../../state/store";
 import { Prose } from "../ScriptureText";
+import { MapBorders } from "./MapBorders";
 import { Chips, EventList, Note, Section } from "./parts";
 
 export default function EmpireDetail({ empire }: { empire: Empire }) {
@@ -39,6 +40,8 @@ export default function EmpireDetail({ empire }: { empire: Empire }) {
           <EventList events={events} />
         </Section>
       )}
+
+      <MapBorders of={{ kind: "empire", id: empire.id }} />
     </>
   );
 }
