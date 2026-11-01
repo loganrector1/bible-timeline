@@ -4,7 +4,7 @@ import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import { data, regionsById, type EntityRef } from "../../data";
 import type { BorderFeature } from "../../data/schema";
 import { borderOf, borderPower, borderTarget, borderYears, bordersAt, loadBorders } from "../../lib/borders";
-import { REGION_FILL_LAYER } from "./RegionLayer";
+import { REGION_ANCHOR } from "./RegionLayer";
 
 export const BORDER_LABEL_LAYER = "borders-label";
 /** The fills a resting pointer can ask about: those shown, not those fading out. Invisible. */
@@ -259,7 +259,7 @@ export default function BorderLayer({
         <Layer
           id={BORDER_LABEL_LAYER}
           type="symbol"
-          beforeId={REGION_FILL_LAYER}
+          beforeId={REGION_ANCHOR}
           layout={{
             // Small labels (tribes, provinces) only once there's room, unless selected.
             "text-field": ["step", ["zoom"],

@@ -3,6 +3,10 @@ import { data } from "../../data";
 import type { MapColors } from "./mapColors";
 
 export const REGION_FILL_LAYER = "regions-fill";
+/** An empty layer where the regions used to draw, above the base map: layers placed before it go beneath the app's labels. */
+export const REGION_ANCHOR = "regions-anchor";
+/** The base map's sea: outlines go beneath it, so their coasts can run offshore and the real one trims them. */
+const BENEATH = "water";
 
 /**
  * Region outlines, shown only when relevant: strong for the selection or the region
@@ -23,6 +27,7 @@ export default function RegionLayer({
       <Layer
         id={REGION_FILL_LAYER}
         type="fill"
+        beforeId={BENEATH}
         filter={[">", strength, 0] as never}
         paint={{
           "fill-color": colors.accent,
@@ -32,6 +37,7 @@ export default function RegionLayer({
       <Layer
         id="regions-line"
         type="line"
+        beforeId={BENEATH}
         filter={[">", strength, 0] as never}
         paint={{
           "line-color": colors.accent,
@@ -40,6 +46,7 @@ export default function RegionLayer({
           "line-dasharray": [3, 2],
         }}
       />
+      <Layer id={REGION_ANCHOR} type="fill" filter={["==", ["get", "id"], ""] as never} />
     </Source>
   );
 }
