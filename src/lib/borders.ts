@@ -80,11 +80,9 @@ export function borderContains(f: BorderFeature, pt: readonly number[]): boolean
 export function empiresOver(
   all: BorderFeature[], pt: readonly number[], chron: string,
 ): { empire: string; from: number; to: number; open: boolean }[] {
-  const last = new Map<string, number>();
-  for (const f of all) {
-    const e = f.properties.empire;
-    if (e) last.set(e, Math.max(last.get(e) ?? -Infinity, borderYears(f, chron)[1]));
-  }
+  // Where the outlines stop altogether. An empire's own last outline isn't enough: many end
+  // early on purpose, at a conquest (Egypt's to Assyria), and those stretches are closed.
+  const end = Math.max(...all.map((f) => borderYears(f, chron)[1]));
   const spans = all
     .filter((f) => f.properties.empire && borderContains(f, pt))
     .map((f) => {
@@ -98,6 +96,6 @@ export function empiresOver(
     if (prev && s.from <= prev.to) prev.to = Math.max(prev.to, s.to);
     else out.push({ ...s });
   }
-  for (const o of out) o.open = o.to === last.get(o.empire);
+  for (const o of out) o.open = o.to === end;
   return out;
 }
