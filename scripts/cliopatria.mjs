@@ -21,6 +21,7 @@ const URL = "https://github.com/Seshat-Global-History-Databank/cliopatria/raw/ma
 const CACHE = join("node_modules", ".cache", "cliopatria", "cliopatria.geojson.zip");
 const OUT = join("src", "data", "borders", "cliopatria.json");
 const EMPIRES = join("src", "data", "empires.json");
+const DRAWN = join("src", "data", "borders", "drawn.json");
 /** Simplification tolerance in degrees (about 4 km): borders this old are rougher than that. */
 const TOLERANCE = 0.04;
 /** Rings smaller than this (square degrees) are dropped: islets the map can't show. */
@@ -33,16 +34,18 @@ const REPORT_OVERLAP = 0.5;
  * `from`/`to` narrow those (or bound a power with no empire, whose `links` say what it belongs
  * to). `until` cuts one polity short where Cliopatria runs it on past a conquest, and `since`
  * starts one earlier where its first snapshot comes late. `yieldTo` names powers whose land this
- * one's outline gives up while both stand. `beyond` is land cut out of a power's outline
- * altogether: Egypt's kings were overlords in Canaan, not its rulers, so that's told in words.
- * `tint` colours Israel's own
- * states as the Kings lane does (Judah warm).
+ * one's outline gives up while both stand, POWERS' or drawn.json's (by the id before the @):
+ * Judah stayed a kingdom while it paid Assyria and Babylon tribute, so their outlines leave it out.
+ * `beyond` is land cut out of a power's outline altogether: Egypt's kings were overlords in
+ * Canaan, not its rulers, so that's told in words. `tint` colours Israel's own states as the
+ * Kings lane does (Judah warm).
  */
 
 /**
  * Beyond Egypt's frontier (Rafah to the head of the Gulf of Aqaba) and a line off the Levant
  * coast, so Sinai and Cyprus aren't cut: Canaan and Syria, where Egypt's kings were overlords
  * of the city-states' kings c. 1550–1150 BC (said in the New Kingdom's summary), not rulers.
+ * The Hyksos' reach into southern Canaan is cut too: overlordship at most.
  */
 const EGYPT_BEYOND = [[[[34.22, 31.32], [34.9, 29.5], [35.2, 25], [60, 25], [60, 45], [35.9, 45], [35.9, 36.9], [35.5, 35.9], [35.4, 34.5], [34.7, 33.5], [34.2, 32.5], [34.22, 31.32]]]];
 
@@ -54,7 +57,7 @@ const POWERS = [
   {
     empire: "hyksos", name: "Hyksos", to: -1549,
     rows: ["Hyksos", "Fifteenth Dynasty of Egypt", "Sixteenth Dynasty of Egypt"],
-    since: { "Fifteenth Dynasty of Egypt": -1649, "Sixteenth Dynasty of Egypt": -1649 },
+    since: { "Fifteenth Dynasty of Egypt": -1649, "Sixteenth Dynasty of Egypt": -1649 }, beyond: EGYPT_BEYOND,
   },
   // Egyptian kings held the south from Thebes meanwhile (the 17th dynasty), until Ahmose drove
   // the Hyksos out and began the New Kingdom.
@@ -71,13 +74,13 @@ const POWERS = [
     rows: ["New Kingdom of Egypt", "Twenty-second Dynasty of Egypt", "Twenty-third Dynasty of Egypt"],
   },
   // Babylon broke away under Nabopolassar in 626 BC; Cliopatria keeps it Assyrian until 616.
-  { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"], yieldTo: ["egypt-divided", "egypt-late", "babylon"] },
+  { empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"], yieldTo: ["egypt-divided", "egypt-late", "babylon", "judah"] },
   // The 26th dynasty fell to Cambyses in 525 BC; the 30th to Artaxerxes III in 343 BC.
   {
     empire: "egypt-late", name: "Egypt", from: -655, to: -342,
     rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 },
   },
-  { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 } },
+  { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 }, yieldTo: ["judah"] },
   { empire: "persia", name: "Persia", rows: ["Achaemenid Empire"] },
   { empire: "alexander-empire", name: "Alexander's empire", rows: ["Macedonian Empire"] },
   // Rome took Syria in 64–63 BC and Egypt in 30 BC.
@@ -147,9 +150,14 @@ for (const power of POWERS) {
   }
 }
 
+// Israel's drawn outlines, for powers that yield to them.
+const drawn = JSON.parse(readFileSync(DRAWN, "utf8")).features.map((f) => ({
+  key: f.properties.id.split("@")[0], from: f.properties.from, to: f.properties.to, coordinates: multi(f.geometry),
+}));
+
 // A power gives up the land of those it yields to, while both stand.
 const final = features.flatMap((f) => {
-  const others = features.filter((o) => f.power.yieldTo?.includes(o.key) && o.from < f.to && o.to > f.from);
+  const others = [...features, ...drawn].filter((o) => f.power.yieldTo?.includes(o.key) && o.from < f.to && o.to > f.from);
   if (others.length === 0) return [f];
   const cuts = [...new Set([f.from, f.to, ...others.flatMap((o) => [o.from, o.to])])]
     .filter((y) => y >= f.from && y <= f.to)
