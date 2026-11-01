@@ -56,6 +56,10 @@ Filters by event type and person, applied to both views (timeline, map, Nearest 
 
 Eight tours (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step at the top of the details panel, listed in Browse, shared by link (`tour=exodus&step=3`), with progress remembered. Filters by era and place came with them.
 
+## Scripture in the app (done)
+
+Each Scripture reference opens its passage inline in the details panel, in the Berean Standard Bible (public domain), bundled one chunk per book so it needs no API and works offline; passages over 6 verses start cut short with "Read more", and each links out to the ESV on Bible Gateway. Quotes in summaries, notes and tours now follow the BSB word for word.
+
 ## Next candidates
 
 Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
@@ -66,7 +70,6 @@ Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
   - **Data:** each power is a series of dated outlines (Assyria c. 850 BC, c. 700 BC, c. 640 BC…) with a rise and fall date, kept apart from the place-shaped outlines in `regions.json`. Each outline gets a note on its source and how sure it is; borders before about 1000 BC are especially rough.
   - **Sources:** check open historical-boundary datasets and their licences before drawing by hand (for example Cliopatria from the Seshat project, or historical-basemaps), and credit them like OpenBible.info.
   - **To decide:** whether outlines change in steps at each dated snapshot or morph between them; whether the layer is always on or a toggle (it competes with the focus event's outlines and journeys); and how it ties to the World History lane, so selecting an empire shows both its span and its extent. Takes over the empire part of Milestone 2's "Region outlines" step.
-- **Scripture in the app:** read passages in a public-domain translation instead of linking out.
 
 ## Later: reading plans (separate app)
 
