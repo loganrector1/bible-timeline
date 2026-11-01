@@ -19,8 +19,15 @@ const DRAG_START_PX = 6;
  * event selected each step selects the next, otherwise the cursor moves to it and nothing is selected.
  */
 export default function NowPanel({
-  events, focusId, open, setOpen,
-}: { events: Event[]; focusId?: string; open: boolean; setOpen: (open: boolean) => void }) {
+  events, focusId, open, setOpen, onShow,
+}: {
+  events: Event[];
+  focusId?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  /** Set while the map is quiet (its popup closed): the panel says events are hidden, and this shows them again. */
+  onShow?: () => void;
+}) {
   const select = useStore((s) => s.select);
   const selection = useStore((s) => s.selection);
   const chron = useStore((s) => s.chronologyId);
@@ -116,6 +123,15 @@ export default function NowPanel({
         Nearest events
         <span aria-hidden>{open ? "▴" : "▾"}</span>
       </button>
+      {onShow && (
+        <p className="flex items-baseline gap-1.5 px-3 pb-1.5 text-xs text-ink-muted">
+          Events hidden on the map
+          <span aria-hidden>·</span>
+          <button onClick={onShow} className="font-medium text-accent hover:underline">
+            Show
+          </button>
+        </p>
+      )}
       {(open || shown.length > 0) && (
         <div className="px-2 pb-2">
           {shown.length === 0 ? (

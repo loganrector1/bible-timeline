@@ -180,8 +180,8 @@ export default function MapView() {
   }, [isPhone, mode]);
   /**
    * The popup was closed (× or Escape): no focus event (no popup, journey, outlines or marked
-   * row in Nearest events) while the reader scrubs, to watch the empires say, until they pick
-   * an event again.
+   * row in Nearest events) while the reader scrubs, to watch the empires say, until they do
+   * something with an event again. Nearest events says so, with a way back.
    */
   const [quiet, setQuiet] = useState(false);
 
@@ -226,14 +226,15 @@ export default function MapView() {
     if (escapeNonce && focus && focus !== selectedEvent) setQuiet(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [escapeNonce]);
-  // Stepping to an event, selecting anything (or clearing the selection), or playing brings
-  // them back.
+  // Only events bring them back: selecting one, stepping to one, or playing. Selecting a place
+  // (or a person) and closing it leaves the map quiet.
   const playing = useStore((s) => s.playing);
   useEffect(() => {
     if (focusHint) setQuiet(false);
   }, [focusHint]);
   useEffect(() => {
-    setQuiet(false);
+    if (selection?.kind === "event") setQuiet(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectionNonce]);
   useEffect(() => {
     if (playing) setQuiet(false);
@@ -389,7 +390,13 @@ export default function MapView() {
           </div>
         )}
         {hover && <HoverCard hover={hover} chron={chron} />}
-        <NowPanel events={active} focusId={focus?.id} open={nowOpen} setOpen={setNowOpen} />
+        <NowPanel
+          events={active}
+          focusId={focus?.id}
+          open={nowOpen}
+          setOpen={setNowOpen}
+          onShow={quiet && !selectedEvent && !showsSelection ? () => setQuiet(false) : undefined}
+        />
         {/* The details panel already describes a selected event. Phones have no room for it. */}
         {!isPhone && focus && focus !== selectedEvent && (
           <EventPopup map={map} ev={focus} onClose={() => setQuiet(true)} />
