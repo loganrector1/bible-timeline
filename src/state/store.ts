@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { datesFor, eventsById, peopleById, type EntityRef } from "../data";
 import { Lane } from "../data/schema";
-import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
+import { CHRONOLOGIES, DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { specExtent, specMidpoint, type EraStyle } from "../lib/dates";
 import { activeEvents } from "../lib/activeEvents";
 import { NO_FILTERS, shownBy, type Filters } from "../lib/filters";
@@ -47,6 +47,28 @@ function loadTheme(): Theme {
   }
   return "system";
 }
+/** A setting remembered per browser; `valid` lists what may be read back. */
+function loadSetting<T extends string>(key: string, valid: readonly T[], fallback: T): T {
+  try {
+    const saved = localStorage.getItem(key);
+    if (saved && (valid as readonly string[]).includes(saved)) return saved as T;
+  } catch {
+    // Blocked storage: the default.
+  }
+  return fallback;
+}
+function saveSetting(key: string, value: string, fallback: string) {
+  try {
+    if (value === fallback) localStorage.removeItem(key);
+    else localStorage.setItem(key, value);
+  } catch {
+    // Not remembered; it still applies now.
+  }
+}
+const CHRONOLOGY_KEY = "bible-timeline:chronology";
+const ERA_STYLE_KEY = "bible-timeline:era-style";
+const CHRONOLOGY_IDS = CHRONOLOGIES.map((c) => c.id);
+
 function applyTheme(theme: Theme) {
   if (theme === "system") delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = theme;
@@ -88,6 +110,12 @@ type State = {
   setFilters: (filters: Partial<Filters>) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  /**
+   * Switch chronology, keeping the same event under the cursor (the selected one, or else the
+   * nearest), since the same year means a different moment in the other chronology.
+   */
+  setChronology: (id: string) => void;
+  setEraStyle: (style: EraStyle) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -129,8 +157,8 @@ export const useStore = create<State>()((set, get) => {
   return {
     currentYear: -2090,
     pxPerYear: 0.6,
-    chronologyId: DEFAULT_CHRONOLOGY,
-    eraStyle: "BC",
+    chronologyId: loadSetting(CHRONOLOGY_KEY, CHRONOLOGY_IDS, DEFAULT_CHRONOLOGY),
+    eraStyle: loadSetting<EraStyle>(ERA_STYLE_KEY, ["BC", "BCE"], "BC"),
     mode: "split",
     selection: null,
     playing: false,
@@ -142,6 +170,21 @@ export const useStore = create<State>()((set, get) => {
     setTheme: (theme) => {
       applyTheme(theme);
       set({ theme });
+    },
+    setChronology: (id) => {
+      const { chronologyId: from, currentYear, selection } = get();
+      if (id === from || !CHRONOLOGY_IDS.includes(id as (typeof CHRONOLOGY_IDS)[number])) return;
+      const selected = selection?.kind === "event" ? eventsById.get(selection.id) : undefined;
+      const anchor = selected ?? activeEvents(currentYear, from, undefined, shownBy(get().filters))[0];
+      saveSetting(CHRONOLOGY_KEY, id, DEFAULT_CHRONOLOGY);
+      set({ chronologyId: id });
+      if (anchor && datesFor(anchor, id)) {
+        get().setYear(currentYear + eventOrderKey(anchor, id) - eventOrderKey(anchor, from));
+      }
+    },
+    setEraStyle: (eraStyle) => {
+      saveSetting(ERA_STYLE_KEY, eraStyle, "BC");
+      set({ eraStyle });
     },
     filters: NO_FILTERS,
     setFilters: (f) => {

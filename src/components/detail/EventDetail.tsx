@@ -16,7 +16,12 @@ export default function EventDetail({ ev }: { ev: Event }) {
 
   const era = mid === undefined ? undefined : eraAt(mid, chron);
 
-  const alternates = CHRONOLOGIES.filter((c) => c.id !== chron && ev.dates[c.id]);
+  // The other chronologies' dates, where they differ (from Saul on, they agree).
+  const alternates = CHRONOLOGIES.flatMap((c) => {
+    const other = c.id !== chron ? datesFor(ev, c.id) : undefined;
+    return other && JSON.stringify(other) !== JSON.stringify(spec) ? [{ ...c, spec: other }] : [];
+  });
+  const setChronology = useStore((s) => s.setChronology);
   // Before and after skip what the filters hide, as the step buttons do.
   const filters = useStore((s) => s.filters);
   const ordered = eventsInOrder(chron).filter((e) => e.id === ev.id || eventShown(e, filters));
@@ -39,7 +44,10 @@ export default function EventDetail({ ev }: { ev: Event }) {
         <ul className="mt-1 text-sm text-ink-muted">
           {alternates.map((c) => (
             <li key={c.id}>
-              {c.name}: {formatDateSpec(ev.dates[c.id], eraStyle)}
+              {c.name}: {formatDateSpec(c.spec, eraStyle)}{" "}
+              <button onClick={() => setChronology(c.id)} className="text-accent whitespace-nowrap hover:underline">
+                Use this date
+              </button>
             </li>
           ))}
         </ul>

@@ -1,4 +1,4 @@
-// Which chronology is the default is still an open question (see key_features.md).
+// Early is the default (agreed with the user); late is offered in Settings.
 // Every dated entity stores its dates keyed by chronology id; any chronology
 // without its own entry falls back to the default.
 
