@@ -92,7 +92,7 @@ function PassageText({ scripture }: { scripture: ScriptureRef }) {
             {full ? "Show less" : `Read more (${verses.length - SHORT_VERSES} more verses)`}
           </button>
         ) : <span />}
-        {gateway}
+        <span className="text-xs text-ink-muted">Berean Standard Bible · {gateway}</span>
       </div>
     </div>
   );

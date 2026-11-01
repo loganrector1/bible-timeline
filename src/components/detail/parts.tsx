@@ -75,7 +75,6 @@ export function ScriptureList({ refs }: { refs: ScriptureRef[] }) {
           </li>
         ))}
       </ul>
-      <p className="mt-2 text-xs text-ink-muted">Berean Standard Bible</p>
     </Section>
   );
 }
