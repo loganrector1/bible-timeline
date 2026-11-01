@@ -9,12 +9,13 @@ import {
 import { useStore } from "../../state/store";
 import { ARROW_IMAGE, BLANK_IMAGE } from "./arrowImage";
 import type { MapColors } from "./mapColors";
+import { stopImageName } from "./stopImage";
 
 export const JOURNEY_HIT_LAYER = "journey-hit";
 /** The journey's lowest layer, for drawing beneath the route. */
 export const JOURNEY_BASE_LAYER = "journey-full";
 /** The stop markers' lowest layer: the event's own place labels sit just beneath it. */
-export const JOURNEY_STOPS_LAYER = "journey-stops";
+export const JOURNEY_STOPS_LAYER = "journey-stop-events";
 
 const legFeatures = (legs: Leg[], journeyId: string): GeoJSON.FeatureCollection => ({
   type: "FeatureCollection",
@@ -96,16 +97,16 @@ export default function JourneyLayer({
       features: [...byPlace].map(([place, { coord, numbers }]) => ({
         type: "Feature",
         properties: {
-          label: numbers.join("·"),
           order: numbers[0],
-          wide: numbers.length > 1,
+          icon: stopImageName(numbers.join("·"), along !== undefined && along.locations.includes(place), colors.accent, colors.halo),
+          // Clear of the marker, which widens into a pill for merged stops ("4·6").
+          offset: 1.3 + 0.3 * (numbers.join("·").length - 1),
           events: (eventsAt.get(place) ?? []).map((ev) => ev.title).join("\n"),
-          current: along !== undefined && along.locations.includes(place),
         },
         geometry: { type: "Point", coordinates: coord },
       })),
     };
-  }, [journeyId, reached, eventsAt, along]);
+  }, [journeyId, reached, eventsAt, along, colors]);
 
   const headPoint: GeoJSON.FeatureCollection = head
     ? { type: "FeatureCollection", features: [{ type: "Feature", properties: {}, geometry: { type: "Point", coordinates: head } }] }
@@ -158,30 +159,21 @@ export default function JourneyLayer({
           />
       </Source>
       <Source id="journey-stops" type="geojson" data={stops}>
-        <Layer id={JOURNEY_STOPS_LAYER} type="circle"
-          // Later stops on top, so their numbers (which win collisions, below) are the ones seen.
-          layout={{ "circle-sort-key": ["get", "order"] }}
-          paint={{
-            "circle-radius": ["case", ["get", "wide"], 12, 9],
-            "circle-color": colors.accent, "circle-stroke-color": colors.halo,
-            "circle-stroke-width": ["case", ["get", "current"], 4, 2],
-          }} />
-        {/* What happened at the stop, beside it. Beneath the numbers, so they're placed first. */}
-        <Layer id="journey-stop-events" type="symbol"
+        {/* What happened at the stop, beside it: the stops' lowest layer, beneath the markers,
+            so the markers are placed first. */}
+        <Layer id={JOURNEY_STOPS_LAYER} type="symbol"
           layout={{
             "text-field": ["get", "events"], "text-font": ["Noto Sans Bold"], "text-size": 12,
-            "text-anchor": "left", "text-offset": [1.3, 0], "text-justify": "left", "text-max-width": 10,
+            "text-variable-anchor": ["left", "right", "bottom", "top"], "text-radial-offset": ["get", "offset"], "text-justify": "auto", "text-max-width": 10,
           }}
           paint={{ "text-color": colors.accent, "text-halo-color": colors.halo, "text-halo-width": 1.5 }} />
-        {/* Padded to the circle's size, so place labels keep clear of the stop. Where stops
-            overlap, the number of the one beneath is hidden rather than showing through the
-            one on top (MapLibre draws a layer's circles before any of its text). */}
-        <Layer id="journey-stop-numbers" type="symbol"
+        {/* Each stop's disc and number as one image (stopImage.ts), later stops on top, so
+            overlapping stops stack cleanly. Padded so place labels keep clear of them. */}
+        <Layer id="journey-stop-markers" type="symbol"
           layout={{
-            "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 11, "text-padding": 3,
-            "symbol-sort-key": ["-", 0, ["get", "order"]],
-          }}
-          paint={{ "text-color": colors.halo }} />
+            "icon-image": ["get", "icon"], "icon-allow-overlap": true, "icon-padding": 1,
+            "symbol-sort-key": ["get", "order"],
+          }} />
       </Source>
     </>
   );
