@@ -1,9 +1,23 @@
 import type { ScriptureRef } from "../data/schema";
 import { bookId } from "./passages";
 
-/** A book's text: chapters of verses, both counting from 0 ("" for a verse the BSB leaves out). */
+/**
+ * A book's text: chapters of verses, both counting from 0 ("" for a verse the BSB leaves out).
+ * Jesus' words are wrapped in braces, for the red letters.
+ */
 export type BookText = string[][];
-export type Verse = { chapter: number; verse: number; text: string };
+/** `text` is plain; `parts` splits it into Jesus' words and the rest. */
+export type Verse = { chapter: number; verse: number; text: string; parts: VersePart[] };
+export type VersePart = { text: string; jesus: boolean };
+
+/** A verse as stored ("{“Follow Me,”} Jesus told him") split into Jesus' words and the rest. */
+export function verseParts(raw: string): VersePart[] {
+  return raw.split(/([{}])/).reduce<{ parts: VersePart[]; jesus: boolean }>((acc, piece) => {
+    if (piece === "{" || piece === "}") acc.jesus = piece === "{";
+    else if (piece) acc.parts.push({ text: piece, jesus: acc.jesus });
+    return acc;
+  }, { parts: [], jesus: false }).parts;
+}
 
 // The Berean Standard Bible, one file per book (scripts/bsb.mjs), each its own chunk, so a reader
 // downloads only the books they open.
@@ -42,7 +56,9 @@ export function versesOf(book: BookText, ref: ScriptureRef): Verse[] {
       : c === endChapter && ref.verse !== undefined && ref.endChapter === undefined ? ref.verse
       : verses.length;
     for (let v = from; v <= Math.min(to, verses.length); v++) {
-      if (verses[v - 1]) out.push({ chapter: c, verse: v, text: verses[v - 1] });
+      if (!verses[v - 1]) continue;
+      const parts = verseParts(verses[v - 1]);
+      out.push({ chapter: c, verse: v, text: parts.map((p) => p.text).join(""), parts });
     }
   }
   return out;

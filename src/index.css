@@ -13,6 +13,8 @@
   --color-line: #ddd2bf;
   --color-accent: #9a3b1b;
   --color-accent-soft: #f3d9c9;
+  /* Jesus' words in Scripture passages (Settings → red letters). */
+  --color-jesus: #b3161b;
 
   /* "Show <name>" chips: appear only after a beat, so they don't flash while the view
      is still animating toward a new selection. */
@@ -34,6 +36,7 @@
     --color-line: #3d362d;
     --color-accent: #e08a5f;
     --color-accent-soft: #4a2d20;
+    --color-jesus: #f07a72;
   }
 }
 :root[data-theme="dark"] {
@@ -45,6 +48,7 @@
   --color-line: #3d362d;
   --color-accent: #e08a5f;
   --color-accent-soft: #4a2d20;
+  --color-jesus: #f07a72;
 }
 
 html,

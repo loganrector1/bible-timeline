@@ -35,4 +35,17 @@ describe("Bible text", () => {
     const verses = versesOf(matt, { book: "Matthew", chapter: 17, verse: 20, endVerse: 22 }).map((v) => v.verse);
     expect(verses).toEqual([20, 22]);
   });
+
+  test("Jesus' words are marked, and the plain text keeps every word", async () => {
+    const matt = await loadBook("Matt");
+    const [v] = versesOf(matt, { book: "Matthew", chapter: 4, verse: 19 });
+    expect(v.text).toBe("“Come, follow Me,” Jesus said, “and I will make you fishers of men.”");
+    expect(v.parts).toEqual([
+      { text: "“Come, follow Me,”", jesus: true },
+      { text: " Jesus said, ", jesus: false },
+      { text: "“and I will make you fishers of men.”", jesus: true },
+    ]);
+    const exod = await loadBook("Exod");
+    expect(versesOf(exod, { book: "Exodus", chapter: 3, verse: 14 })[0].parts.every((p) => !p.jesus)).toBe(true);
+  });
 });

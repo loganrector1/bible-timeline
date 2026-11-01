@@ -68,6 +68,7 @@ function saveSetting(key: string, value: string, fallback: string) {
 }
 const CHRONOLOGY_KEY = "bible-timeline:chronology";
 const ERA_STYLE_KEY = "bible-timeline:era-style";
+const RED_LETTERS_KEY = "bible-timeline:red-letters";
 const CHRONOLOGY_IDS = CHRONOLOGIES.map((c) => c.id);
 
 const TOURS_KEY = "bible-timeline:tours";
@@ -107,6 +108,8 @@ type State = {
   pxPerYear: number;
   chronologyId: string;
   eraStyle: EraStyle;
+  /** Jesus' words in red in Scripture passages. */
+  redLetters: boolean;
   mode: ViewMode;
   selection: EntityRef | null;
   playing: boolean;
@@ -137,6 +140,7 @@ type State = {
    */
   setChronology: (id: string) => void;
   setEraStyle: (style: EraStyle) => void;
+  setRedLetters: (on: boolean) => void;
   /** People lanes shown on the timeline, in display order. */
   lanes: Lane[];
   setLaneShown: (lane: Lane, shown: boolean) => void;
@@ -197,6 +201,7 @@ export const useStore = create<State>()((set, get) => {
     pxPerYear: 0.6,
     chronologyId: loadSetting(CHRONOLOGY_KEY, CHRONOLOGY_IDS, DEFAULT_CHRONOLOGY),
     eraStyle: loadSetting<EraStyle>(ERA_STYLE_KEY, ["BC", "BCE"], "BC"),
+    redLetters: loadSetting(RED_LETTERS_KEY, ["on", "off"], "on") === "on",
     mode: "split",
     selection: null,
     playing: false,
@@ -219,6 +224,10 @@ export const useStore = create<State>()((set, get) => {
       if (anchor && datesFor(anchor, id)) {
         get().setYear(currentYear + eventOrderKey(anchor, id) - eventOrderKey(anchor, from));
       }
+    },
+    setRedLetters: (on) => {
+      saveSetting(RED_LETTERS_KEY, on ? "on" : "off", "on");
+      set({ redLetters: on });
     },
     setEraStyle: (eraStyle) => {
       saveSetting(ERA_STYLE_KEY, eraStyle, "BC");
