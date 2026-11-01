@@ -3,7 +3,7 @@ import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { eventsById } from "../src/data";
 import { activeEvents, distanceFrom, NEAREST_COUNT } from "../src/lib/activeEvents";
 import { adjacentEvent, eventsInOrder } from "../src/lib/entities";
-import { drawnAsLifeMark, eventShown, filteredPeople, shownBy } from "../src/lib/filters";
+import { drawnAsLifeMark, eventShown, filteredPeople, NO_FILTERS, shownBy } from "../src/lib/filters";
 import { parsePassage } from "../src/lib/passages";
 import { data } from "../src/data";
 
@@ -88,7 +88,7 @@ describe("events along a journey", () => {
 
 describe("filters", () => {
   const chron = DEFAULT_CHRONOLOGY;
-  const battles = shownBy({ types: ["battle"], people: [], passages: [] })!;
+  const battles = shownBy({ ...NO_FILTERS, types: ["battle"] }, chron)!;
 
   test("Nearest events and stepping show only what the filters let through", () => {
     for (const year of [-1445, -1000, 30]) {
@@ -106,32 +106,54 @@ describe("filters", () => {
   });
 
   test("events and people combine: any of the types, involving any of the people", () => {
-    const f = { types: ["battle" as const], people: ["david"], passages: [] };
-    const shown = eventsInOrder(chron).filter((ev) => eventShown(ev, f));
+    const f = { ...NO_FILTERS, types: ["battle" as const], people: ["david"] };
+    const shown = eventsInOrder(chron).filter((ev) => eventShown(ev, f, chron));
     expect(shown.length).toBeGreaterThan(0);
     expect(shown.every((ev) => ev.type === "battle" && ev.people.includes("david"))).toBe(true);
   });
 
   test("people stand out: those filtered to, else everyone in a shown event", () => {
-    expect(filteredPeople(data.events, { types: [], people: [], passages: [] })).toBeUndefined();
-    expect([...filteredPeople(data.events, { types: ["battle"], people: ["david"], passages: [] })!]).toEqual(["david"]);
-    const judged = filteredPeople(data.events, { types: ["judgment"], people: [], passages: [] })!;
+    expect(filteredPeople(data.events, NO_FILTERS, chron)).toBeUndefined();
+    expect([...filteredPeople(data.events, { ...NO_FILTERS, types: ["battle"], people: ["david"] }, chron)!]).toEqual(["david"]);
+    const judged = filteredPeople(data.events, { ...NO_FILTERS, types: ["judgment"] }, chron)!;
     expect(judged.has("noah")).toBe(true);
     expect(judged.has("ruth")).toBe(false);
   });
 
   test("births and deaths filtered to are dots, not marks on a bar", () => {
     const birth = data.events.find((ev) => ev.type === "birth" && !ev.major)!;
-    expect(drawnAsLifeMark(birth, { types: [], people: [], passages: [] })).toBe(true);
-    expect(drawnAsLifeMark(birth, { types: ["birth"], people: [], passages: [] })).toBe(false);
+    expect(drawnAsLifeMark(birth, NO_FILTERS)).toBe(true);
+    expect(drawnAsLifeMark(birth, { ...NO_FILTERS, types: ["birth"] })).toBe(false);
   });
 });
 
 describe("passage filters", () => {
   test("show the events told in a passage", () => {
-    const f = { types: [], people: [], passages: [parsePassage("Exodus 12-14")!] };
-    const ids = eventsInOrder(DEFAULT_CHRONOLOGY).filter((ev) => eventShown(ev, f)).map((ev) => ev.id);
+    const f = { ...NO_FILTERS, passages: [parsePassage("Exodus 12-14")!] };
+    const ids = eventsInOrder(DEFAULT_CHRONOLOGY).filter((ev) => eventShown(ev, f, DEFAULT_CHRONOLOGY)).map((ev) => ev.id);
     expect(ids).toContain("exodus");
     expect(ids).not.toContain("burning-bush");
+  });
+});
+
+describe("era and place filters", () => {
+  const shown = (f: Partial<typeof NO_FILTERS>, chron: string = DEFAULT_CHRONOLOGY) =>
+    eventsInOrder(chron).filter((ev) => eventShown(ev, { ...NO_FILTERS, ...f }, chron)).map((ev) => ev.id);
+
+  test("an era shows the events whose midpoint falls in it, in either chronology", () => {
+    for (const chron of ["early", "late"]) {
+      const ids = shown({ eras: ["wilderness"] }, chron);
+      expect(ids).toContain("sinai-covenant");
+      expect(ids).not.toContain("david-goliath");
+    }
+  });
+
+  test("a place shows events there, on journeys through it, and inside its outline", () => {
+    const jerusalem = shown({ places: ["jerusalem"] });
+    expect(jerusalem).toContain("crucifixion");
+    expect(jerusalem).not.toContain("exodus");
+    // Bethel is a stop on Jacob's return; Hebron is inside Canaan's outline.
+    expect(shown({ places: ["bethel"] })).toContain("jacob-returns");
+    expect(shown({ places: ["canaan"] })).toContain("binding-of-isaac");
   });
 });

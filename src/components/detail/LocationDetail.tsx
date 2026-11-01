@@ -1,6 +1,7 @@
 import type { Location } from "../../data/schema";
 import { eventsAtLocation } from "../../lib/entities";
 import { useStore } from "../../state/store";
+import { FilterShortcut } from "../Filters";
 import { EventList, Note, Section } from "./parts";
 
 const TYPE_LABEL: Record<Location["type"], string> = {
@@ -37,6 +38,8 @@ export default function LocationDetail({ loc }: { loc: Location }) {
       <Section title={`Events here (${events.length})`}>
         <EventList events={events} />
       </Section>
+
+      <FilterShortcut place={loc} />
     </>
   );
 }

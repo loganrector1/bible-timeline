@@ -140,6 +140,17 @@ export const Journey = z.object({
   stops: z.array(JourneyStop).min(2),
 });
 
+/**
+ * A guided tour: steps that each select an event, with a line or two of narration tying it to
+ * the story. The details panel shows the narration while the step's event is selected.
+ */
+export const Tour = z.object({
+  id,
+  title: z.string(),
+  summary: z.string(),
+  steps: z.array(z.object({ event: z.string(), text: z.string() })).min(2),
+});
+
 const Ring = z.array(Coords).min(4);
 
 export const RegionFeature = z.object({
@@ -163,6 +174,7 @@ export type EventType = z.infer<typeof EventType>;
 export type Event = z.infer<typeof Event>;
 export type Person = z.infer<typeof Person>;
 export type Location = z.infer<typeof Location>;
+export type Tour = z.infer<typeof Tour>;
 export type Journey = z.infer<typeof Journey>;
 export type RegionFeature = z.infer<typeof RegionFeature>;
 export type RegionCollection = z.infer<typeof RegionCollection>;

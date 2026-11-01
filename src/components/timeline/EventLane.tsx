@@ -79,12 +79,12 @@ export default function EventLane({ scale, onHover, lanes }: { scale: TimeScale;
   const byId = new Map(all.map((r) => [r.ev.id, r]));
   const rows = all.filter((r) => {
     if (isSelected(r.ev)) return true;
-    if (!eventShown(r.ev, filters)) return false;
+    if (!eventShown(r.ev, filters, chron)) return false;
     const markedOn = lifeMarkPerson(r.ev, chron);
     const person = markedOn ? peopleById.get(markedOn)! : undefined;
     if (person && drawnAsLifeMark(r.ev, filters) && shownLanes(person, lanes).some((l) => hasLifeMarks(person, l))) return false;
     const parent = r.ev.partOf ? byId.get(r.ev.partOf) : undefined;
-    return !parent || parent.asSpan || (!eventShown(parent.ev, filters) && !isSelected(parent.ev));
+    return !parent || parent.asSpan || (!eventShown(parent.ev, filters, chron) && !isSelected(parent.ev));
   });
 
   // Which events win when space is short: the selection, then highlighted, then major events.

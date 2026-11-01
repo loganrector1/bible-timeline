@@ -24,7 +24,7 @@ export default function EventDetail({ ev }: { ev: Event }) {
   const setChronology = useStore((s) => s.setChronology);
   // Before and after skip what the filters hide, as the step buttons do.
   const filters = useStore((s) => s.filters);
-  const ordered = eventsInOrder(chron).filter((e) => e.id === ev.id || eventShown(e, filters));
+  const ordered = eventsInOrder(chron).filter((e) => e.id === ev.id || eventShown(e, filters, chron));
   const index = ordered.findIndex((e) => e.id === ev.id);
   const prev = ordered[index - 1];
   const next = ordered[index + 1];

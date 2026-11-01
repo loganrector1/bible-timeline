@@ -213,7 +213,7 @@
     "summary": "A new king who did not know Joseph forces the growing Israelite people into hard labor building store cities.",
     "dates": {
       "early": { "start": { "year": -1549 }, "end": { "year": -1446 }, "confidence": "approx" },
-      "late": { "start": { "year": -1299 }, "end": { "year": -1260 }, "confidence": "approx" }
+      "late": { "start": { "year": -1363 }, "end": { "year": -1260 }, "confidence": "approx" }
     },
     "dateNote": "Scripture does not date the start of the oppression; these spans are estimates.",
     "people": [], "locations": ["pithom", "rameses"], "regions": ["goshen"],
@@ -375,9 +375,10 @@
     "id": "wandering", "title": "Forty years in the wilderness", "type": "judgment",
     "summary": "The generation that refused to enter the land dies in the wilderness while God continues to provide for his people.",
     "dates": {
-      "early": { "start": { "year": -1444 }, "end": { "year": -1406 }, "confidence": "approx" },
-      "late": { "start": { "year": -1258 }, "end": { "year": -1220 }, "confidence": "approx" }
+      "early": { "start": { "year": -1444, "month": 7, "label": "Season of first grapes" }, "end": { "year": -1406 }, "confidence": "approx" },
+      "late": { "start": { "year": -1258, "month": 7, "label": "Season of first grapes" }, "end": { "year": -1220 }, "confidence": "approx" }
     },
+    "dateNote": "From the sentence that follows the spies' report (Numbers 14:33–34), forty years counted from the Exodus.",
     "people": ["moses", "aaron", "miriam", "joshua", "caleb"], "locations": ["kadesh-barnea"], "regions": ["sinai-wilderness"],
     "scripture": [{ "book": "Numbers", "chapter": 14, "verse": 26, "endVerse": 35 }, { "book": "Numbers", "chapter": 33 }]
   },

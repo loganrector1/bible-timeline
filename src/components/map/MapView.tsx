@@ -155,7 +155,7 @@ export default function MapView() {
   const focusHint = useStore((s) => s.focusHint);
   const hinted = !selectedEvent && focusHint?.year === currentYear ? eventsById.get(focusHint.id) : undefined;
   const filters = useStore((s) => s.filters);
-  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted, shownBy(filters));
+  const active = activeEvents(currentYear, chron, selectedEvent ?? hinted, shownBy(filters, chron));
   const activeKey = active.map((e) => e.id).join(",");
   const activeLocations = useMemo(
     () => new Set(activeKey ? activeKey.split(",").flatMap((id) => eventLocations(eventsById.get(id)!).map((l) => l.id)) : []),

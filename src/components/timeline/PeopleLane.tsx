@@ -62,8 +62,8 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
     });
   }, [lives, chron, lane]);
   const selectedId = selection?.kind === "event" ? selection.id : undefined;
-  const shownMarks = marks.filter((m) => drawnAsLifeMark(m.ev, filters) && (m.ev.id === selectedId || eventShown(m.ev, filters)));
-  const standOut = useMemo(() => filteredPeople(data.events, filters), [filters]);
+  const shownMarks = marks.filter((m) => drawnAsLifeMark(m.ev, filters) && (m.ev.id === selectedId || eventShown(m.ev, filters, chron)));
+  const standOut = useMemo(() => filteredPeople(data.events, filters, chron), [filters, chron]);
 
   const width = (Math.max(0, ...lives.map((l) => l.column)) + 1) * COLUMN + 8;
 

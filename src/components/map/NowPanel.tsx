@@ -40,7 +40,7 @@ export default function NowPanel({
     const s = useStore.getState();
     const selectedId = s.selection?.kind === "event" ? s.selection.id : undefined;
     // Step from the last event this drag reached, not the cursor, which is still on its way there.
-    const target = adjacentEvent(dir, chron, s.currentYear, selectedId ?? drag.current?.id, shownBy(s.filters));
+    const target = adjacentEvent(dir, chron, s.currentYear, selectedId ?? drag.current?.id, shownBy(s.filters, chron));
     if (!target) return;
     if (drag.current) drag.current.id = target.id;
     if (selectedId) select({ kind: "event", id: target.id });

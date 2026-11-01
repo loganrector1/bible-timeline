@@ -8,6 +8,7 @@ import EraDetail from "./detail/EraDetail";
 import EventDetail from "./detail/EventDetail";
 import LocationDetail from "./detail/LocationDetail";
 import PersonDetail from "./detail/PersonDetail";
+import TourBox from "./TourBox";
 
 const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era" } as const;
 
@@ -209,6 +210,7 @@ export default function DetailPanel() {
         >
           <span aria-hidden className="h-1 w-10 rounded-full bg-line" />
         </button>
+        <TourBox clamp={peek} />
         <div className="flex items-start justify-between gap-2 px-5 pt-2 pb-2 md:pt-4">
           <div>
             <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{KIND_LABEL[selection.kind]}</p>

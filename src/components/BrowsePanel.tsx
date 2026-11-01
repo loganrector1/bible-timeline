@@ -6,7 +6,7 @@ import { eventShown, FILTER_TYPES } from "../lib/filters";
 import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
 
-type Tab = "all" | EntityKind;
+type Tab = "all" | EntityKind | "tour";
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "all", label: "All" },
@@ -14,6 +14,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "person", label: "People" },
   { id: "location", label: "Places" },
   { id: "era", label: "Eras" },
+  { id: "tour", label: "Tours" },
 ];
 
 const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", event: "Events", person: "People", location: "Places" };
@@ -24,8 +25,9 @@ type Item = { ref: EntityRef; name: string; detail: string; search: string; hidd
 type Suggestion = { label: string; apply: () => void };
 
 /**
- * Filters the search names, not yet on: an event type ("battle") or one person ("David"), and a
- * book or passage ("Exodus 12-14"). "Job" and "Ruth" are both a person and a book, so both show.
+ * Filters the search names, not yet on: an event type ("battle") or one person ("David"), a place
+ * ("Jerusalem"), an era ("Judges"), and a book or passage ("Exodus 12-14"). "Job" and "Ruth" are
+ * both a person and a book, so both show.
  */
 function useSuggestions(query: string): Suggestion[] {
   const filters = useStore((s) => s.filters);
@@ -43,6 +45,20 @@ function useSuggestions(query: string): Suggestion[] {
     out.push({ label: type.label, apply: () => setFilters({ types: [...filters.types, type.type] }) });
   } else if (person && !filters.people.includes(person.id)) {
     out.push({ label: `${person.name}’s events`, apply: () => setFilters({ people: [...filters.people, person.id] }) });
+  }
+  const one = <T,>(items: T[], names: (t: T) => string[]) => {
+    const exact = items.filter((t) => names(t).some((n) => n.toLowerCase() === q));
+    const starts = items.filter((t) => names(t).some((n) => n.toLowerCase().startsWith(q)));
+    return exact.length === 1 ? exact[0] : starts.length === 1 ? starts[0] : undefined;
+  };
+  // By the place's own name: "Jerusalem" is also Mount Moriah's modern name.
+  const place = one(data.locations, (l) => [l.name]);
+  if (place && !filters.places.includes(place.id)) {
+    out.push({ label: `events at ${place.name}`, apply: () => setFilters({ places: [...filters.places, place.id] }) });
+  }
+  const era = one(data.eras, (e) => [e.name, e.name.replace(/^The /, "")]);
+  if (era && !filters.eras.includes(era.id)) {
+    out.push({ label: `events in ${era.name}`, apply: () => setFilters({ eras: [...filters.eras, era.id] }) });
   }
   const passage = parsePassage(q);
   const passageOn = passage && filters.passages.some((p) => formatPassageParam(p) === formatPassageParam(passage));
@@ -89,7 +105,7 @@ export default function BrowsePanel() {
         ref: { kind: "era", id: e.id }, name: e.name, detail: dateOf(e), search: e.name,
       })),
       event: eventsInOrder(chron).map((e) => ({
-        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title, hidden: !eventShown(e, filters),
+        ref: { kind: "event", id: e.id }, name: e.title, detail: dateOf(e), search: e.title, hidden: !eventShown(e, filters, chron),
       })),
       person: data.people.map((p) => ({
         ref: { kind: "person", id: p.id } as EntityRef,
@@ -105,17 +121,28 @@ export default function BrowsePanel() {
       })).sort(byName),
     };
     const q = query.trim().toLowerCase();
-    const kinds: EntityKind[] = tab === "all" ? ["era", "event", "person", "location"] : [tab];
+    const kinds: EntityKind[] = tab === "all" ? ["era", "event", "person", "location"] : tab === "tour" ? [] : [tab];
     return kinds
       .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
       .filter((g) => g.items.length > 0);
   }, [query, tab, chron, eraStyle, filters]);
 
+  // Tours come first in All, since they're a way in for someone who doesn't know where to start.
+  // There a search matches their titles only; their summaries name so many places and people
+  // that they'd crowd out the results. The Tours tab searches both.
+  const q = query.trim().toLowerCase();
+  const tours = tab === "all" || tab === "tour"
+    ? data.tours.filter((t) => !q || (tab === "tour" ? `${t.title} ${t.summary}` : t.title).toLowerCase().includes(q))
+    : [];
+  const activeTour = useStore((s) => s.tour?.id);
+  const progress = useStore((s) => s.tourProgress);
+
   if (!open) return null;
 
+  const closeOnPhone = () => window.innerWidth < 768 && setOpen(false);
   const pick = (ref: EntityRef) => {
     select(ref);
-    if (window.innerWidth < 768) setOpen(false); // On phones the panel covers everything.
+    closeOnPhone(); // On phones the panel covers everything.
   };
 
   return (
@@ -164,7 +191,47 @@ export default function BrowsePanel() {
             <span>Filter: show only <strong className="font-semibold">{sg.label}</strong></span>
           </button>
         ))}
-        {groups.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
+        {tours.length > 0 && (
+          <section className="mb-3">
+            {tab === "all" && (
+              <h3 className="px-2 py-1 text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+                Guided tours <span className="font-normal">({tours.length})</span>
+              </h3>
+            )}
+            <ul>
+              {tours.map((t) => {
+                // A tour left part-way continues where it stopped; "Start over" is beside it.
+                const at = progress[t.id];
+                const resumable = at !== undefined && at > 0 && activeTour !== t.id;
+                const start = (step: number) => {
+                  useStore.getState().startTour(t.id, step);
+                  closeOnPhone();
+                };
+                return (
+                  <li key={t.id} className={`rounded ${activeTour === t.id ? "bg-accent-soft" : "hover:bg-paper-2"}`}>
+                    <button onClick={() => start(resumable ? at : 0)} className="w-full px-2 pt-1.5 text-left text-sm">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="min-w-0 truncate font-medium">{t.title}</span>
+                        <span className={`shrink-0 text-xs ${resumable ? "text-accent" : "text-ink-muted"}`}>
+                          {resumable ? `Continue · step ${at + 1} of ${t.steps.length}` : `${t.steps.length} steps`}
+                        </span>
+                      </span>
+                      <span className={`mt-0.5 block text-xs leading-snug text-ink-muted ${tab === "all" ? "line-clamp-1" : ""}`}>{t.summary}</span>
+                    </button>
+                    <div className="flex justify-end px-2 pb-1.5">
+                      {resumable && (
+                        <button onClick={() => start(0)} className="text-xs text-accent hover:underline">
+                          Start over
+                        </button>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+        {groups.length === 0 && tours.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
         {groups.map((g) => (
           <section key={g.kind} className="mb-3">
             {tab === "all" && (
@@ -185,7 +252,8 @@ export default function BrowsePanel() {
                       }`}
                     >
                       <span className={`min-w-0 truncate ${item.hidden && !selected ? "text-ink-muted/70" : ""}`}>{item.name}</span>
-                      <span className={`shrink-0 truncate text-xs ${selected ? "text-paper/80" : item.hidden ? "text-ink-muted/70" : "text-ink-muted"}`}>
+                      {/* A long date ("10th of 10th month, 588 BC – …") is capped so the name still shows. */}
+                      <span className={`max-w-[55%] shrink-0 truncate text-xs ${selected ? "text-paper/80" : item.hidden ? "text-ink-muted/70" : "text-ink-muted"}`}>
                         {item.hidden ? `Hidden · ${item.detail}` : item.detail}
                       </span>
                     </button>

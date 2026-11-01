@@ -1,5 +1,6 @@
 import { entityBounds, eventOrderKey, eventsInOrder } from "../lib/entities";
 import { eventShown } from "../lib/filters";
+import { toursById } from "../data";
 import { DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { formatLink, parseLink } from "../lib/shareLink";
 import { useStore } from "./store";
@@ -17,6 +18,9 @@ export function currentLink(): string {
   const query = formatLink({
     mode: s.mode, selection: s.selection, year: inView ? s.currentYear : undefined, pxPerYear: s.pxPerYear, filters: s.filters,
     chronology: s.chronologyId,
+    // A paused tour (something else selected) isn't part of what's shown.
+    tour: s.tour && toursById.get(s.tour.id)?.steps[s.tour.step]?.event === (s.selection?.kind === "event" ? s.selection.id : undefined)
+      ? s.tour : null,
   });
   return `${location.origin}${location.pathname}?${query}`;
 }
@@ -35,14 +39,15 @@ export function startUrlSync() {
   const store = useStore.getState();
   if (link.mode) store.setMode(link.mode);
   if (link.pxPerYear) store.setZoom(link.pxPerYear);
-  if (link.selection) store.select(link.selection, { instant: true });
+  if (link.tour) store.startTour(link.tour.id, link.tour.step, { instant: true });
+  else if (link.selection) store.select(link.selection, { instant: true });
   // After the selection, so filtering doesn't glide away from it; any glide is overridden below.
   if (link.filters) store.setFilters(link.filters);
   // A link's own year wins over where selecting would put the cursor. A filtered link with
   // neither (a reading plan's `?passage=Exod.12-14`) starts at the first event it shows.
   if (link.year !== undefined) store.setYear(link.year);
   else if (link.filters && !link.selection) {
-    const first = eventsInOrder(store.chronologyId).find((ev) => eventShown(ev, link.filters!));
+    const first = eventsInOrder(store.chronologyId).find((ev) => eventShown(ev, link.filters!, store.chronologyId));
     if (first) store.stepTo(first.id, eventOrderKey(first, store.chronologyId));
   }
 
@@ -50,7 +55,7 @@ export function startUrlSync() {
   useStore.subscribe((s, prev) => {
     const same = s.mode === prev.mode && s.selection === prev.selection && s.currentYear === prev.currentYear
       && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx && s.filters === prev.filters
-      && s.chronologyId === prev.chronologyId;
+      && s.chronologyId === prev.chronologyId && s.tour === prev.tour;
     if (same) return;
     // Only once things settle: gliding and dragging change the year every frame.
     clearTimeout(timer);

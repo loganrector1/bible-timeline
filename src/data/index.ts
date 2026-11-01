@@ -2,7 +2,7 @@ import { z } from "zod";
 import type { DateSpec } from "../lib/dates";
 import { DEFAULT_CHRONOLOGY } from "./chronologies";
 import {
-  Era, Event, Journey, Location, Person, RegionCollection,
+  Era, Event, Journey, Location, Person, RegionCollection, Tour,
   type RegionFeature,
 } from "./schema";
 import erasJson from "./eras.json";
@@ -10,6 +10,7 @@ import eventsJson from "./events.json";
 import peopleJson from "./people.json";
 import locationsJson from "./locations.json";
 import journeysJson from "./journeys.json";
+import toursJson from "./tours.json";
 import regionsJson from "./regions.json";
 
 export type Dataset = {
@@ -18,6 +19,7 @@ export type Dataset = {
   people: Person[];
   locations: Location[];
   journeys: Journey[];
+  tours: Tour[];
   regions: RegionCollection;
 };
 
@@ -28,6 +30,7 @@ export function parseDataset(raw: Record<keyof Dataset, unknown>): Dataset {
     people: z.array(Person).parse(raw.people),
     locations: z.array(Location).parse(raw.locations),
     journeys: z.array(Journey).parse(raw.journeys),
+    tours: z.array(Tour).parse(raw.tours),
     regions: RegionCollection.parse(raw.regions),
   };
 }
@@ -38,6 +41,7 @@ export const data: Dataset = parseDataset({
   people: peopleJson,
   locations: locationsJson,
   journeys: journeysJson,
+  tours: toursJson,
   regions: regionsJson,
 });
 
@@ -50,6 +54,7 @@ export const eventsById = byId(data.events);
 export const peopleById = byId(data.people);
 export const locationsById = byId(data.locations);
 export const journeysById = byId(data.journeys);
+export const toursById = byId(data.tours);
 export const regionsById = new Map<string, RegionFeature>(
   data.regions.features.map((f) => [f.properties.id, f]),
 );
