@@ -103,7 +103,6 @@ A consistent side panel or drawer for any entity:
   - By event type/category
   - By era / date range
   - By region/location
-  - By theme (covenants, miracles, prophecy fulfillment, kings, battles, etc.)
 - Filters apply to **both** timeline and map at the same time.
 
 ---

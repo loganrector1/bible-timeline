@@ -74,9 +74,7 @@ Also built: Israel's neighbours (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, 
 
 ## Next candidates
 
-Not yet ordered. Each is a milestone of its own, drawn from key_features.md.
-
-- **Theme filter:** covenants, prophecy fulfilled, women of the Bible and the like; needs tags on every event first.
+None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part.
 
 ## Last: a full content audit
 
