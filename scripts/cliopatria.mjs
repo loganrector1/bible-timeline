@@ -46,12 +46,13 @@ const REPORT_OVERLAP = 0.5;
  */
 
 /**
- * Beyond Egypt's frontier (Rafah to the head of the Gulf of Aqaba) and a line off the Levant
+ * Beyond Egypt's frontier (the Brook of Egypt, where Canaan's border runs in Numbers 34:5, to the
+ * head of the Gulf of Aqaba, with Kadesh-barnea on Canaan's side) and a line off the Levant
  * coast, so Sinai and Cyprus aren't cut: Canaan and Syria, where Egypt's kings were overlords
  * of the city-states' kings c. 1550–1150 BC (said in the New Kingdom's summary), not rulers.
  * The Hyksos' reach into southern Canaan is cut too: overlordship at most.
  */
-const EGYPT_BEYOND = [[[[34.22, 31.32], [34.9, 29.5], [35.2, 25], [60, 25], [60, 45], [35.9, 45], [35.9, 36.9], [35.5, 35.9], [35.4, 34.5], [34.7, 33.5], [34.2, 32.5], [34.22, 31.32]]]];
+const EGYPT_BEYOND = [[[[33.8, 31.13], [34.25, 30.5], [34.9, 29.5], [35.2, 25], [60, 25], [60, 45], [35.9, 45], [35.9, 36.9], [35.5, 35.9], [35.4, 34.5], [34.7, 33.5], [34.2, 32.5], [33.8, 31.13]]]];
 
 // Where one power ends the year the next begins (empires.json), the year goes to the next.
 const POWERS = [
