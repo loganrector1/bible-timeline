@@ -29,8 +29,8 @@ type View = { x: number; y: number; k: number };
  * back to Adam) drawn strongly. It keeps in step with the timeline: the row at its middle is the
  * generation alive at the cursor's year (`treeTime`), so scrubbing slides the tree and dragging
  * the tree moves the cursor; sideways it's free. Clicking anyone, person or genealogy name,
- * selects them, so both open in the details panel, and colors their line; clicking them again
- * deselects them, leaving no line in color.
+ * selects them, so both open in the details panel, and colors their line, which stays when the
+ * panel closes; clicking them again clears both.
  */
 export default function FamilyTree() {
   const focus = useStore((s) => s.familyTree);
@@ -55,8 +55,10 @@ export default function FamilyTree() {
 
   const layout = focus ? layoutFor(focus) : undefined;
   const time = useMemo(() => layout && treeTime(layout, chron), [layout, chron]);
-  // The line in color is the selection's, so selecting someone again (deselecting) clears it.
-  const lit = (selection?.kind === "person" || selection?.kind === "name") && layout?.cards.has(selection.id) ? selection.id : undefined;
+  // The line in color: the last person selected, kept while the details panel is closed.
+  const familyLine = useStore((s) => s.familyLine);
+  const setFamilyLine = useStore((s) => s.setFamilyLine);
+  const lit = familyLine && layout?.cards.has(familyLine) ? familyLine : undefined;
   const line = useMemo(() => (lit ? lineOf(lit) : new Set<string>()), [lit]);
 
   /** Sets the view, kept so the tree always reaches the middle of the box both ways. */
@@ -204,8 +206,12 @@ export default function FamilyTree() {
 
   const pick = (id: string) => {
     if (moved.current > DRAG_PX) return; // The end of a drag, not a tap.
-    // Like a filter chip: tapping the selected card again deselects it.
-    if (id === lit) return select(null);
+    // Like a filter chip: tapping the selected card again clears it. With the details panel
+    // closed, it opens them again first.
+    if (id === lit && selection?.id === id) {
+      select(null);
+      return setFamilyLine(null);
+    }
     setFocus(id);
     select({ kind: kinById(id)?.person ? "person" : "name", id });
   };

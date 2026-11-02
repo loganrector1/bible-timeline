@@ -165,13 +165,19 @@ type State = {
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
   /**
-   * The family tree, while it's open: the person or genealogy name it's centered on, whose line
-   * it highlights. It takes the map's place (the view switcher reads Timeline · Both · Tree), and
+   * The family tree, while it's open: the person or genealogy name it's centered on. It takes the map's place (the view switcher reads Timeline · Both · Tree), and
    * follows the timeline's year. Selecting a genealogy name opens it, and closing it clears one:
    * names live only in the tree.
    */
   familyTree: string | null;
   setFamilyTree: (id: string | null) => void;
+  /**
+   * Whose line the family tree colors: the last person or name selected. Closing the details panel
+   * keeps it, so the line can be studied with more room; Escape clears it after the panel, and
+   * clicking their card again (with the panel open) clears both.
+   */
+  familyLine: string | null;
+  setFamilyLine: (id: string | null) => void;
   /**
    * The guided tour under way, and its step (from 0). Each step selects its event; selecting
    * something else pauses the tour (the details panel offers the way back), and clearing the
@@ -282,7 +288,10 @@ export const useStore = create<State>()((set, get) => {
       // It shows where the map does, so Timeline view makes room for it.
       if (familyTree && get().mode === "timeline") set({ mode: window.innerWidth < 768 ? "map" : "split" });
       if (!familyTree && get().selection?.kind === "name") get().select(null);
+      if (!familyTree) set({ familyLine: null });
     },
+    familyLine: null,
+    setFamilyLine: (familyLine) => set({ familyLine }),
     tour: null,
     tourProgress: loadTourProgress(),
     startTour: (id, step = 0, opts) => {
@@ -306,10 +315,11 @@ export const useStore = create<State>()((set, get) => {
     escapeNonce: 0,
     escape: () => {
       // Menus (Filter, Settings) catch Escape themselves before it gets here.
-      const { browseOpen, familyTree, selection } = get();
+      const { browseOpen, familyTree, familyLine, selection } = get();
       if (browseOpen) set({ browseOpen: false });
-      else if (familyTree) set({ familyTree: null });
       else if (selection) get().select(null);
+      else if (familyTree && familyLine) set({ familyLine: null });
+      else if (familyTree) get().setFamilyTree(null);
       else set({ escapeNonce: get().escapeNonce + 1 });
     },
     setYear: (year) => {
@@ -358,6 +368,7 @@ export const useStore = create<State>()((set, get) => {
       // bring the World history lane.
       const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
       if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
+      if (ref?.kind === "person" || ref?.kind === "name") set({ familyLine: ref.id });
       if (ref?.kind === "name") get().setFamilyTree(ref.id);
       const world = ref?.kind === "empire" || (ref?.kind === "event" && eventsById.get(ref.id)?.world);
       if (world && !get().lanes.includes("world")) get().setLaneShown("world", true);
