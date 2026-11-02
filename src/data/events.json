@@ -27,6 +27,7 @@
     "id": "abram-born", "title": "Birth of Abram", "type": "birth",
     "summary": "Abram is born to Terah in Ur of the Chaldeans.",
     "dates": { "early": { "start": { "year": -2165 }, "confidence": "approx" }, "late": { "start": { "year": -1979 }, "confidence": "approx" } },
+    "dateNote": "Counted back from the Exodus: 430 years in Egypt (Exodus 12:40), Jacob 130 when he went there (Genesis 47:9), Isaac 60 at Jacob's birth (25:26), Abraham 100 at Isaac's (21:5).",
     "people": ["abraham", "terah"], "locations": ["ur"],
     "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 26, "endVerse": 31 }]
   },
@@ -34,6 +35,7 @@
     "id": "call-of-abram", "title": "The call of Abram", "type": "covenant", "major": true,
     "summary": "At 75, Abram obeys God's call to leave Haran for a land God will show him, with the promise that all nations will be blessed through him.",
     "dates": { "early": { "start": { "year": -2090 }, "confidence": "approx" }, "late": { "start": { "year": -1904 }, "confidence": "approx" } },
+    "dateNote": "Abram was 75 (Genesis 12:4).",
     "people": ["abraham", "sarah", "lot"], "locations": ["haran", "shechem", "bethel"], "regions": ["canaan"],
     "journeyId": "abram-to-canaan",
     "scripture": [{ "book": "Genesis", "chapter": 12, "verse": 1, "endVerse": 9 }]
@@ -42,6 +44,7 @@
     "id": "abram-in-egypt", "title": "Abram in Egypt", "type": "journey",
     "summary": "A famine drives Abram to Egypt, where he passes Sarai off as his sister and God protects her.",
     "dates": { "early": { "start": { "year": -2089 }, "confidence": "approx" }, "late": { "start": { "year": -1903 }, "confidence": "approx" } },
+    "dateNote": "Soon after the call; Scripture doesn't say how soon.",
     "people": ["abraham", "sarah"], "locations": ["egypt"], "regions": ["egypt"],
     "scripture": [{ "book": "Genesis", "chapter": 12, "verse": 10, "endVerse": 20 }]
   },
@@ -49,6 +52,7 @@
     "id": "abram-lot-part", "title": "Abram and Lot part ways", "type": "family",
     "summary": "Their herds grow too large to share the land; Lot chooses the Jordan plain near Sodom and Abram settles at Hebron.",
     "dates": { "early": { "start": { "year": -2084 }, "confidence": "approx" }, "late": { "start": { "year": -1898 }, "confidence": "approx" } },
+    "dateNote": "After the return from Egypt; the year is an estimate.",
     "people": ["abraham", "lot"], "locations": ["bethel", "hebron", "sodom"],
     "scripture": [{ "book": "Genesis", "chapter": 13 }]
   },
@@ -56,6 +60,7 @@
     "id": "covenant-pieces", "title": "God's covenant with Abram", "type": "covenant", "major": true,
     "summary": "God promises Abram offspring as many as the stars and confirms the promise of the land with a covenant ceremony.",
     "dates": { "early": { "start": { "year": -2080 }, "confidence": "approx" }, "late": { "start": { "year": -1894 }, "confidence": "approx" } },
+    "dateNote": "Before Ishmael's birth, within Abram's first ten years in Canaan (Genesis 16:3); the year is an estimate.",
     "people": ["abraham"], "locations": ["hebron"], "regions": ["canaan"],
     "scripture": [{ "book": "Genesis", "chapter": 15 }]
   },
@@ -63,6 +68,7 @@
     "id": "ishmael-born", "title": "Birth of Ishmael", "type": "birth",
     "summary": "Hagar bears Abram a son, Ishmael, after God meets her in the wilderness.",
     "dates": { "early": { "start": { "year": -2079 }, "confidence": "approx" }, "late": { "start": { "year": -1893 }, "confidence": "approx" } },
+    "dateNote": "Abram was 86 (Genesis 16:16).",
     "people": ["ishmael", "hagar", "abraham"],
     "scripture": [{ "book": "Genesis", "chapter": 16 }]
   },
@@ -70,6 +76,7 @@
     "id": "covenant-circumcision", "title": "Covenant of circumcision", "type": "covenant",
     "summary": "God renames Abram as Abraham and Sarai as Sarah, gives circumcision as the covenant sign, and promises a son within a year.",
     "dates": { "early": { "start": { "year": -2066 }, "confidence": "approx" }, "late": { "start": { "year": -1880 }, "confidence": "approx" } },
+    "dateNote": "Abraham was 99 (Genesis 17:1).",
     "people": ["abraham", "sarah", "ishmael"], "locations": ["hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 17 }]
   },
@@ -77,6 +84,7 @@
     "id": "sodom-destroyed", "title": "Destruction of Sodom and Gomorrah", "type": "judgment",
     "summary": "After Abraham pleads for the city, God rescues Lot and destroys Sodom and Gomorrah.",
     "dates": { "early": { "start": { "year": -2066 }, "confidence": "approx" }, "late": { "start": { "year": -1880 }, "confidence": "approx" } },
+    "dateNote": "The same year as the covenant of circumcision, a year before Isaac's birth (Genesis 18:10).",
     "people": ["abraham", "lot"], "locations": ["sodom", "hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 18, "verse": 16, "endChapter": 19, "endVerse": 29 }]
   },
@@ -84,6 +92,7 @@
     "id": "isaac-born", "title": "Birth of Isaac", "type": "birth",
     "summary": "Sarah bears Isaac when Abraham is 100, just as God promised.",
     "dates": { "early": { "start": { "year": -2065 }, "confidence": "approx" }, "late": { "start": { "year": -1879 }, "confidence": "approx" } },
+    "dateNote": "Abraham was 100 (Genesis 21:5).",
     "people": ["isaac", "abraham", "sarah"], "locations": ["gerar"],
     "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 7 }]
   },
@@ -99,6 +108,7 @@
     "id": "sarah-dies", "title": "Death of Sarah", "type": "death",
     "summary": "Sarah dies at 127; Abraham buys the cave of Machpelah, his first owned land in Canaan, to bury her.",
     "dates": { "early": { "start": { "year": -2028 }, "confidence": "approx" }, "late": { "start": { "year": -1842 }, "confidence": "approx" } },
+    "dateNote": "Sarah was 127 (Genesis 23:1), ten years younger than Abraham (17:17).",
     "people": ["sarah", "abraham"], "locations": ["hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 23 }]
   },
@@ -106,6 +116,7 @@
     "id": "isaac-rebekah", "title": "Isaac marries Rebekah", "type": "family",
     "summary": "Abraham's servant finds Rebekah among Abraham's relatives near Haran, and she becomes Isaac's wife.",
     "dates": { "early": { "start": { "year": -2025 }, "confidence": "approx" }, "late": { "start": { "year": -1839 }, "confidence": "approx" } },
+    "dateNote": "Isaac was 40 (Genesis 25:20).",
     "people": ["isaac", "rebekah", "abraham"], "locations": ["haran"],
     "scripture": [{ "book": "Genesis", "chapter": 24 }]
   },
@@ -113,6 +124,7 @@
     "id": "jacob-esau-born", "title": "Birth of Jacob and Esau", "type": "birth",
     "summary": "Rebekah bears twins; God says the older will serve the younger.",
     "dates": { "early": { "start": { "year": -2005 }, "confidence": "approx" }, "late": { "start": { "year": -1819 }, "confidence": "approx" } },
+    "dateNote": "Isaac was 60 (Genesis 25:26).",
     "people": ["jacob", "esau", "isaac", "rebekah"],
     "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 26 }]
   },
@@ -128,6 +140,7 @@
     "id": "abraham-dies", "title": "Death of Abraham", "type": "death",
     "summary": "Abraham dies at 175 and is buried by Isaac and Ishmael beside Sarah.",
     "dates": { "early": { "start": { "year": -1990 }, "confidence": "approx" }, "late": { "start": { "year": -1804 }, "confidence": "approx" } },
+    "dateNote": "Abraham was 175 (Genesis 25:7).",
     "people": ["abraham", "isaac", "ishmael"], "locations": ["hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 7, "endVerse": 11 }]
   },
@@ -144,6 +157,7 @@
     "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
     "summary": "Jacob works fourteen years for Laban's daughters; his sons, the ancestors of Israel's tribes, are born in Haran.",
     "dates": { "early": { "start": { "year": -1921 }, "end": { "year": -1909 }, "confidence": "approx" }, "late": { "start": { "year": -1735 }, "end": { "year": -1723 }, "confidence": "approx" } },
+    "dateNote": "Jacob served seven years for Rachel, was given Leah, and served seven more (Genesis 29:20–30); his sons were born in those years.",
     "people": ["jacob", "leah", "rachel", "laban", "judah", "joseph"], "locations": ["haran"],
     "scripture": [{ "book": "Genesis", "chapter": 29, "endChapter": 30 }]
   },
@@ -160,6 +174,7 @@
     "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant", "major": true, "partOf": "jacob-returns",
     "summary": "Returning to Canaan, Jacob wrestles with God at Peniel, is renamed Israel, and is reconciled with Esau.",
     "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" }, "late": { "start": { "year": -1722 }, "confidence": "approx" } },
+    "dateNote": "On the way home, twenty years after Jacob fled (Genesis 31:41).",
     "people": ["jacob", "esau"], "locations": ["peniel"],
     "scripture": [{ "book": "Genesis", "chapter": 32, "endChapter": 33 }]
   },
@@ -183,6 +198,7 @@
     "id": "isaac-dies", "title": "Death of Isaac", "type": "death",
     "summary": "Isaac dies at 180 and is buried by Esau and Jacob.",
     "dates": { "early": { "start": { "year": -1885 }, "confidence": "approx" }, "late": { "start": { "year": -1699 }, "confidence": "approx" } },
+    "dateNote": "Isaac was 180 (Genesis 35:28).",
     "people": ["isaac", "jacob", "esau"], "locations": ["hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 35, "verse": 27, "endVerse": 29 }]
   },
@@ -190,6 +206,7 @@
     "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey", "major": true,
     "summary": "Joseph reveals himself to his brothers, and Jacob's household of seventy settles in Goshen.",
     "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
+    "dateNote": "Jacob was 130 (Genesis 47:9), 430 years before the Exodus (Exodus 12:40).",
     "people": ["jacob", "joseph", "judah"], "locations": ["hebron", "beersheba", "goshen"], "regions": ["goshen"],
     "journeyId": "jacob-to-egypt",
     "scripture": [{ "book": "Genesis", "chapter": 45, "endChapter": 47, "endVerse": 12 }]
@@ -198,6 +215,7 @@
     "id": "jacob-dies", "title": "Death of Jacob", "type": "death",
     "summary": "Jacob blesses his twelve sons and dies at 147; Joseph carries him back to be buried at Machpelah.",
     "dates": { "early": { "start": { "year": -1858 }, "confidence": "approx" }, "late": { "start": { "year": -1672 }, "confidence": "approx" } },
+    "dateNote": "Jacob was 147 (Genesis 47:28).",
     "people": ["jacob", "joseph", "judah"], "locations": ["goshen", "hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 49, "endChapter": 50, "endVerse": 14 }]
   },
@@ -205,6 +223,7 @@
     "id": "joseph-dies", "title": "Death of Joseph", "type": "death",
     "summary": "Joseph dies at 110, making Israel promise to carry his bones to the Promised Land.",
     "dates": { "early": { "start": { "year": -1804 }, "confidence": "approx" }, "late": { "start": { "year": -1618 }, "confidence": "approx" } },
+    "dateNote": "Joseph was 110 (Genesis 50:26).",
     "people": ["joseph"], "locations": ["egypt"],
     "scripture": [{ "book": "Genesis", "chapter": 50, "verse": 22, "endVerse": 26 }]
   },
