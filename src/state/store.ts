@@ -284,7 +284,11 @@ export const useStore = create<State>()((set, get) => {
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
     familyTree: null,
     setFamilyTree: (familyTree) => {
-      set({ familyTree });
+      // Opening it colors the selected person's line (if they're in the family shown), whatever
+      // was colored before it last closed.
+      const sel = get().selection;
+      const kin = sel?.kind === "person" || sel?.kind === "name" ? sel.id : null;
+      set(familyTree && !get().familyTree ? { familyTree, familyLine: kin } : { familyTree });
       // It shows where the map does, so Timeline view makes room for it.
       if (familyTree && get().mode === "timeline") set({ mode: window.innerWidth < 768 ? "map" : "split" });
       if (!familyTree && get().selection?.kind === "name") get().select(null);

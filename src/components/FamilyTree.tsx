@@ -52,7 +52,12 @@ export default function FamilyTree() {
   // sideways; up and down only if they're out of sight, unless they're a genealogy name, which
   // has no dates of its own to keep time from moving. A tap in the tree leaves the view be.
   const picked = useRef<string | null>(null);
+  // Not on opening: the tree opens on whichever family it was asked for, even with someone from
+  // another selected (Browse's row opens the main tree with Baasha selected).
+  const seen = useRef(selection);
   useEffect(() => {
+    if (seen.current === selection) return;
+    seen.current = selection;
     const kin = selection?.kind === "person" || selection?.kind === "name";
     if (!focus || !kin || !hasFamily(selection.id)) return;
     if (picked.current === selection.id) return void (picked.current = null);

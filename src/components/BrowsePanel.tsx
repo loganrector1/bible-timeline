@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { data, datesFor, type EntityKind, type EntityRef } from "../data";
 import { formatDateSpec } from "../lib/dates";
 import { eventsInOrder } from "../lib/entities";
-import { hasFamily } from "../lib/family";
+import { familyOf } from "../lib/family";
 import { eventShown, FILTER_TYPES } from "../lib/filters";
 import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
@@ -75,6 +75,17 @@ function useSuggestions(query: string): Suggestion[] {
 }
 
 /** A searchable index of everything in the dataset; picking an item opens its details. */
+/**
+ * The "Family tree" row always opens the main tree, Adam to Jesus: on the selected person if
+ * they're in it (their line in color), else at the cursor's year. Other families (Jehu's, the
+ * Herods) open from their people's "Show in the family tree".
+ */
+const MAIN_TREE = "jesus";
+function mainTreeEntry(selection: EntityRef | null): string {
+  const kin = selection?.kind === "person" || selection?.kind === "name";
+  return kin && familyOf(MAIN_TREE).has(selection.id) ? selection.id : MAIN_TREE;
+}
+
 export default function BrowsePanel() {
   const open = useStore((s) => s.browseOpen);
   const setOpen = useStore((s) => s.setBrowseOpen);
@@ -254,7 +265,7 @@ export default function BrowsePanel() {
           </section>
         )}
         {showTreeRow && (
-          <button onClick={() => openTree(selection?.kind === "person" && hasFamily(selection.id) ? selection.id : "jesus")} className="mb-3 w-full rounded px-2 py-1.5 text-left text-sm hover:bg-paper-2">
+          <button onClick={() => openTree(mainTreeEntry(selection))} className="mb-3 w-full rounded px-2 py-1.5 text-left text-sm hover:bg-paper-2">
             <span className="font-medium">Family tree</span>
             <span className="mt-0.5 block text-xs leading-snug text-ink-muted">From Adam to Jesus: the patriarchs, Jacob’s sons, David’s line through Matthew and Luke.</span>
           </button>
