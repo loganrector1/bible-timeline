@@ -14,6 +14,7 @@ The whole Bible, Genesis to Revelation, live at [bible.rector.app](https://bible
 - One shared "current moment" and selection drive both views, shown side by side or one at a time; a family tree from Adam to Jesus can take the map's place.
 - Detail panels for events, people, places, eras and empires, with the Scripture text (Berean Standard Bible) built in.
 - Eleven guided tours from Creation to Paul, filters by type, person, book or passage, era and place, and shareable links.
+- Installable on a phone or computer, and it works offline once loaded (the map only where you've already looked).
 - Disputed dates (early vs. late Exodus, chosen in Settings) and disputed sites (Mount Sinai, the Red Sea crossing) carry alternates and notes.
 
 ## Getting started
