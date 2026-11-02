@@ -18,6 +18,26 @@ const MODES: { id: ViewMode; label: string }[] = [
   { id: "map", label: "Map" },
 ];
 
+/** The open Bible of public/favicon.svg, in the theme's accent, so it follows Settings' theme too. */
+function AppMark({ className }: { className: string }) {
+  return (
+    <svg aria-hidden viewBox="4 6 56 52" className={className}>
+      <mask id="app-mark-cut">
+        <rect width="64" height="64" fill="#fff" />
+        <path d="M32 18v35" stroke="#000" strokeWidth="2" />
+        <path d="M15 40c4-10 10-14 16-10s9 4 15-6" fill="none" stroke="#000" strokeWidth="4.5" strokeLinecap="round" />
+        <circle cx="15" cy="40" r="5" fill="#000" />
+        <circle cx="46" cy="24" r="5" fill="#000" />
+      </mask>
+      <path
+        mask="url(#app-mark-cut)"
+        className="fill-accent"
+        d="M32 18c-7-4.5-16-5.5-24-4.5v35c8-1 17 0 24 4.5c7-4.5 16-5.5 24-4.5v-35c-8-1-17 0-24 4.5z"
+      />
+    </svg>
+  );
+}
+
 export default function AppShell() {
   const mode = useStore((s) => s.mode);
   const setMode = useStore((s) => s.setMode);
@@ -43,7 +63,7 @@ export default function AppShell() {
         <div className="flex items-center gap-1 min-[400px]:gap-1.5 sm:gap-3">
           <h1 className="flex items-center gap-1.5 font-serif text-base leading-tight font-semibold tracking-tight min-[400px]:text-lg sm:gap-2 sm:text-xl">
             {/* Narrower than 412px the header has no room for it. */}
-            <img src="/icon.svg" alt="" className="hidden size-6 shrink-0 min-[412px]:block sm:size-7" />
+            <AppMark className="hidden size-6 shrink-0 min-[412px]:block sm:size-7" />
             Bible Timeline
           </h1>
           <button

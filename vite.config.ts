@@ -18,10 +18,14 @@ export default defineConfig({
     VitePWA({
       registerType: "prompt",
       injectRegister: false,
-      includeAssets: ["icon.svg", "apple-touch-icon.png"],
+      includeAssets: ["favicon.svg", "favicon.ico", "apple-touch-icon.png"],
       manifest: {
+        id: "/",
         name: "Bible Timeline",
-        short_name: "Bible Timeline",
+        // The label under the home-screen icon: phones cut "Bible Timeline" short (agreed with the user).
+        short_name: "Timeline",
+        lang: "en-US",
+        scope: "/",
         description: "The whole Bible on a timeline and a map: when things happened, who was there, and where.",
         start_url: "/",
         display: "standalone",
@@ -32,9 +36,15 @@ export default defineConfig({
           { src: "icon-512.png", sizes: "512x512", type: "image/png" },
           { src: "icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
         ],
+        // The richer install sheet on Android and desktop Chrome.
+        screenshots: [
+          { src: "screenshots/narrow.png", sizes: "390x844", type: "image/png", form_factor: "narrow", label: "Paul's second journey on the map" },
+          { src: "screenshots/wide.png", sizes: "1280x800", type: "image/png", form_factor: "wide", label: "The Exodus on the timeline and the map" },
+        ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,mjs,css,html,svg,png}"],
+        globPatterns: ["**/*.{js,mjs,css,html,svg,png,ico}"],
+        globIgnores: ["screenshots/**"],
         // The Cliopatria outlines are one 1.5 MB chunk.
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         runtimeCaching: [

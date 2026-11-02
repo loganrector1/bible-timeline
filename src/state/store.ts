@@ -105,6 +105,11 @@ function saveTourProgress(progress: Record<string, number>) {
 function applyTheme(theme: Theme) {
   if (theme === "system") delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = theme;
+  // The browser's bars (index.html's theme-color, the header's color) follow a chosen theme too.
+  for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+    const dark = theme === "system" ? meta.media.includes("dark") : theme === "dark";
+    meta.content = dark ? "#26221c" : "#f1e9da";
+  }
   try {
     if (theme === "system") localStorage.removeItem(THEME_KEY);
     else localStorage.setItem(THEME_KEY, theme);

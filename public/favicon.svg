@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 6 56 52">
+  <!-- The app icon's open Bible without its tile: the road and the two places are cut out of the
+       book. Rust on light tab bars, the dark theme's accent on dark ones. scripts/icons.mjs makes
+       favicon.ico from it; the header draws the same shape (AppShell). -->
+  <style>path.book { fill: #9a3b1b } @media (prefers-color-scheme: dark) { path.book { fill: #e08a5f } }</style>
+  <mask id="cut">
+    <rect width="64" height="64" fill="#fff"/>
+    <path d="M32 18v35" stroke="#000" stroke-width="2"/>
+    <path d="M15 40c4-10 10-14 16-10s9 4 15-6" fill="none" stroke="#000" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="15" cy="40" r="5" fill="#000"/>
+    <circle cx="46" cy="24" r="5" fill="#000"/>
+  </mask>
+  <path class="book" mask="url(#cut)" d="M32 18c-7-4.5-16-5.5-24-4.5v35c8-1 17 0 24 4.5c7-4.5 16-5.5 24-4.5v-35c-8-1-17 0-24 4.5z"/>
+</svg>

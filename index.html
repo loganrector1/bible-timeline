@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Timeline" />
     <meta name="theme-color" content="#f1e9da" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#26221c" media="(prefers-color-scheme: dark)" />
     <title>Bible Timeline</title>
@@ -12,7 +14,11 @@
       // The theme chosen in Settings, applied before first paint so the page doesn't flash.
       try {
         const theme = localStorage.getItem("bible-timeline:theme");
-        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+          for (const meta of document.querySelectorAll('meta[name="theme-color"]'))
+            meta.content = theme === "dark" ? "#26221c" : "#f1e9da";
+        }
       } catch {}
     </script>
   </head>
