@@ -5,7 +5,7 @@
     "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" }, "late": { "start": { "year": -3927 }, "confidence": "unknown" } },
     "dateNote": "Placed at the start of the Genesis 5 genealogy; Scripture gives no date.",
     "people": ["adam"],
-    "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2, "endVerse": 3 }]
+    "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2 }]
   },
   {
     "id": "fall", "title": "The Fall", "type": "judgment", "major": true,
@@ -37,7 +37,7 @@
     "dates": { "early": { "start": { "year": -2356 }, "confidence": "unknown" }, "late": { "start": { "year": -2170 }, "confidence": "unknown" } },
     "dateNote": "Sometimes linked to the days of Peleg, because \"in his days the earth was divided\" (Genesis 10:25).",
     "locations": ["babel"],
-    "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 1, "endVerse": 9 }]
+    "scripture": [{ "book": "Genesis", "chapter": 10 }, { "book": "Genesis", "chapter": 11, "verse": 1, "endVerse": 9 }]
   },
   {
     "id": "abram-born", "title": "Birth of Abram", "type": "birth",
@@ -106,19 +106,19 @@
   },
   {
     "id": "sodom-destroyed", "title": "Destruction of Sodom and Gomorrah", "type": "judgment",
-    "summary": "After Abraham pleads for the city, God rescues Lot and destroys Sodom and Gomorrah.",
+    "summary": "Three visitors come to Abraham's tent at Mamre and promise that Sarah will have a son: \"Is anything too difficult for the LORD?\" Then Abraham pleads for Sodom, and God rescues Lot and destroys Sodom and Gomorrah.",
     "dates": { "early": { "start": { "year": -2066 }, "confidence": "approx" }, "late": { "start": { "year": -1880 }, "confidence": "approx" } },
     "dateNote": "The same year as the covenant of circumcision, a year before Isaac's birth (Genesis 18:10).",
     "people": ["abraham", "lot"], "locations": ["sodom", "hebron"],
-    "scripture": [{ "book": "Genesis", "chapter": 18, "verse": 16, "endChapter": 19, "endVerse": 29 }]
+    "scripture": [{ "book": "Genesis", "chapter": 18, "verse": 1, "endChapter": 19, "endVerse": 29 }]
   },
   {
     "id": "isaac-born", "title": "Birth of Isaac", "type": "birth",
-    "summary": "Sarah bears Isaac when Abraham is 100, just as God promised.",
+    "summary": "Sarah bears Isaac when Abraham is 100, just as God promised. When Isaac is weaned, Hagar and Ishmael are sent away, and in the wilderness God hears the boy's cry and saves them.",
     "dates": { "early": { "start": { "year": -2065 }, "confidence": "approx" }, "late": { "start": { "year": -1879 }, "confidence": "approx" } },
     "dateNote": "Abraham was 100 (Genesis 21:5).",
-    "people": ["isaac", "abraham", "sarah"], "locations": ["gerar"],
-    "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 7 }]
+    "people": ["isaac", "abraham", "sarah", "hagar", "ishmael"], "locations": ["gerar"],
+    "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 21 }]
   },
   {
     "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship", "major": true,
@@ -146,11 +146,11 @@
   },
   {
     "id": "jacob-esau-born", "title": "Birth of Jacob and Esau", "type": "birth",
-    "summary": "Rebekah bears twins; God says the older will serve the younger.",
+    "summary": "Rebekah bears twins; God says the older will serve the younger. Grown, Esau sells his birthright to Jacob for a bowl of stew: \"Thus Esau despised his birthright.\"",
     "dates": { "early": { "start": { "year": -2005 }, "confidence": "approx" }, "late": { "start": { "year": -1819 }, "confidence": "approx" } },
     "dateNote": "Isaac was 60 (Genesis 25:26).",
     "people": ["jacob", "esau", "isaac", "rebekah"], "locations": ["beer-lahai-roi"],
-    "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 26 }]
+    "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 34 }]
   },
   {
     "id": "job-trials", "title": "Job's trials", "type": "other",
@@ -158,7 +158,7 @@
     "dates": { "early": { "start": { "year": -1999 }, "confidence": "unknown" }, "late": { "start": { "year": -1813 }, "confidence": "unknown" } },
     "dateNote": "Not dated, and Uz can't be located. The setting looks like the patriarchs' time: wealth counted in flocks, Job offering sacrifice for his family as its head, no mention of Israel or the Law, and a life of over 140 years (Job 42:16). When the book was written is unknown.",
     "people": ["job"],
-    "scripture": [{ "book": "Job", "chapter": 1, "verse": 1, "endVerse": 22 }, { "book": "Job", "chapter": 38, "verse": 1, "endVerse": 7 }, { "book": "Job", "chapter": 42, "verse": 1, "endVerse": 6 }]
+    "scripture": [{ "book": "Job", "chapter": 1, "endChapter": 2 }, { "book": "Job", "chapter": 3, "endChapter": 37 }, { "book": "Job", "chapter": 38, "endChapter": 42 }]
   },
   {
     "id": "abraham-dies", "title": "Death of Abraham", "type": "death",
@@ -211,6 +211,14 @@
     "scripture": [{ "book": "Genesis", "chapter": 37 }]
   },
   {
+    "id": "joseph-prison", "title": "Joseph in prison", "type": "other",
+    "summary": "Joseph serves in Potiphar's house, and \"the LORD was with Joseph.\" He refuses the advances of Potiphar's wife, is falsely accused and thrown into prison, and there interprets the dreams of Pharaoh's cupbearer and baker: \"Don't interpretations belong to God?\"",
+    "dates": { "early": { "start": { "year": -1897 }, "end": { "year": -1884 }, "confidence": "approx" }, "late": { "start": { "year": -1711 }, "end": { "year": -1698 }, "confidence": "approx" } },
+    "dateNote": "From when he was sold, at 17 (Genesis 37:2), to when he stood before Pharaoh, at 30 (Genesis 41:46).",
+    "people": ["joseph"], "locations": ["egypt"],
+    "scripture": [{ "book": "Genesis", "chapter": 39, "endChapter": 40 }]
+  },
+  {
     "id": "joseph-rules", "title": "Joseph rules in Egypt", "type": "reign",
     "summary": "Joseph interprets Pharaoh's dreams and is made second in command to prepare Egypt for seven years of famine.",
     "dates": { "early": { "start": { "year": -1884 }, "confidence": "approx" }, "late": { "start": { "year": -1698 }, "confidence": "approx" } },
@@ -227,21 +235,29 @@
     "scripture": [{ "book": "Genesis", "chapter": 35, "verse": 27, "endVerse": 29 }]
   },
   {
+    "id": "brothers-in-egypt", "title": "Joseph's brothers come to Egypt", "type": "family",
+    "summary": "Famine drives Jacob's sons to Egypt for grain, and they bow before Joseph without knowing him. He tests them, keeping Simeon and demanding Benjamin, until Judah offers himself in Benjamin's place. Then Joseph tells them, \"I am Joseph, your brother, the one you sold into Egypt!\" and \"it was to save lives that God sent me before you.\"",
+    "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
+    "dateNote": "Two years into the famine (Genesis 45:6), the year Jacob moved to Egypt; the brothers' first trip may have been a year earlier.",
+    "people": ["joseph", "judah", "jacob"], "locations": ["egypt", "hebron"],
+    "scripture": [{ "book": "Genesis", "chapter": 42, "endChapter": 45, "endVerse": 15 }]
+  },
+  {
     "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey", "major": true,
-    "summary": "Joseph reveals himself to his brothers, and Jacob's household of seventy settles in Goshen.",
+    "summary": "Pharaoh invites Joseph's family to Egypt. On the way God tells Jacob not to be afraid, and his household of seventy settles in Goshen.",
     "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
     "dateNote": "Jacob was 130 (Genesis 47:9), 430 years before the Exodus (Exodus 12:40).",
     "people": ["jacob", "joseph", "judah"], "locations": ["hebron", "beersheba", "goshen"], "regions": ["goshen"],
     "journeyId": "jacob-to-egypt",
-    "scripture": [{ "book": "Genesis", "chapter": 45, "endChapter": 47, "endVerse": 12 }]
+    "scripture": [{ "book": "Genesis", "chapter": 45, "verse": 16, "endChapter": 47, "endVerse": 12 }]
   },
   {
     "id": "jacob-dies", "title": "Death of Jacob", "type": "death",
-    "summary": "Jacob blesses his twelve sons and dies at 147; Joseph carries him back to be buried at Machpelah.",
+    "summary": "Jacob blesses Joseph's sons Ephraim and Manasseh, then his own twelve sons, and dies at 147; Joseph carries him back to be buried at Machpelah.",
     "dates": { "early": { "start": { "year": -1858 }, "confidence": "approx" }, "late": { "start": { "year": -1672 }, "confidence": "approx" } },
     "dateNote": "Jacob was 147 (Genesis 47:28).",
     "people": ["jacob", "joseph", "judah"], "locations": ["goshen", "hebron"],
-    "scripture": [{ "book": "Genesis", "chapter": 49, "endChapter": 50, "endVerse": 14 }]
+    "scripture": [{ "book": "Genesis", "chapter": 48, "endChapter": 50, "endVerse": 14 }]
   },
   {
     "id": "joseph-dies", "title": "Death of Joseph", "type": "death",
@@ -311,14 +327,14 @@
   },
   {
     "id": "plagues", "title": "The ten plagues", "type": "judgment",
-    "summary": "Pharaoh refuses to let Israel go, and God strikes Egypt with ten plagues.",
+    "summary": "Pharaoh refuses to let Israel go and makes them gather their own straw for bricks. God strikes Egypt with ten plagues.",
     "dates": {
       "early": { "start": { "year": -1446 }, "end": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
       "late": { "start": { "year": -1260 }, "end": { "year": -1259, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" }
     },
     "dateNote": "Scripture doesn't say how long the plagues lasted; they end with the Passover on the 14th of the first month (Exodus 12:6).",
     "people": ["moses", "aaron", "pharaoh-exodus"], "locations": ["egypt", "rameses"], "regions": ["egypt", "goshen"],
-    "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
+    "scripture": [{ "book": "Exodus", "chapter": 5, "endChapter": 11 }]
   },
   {
     "id": "passover", "title": "The first Passover", "type": "worship", "major": true, "partOf": "plagues",
@@ -402,18 +418,29 @@
   },
   {
     "id": "tabernacle", "title": "The tabernacle is set up", "type": "worship",
-    "summary": "The tabernacle is raised and the glory of the Lord fills it.",
+    "summary": "On the mountain God shows Moses the pattern for the tabernacle, and the people bring gifts and build it. On the first day of the second year it is raised, and the glory of the Lord fills it.",
     "dates": {
       "early": { "start": { "year": -1444, "month": 4, "day": 1, "label": "1 Nisan, 2nd year" }, "confidence": "approx" },
       "late": { "start": { "year": -1258, "month": 4, "day": 1, "label": "1 Nisan, 2nd year" }, "confidence": "approx" }
     },
     "dateNote": "The first day of the first month of the second year (Exodus 40:17).",
     "people": ["moses", "aaron"], "locations": ["sinai"],
-    "scripture": [{ "book": "Exodus", "chapter": 40 }]
+    "scripture": [{ "book": "Exodus", "chapter": 25, "endChapter": 31 }, { "book": "Exodus", "chapter": 35, "endChapter": 40 }]
+  },
+  {
+    "id": "law-of-holiness", "title": "Laws for worship and holiness", "type": "worship",
+    "summary": "From the tabernacle God gives Moses the laws of the offerings, Aaron and his sons are ordained as priests, and the yearly Day of Atonement is set. \"Be holy because I, the LORD your God, am holy,\" and \"love your neighbor as yourself.\"",
+    "dates": {
+      "early": { "start": { "year": -1444, "month": 4, "label": "1st month, 2nd year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1258, "month": 4, "label": "1st month, 2nd year" }, "confidence": "approx" }
+    },
+    "dateNote": "Spoken from the newly raised tabernacle (Leviticus 1:1), before the census on the first day of the second month (Numbers 1:1).",
+    "people": ["moses", "aaron"], "locations": ["sinai"],
+    "scripture": [{ "book": "Leviticus", "chapter": 1, "endChapter": 27 }]
   },
   {
     "id": "depart-sinai", "title": "Israel leaves Sinai", "type": "journey",
-    "summary": "The cloud lifts from the tabernacle and Israel sets out by tribes toward the Promised Land.",
+    "summary": "Israel is counted and camped by tribes. Then the cloud lifts from the tabernacle and they set out toward the Promised Land. On the way they crave meat and God sends quail, and Miriam and Aaron speak against Moses.",
     "dates": {
       "early": { "start": { "year": -1444, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" }, "confidence": "approx" },
       "late": { "start": { "year": -1258, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" }, "confidence": "approx" }
@@ -421,7 +448,7 @@
     "dateNote": "Numbers 10:11.",
     "people": ["moses", "aaron"], "locations": ["sinai", "kadesh-barnea"],
     "journeyId": "sinai-to-kadesh",
-    "scripture": [{ "book": "Numbers", "chapter": 10, "verse": 11, "endVerse": 36 }]
+    "scripture": [{ "book": "Numbers", "chapter": 1, "endChapter": 2 }, { "book": "Numbers", "chapter": 9, "verse": 15, "endChapter": 12 }]
   },
   {
     "id": "spies", "title": "The twelve spies", "type": "judgment", "major": true,
@@ -444,6 +471,17 @@
     "dateNote": "From the sentence that follows the spies' report (Numbers 14:33–34), forty years counted from the Exodus.",
     "people": ["moses", "aaron", "miriam", "joshua", "caleb"], "locations": ["kadesh-barnea"], "regions": ["sinai-wilderness"],
     "scripture": [{ "book": "Numbers", "chapter": 14, "verse": 26, "endVerse": 35 }, { "book": "Numbers", "chapter": 33 }]
+  },
+  {
+    "id": "korah", "title": "Korah's rebellion", "type": "judgment", "partOf": "wandering",
+    "summary": "Korah, Dathan and Abiram lead 250 leaders of Israel against Moses and Aaron. \"The ground beneath them split open\" and swallowed the rebels. To show whom God has chosen as priest, Aaron's staff sprouts, blossoms and produces almonds overnight.",
+    "dates": {
+      "early": { "start": { "year": -1443 }, "confidence": "approx" },
+      "late": { "start": { "year": -1257 }, "confidence": "approx" }
+    },
+    "dateNote": "Scripture doesn't date it; Numbers tells it after the spies, in the years of wandering.",
+    "people": ["korah", "moses", "aaron"], "locations": ["sinai-wilderness"],
+    "scripture": [{ "book": "Numbers", "chapter": 16, "endChapter": 17 }]
   },
   {
     "id": "miriam-dies", "title": "Death of Miriam", "type": "death", "partOf": "to-moab",
@@ -511,6 +549,17 @@
     "dateNote": "While Israel camped on the plains of Moab (Numbers 22:1), before Moses' last words in the 11th month of the 40th year (Deuteronomy 1:3).",
     "people": ["balaam"], "locations": ["plains-of-moab"],
     "scripture": [{ "book": "Numbers", "chapter": 22, "verse": 2, "endChapter": 24, "endVerse": 25 }]
+  },
+  {
+    "id": "moses-farewell", "title": "Moses' farewell to Israel", "type": "covenant",
+    "summary": "On the plains of Moab Moses lays hands on Joshua as his successor and retells the Law to the generation about to enter the land: \"Hear, O Israel: The LORD our God, the LORD is One. And you shall love the LORD your God with all your heart and with all your soul and with all your strength.\" He sets before them \"life and death, blessing and cursing. Therefore choose life.\"",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 2, "label": "11th month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 2, "label": "11th month, 40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "Deuteronomy 1:3–5.",
+    "people": ["moses", "joshua"], "locations": ["plains-of-moab"],
+    "scripture": [{ "book": "Numbers", "chapter": 27, "verse": 12, "endVerse": 23 }, { "book": "Deuteronomy", "chapter": 1, "endChapter": 33 }]
   },
   {
     "id": "moses-dies", "title": "Death of Moses", "type": "death", "major": true,
@@ -587,7 +636,7 @@
     },
     "dateNote": "Caleb is 85, forty-five years after the spies (Joshua 14:7–10).",
     "people": ["joshua", "caleb"], "locations": ["gilgal", "shiloh"], "regions": ["canaan"],
-    "scripture": [{ "book": "Joshua", "chapter": 13, "endChapter": 21 }]
+    "scripture": [{ "book": "Joshua", "chapter": 13, "endChapter": 22 }]
   },
   {
     "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant",

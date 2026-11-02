@@ -81,7 +81,7 @@ describe("people's bars", () => {
   });
 
   test("need two or more events unless they're a prophet", () => {
-    expect(span("hagar")).toBeUndefined();
+    expect(span("goliath")).toBeUndefined();
   });
 
   test("use dates when there are some", () => {
