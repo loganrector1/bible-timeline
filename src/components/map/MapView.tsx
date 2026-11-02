@@ -301,6 +301,13 @@ export default function MapView() {
   // Inside a power's borders the card waits for the pointer to rest, so it doesn't follow every
   // pass across the map; a drag never shows it.
   const restTimer = useRef<number>(undefined);
+  // The family tree covers the map: a card shown, or about to show, as it opened would stay on top.
+  const treeOpen = useStore((s) => s.familyTree !== null);
+  useEffect(() => {
+    if (!treeOpen) return;
+    window.clearTimeout(restTimer.current);
+    setHover(null);
+  }, [treeOpen]);
   const onClick = (e: MapLayerMouseEvent) => {
     // The panel names what was clicked, so its card goes. A tap leaves no pointer behind to
     // move off it, so on phones it would stay up over the map.
