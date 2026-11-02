@@ -227,23 +227,6 @@ export default function FamilyTree() {
 
   return (
     <div className="absolute inset-0 z-10 flex flex-col bg-paper" role="region" aria-label="Family tree">
-      <div className="flex items-center justify-between gap-2 border-b border-line bg-paper-2 px-3 py-1.5">
-        <div className="min-w-0">
-          <h2 className="font-serif text-lg leading-tight font-semibold">Family tree</h2>
-          <p className="truncate text-xs text-ink-muted">
-            {litKin ? `${litKin.name}’s line in color` : "Select anyone to see their line"}<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
-          </p>
-        </div>
-        <div className="flex shrink-0 items-center gap-1">
-          <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">−</button>
-          <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">+</button>
-          <button onClick={() => reveal(lit ?? focus, true)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
-            Center
-          </button>
-          <button onClick={() => setFocus(null)} aria-label="Close family tree" className="rounded p-1.5 text-ink-muted hover:bg-paper hover:text-ink">✕</button>
-        </div>
-      </div>
-
       <div
         ref={box}
         className="relative min-h-0 flex-1 touch-none overflow-hidden select-none"
@@ -299,6 +282,17 @@ export default function FamilyTree() {
             );
           })}
         </div>
+      </div>
+
+      {/* Floating, as on the timeline, so the tree keeps the whole view. */}
+      <p aria-live="polite" className="pointer-events-none absolute bottom-3 left-3 max-w-[calc(100%-14rem)] rounded-md bg-paper/85 px-2 py-1 text-xs text-ink-muted max-sm:hidden">
+        {litKin ? `${litKin.name}’s line in color` : "Select anyone to see their line"}; dashed names are known only from the genealogies.
+      </p>
+      <div data-sheet-floor className="absolute right-3 bottom-3 flex gap-1 text-sm">
+        <button onClick={() => reveal(lit ?? focus, true)} className="rounded-md border border-line bg-paper px-2 py-1 shadow-sm hover:bg-paper-2">Center</button>
+        <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">−</button>
+        <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">+</button>
+        <button onClick={() => setFocus(null)} aria-label="Close family tree" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">✕</button>
       </div>
     </div>
   );
