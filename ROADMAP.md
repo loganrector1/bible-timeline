@@ -21,9 +21,9 @@ What changed from the original plan, as it was built: the map shows a fixed numb
 
 Live at [bible.rector.app](https://bible.rector.app): a Cloudflare Worker serving the static build (Cloudflare calls Pages legacy), built from GitHub on every push with `npm test` gating the deploy. `main` is the public site; every other pushed branch gets a preview URL behind Cloudflare Access (scope "Previews only"), for checking a feature on a phone. The repo is `loganrector1/bible-timeline`. Still to do: decide whether to revisit the branching rule in CLAUDE.md now that `main` deploys automatically; if the local folder is renamed to match, copy Claude Code's memory folder to the new path.
 
-## Milestone 2: the whole Bible (in progress)
+## Milestone 2: the whole Bible (done)
 
-Goal: extend the dataset from Genesis to Revelation, so the timeline and map cover the whole biblical story, not just Creation to Moses. Work happens on the `feature/whole-bible` branch.
+Goal: extend the dataset from Genesis to Revelation, so the timeline and map cover the whole biblical story, not just Creation to Moses.
 
 Decided:
 
@@ -38,7 +38,7 @@ Steps:
 2. ~~Eras from the Conquest to the Early Church.~~
 3. ~~Skeleton events, people and places, era by era, from the Conquest to Revelation.~~ The dataset now has 123 events (about a third `major`), 87 people and 92 places. Two event types were added for it: `ministry` (prophets, Jesus) and `writing` (letters, the Septuagint); and an `island` place type.
 4. ~~Check the UI at full scale.~~ Crowding, play, the overview strip and the map's framing out to Rome and the seven churches all hold up. Fixed along the way: eras overlapping at their boundaries (now tested), the event's own place labels losing to background labels in crowded Jerusalem, and the map credits covering the Modern borders button.
-5. Deepen era by era. Candidates, roughly in order of value:
+5. ~~Deepen era by era.~~ Candidates, roughly in order of value:
    - ~~Journeys~~ (branch `feature/journeys`): Paul's three journeys and voyage to Rome, with seven events along them; the deportations to Assyria and Babylon; Zerubbabel's and Ezra's returns; Bethlehem and the flight to Egypt. Stops can now have `via` points, so sea legs go round islands. Stop numbers, hidden under place dots since the first map version, show again.
    - ~~Kings and prophets~~ (branches `feature/people`, `feature/prophets`): people lanes (Important people, Kings & rulers, Prophets, Church) chosen in a People menu; every king of the united kingdom, Israel and Judah, by sole reign, with Judah and Israel in their own tinted columns; the foreign rulers who act on Israel and the church, from Tiglath-pileser to Nero; and all twelve minor prophets, so you can see which prophets spoke under which kings. The dataset now has 148 people.
    - ~~More of the Gospels and Acts, and the letters~~ (branch `feature/nt-content`): fourteen more Gospel events, four more from Acts, and the letters and Gospels dated by their writing. Later (branch `feature/wisdom`): Jude, David's psalms, Solomon's wisdom books, and Job's story.
@@ -76,16 +76,19 @@ Also built: Israel's neighbors (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, t
 
 A view that takes the map's place (Timeline · Both · Tree), from Adam to Jesus, kept in step with the timeline both ways, with the selected person's line highlighted (selecting them again clears it); women tinted rose and marked ♀. The genealogies' names that have no events (115 of them: Seth to Lamech, Jacob's other sons, Perez to Obed, Matthew's and Luke's lines after David) are tree-only names, not people. Both Gospels' lines from David to Joseph are drawn, meeting at Shealtiel and Joseph.
 
+## Content audit (done)
+
+All of the data reviewed in one pass, era by era from Genesis to Revelation, then across the whole: 52 events added (the Fall, Balaam, Absalom's rebellion, the fiery furnace, Ananias and Sapphira…) and none cut; every chapter of Scripture now falls within some event, so a passage filter always finds something (genealogies and lists of laws excepted); dates checked, with notes saying where in Scripture the uncertain ones come from; Psalms split by author and age; Persia's outline closing the gap after Babylon falls; three more tours (In the beginning, Jacob and Joseph, Joshua and the judges) so they run from Creation to Paul; quotes word for word from the BSB. The remaining known issues are accepted, and listed in CLAUDE.md.
+
 ## Next candidates
 
-None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part.
+None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part. Finishing touches:
 
-## Last: a full content audit
-
-When the app is close to finished, review all of its data in one pass rather than era by era:
-
-- **Events:** do we have the right ones? Are any missing that shouldn't be? Are any unnecessary and cluttering the app? Are they in the right order with the right dates, and are their types right?
-- **People, places, eras, empires, journeys and tours:** check each for accuracy, order and whether it earns its place.
+- **Install as an app** (a PWA: manifest, icons, offline cache), so it opens from a phone's home screen.
+- **A favicon** in place of the placeholder cross.
+- **The header's styling**, finished.
+- **An icon beside "Bible Timeline"**, or the name alone.
+- **Credits and a link to the GitHub repo** in the app, not just the map's attribution and the README.
 
 ## Later: reading plans (separate app)
 

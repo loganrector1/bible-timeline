@@ -49,8 +49,8 @@ export default function Onboarding() {
             traveled. Press ▶ under the map to play history forward.
           </li>
           <li>
-            <strong>Not sure where to start?</strong> Open Browse and pick a guided tour, from the life of
-            Abraham to Paul's journeys.
+            <strong>Not sure where to start?</strong> Open Browse and pick a guided tour, from Creation to
+            Paul's journeys.
           </li>
         </ul>
         <button
