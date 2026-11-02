@@ -1,5 +1,18 @@
 [
   {
+    "id": "beginning",
+    "title": "In the beginning",
+    "summary": "From Creation to Babel: God's good world, how it went wrong, and why the story narrows to one family.",
+    "steps": [
+      { "event": "creation", "text": "Before Israel, before any nation, the Bible begins with God and his world. People alone are made \"in His own image\" (Genesis 1:27), and God sees all he has made: \"it was very good\" (Genesis 1:31)." },
+      { "event": "fall", "text": "The first people doubt God's word and want to be like him, and everything after bears the damage. Paul sees the whole Bible's story turning on this: \"For as in Adam all die, so in Christ all will be made alive\" (1 Corinthians 15:22)." },
+      { "event": "cain-abel", "text": "Outside Eden, sin reaches the next generation. God warns Cain that \"sin is crouching at your door\" (Genesis 4:7), but Cain will not master it, and the first death is a murder." },
+      { "event": "flood", "text": "Generations later the earth is \"corrupt in the sight of God, and full of violence\" (Genesis 6:11). Noah's family starts the world again, and the rainbow is God's promise to every living creature (Genesis 9:12–13)." },
+      { "event": "babel", "text": "Noah's descendants spread out into the nations of Genesis 10, but at Babel they want to \"make a name for ourselves\" (Genesis 11:4). God scatters them, and from here the story narrows to one family." },
+      { "event": "call-of-abram", "text": "Out of the scattered nations God calls one man, with a promise for them all: \"all the families of the earth will be blessed through you\" (Genesis 12:3). The tour of Abraham's life takes up the story." }
+    ]
+  },
+  {
     "id": "abraham",
     "title": "The life of Abraham",
     "summary": "From Haran to Moriah: the man God called, and the promise that shapes the rest of the Bible.",
@@ -8,7 +21,7 @@
       { "event": "abram-in-egypt", "text": "Barely in the land, Abram leaves it in a famine, and fear leads him to deceive Pharaoh. The promise survives his failure, the first of many times in Genesis." },
       { "event": "abram-lot-part", "text": "Abram lets his nephew choose first. Lot takes the well-watered plain near Sodom, and God promises Abram all the land he can see (Genesis 13:14–17)." },
       { "event": "melchizedek", "text": "When raiders carry Lot off, Abram goes to war for him. Coming home, he is blessed by Melchizedek, priest of God Most High, but refuses to take from the king of Sodom \"even a thread, or a strap of a sandal\" (Genesis 14:23). Psalm 110 and Hebrews 7 see in this priest-king a picture of Christ, \"a priest forever in the order of Melchizedek.\"" },
-      { "event": "covenant-pieces", "text": "Still childless, Abram asks how the promise can come true. He believes the LORD, \"and it was credited to him as righteousness\" (Genesis 15:6), words Paul builds on in Romans 4." },
+      { "event": "covenant-pieces", "text": "Still childless, Abram asks how the promise can come true. He believes the Lord, \"and it was credited to him as righteousness\" (Genesis 15:6), words Paul builds on in Romans 4." },
       { "event": "ishmael-born", "text": "Tired of waiting, Sarai gives Abram her servant Hagar. When Hagar flees, God finds her in the wilderness, and she calls him \"the God who sees me\" (Genesis 16:13)." },
       { "event": "covenant-circumcision", "text": "Thirteen years later, at 99, Abram becomes Abraham, \"a father of many nations\", and God names the son still to come: Isaac, born to Sarah." },
       { "event": "sodom-destroyed", "text": "Before judging Sodom, God tells Abraham his plan, and Abraham pleads for the city down to ten righteous people. Ten are not found, but Lot is rescued." },
@@ -16,6 +29,24 @@
       { "event": "binding-of-isaac", "text": "The hardest test is the son of promise himself. Abraham goes, trusting that \"God Himself will provide\" (Genesis 22:8); Hebrews 11:19 says he reasoned that God could even raise the dead." },
       { "event": "isaac-rebekah", "text": "With Sarah buried at Hebron, Abraham looks to the next generation and sends to his own family near Haran for a wife for Isaac." },
       { "event": "abraham-dies", "text": "Abraham dies owning only a burial cave in the land promised to him. He and his heirs \"died in faith, without having received the things they were promised\" (Hebrews 11:13), and the promise passes to Isaac and Jacob." }
+    ]
+  },
+  {
+    "id": "jacob-joseph",
+    "title": "Jacob and Joseph",
+    "summary": "From Canaan to Egypt: the promise passes to Jacob, whose sons become Israel's tribes, and Joseph's betrayal saves them all.",
+    "steps": [
+      { "event": "jacob-esau-born", "text": "Abraham's promise passes to Isaac, then to his twins, who struggle even before birth. God chooses the younger, Jacob, \"before the twins were born or had done anything good or bad\" (Romans 9:11)." },
+      { "event": "jacob-flees", "text": "Jacob takes his father's blessing by deceit and runs for his life. Alone at Bethel, he hears God give him Abraham's promise: \"I am with you, and I will watch over you wherever you go\" (Genesis 28:15)." },
+      { "event": "jacob-marries", "text": "The deceiver is deceived: Laban gives him Leah instead of Rachel. Rivalry between the sisters fills Jacob's house with children, eleven of the twelve sons whose families become Israel's tribes." },
+      { "event": "jacob-wrestles", "text": "Twenty years after fleeing, Jacob must face the brother he cheated. He comes away from the night at Peniel limping, having held on to God for a blessing, and the nation will bear his new name." },
+      { "event": "joseph-sold", "text": "Jacob's favoritism repeats his parents' mistake. Joseph's dreams of his family bowing to him make his brothers hate him, and they sell him \"for twenty shekels of silver\" (Genesis 37:28)." },
+      { "event": "joseph-prison", "text": "Slave and then prisoner, Joseph stays faithful far from home. The cupbearer he helped forgets him, and \"two full years\" pass before he is remembered (Genesis 41:1)." },
+      { "event": "joseph-rules", "text": "In one day Joseph goes from the prison to Pharaoh's right hand, at thirty years old (Genesis 41:46). The famine he foresees will bring his family to him." },
+      { "event": "brothers-in-egypt", "text": "Joseph's dreams come true as his brothers bow before him. Judah, who once proposed selling him (Genesis 37:26–27), now offers to stay a slave in Benjamin's place." },
+      { "event": "jacob-to-egypt", "text": "Jacob, who thought Joseph dead, goes down to see him. God tells him, \"Do not be afraid to go down to Egypt, for I will make you into a great nation there\" (Genesis 46:3)." },
+      { "event": "jacob-dies", "text": "Blessing his sons, Jacob says, \"The scepter will not depart from Judah\" (Genesis 49:10): David's line of kings will come from Judah, and so will Jesus." },
+      { "event": "joseph-dies", "text": "Joseph sums up the whole story to his brothers: \"what you intended against me for evil, God intended for good\" (Genesis 50:20). His bones wait in Egypt for the Exodus, where the next tour begins." }
     ]
   },
   {
@@ -35,6 +66,25 @@
       { "event": "spies", "text": "At Kadesh, on the edge of the land, Israel believes the fearful report over God's promise. Only Joshua and Caleb of that generation will enter." },
       { "event": "wandering", "text": "For forty years, a year for each day the spies searched (Numbers 14:34), Israel lives in the wilderness, fed by manna, while a new generation grows up." },
       { "event": "moses-dies", "text": "Moses sees the land from Mount Nebo but does not enter it. Joshua leads the new generation across the Jordan, and the promise to Abraham begins to come true." }
+    ]
+  },
+  {
+    "id": "judges",
+    "title": "Joshua and the judges",
+    "summary": "From the Jordan to Israel's first king: the land taken and divided, the cycle of the judges, and Samuel.",
+    "steps": [
+      { "event": "rahab-spies", "text": "Forty years after the spies' fearful report, Israel stands at the edge of the land again, under Joshua. In Jericho a Canaanite woman has already heard \"how the LORD dried up the waters of the Red Sea\" (Joshua 2:10), and Matthew counts her among Jesus' ancestors (Matthew 1:5)." },
+      { "event": "cross-jordan", "text": "As at the Red Sea, the waters part, now for a new generation. Twelve stones from the riverbed are set up at Gilgal, for the day when \"your children ask their fathers, 'What is the meaning of these stones?'\" (Joshua 4:21)." },
+      { "event": "fall-of-jericho", "text": "The first city in the land falls not to siege but to obedience. \"By faith the walls of Jericho fell, after the people had marched around them for seven days\" (Hebrews 11:30)." },
+      { "event": "land-divided", "text": "Joshua divides the land among the tribes, and the map shows their allotments. Much of it is not yet theirs: \"very much of the land remains to be possessed\" (Joshua 13:1)." },
+      { "event": "joshua-farewell", "text": "Joshua's last challenge is a choice: \"choose for yourselves this day whom you will serve\" (Joshua 24:15). The people promise, and the next book shows how soon they forget." },
+      { "event": "othniel-ehud", "text": "Judges turns in a cycle: Israel forgets God and falls to its enemies, cries out, and \"the LORD raised up judges, who saved them\" (Judges 2:16). Then it starts again." },
+      { "event": "deborah-barak", "text": "After twenty years under Canaanite chariots (Judges 4:3), Israel is saved by a prophetess and a hesitant general, and the honor goes to another woman, Jael. Deborah and Barak sing of it in Judges 5." },
+      { "event": "gideon-midian", "text": "Gideon, threshing wheat in hiding, is greeted as a \"mighty man of valor\" (Judges 6:12). God cuts his army to three hundred, so that Israel cannot say, \"My own hand has saved me\" (Judges 7:2)." },
+      { "event": "ruth-boaz", "text": "\"In the days when the judges ruled\" (Ruth 1:1), a quieter story: a Moabite widow who tells Naomi, \"your people will be my people, and your God will be my God\" (Ruth 1:16), and a family line that leads to David." },
+      { "event": "samuel-called", "text": "Shiloh's priests have grown corrupt, and God calls a boy instead. Samuel will be the last of the judges, and the prophet who anoints Israel's first two kings." },
+      { "event": "samson-judges", "text": "Samson is the last judge in the book of Judges, strong but undisciplined, and he only begins \"the deliverance of Israel from the hand of the Philistines\" (Judges 13:5). The book ends with the reason: \"everyone did what was right in his own eyes\" (Judges 21:25)." },
+      { "event": "saul-king", "text": "Israel asks Samuel for a king, to be \"like all the other nations\" (1 Samuel 8:5), and he warns them what it will cost. Saul begins well; the tour of David takes up what follows." }
     ]
   },
   {

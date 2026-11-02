@@ -54,7 +54,7 @@ Filters by event type and person, applied to both views (timeline, map, Nearest 
 
 ## Guided tours (done)
 
-Eight tours (the life of Abraham, the Exodus, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step at the top of the details panel, listed in Browse, shared by link (`tour=exodus&step=3`), with progress remembered. Filters by era and place came with them.
+Eleven tours (In the beginning, the life of Abraham, Jacob and Joseph, the Exodus, Joshua and the judges, David, the Divided Kingdom, Exile and return, the life of Jesus, the early church, Paul's journeys), narrated step by step at the top of the details panel, listed in Browse, shared by link (`tour=exodus&step=3`), with progress remembered. Filters by era and place came with them.
 
 ## Scripture in the app (done)
 

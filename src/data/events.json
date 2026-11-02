@@ -496,7 +496,7 @@
   },
   {
     "id": "waters-of-meribah", "title": "Moses strikes the rock", "type": "judgment", "partOf": "to-moab",
-    "summary": "At Kadesh the people have no water. God tells Moses to speak to the rock, but Moses strikes it twice. Water gushes out, but the LORD tells Moses and Aaron: \"Because you did not trust Me to show My holiness in the sight of the Israelites, you will not bring this assembly into the land that I have given them.\"",
+    "summary": "At Kadesh the people have no water. God tells Moses to speak to the rock, but Moses strikes it twice. Water gushes out, but the Lord tells Moses and Aaron: \"Because you did not trust Me to show My holiness in the sight of the Israelites, you will not bring this assembly into the land that I have given them.\"",
     "dates": {
       "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
       "late": { "start": { "year": -1220, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" }
@@ -717,7 +717,7 @@
   },
   {
     "id": "jephthah", "title": "Jephthah's vow", "type": "battle",
-    "summary": "Driven out by his brothers, Jephthah of Gilead is called back to lead Israel against the Ammonites. He vows that \"whatever comes out the door of my house to greet me\" on his return will be the LORD's, as a burnt offering, and his only daughter comes out to meet him.",
+    "summary": "Driven out by his brothers, Jephthah of Gilead is called back to lead Israel against the Ammonites. He vows that \"whatever comes out the door of my house to greet me\" on his return will be the Lord's, as a burnt offering, and his only daughter comes out to meet him.",
     "dates": { "early": { "start": { "year": -1105 }, "confidence": "approx" } },
     "dateNote": "Jephthah tells the Ammonites Israel has held the land east of the Jordan for \"three hundred years\" (Judges 11:26), which fits the early date of the Exodus; late-daters take it as a round number. Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
     "people": ["jephthah"], "locations": ["mizpah-gilead", "ammon"],
@@ -749,7 +749,7 @@
   },
   {
     "id": "saul-rejected", "title": "Saul is rejected", "type": "judgment",
-    "summary": "Saul offers the sacrifice at Gilgal rather than wait for Samuel. At Michmash Jonathan and his armor-bearer rout a Philistine garrison. Later Saul spares Agag king of Amalek and the best of the plunder, and Samuel tells him, \"obedience is better than sacrifice\": the LORD has rejected him as king.",
+    "summary": "Saul offers the sacrifice at Gilgal rather than wait for Samuel. At Michmash Jonathan and his armor-bearer rout a Philistine garrison. Later Saul spares Agag king of Amalek and the best of the plunder, and Samuel tells him, \"obedience is better than sacrifice\": the Lord has rejected him as king.",
     "dates": { "early": { "start": { "year": -1026 }, "confidence": "approx" } },
     "dateNote": "Not dated; before Samuel anoints David (1 Samuel 16:1).",
     "people": ["saul", "samuel", "jonathan"], "locations": ["gilgal"],
@@ -893,7 +893,7 @@
   },
   {
     "id": "elijah-horeb", "title": "Elijah at Horeb", "type": "prophecy",
-    "summary": "When Jezebel vows to kill him, Elijah flees past Beersheba and asks to die. An angel feeds him, and he walks forty days to Horeb, the mountain of God. There the LORD is not in the wind, the earthquake or the fire: \"after the fire came a still, small voice.\" God sends him back to anoint Elisha as prophet in his place.",
+    "summary": "When Jezebel vows to kill him, Elijah flees past Beersheba and asks to die. An angel feeds him, and he walks forty days to Horeb, the mountain of God. There the Lord is not in the wind, the earthquake or the fire: \"after the fire came a still, small voice.\" God sends him back to anoint Elisha as prophet in his place.",
     "dates": { "early": { "start": { "year": -859 }, "confidence": "approx" } },
     "dateNote": "Right after Carmel, when Jezebel hears what Elijah has done (1 Kings 19:1–3).",
     "people": ["elijah", "jezebel", "elisha"], "locations": ["beersheba", "sinai"],
@@ -1215,7 +1215,7 @@
   },
   {
     "id": "zechariah-visions", "title": "Zechariah's visions", "type": "ministry",
-    "summary": "While the temple is being rebuilt, Zechariah sees eight visions in one night: horsemen among the myrtles, a lampstand fed by two olive trees, a flying scroll. To Zerubbabel he says, \"Not by might nor by power, but by My Spirit, says the LORD of Hosts.\" Later oracles look ahead to Zion's King, \"humble and riding on a donkey,\" and to the day when the LORD will be king over all the earth.",
+    "summary": "While the temple is being rebuilt, Zechariah sees eight visions in one night: horsemen among the myrtles, a lampstand fed by two olive trees, a flying scroll. To Zerubbabel he says, \"Not by might nor by power, but by My Spirit, says the LORD of Hosts.\" Later oracles look ahead to Zion's King, \"humble and riding on a donkey,\" and to the day when the Lord will be king over all the earth.",
     "dates": { "early": { "start": { "year": -519, "month": 11, "label": "8th month" }, "end": { "year": -517, "month": 12, "label": "4th of 9th month" }, "confidence": "approx" } },
     "dateNote": "From the eighth month of Darius's second year, 520 BC (Zechariah 1:1), to the fourth of the ninth month of his fourth year, December 518 BC (Zechariah 7:1). Chapters 9–14 aren't dated; some place them later in Zechariah's life.",
     "people": ["zechariah", "zerubbabel"], "locations": ["jerusalem"],
