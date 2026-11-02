@@ -84,11 +84,11 @@ export default function AppShell() {
       <div className="relative flex min-h-0 flex-1">
         <BrowsePanel />
         {/* On a phone in Both view, the timeline and the map split the space that's actually
-            visible: not counting the map's time strip, or the details peek that covers the
+            visible: not counting the map's time strip (hidden under the family tree), or the details peek that covers the
             bottom of the map while something is selected. */}
         <main
           className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
-          style={{ "--below-map": `calc(${timeStripPx}px + ${hasSelection ? PEEK_HEIGHT : "0px"})` } as CSSProperties}
+          style={{ "--below-map": `calc(${treeOpen ? 0 : timeStripPx}px + ${hasSelection ? PEEK_HEIGHT : "0px"})` } as CSSProperties}
         >
           {showTimeline && (
             <section
@@ -100,9 +100,12 @@ export default function AppShell() {
           )}
           {showMap && (
             <section aria-label={treeOpen ? "Family tree" : "Map"} className="relative min-h-0 min-w-0 flex-1">
-              <Suspense fallback={<div className="flex h-full items-center justify-center text-ink-muted">Loading map…</div>}>
-                <MapView />
-              </Suspense>
+              {/* Inert under the tree: not focusable, and its time strip no longer the sheet's floor. */}
+              <div inert={treeOpen} className="contents">
+                <Suspense fallback={<div className="flex h-full items-center justify-center text-ink-muted">Loading map…</div>}>
+                  <MapView />
+                </Suspense>
+              </div>
               {/* Over the map, which stays loaded beneath it for when the tree closes. */}
               {treeOpen && (
                 <Suspense fallback={null}>

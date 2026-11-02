@@ -36,6 +36,7 @@ function useSheetFloor(ref: RefObject<HTMLElement | null>, enabled: boolean): nu
       const bottom = container.getBoundingClientRect().bottom;
       let f = 0;
       for (const el of container.querySelectorAll("[data-sheet-floor]")) {
+        if (el.closest("[inert]")) continue; // Under the family tree.
         const r = el.getBoundingClientRect();
         const margin = bottom - r.bottom;
         if (r.height > 0 && margin < SWIPE_PX) f = Math.max(f, bottom - r.top + margin);
@@ -45,7 +46,7 @@ function useSheetFloor(ref: RefObject<HTMLElement | null>, enabled: boolean): nu
     const schedule = () => (frame ||= requestAnimationFrame(measure));
     // Controls appear late (the map loads lazily) and change with the view mode.
     const mutations = new MutationObserver(schedule);
-    mutations.observe(container, { childList: true, subtree: true });
+    mutations.observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ["inert"] });
     const resizes = new ResizeObserver(schedule);
     resizes.observe(container);
     measure();
@@ -133,6 +134,13 @@ export default function DetailPanel() {
     setExpanded(open);
     if (!open) scrollRef.current?.scrollTo({ top: 0 });
   };
+  // Opening the family tree (or moving it to someone else) shrinks the sheet to its peek, so the
+  // tree isn't hidden behind it.
+  const familyTree = useStore((s) => s.familyTree);
+  useEffect(() => {
+    if (familyTree) setSheet(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [familyTree]);
   const onPointerDown = (e: PointerEvent<HTMLElement>) => {
     const target = e.target as Element;
     // When expanded, only the header drags, so the content can scroll.
