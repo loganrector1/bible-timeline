@@ -166,8 +166,9 @@ type State = {
   setBrowseOpen: (open: boolean) => void;
   /**
    * The family tree, while it's open: the person or genealogy name it's centred on, whose line
-   * it highlights. It covers the timeline and map; the details panel stays beside it. Selecting a
-   * genealogy name opens it, and closing it clears one: names live only in the tree.
+   * it highlights. It takes the map's place (the view switcher reads Timeline · Both · Tree), and
+   * follows the timeline's year. Selecting a genealogy name opens it, and closing it clears one:
+   * names live only in the tree.
    */
   familyTree: string | null;
   setFamilyTree: (id: string | null) => void;
@@ -278,6 +279,8 @@ export const useStore = create<State>()((set, get) => {
     familyTree: null,
     setFamilyTree: (familyTree) => {
       set({ familyTree });
+      // It shows where the map does, so Timeline view makes room for it.
+      if (familyTree && get().mode === "timeline") set({ mode: window.innerWidth < 768 ? "map" : "split" });
       if (!familyTree && get().selection?.kind === "name") get().select(null);
     },
     tour: null,
@@ -355,7 +358,7 @@ export const useStore = create<State>()((set, get) => {
       // bring the World history lane.
       const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
       if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
-      if (ref?.kind === "name") set({ familyTree: ref.id });
+      if (ref?.kind === "name") get().setFamilyTree(ref.id);
       const world = ref?.kind === "empire" || (ref?.kind === "event" && eventsById.get(ref.id)?.world);
       if (world && !get().lanes.includes("world")) get().setLaneShown("world", true);
       if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.

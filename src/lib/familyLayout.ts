@@ -1,9 +1,12 @@
 import dagre from "@dagrejs/dagre";
+import { datesFor } from "../data";
+import { specBounds } from "./dates";
 import { familyGraph, familyOf, kinById, type FamilyGraph } from "./family";
 
 /** Card size for a name: wide enough for its text at the tree's font size. */
 export const CARD_H = 30;
-const cardWidth = (name: string) => Math.max(56, Math.round(name.length * 7.4 + 22));
+/** Wide enough for the name, and a woman's ♀. */
+const cardWidth = (name: string, female: boolean) => Math.max(56, Math.round(name.length * 7.4 + 22 + (female ? 12 : 0)));
 
 export type LaidCard = { id: string; x: number; y: number; w: number; h: number };
 export type LaidUnion = { id: string; x: number; y: number; parents: string[]; children: string[] };
@@ -28,7 +31,8 @@ export function layoutFamily(id: string, g: FamilyGraph = familyGraph): FamilyLa
   graph.setDefaultEdgeLabel(() => ({}));
 
   for (const m of members) {
-    graph.setNode(m, { width: cardWidth(kinById(m)?.name ?? m), height: CARD_H });
+    const kin = kinById(m);
+    graph.setNode(m, { width: cardWidth(kin?.name ?? m, !!kin?.female), height: CARD_H });
   }
   const unions = [...g.unions.values()].filter((u) => u.parents.every((p) => members.has(p)));
   for (const u of unions) {
@@ -88,4 +92,39 @@ function untangleLeaves(cards: Map<string, LaidCard>, unions: LaidUnion[], edges
       edge.points = [{ x: u.x, y: u.y }, { x, y: (u.y + card.y) / 2 }, { x, y: card.y }];
     }
   }
+}
+
+export type TreeTime = { yearAt: (y: number) => number; yAt: (year: number) => number };
+
+/**
+ * How the tree's rows line up with time, so it can follow the timeline: each dated person's row is
+ * the year their dates start, and rows between are interpolated (for scrolling only; no date is
+ * shown for them). Rows are generations, not years (Adam to Abraham is 20 rows over 2,000 years,
+ * David to Jesus 28 or 43 over 1,000), so the scale changes as you go. Anchors that would run
+ * backwards (a row placed above an earlier person) are skipped. Undefined with under two anchors:
+ * such a tree (Peter's family) moves on its own.
+ */
+export function treeTime(layout: FamilyLayout, chron: string): TreeTime | undefined {
+  const dated = [...layout.cards.values()]
+    .flatMap((c) => {
+      const person = kinById(c.id)?.person;
+      const spec = person && datesFor(person, chron);
+      return spec ? [{ y: c.y, year: specBounds(spec)[0] }] : [];
+    })
+    .sort((a, b) => a.y - b.y || a.year - b.year);
+  const anchors: { y: number; year: number }[] = [];
+  for (const a of dated) {
+    const last = anchors.at(-1);
+    if (!last || (a.y > last.y && a.year > last.year)) anchors.push(a);
+  }
+  if (anchors.length < 2) return undefined;
+  const lerp = (from: "y" | "year", to: "y" | "year") => (v: number) => {
+    // Past either end, the nearest segment's slope carries on.
+    let i = anchors.findIndex((a) => a[from] >= v);
+    i = i === -1 ? anchors.length - 1 : Math.max(1, i);
+    const a = anchors[i - 1];
+    const b = anchors[i];
+    return a[to] + ((v - a[from]) / (b[from] - a[from])) * (b[to] - a[to]);
+  };
+  return { yearAt: lerp("y", "year"), yAt: lerp("year", "y") };
 }

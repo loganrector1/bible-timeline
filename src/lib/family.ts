@@ -8,13 +8,13 @@ import type { GenealogyName, Person } from "../data/schema";
  * empty junction read as a mistake; the details panel lists spouses. `altParents`
  * (where Matthew and Luke name different fathers) link straight to the child, drawn dashed.
  */
-export type Kin = { id: string; name: string; person?: Person; genealogy?: GenealogyName };
+export type Kin = { id: string; name: string; female: boolean; person?: Person; genealogy?: GenealogyName };
 
 export function kinById(id: string): Kin | undefined {
   const person = peopleById.get(id);
-  if (person) return { id, name: person.name, person };
+  if (person) return { id, name: person.name, female: person.female, person };
   const genealogy = genealogyById.get(id);
-  return genealogy && { id, name: genealogy.name, genealogy };
+  return genealogy && { id, name: genealogy.name, female: genealogy.female, genealogy };
 }
 
 type Entry = { id: string; parents: string[]; altParents: string[] };

@@ -71,7 +71,8 @@ export default function AppShell() {
                   mode === m.id ? "bg-accent text-paper" : "text-ink-muted hover:text-ink"
                 }`}
               >
-                {m.label}
+                {/* The family tree takes the map's place while it's open. */}
+                {m.id === "map" && treeOpen ? "Tree" : m.label}
               </button>
             ))}
           </div>
@@ -86,7 +87,7 @@ export default function AppShell() {
             visible: not counting the map's time strip, or the details peek that covers the
             bottom of the map while something is selected. */}
         <main
-          className="relative flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
+          className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
           style={{ "--below-map": `calc(${timeStripPx}px + ${hasSelection ? PEEK_HEIGHT : "0px"})` } as CSSProperties}
         >
           {showTimeline && (
@@ -98,16 +99,17 @@ export default function AppShell() {
             </section>
           )}
           {showMap && (
-            <section aria-label="Map" className="min-h-0 min-w-0 flex-1">
+            <section aria-label={treeOpen ? "Family tree" : "Map"} className="relative min-h-0 min-w-0 flex-1">
               <Suspense fallback={<div className="flex h-full items-center justify-center text-ink-muted">Loading map…</div>}>
                 <MapView />
               </Suspense>
+              {/* Over the map, which stays loaded beneath it for when the tree closes. */}
+              {treeOpen && (
+                <Suspense fallback={null}>
+                  <FamilyTree />
+                </Suspense>
+              )}
             </section>
-          )}
-          {treeOpen && (
-            <Suspense fallback={null}>
-              <FamilyTree />
-            </Suspense>
           )}
         </main>
         {hasSelection && <DetailPanel />}

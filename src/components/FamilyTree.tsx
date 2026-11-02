@@ -1,6 +1,7 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent, type WheelEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useReducer, useRef, type PointerEvent, type WheelEvent } from "react";
+import { formatYear } from "../lib/dates";
 import { familyOf, hasFamily, kinById, lineOf } from "../lib/family";
-import { CARD_H, layoutFamily, type FamilyLayout, type LaidEdge } from "../lib/familyLayout";
+import { CARD_H, layoutFamily, treeTime, type FamilyLayout, type LaidEdge } from "../lib/familyLayout";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
 
@@ -21,19 +22,25 @@ const DRAG_PX = 5;
 type View = { x: number; y: number; k: number };
 
 /**
- * The family tree, over the timeline and map: everyone related to the person or genealogy name
- * it's centred on, top to bottom like the timeline, with that one's line (parents, theirs, back
- * to Adam) drawn strongly. Clicking anyone, person or genealogy name, selects them, so both open
- * in the details panel.
+ * The family tree, in the map's place while it's open: everyone related to the person or genealogy
+ * name it's centred on, top to bottom like the timeline, with that one's line (parents, theirs,
+ * back to Adam) drawn strongly. It keeps in step with the timeline: the row at its middle is the
+ * generation alive at the cursor's year (`treeTime`), so scrubbing slides the tree and dragging
+ * the tree moves the cursor; sideways it's free. Clicking anyone, person or genealogy name,
+ * selects them, so both open in the details panel.
  */
 export default function FamilyTree() {
   const focus = useStore((s) => s.familyTree);
   const setFocus = useStore((s) => s.setFamilyTree);
   const selection = useStore((s) => s.selection);
   const select = useStore((s) => s.select);
+  const chron = useStore((s) => s.chronologyId);
+  const eraStyle = useStore((s) => s.eraStyle);
+  const currentYear = useStore((s) => s.currentYear);
   const isPhone = useIsPhone();
   const box = useRef<HTMLDivElement>(null);
-  const [view, setRawView] = useState<View>({ x: 0, y: 0, k: 1 });
+  const view = useRef<View>({ x: 0, y: 0, k: isPhone ? 0.8 : 1 });
+  const [, redraw] = useReducer((n: number) => n + 1, 0);
   const glide = useRef(0);
 
   // Choosing someone with family elsewhere (the details panel, Browse) centres the tree on them.
@@ -44,55 +51,89 @@ export default function FamilyTree() {
   }, [selection]);
 
   const layout = focus ? layoutFor(focus) : undefined;
-  // The tree can't be pushed out of sight: it always reaches the middle of the view, both ways.
-  const layoutRef = useRef(layout);
-  layoutRef.current = layout;
-  const setView = (next: View | ((v: View) => View)) =>
-    setRawView((v) => {
-      const to = typeof next === "function" ? next(v) : next;
-      const el = box.current;
-      const l = layoutRef.current;
-      if (!el || !l) return to;
-      const clamp = (pos: number, size: number, extent: number) => Math.min(size / 2, Math.max(size / 2 - extent * to.k, pos));
-      return { k: to.k, x: clamp(to.x, el.clientWidth, l.width), y: clamp(to.y, el.clientHeight, l.height) };
-    });
+  const time = useMemo(() => layout && treeTime(layout, chron), [layout, chron]);
   const line = useMemo(() => (focus ? lineOf(focus) : new Set<string>()), [focus]);
 
-  /** Moves the view so the card sits below the middle (its ancestors are above), gliding unless `instant`. */
-  const centre = (id: string, k: number, instant: boolean) => {
+  /** Sets the view, kept so the tree always reaches the middle of the box both ways. */
+  const show = (to: View) => {
+    const el = box.current;
+    if (el && layout) {
+      const clamp = (pos: number, size: number, extent: number) => Math.min(size / 2, Math.max(size / 2 - extent * to.k, pos));
+      to = { k: to.k, x: clamp(to.x, el.clientWidth, layout.width), y: clamp(to.y, el.clientHeight, layout.height) };
+    }
+    view.current = to;
+    redraw();
+  };
+  /**
+   * The cursor's row in the box: level with the timeline's cursor, which sits at the middle of
+   * the view (the tree's header pushes the box's own middle lower).
+   */
+  const cursorY = () => {
+    const el = box.current;
+    return el ? (el.parentElement!.clientHeight / 2) - el.offsetTop : 0;
+  };
+  /** The y that puts a year's row on the cursor's. */
+  const yFor = (year: number, k: number) => cursorY() - time!.yAt(year) * k;
+
+  // The timeline leads: a year set anywhere but in the tree slides the tree to it.
+  const fromTree = useRef<number | null>(null);
+  useLayoutEffect(() => {
+    if (!time || !box.current) return;
+    if (fromTree.current === currentYear) return;
+    fromTree.current = null;
+    show({ ...view.current, y: yFor(currentYear, view.current.k) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentYear, time]);
+  /** A move made in the tree, which takes the cursor to the year now at its middle. */
+  const move = (to: View) => {
+    cancelAnimationFrame(glide.current);
+    show(to);
+    if (!time) return;
+    const year = time.yearAt((cursorY() - view.current.y) / view.current.k);
+    useStore.getState().setYear(year);
+    fromTree.current = useStore.getState().currentYear;
+  };
+
+  /** Brings a card into view: sideways by gliding, up or down by moving time (or gliding, if untimed). */
+  const reveal = (id: string, always: boolean) => {
     const card = layout?.cards.get(id);
     const el = box.current;
     if (!card || !el) return;
-    const to = { k, x: el.clientWidth / 2 - card.x * k, y: el.clientHeight * 0.62 - card.y * k };
-    cancelAnimationFrame(glide.current);
-    if (instant) return setView(to);
-    const from = view;
+    const { x, y, k } = view.current;
+    const margin = 40;
+    const sx = card.x * k + x;
+    const sy = card.y * k + y;
+    const offX = always || sx < margin || sx > el.clientWidth - margin;
+    const offY = always || sy < margin || sy > el.clientHeight - margin;
+    if (offY && time) useStore.getState().goTo(time.yearAt(card.y));
+    if (!offX && (!offY || time)) return;
+    const to = { x: offX ? el.clientWidth / 2 - card.x * k : x, y: offY && !time ? el.clientHeight / 2 - card.y * k : y };
+    const from = view.current;
     const t0 = performance.now();
+    cancelAnimationFrame(glide.current);
     const step = (now: number) => {
       const t = Math.min(1, (now - t0) / 450);
       const e = 1 - (1 - t) ** 3;
-      setView({ x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e, k: from.k + (to.k - from.k) * e });
+      // While time glides it moves y; only what isn't time's is set here.
+      show({ k, x: from.x + (to.x - from.x) * e, y: time ? view.current.y : from.y + (to.y - from.y) * e });
       if (t < 1) glide.current = requestAnimationFrame(step);
     };
     glide.current = requestAnimationFrame(step);
   };
 
-  // Opening the tree centres it; a new focus moves it only when its card is out of sight (a card
-  // just tapped stays where it is).
+  // Opening the tree (or a family it wasn't showing) centres the focus sideways at the cursor's
+  // year; then, as for any new focus, the view moves only if its card is out of sight.
   const shownFamily = useRef<FamilyLayout>(undefined);
   useLayoutEffect(() => {
-    if (!focus || !layout) return;
-    const el = box.current!;
+    if (!focus || !layout || !box.current) return;
     if (shownFamily.current !== layout) {
       shownFamily.current = layout;
-      centre(focus, isPhone ? 0.8 : 1, true);
-      return;
+      const card = layout.cards.get(focus)!;
+      const { k } = view.current;
+      const el = box.current;
+      show({ k, x: el.clientWidth / 2 - card.x * k, y: time ? yFor(useStore.getState().currentYear, k) : el.clientHeight / 2 - card.y * k });
     }
-    const card = layout.cards.get(focus)!;
-    const sx = card.x * view.k + view.x;
-    const sy = card.y * view.k + view.y;
-    const margin = 40;
-    if (sx < margin || sx > el.clientWidth - margin || sy < margin || sy > el.clientHeight - margin) centre(focus, view.k, false);
+    reveal(focus, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus, layout]);
   useEffect(() => () => cancelAnimationFrame(glide.current), []);
@@ -114,38 +155,35 @@ export default function FamilyTree() {
       moved.current += Math.hypot(next.x - prev.x, next.y - prev.y);
       if (moved.current > DRAG_PX) {
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-        setView((v) => ({ ...v, x: v.x + next.x - prev.x, y: v.y + next.y - prev.y }));
+        const v = view.current;
+        move({ ...v, x: v.x + next.x - prev.x, y: v.y + next.y - prev.y });
       }
     } else if (pts.length === 2) {
       moved.current = DRAG_PX + 1;
       const other = pts.find((p) => p !== prev)!;
       const d0 = Math.hypot(prev.x - other.x, prev.y - other.y);
       const d1 = Math.hypot(next.x - other.x, next.y - other.y);
-      const rect = box.current!.getBoundingClientRect();
-      zoomAt((next.x + other.x) / 2 - rect.left, (next.y + other.y) / 2 - rect.top, d1 / d0);
+      zoomAt((next.x + other.x) / 2 - box.current!.getBoundingClientRect().left, d1 / d0);
     }
     pointers.current.set(e.pointerId, next);
   };
   const onPointerUp = (e: PointerEvent) => pointers.current.delete(e.pointerId);
-  const zoomAt = (px: number, py: number, factor: number) =>
-    setView((v) => {
-      const k = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.k * factor));
-      return { k, x: px - ((px - v.x) * k) / v.k, y: py - ((py - v.y) * k) / v.k };
-    });
+  // Zooming holds the cursor's row (its year) still, so time doesn't move.
+  const zoomAt = (px: number, factor: number) => {
+    const v = view.current;
+    const k = Math.min(MAX_SCALE, Math.max(MIN_SCALE, v.k * factor));
+    const py = cursorY();
+    show({ k, x: px - ((px - v.x) * k) / v.k, y: py - ((py - v.y) * k) / v.k });
+  };
   const onWheel = (e: WheelEvent) => {
-    cancelAnimationFrame(glide.current);
-    if (e.ctrlKey) {
-      const rect = box.current!.getBoundingClientRect();
-      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY / 200));
-    } else setView((v) => ({ ...v, x: v.x - e.deltaX, y: v.y - e.deltaY }));
+    if (e.ctrlKey) zoomAt(e.clientX - box.current!.getBoundingClientRect().left, Math.exp(-e.deltaY / 200));
+    else move({ ...view.current, x: view.current.x - e.deltaX, y: view.current.y - e.deltaY });
   };
-  const zoomBy = (factor: number) => {
-    const el = box.current!;
-    zoomAt(el.clientWidth / 2, el.clientHeight / 2, factor);
-  };
+  const zoomBy = (factor: number) => zoomAt(box.current!.clientWidth / 2, factor);
 
   if (!focus || !layout) return null;
   const focusKin = kinById(focus);
+  const { x, y, k } = view.current;
 
   const pick = (id: string) => {
     if (moved.current > DRAG_PX) return; // The end of a drag, not a tap.
@@ -163,18 +201,18 @@ export default function FamilyTree() {
   const edges = [...layout.edges].sort((a, b) => Number(onLine(a)) - Number(onLine(b)));
 
   return (
-    <div className="absolute inset-0 z-10 flex flex-col bg-paper" role="dialog" aria-label="Family tree">
+    <div className="absolute inset-0 z-10 flex flex-col bg-paper" role="region" aria-label="Family tree">
       <div className="flex items-center justify-between gap-2 border-b border-line bg-paper-2 px-3 py-1.5">
         <div className="min-w-0">
           <h2 className="font-serif text-lg leading-tight font-semibold">Family tree</h2>
           <p className="truncate text-xs text-ink-muted">
-            {focusKin?.name}’s line in colour. <span className="max-sm:hidden">Faint names are known only from the genealogies.</span>
+            {focusKin?.name}’s line in colour<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
-          <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom out" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">−</button>
-          <button onClick={() => zoomBy(1.3)} aria-label="Zoom in" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">+</button>
-          <button onClick={() => centre(focus, view.k, false)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
+          <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">−</button>
+          <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">+</button>
+          <button onClick={() => reveal(focus, true)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
             Centre
           </button>
           <button onClick={() => setFocus(null)} aria-label="Close family tree" className="rounded p-1.5 text-ink-muted hover:bg-paper hover:text-ink">✕</button>
@@ -190,7 +228,13 @@ export default function FamilyTree() {
         onPointerCancel={onPointerUp}
         onWheel={onWheel}
       >
-        <div className="absolute top-0 left-0 origin-top-left" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.k})` }}>
+        {time && (
+          // The cursor's row: the generation alive at the timeline's year.
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 border-t border-dashed border-accent/50" style={{ top: cursorY() }}>
+            <span className="absolute top-0.5 left-2 text-[11px] text-accent">{formatYear(Math.floor(currentYear), eraStyle)}</span>
+          </div>
+        )}
+        <div className="absolute top-0 left-0 origin-top-left" style={{ transform: `translate(${x}px, ${y}px) scale(${k})` }}>
           <svg width={layout.width} height={layout.height} className="absolute top-0 left-0 overflow-visible" aria-hidden>
             {edges.map((e) => (
               <path
@@ -210,19 +254,22 @@ export default function FamilyTree() {
             const kin = kinById(c.id)!;
             const isFocus = c.id === focus;
             const isPerson = !!kin.person;
-            const style = isFocus
-              ? "border-accent bg-accent text-paper"
-              : line.has(c.id)
-                ? isPerson ? "border-accent bg-accent-soft text-ink" : "border-accent/70 bg-paper text-ink"
-                : isPerson ? "border-line bg-paper-2 text-ink" : "border-line bg-paper text-ink-muted";
+            const onTheLine = line.has(c.id);
+            // Women are tinted rose and marked ♀, so a mother's line reads apart from a father's.
+            const fill = isFocus ? "bg-accent text-paper"
+              : kin.female ? "bg-woman-soft text-ink"
+              : onTheLine && isPerson ? "bg-accent-soft text-ink"
+              : isPerson ? "bg-paper-2 text-ink" : "bg-paper text-ink-muted";
+            const border = isFocus || onTheLine ? "border-accent" : kin.female ? "border-woman/50" : "border-line";
             return (
               <button
                 key={c.id}
                 onClick={() => pick(c.id)}
                 aria-current={isFocus || undefined}
-                className={`absolute flex items-center justify-center rounded-full border px-2 text-sm whitespace-nowrap hover:border-accent ${isPerson ? "font-medium" : "border-dashed"} ${style}`}
+                className={`absolute flex items-center justify-center gap-1 rounded-full border px-2 text-sm whitespace-nowrap hover:border-accent ${isPerson ? "font-medium" : "border-dashed"} ${fill} ${border}`}
                 style={{ left: c.x - c.w / 2, top: c.y - c.h / 2, width: c.w, height: CARD_H }}
               >
+                {kin.female && <span aria-hidden className={isFocus ? "" : "text-woman"}>♀</span>}
                 {kin.name}
               </button>
             );

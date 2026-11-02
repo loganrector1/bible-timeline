@@ -86,6 +86,8 @@ export const Person = z.object({
   id,
   name: z.string(),
   altNames: z.array(z.string()).default([]),
+  /** Women are marked in the family tree, so a mother's line reads apart from a father's. */
+  female: z.boolean().default(false),
   roles: z.array(z.string()).default([]),
   lane: Lane.default("people"),
   /** Other lanes they belong to (Peter is also church). They show once, in the first lane that's on. */
@@ -122,6 +124,7 @@ export const Person = z.object({
 export const GenealogyName = z.object({
   id,
   name: z.string(),
+  female: z.boolean().default(false),
   parents: ids,
   altParents: ids,
   spouses: ids,
