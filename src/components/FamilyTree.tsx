@@ -48,10 +48,17 @@ export default function FamilyTree() {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
   const glide = useRef(0);
 
-  // Choosing someone with family elsewhere (the details panel, Browse) centers the tree on them.
+  // Choosing someone with family elsewhere (the details panel, Browse) centers the tree on them,
+  // sideways; up and down only if they're out of sight, unless they're a genealogy name, which
+  // has no dates of its own to keep time from moving. A tap in the tree leaves the view be.
+  const picked = useRef<string | null>(null);
   useEffect(() => {
     const kin = selection?.kind === "person" || selection?.kind === "name";
-    if (focus && kin && selection.id !== focus && hasFamily(selection.id)) setFocus(selection.id);
+    if (!focus || !kin || !hasFamily(selection.id)) return;
+    if (picked.current === selection.id) return void (picked.current = null);
+    if (selection.id !== focus) setFocus(selection.id);
+    // Another family's layout centers on them as it opens.
+    if (layout?.cards.has(selection.id)) reveal(selection.id, selection.kind === "name" ? true : "x");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selection]);
 
@@ -102,8 +109,11 @@ export default function FamilyTree() {
     fromTree.current = useStore.getState().currentYear;
   };
 
-  /** Brings a card into view: sideways by gliding, up or down by moving time (or gliding, if untimed). */
-  const reveal = (id: string, always: boolean) => {
+  /**
+   * Brings a card into view: sideways by gliding, up or down by moving time (or gliding, if
+   * untimed). `always` centers it even if it's in sight; "x" centers it only sideways.
+   */
+  const reveal = (id: string, always: boolean | "x") => {
     const card = layout?.cards.get(id);
     const el = box.current;
     if (!card || !el) return;
@@ -111,8 +121,8 @@ export default function FamilyTree() {
     const margin = 40;
     const sx = card.x * k + x;
     const sy = card.y * k + y;
-    const offX = always || sx < margin || sx > el.clientWidth - margin;
-    const offY = always || sy < margin || sy > el.clientHeight - margin;
+    const offX = !!always || sx < margin || sx > el.clientWidth - margin;
+    const offY = always === true || sy < margin || sy > el.clientHeight - margin;
     if (offY && time) useStore.getState().goTo(time.yearAt(card.y));
     if (!offX && (!offY || time)) return;
     glideTo({ x: offX ? el.clientWidth / 2 - card.x * k : x, y: offY && !time ? el.clientHeight / 2 - card.y * k : y });
@@ -142,26 +152,38 @@ export default function FamilyTree() {
     if (!layout || !el) return;
     if (lit) return reveal(lit, true);
     const { y, k } = view.current;
-    const cards = [...layout.cards.values()];
+    glideTo({ x: rowCenterX(y, k), y });
+  };
+  /** The x that centers the generations at the cursor's row, for a view at `y` and scale `k`. */
+  const rowCenterX = (y: number, k: number) => {
+    const cards = [...layout!.cards.values()];
     const rowY = (cursorY() - y) / k;
     const near = cards.filter((c) => Math.abs(c.y - rowY) <= ROWS_NEAR);
     const row = !time ? cards : near.length ? near : [cards.reduce((a, b) => (Math.abs(a.y - rowY) < Math.abs(b.y - rowY) ? a : b))];
     const left = Math.min(...row.map((c) => c.x - c.w / 2));
     const right = Math.max(...row.map((c) => c.x + c.w / 2));
-    glideTo({ x: el.clientWidth / 2 - ((left + right) / 2) * k, y });
+    return box.current!.clientWidth / 2 - ((left + right) / 2) * k;
   };
 
   // Opening the tree (or a family it wasn't showing) centers the focus sideways at the cursor's
-  // year; then, as for any new focus, the view moves only if its card is out of sight.
+  // year; then, as for any new focus, the view moves only if its card is out of sight. Opened
+  // with no line in color (Browse's "Family tree" row with no one selected, a `tree=` link), it
+  // stays at the cursor's year and centers on the generations there, as Center does.
   const shownFamily = useRef<FamilyLayout>(undefined);
+  const shownFocus = useRef<string>(undefined);
   useLayoutEffect(() => {
     if (!focus || !layout || !box.current) return;
+    // Only for a new focus: React runs effects twice in development.
+    if (shownFocus.current === focus && shownFamily.current === layout) return;
+    shownFocus.current = focus;
     if (shownFamily.current !== layout) {
       shownFamily.current = layout;
       const card = layout.cards.get(focus)!;
       const { k } = view.current;
       const el = box.current;
-      show({ k, x: el.clientWidth / 2 - card.x * k, y: time ? yFor(useStore.getState().currentYear, k) : el.clientHeight / 2 - card.y * k });
+      const y = time ? yFor(useStore.getState().currentYear, k) : el.clientHeight / 2 - card.y * k;
+      if (!lit) return show({ k, x: rowCenterX(y, k), y });
+      show({ k, x: el.clientWidth / 2 - card.x * k, y });
     }
     reveal(focus, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -236,6 +258,7 @@ export default function FamilyTree() {
       return setFamilyLine(null);
     }
     setFocus(id);
+    picked.current = id;
     select({ kind: kinById(id)?.person ? "person" : "name", id });
   };
 
