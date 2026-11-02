@@ -69,7 +69,8 @@ export const regionsById = new Map<string, RegionFeature>(
   data.regions.features.map((f) => [f.properties.id, f]),
 );
 
-export type EntityKind = "event" | "person" | "location" | "era" | "empire";
+/** `name`: a name from the genealogies, which has no entry beyond the family tree. */
+export type EntityKind = "event" | "person" | "location" | "era" | "empire" | "name";
 export type EntityRef = { kind: EntityKind; id: string };
 
 /** Dates for an entity under a chronology, falling back to the default chronology. */

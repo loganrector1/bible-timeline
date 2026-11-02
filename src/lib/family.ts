@@ -3,8 +3,9 @@ import type { GenealogyName, Person } from "../data/schema";
 
 /**
  * The family tree: people and the names from the genealogies (`genealogy.json`) as one graph.
- * Parents link through a union (a couple, or a lone parent), so siblings hang from one point;
- * spouses with no children here still get a union, which ties them together. `altParents`
+ * Parents link through a union (a couple, or a lone parent), so siblings hang from one point.
+ * The tree is descent: a marriage with no children here (David and Michal) isn't drawn, since an
+ * empty junction read as a mistake; the details panel lists spouses. `altParents`
  * (where Matthew and Luke name different fathers) link straight to the child, drawn dashed.
  */
 export type Kin = { id: string; name: string; person?: Person; genealogy?: GenealogyName };
@@ -16,7 +17,7 @@ export function kinById(id: string): Kin | undefined {
   return genealogy && { id, name: genealogy.name, genealogy };
 }
 
-type Entry = { id: string; parents: string[]; altParents: string[]; spouses: string[] };
+type Entry = { id: string; parents: string[]; altParents: string[] };
 const entries: Entry[] = [...data.people, ...data.genealogy];
 
 /** The union a child hangs from: its parents, sorted, joined. */
@@ -54,21 +55,12 @@ function buildGraph(): FamilyGraph {
       link(p, e.id);
     }
   }
-  // Spouses with no children of their own here (Moses and Zipporah have Gershom; David and
-  // Michal have none) still stand together.
-  for (const e of entries) {
-    for (const s of e.spouses) {
-      link(e.id, s);
-      const pair = [e.id, s];
-      if (!unions.has(unionId(pair))) union(pair);
-    }
-  }
   return { unions, alt, links };
 }
 
 export const familyGraph = buildGraph();
 
-/** Everyone related to `id` by any chain of parents and spouses (just `id` when it has none). */
+/** Everyone related to `id` by any chain of parents and children (just `id` when it has none). */
 export function familyOf(id: string, g = familyGraph): Set<string> {
   const seen = new Set([id]);
   const stack = [id];
@@ -98,6 +90,13 @@ export function lineOf(id: string): Set<string> {
     if (e) stack.push(...e.parents, ...e.altParents);
   }
   return seen;
+}
+
+/** Spouses, whichever side lists the marriage (Michal names David; David doesn't name her). */
+export function spousesOf(id: string): string[] {
+  const own = (peopleById.get(id) ?? genealogyById.get(id))?.spouses ?? [];
+  const theirs = [...data.people, ...data.genealogy].filter((e) => e.spouses.includes(id)).map((e) => e.id);
+  return [...new Set([...own, ...theirs])];
 }
 
 /** Children of a person or genealogy name, people and names alike. */

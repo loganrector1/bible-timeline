@@ -53,6 +53,39 @@ export function layoutFamily(id: string, g: FamilyGraph = familyGraph): FamilyLa
     points: graph.edge(e).points ?? [],
     alt: !e.v.startsWith("u:") && !e.w.startsWith("u:"),
   }));
+  untangleLeaves(cards, laidUnions, edges);
   const size = graph.graph();
-  return { cards, unions: laidUnions, edges, width: size.width ?? 0, height: size.height ?? 0 };
+  const right = Math.max(size.width ?? 0, ...[...cards.values()].map((c) => c.x + c.w / 2 + 24));
+  return { cards, unions: laidUnions, edges, width: right, height: size.height ?? 0 };
+}
+
+type P = { x: number; y: number };
+const crosses = ([p1, p2]: [P, P], [p3, p4]: [P, P]) => {
+  const d = (p: P, q: P, r: P) => (q.x - p.x) * (r.y - p.y) - (q.y - p.y) * (r.x - p.x);
+  return d(p3, p4, p1) * d(p3, p4, p2) < 0 && d(p1, p2, p3) * d(p1, p2, p4) < 0;
+};
+const segments = (pts: P[]) => pts.slice(1).map((p, i) => [pts[i], p] as [P, P]);
+
+/**
+ * Dagre's ordering is a heuristic, and sometimes leaves a child with no line below it on the side
+ * where its link crosses another line (Josiah's son Jehoahaz across Luke's line). Such a child
+ * moves to the mirror spot across its parents' union when that's free and crosses nothing.
+ */
+function untangleLeaves(cards: Map<string, LaidCard>, unions: LaidUnion[], edges: LaidEdge[]) {
+  const hasLineBelow = new Set(edges.filter((e) => cards.has(e.from)).map((e) => e.from));
+  for (const u of unions) {
+    for (const id of u.children) {
+      const card = cards.get(id)!;
+      const edge = edges.find((e) => e.from === u.id && e.to === id);
+      if (hasLineBelow.has(id) || !edge || edge.points.length > 3) continue;
+      const others = edges.filter((e) => e !== edge).flatMap((e) => segments(e.points));
+      const tangled = (x: number) => segments([{ x: u.x, y: u.y }, { x, y: card.y }]).some((s) => others.some((o) => crosses(s, o)));
+      if (!tangled(card.x)) continue;
+      const x = 2 * u.x - card.x;
+      const free = [...cards.values()].every((c) => c === card || Math.abs(c.y - card.y) > 1 || Math.abs(c.x - x) > (c.w + card.w) / 2 + 14);
+      if (!free || x - card.w / 2 < 0 || tangled(x)) continue;
+      card.x = x;
+      edge.points = [{ x: u.x, y: u.y }, { x, y: (u.y + card.y) / 2 }, { x, y: card.y }];
+    }
+  }
 }

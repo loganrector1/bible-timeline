@@ -69,6 +69,9 @@ export function computeHighlight(sel: EntityRef | null, chron: string): Highligh
         regions: new Set(),
       };
     }
+    // A genealogy name has no events or places to light.
+    case "name":
+      return null;
   }
 }
 

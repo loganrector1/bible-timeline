@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent, type RefObject } from "react";
-import { empiresById, erasById, eventsById, locationsById, peopleById } from "../data";
+import { empiresById, erasById, eventsById, genealogyById, locationsById, peopleById } from "../data";
 import { entityTitle, eventKind } from "../lib/entities";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
@@ -8,10 +8,11 @@ import EmpireDetail from "./detail/EmpireDetail";
 import EraDetail from "./detail/EraDetail";
 import EventDetail from "./detail/EventDetail";
 import LocationDetail from "./detail/LocationDetail";
+import NameDetail from "./detail/NameDetail";
 import PersonDetail from "./detail/PersonDetail";
 import TourBox from "./TourBox";
 
-const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era", empire: "Empire" } as const;
+const KIND_LABEL = { event: "Event", person: "Person", location: "Place", era: "Era", empire: "Empire", name: "In the genealogies" } as const;
 
 /** Height of the phone sheet's collapsed peek. */
 export const PEEK_HEIGHT = "9.5rem";
@@ -182,13 +183,18 @@ export default function DetailPanel() {
         const empire = empiresById.get(selection.id);
         return empire && <EmpireDetail empire={empire} />;
       }
+      case "name": {
+        const name = genealogyById.get(selection.id);
+        return name && <NameDetail name={name} />;
+      }
     }
   })();
 
   // Only offered when that view is hidden. Each view shows its own "Show <name>"
   // chip when the selection is out of frame. Phones get the one view; wider screens
   // get both side by side.
-  const hidden = mode === "map" ? "timeline" : mode === "timeline" ? "map" : null;
+  // A genealogy name has nothing on either.
+  const hidden = selection.kind === "name" ? null : mode === "map" ? "timeline" : mode === "timeline" ? "map" : null;
   const openOn = (view: "map" | "timeline") => {
     setMode(isPhone ? view : "split");
     if (view === "timeline") showOnTimeline(selection);
@@ -221,9 +227,8 @@ export default function DetailPanel() {
         <TourBox clamp={peek} />
         <div className="flex items-start justify-between gap-2 px-5 pt-2 pb-2 md:pt-4">
           <div>
-            <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">{selection.kind === "event" && eventsById.has(selection.id)
-                ? eventKind(eventsById.get(selection.id)!)
-                : KIND_LABEL[selection.kind]}
+            <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">
+              {selection.kind === "event" && eventsById.has(selection.id) ? eventKind(eventsById.get(selection.id)!) : KIND_LABEL[selection.kind]}
             </p>
             <h2 ref={headingRef} tabIndex={-1} className="font-serif text-2xl leading-tight font-semibold outline-none">
               {entityTitle(selection)}

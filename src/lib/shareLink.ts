@@ -27,9 +27,11 @@ export type LinkState = {
 };
 
 /** The URL parameter for each kind of selection. */
-const KIND_PARAM: Record<EntityKind, string> = { event: "event", person: "person", location: "place", era: "era", empire: "empire" };
+const KIND_PARAM: Record<EntityKind, string> = {
+  event: "event", person: "person", location: "place", era: "era", empire: "empire", name: "name",
+};
 const BY_ID: Record<EntityKind, Map<string, unknown>> = {
-  event: eventsById, person: peopleById, location: locationsById, era: erasById, empire: empiresById,
+  event: eventsById, person: peopleById, location: locationsById, era: erasById, empire: empiresById, name: genealogyById,
 };
 const VIEWS: ViewMode[] = ["timeline", "split", "map"];
 

@@ -18,13 +18,15 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "tour", label: "Tours" },
 ];
 
-const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", empire: "Empires", event: "Events", person: "People", location: "Places" };
+const GROUP_TITLE: Record<EntityKind, string> = {
+  era: "Eras", empire: "Empires", event: "Events", person: "People", location: "Places", name: "In the family tree",
+};
 
 /**
  * `hidden`: an event the filters hide, or world history while its lane is off. It's still listed
  * (dimmed), and picking it shows it.
  */
-type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: string; tree?: string };
+type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: string };
 
 type Suggestion = { label: string; apply: () => void };
 
@@ -99,6 +101,7 @@ export default function BrowsePanel() {
   }, [setOpen]);
 
   const groups = useMemo(() => {
+    const q = query.trim().toLowerCase();
     const dateOf = (e: { dates?: Parameters<typeof datesFor>[0]["dates"] }) => {
       const spec = datesFor(e, chron);
       return spec ? formatDateSpec(spec, eraStyle) : "";
@@ -122,6 +125,10 @@ export default function BrowsePanel() {
         detail: [p.roles[0], dateOf(p)].filter(Boolean).join(" · "),
         search: [p.name, ...p.altNames].join(" "),
       })).sort(byName),
+      // Names from the genealogies have no entry beyond the tree, so only a search finds them.
+      name: q.length < 2 ? [] : data.genealogy.map((n) => ({
+        ref: { kind: "name", id: n.id } as EntityRef, name: n.name, detail: "Genealogy", search: n.name,
+      })).sort(byName),
       location: data.locations.map((l) => ({
         ref: { kind: "location", id: l.id } as EntityRef,
         name: l.name,
@@ -129,19 +136,11 @@ export default function BrowsePanel() {
         search: [l.name, l.modernName ?? ""].join(" "),
       })).sort(byName),
     };
-    const q = query.trim().toLowerCase();
-    // Empires sit with the eras: both are spans of time.
-    const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "location"]
-      : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : [tab];
-    // Names from the genealogies have no entry, so only a search finds them; they open the tree.
-    const names: Item[] = q.length < 2 ? [] : data.genealogy
-      .filter((n) => n.name.toLowerCase().includes(q))
-      .map((n) => ({ ref: { kind: "person", id: n.id }, name: n.name, detail: "Family tree", search: n.name, tree: n.id }));
+    // Empires sit with the eras: both are spans of time; genealogy names with the people.
+    const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "name", "location"]
+      : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : tab === "person" ? ["person", "name"] : [tab];
     return kinds
-      .map((kind) => ({
-        kind,
-        items: [...all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)), ...(kind === "person" ? names : [])],
-      }))
+      .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
       .filter((g) => g.items.length > 0);
   }, [query, tab, chron, eraStyle, filters]);
 
@@ -274,7 +273,7 @@ export default function BrowsePanel() {
                 return (
                   <li key={item.ref.id}>
                     <button
-                      onClick={() => (item.tree ? openTree(item.tree) : pick(item.ref))}
+                      onClick={() => pick(item.ref)}
                       aria-pressed={selected}
                       className={`flex w-full items-baseline justify-between gap-3 rounded px-2 py-1 text-left text-sm ${
                         selected ? "bg-accent text-paper" : "hover:bg-paper-2"

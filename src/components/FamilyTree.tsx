@@ -3,7 +3,6 @@ import { familyOf, hasFamily, kinById, lineOf } from "../lib/family";
 import { CARD_H, layoutFamily, type FamilyLayout, type LaidEdge } from "../lib/familyLayout";
 import { useIsPhone } from "../lib/useMediaQuery";
 import { useStore } from "../state/store";
-import { ScriptureList } from "./detail/parts";
 
 /** One layout per family, computed when the tree first shows it. */
 const layouts = new Map<string, FamilyLayout>();
@@ -24,8 +23,8 @@ type View = { x: number; y: number; k: number };
 /**
  * The family tree, over the timeline and map: everyone related to the person or genealogy name
  * it's centred on, top to bottom like the timeline, with that one's line (parents, theirs, back
- * to Adam) drawn strongly. People open their details; names from the genealogies, which have no
- * entry of their own, say where Scripture names them.
+ * to Adam) drawn strongly. Clicking anyone, person or genealogy name, selects them, so both open
+ * in the details panel.
  */
 export default function FamilyTree() {
   const focus = useStore((s) => s.familyTree);
@@ -34,16 +33,29 @@ export default function FamilyTree() {
   const select = useStore((s) => s.select);
   const isPhone = useIsPhone();
   const box = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState<View>({ x: 0, y: 0, k: 1 });
+  const [view, setRawView] = useState<View>({ x: 0, y: 0, k: 1 });
   const glide = useRef(0);
 
-  // Choosing someone in the tree's family elsewhere (the details panel, Browse) centres the tree on them.
+  // Choosing someone with family elsewhere (the details panel, Browse) centres the tree on them.
   useEffect(() => {
-    if (focus && selection?.kind === "person" && selection.id !== focus && hasFamily(selection.id)) setFocus(selection.id);
+    const kin = selection?.kind === "person" || selection?.kind === "name";
+    if (focus && kin && selection.id !== focus && hasFamily(selection.id)) setFocus(selection.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selection]);
 
   const layout = focus ? layoutFor(focus) : undefined;
+  // The tree can't be pushed out of sight: it always reaches the middle of the view, both ways.
+  const layoutRef = useRef(layout);
+  layoutRef.current = layout;
+  const setView = (next: View | ((v: View) => View)) =>
+    setRawView((v) => {
+      const to = typeof next === "function" ? next(v) : next;
+      const el = box.current;
+      const l = layoutRef.current;
+      if (!el || !l) return to;
+      const clamp = (pos: number, size: number, extent: number) => Math.min(size / 2, Math.max(size / 2 - extent * to.k, pos));
+      return { k: to.k, x: clamp(to.x, el.clientWidth, l.width), y: clamp(to.y, el.clientHeight, l.height) };
+    });
   const line = useMemo(() => (focus ? lineOf(focus) : new Set<string>()), [focus]);
 
   /** Moves the view so the card sits below the middle (its ancestors are above), gliding unless `instant`. */
@@ -134,12 +146,11 @@ export default function FamilyTree() {
 
   if (!focus || !layout) return null;
   const focusKin = kinById(focus);
-  const name = focusKin?.genealogy;
 
   const pick = (id: string) => {
     if (moved.current > DRAG_PX) return; // The end of a drag, not a tap.
     setFocus(id);
-    if (kinById(id)?.person) select({ kind: "person", id });
+    select({ kind: kinById(id)?.person ? "person" : "name", id });
   };
 
   // An edge is on the line when both its ends are: a parent's link to its union, the union's to a child.
@@ -217,30 +228,9 @@ export default function FamilyTree() {
             );
           })}
         </div>
-
-        {name && (
-          // A genealogy name has no details panel, so it says what Scripture says of it here; at
-          // the top on phones, where the details sheet covers the bottom.
-          <div className="absolute inset-x-3 top-3 max-h-[45%] sm:top-auto sm:bottom-3 overflow-y-auto rounded-lg border border-line bg-paper p-3 shadow-lg sm:right-auto sm:w-80">
-            <p className="text-[11px] font-semibold tracking-wider text-ink-muted uppercase">In the genealogies</p>
-            <h3 className="font-serif text-lg leading-tight font-semibold">{name.name}</h3>
-            {parentsLine(focus) && <p className="mt-1 text-sm text-ink-muted">{parentsLine(focus)}</p>}
-            {name.note && <p className="mt-1.5 text-sm leading-relaxed">{name.note}</p>}
-            <ScriptureList refs={name.scripture} />
-          </div>
-        )}
       </div>
     </div>
   );
-}
-
-/** "Child of Judah and Tamar"; "Child of Jehoiachin, or of Neri" where the Gospels' lines differ. */
-function parentsLine(id: string) {
-  const kin = kinById(id);
-  const entry = kin?.genealogy ?? kin?.person;
-  const names = (ids: string[]) => ids.map((p) => kinById(p)?.name ?? p).join(" and ");
-  if (!entry?.parents.length) return undefined;
-  return `Child of ${names(entry.parents)}${entry.altParents.length ? `, or of ${names(entry.altParents)}` : ""}`;
 }
 
 /**

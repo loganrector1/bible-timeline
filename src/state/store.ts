@@ -166,7 +166,8 @@ type State = {
   setBrowseOpen: (open: boolean) => void;
   /**
    * The family tree, while it's open: the person or genealogy name it's centred on, whose line
-   * it highlights. It covers the timeline and map; the details panel stays beside it.
+   * it highlights. It covers the timeline and map; the details panel stays beside it. Selecting a
+   * genealogy name opens it, and closing it clears one: names live only in the tree.
    */
   familyTree: string | null;
   setFamilyTree: (id: string | null) => void;
@@ -275,7 +276,10 @@ export const useStore = create<State>()((set, get) => {
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
     familyTree: null,
-    setFamilyTree: (familyTree) => set({ familyTree }),
+    setFamilyTree: (familyTree) => {
+      set({ familyTree });
+      if (!familyTree && get().selection?.kind === "name") get().select(null);
+    },
     tour: null,
     tourProgress: loadTourProgress(),
     startTour: (id, step = 0, opts) => {
@@ -351,6 +355,7 @@ export const useStore = create<State>()((set, get) => {
       // bring the World history lane.
       const person = ref?.kind === "person" ? peopleById.get(ref.id) : undefined;
       if (person && !shownLane(person, get().lanes)) get().setLaneShown(person.lane, true);
+      if (ref?.kind === "name") set({ familyTree: ref.id });
       const world = ref?.kind === "empire" || (ref?.kind === "event" && eventsById.get(ref.id)?.world);
       if (world && !get().lanes.includes("world")) get().setLaneShown("world", true);
       if (!ref || ref.kind === "location") return; // Places have no single moment; time stays put.
