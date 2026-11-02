@@ -133,15 +133,14 @@ export default function FamilyTree() {
   };
 
   /**
-   * Center: on the person selected, else sideways on the generations at the cursor, which sit
+   * Center: on the person whose line is in color, else sideways on the generations at the cursor, which sit
    * in a different part of the tree in each age (Jacob's sons wide, Jesus' line narrow); an
    * untimed family centers as a whole.
    */
   const center = () => {
     const el = box.current;
     if (!layout || !el) return;
-    const kin = selection?.kind === "person" || selection?.kind === "name";
-    if (kin && layout.cards.has(selection.id)) return reveal(selection.id, true);
+    if (lit) return reveal(lit, true);
     const { y, k } = view.current;
     const cards = [...layout.cards.values()];
     const rowY = (cursorY() - y) / k;
