@@ -145,6 +145,9 @@ describe("era and place filters", () => {
       const ids = shown({ eras: ["wilderness"] }, chron);
       expect(ids).toContain("sinai-covenant");
       expect(ids).not.toContain("david-goliath");
+      // The Exodus runs to Sinai, so it's in Egypt & Exodus, not the Wilderness.
+      expect(ids).not.toContain("exodus");
+      expect(shown({ eras: ["egypt-exodus"] }, chron)).toContain("exodus");
     }
   });
 

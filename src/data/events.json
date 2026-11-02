@@ -237,8 +237,8 @@
   {
     "id": "brothers-in-egypt", "title": "Joseph's brothers come to Egypt", "type": "family",
     "summary": "Famine drives Jacob's sons to Egypt for grain, and they bow before Joseph without knowing him. He tests them, keeping Simeon and demanding Benjamin, until Judah offers himself in Benjamin's place. Then Joseph tells them, \"I am Joseph! Is my father still alive?\" and \"it was to save lives that God sent me before you.\"",
-    "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
-    "dateNote": "Two years into the famine (Genesis 45:6), the year Jacob moved to Egypt; the brothers' first trip may have been a year earlier.",
+    "dates": { "early": { "start": { "year": -1876 }, "confidence": "approx" }, "late": { "start": { "year": -1690 }, "confidence": "approx" } },
+    "dateNote": "Early in the famine: Joseph makes himself known two years into it (Genesis 45:6), the year Jacob moved to Egypt; the brothers' first trip was probably a year or so before.",
     "people": ["joseph", "judah", "jacob"], "locations": ["egypt", "hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 42, "endChapter": 45, "endVerse": 15 }]
   },
@@ -1415,14 +1415,6 @@
     "scripture": [{ "book": "John", "chapter": 4, "verse": 1, "endVerse": 42 }]
   },
   {
-    "id": "bethesda", "title": "Healing at the pool of Bethesda", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "At a feast in Jerusalem Jesus finds a man who has been disabled for thirty-eight years lying by the pool of Bethesda and tells him, \"Get up, pick up your mat, and walk.\" Because it is the Sabbath, the leaders begin to persecute Jesus, and he answers, \"To this very day My Father is at His work, and I too am working.\"",
-    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
-    "dateNote": "John calls it only \"a feast of the Jews\" (John 5:1); if it was a Passover, the ministry lasted a year longer. The pool, by the Sheep Gate north of the temple, has been excavated.",
-    "people": ["jesus"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "John", "chapter": 5 }]
-  },
-  {
     "id": "calling-disciples", "title": "Jesus calls fishermen", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Come, follow Me,\" he says, \"and I will make you fishers of men.\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
@@ -1437,6 +1429,14 @@
     "dateNote": "Not dated; early in the Galilean ministry, back in Capernaum after a tour of Galilee (Mark 1:39; 2:1).",
     "people": ["jesus", "matthew"], "locations": ["capernaum"],
     "scripture": [{ "book": "Matthew", "chapter": 9, "verse": 1, "endVerse": 17 }, { "book": "Mark", "chapter": 2, "verse": 1, "endVerse": 22 }, { "book": "Luke", "chapter": 5, "verse": 17, "endVerse": 39 }]
+  },
+  {
+    "id": "bethesda", "title": "Healing at the pool of Bethesda", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "At a feast in Jerusalem Jesus finds a man who has been disabled for thirty-eight years lying by the pool of Bethesda and tells him, \"Get up, pick up your mat, and walk.\" Because it is the Sabbath, the leaders begin to persecute Jesus, and he answers, \"To this very day My Father is at His work, and I too am working.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "John calls it only \"a feast of the Jews\" (John 5:1); if it was a Passover, the ministry lasted a year longer. The pool, by the Sheep Gate north of the temple, has been excavated.",
+    "people": ["jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 5 }]
   },
   {
     "id": "twelve-apostles", "title": "Jesus chooses the Twelve", "type": "ministry", "partOf": "jesus-ministry",
@@ -1837,7 +1837,7 @@
   {
     "id": "eutychus", "title": "Eutychus raised at Troas", "type": "miracle", "partOf": "third-journey",
     "summary": "As Paul talks late into the night, a young man falls asleep and drops from a third-floor window. Paul embraces him, and he is alive.",
-    "dates": { "early": { "start": { "year": 57, "month": 4, "label": "after Passover" }, "confidence": "approx" } },
+    "dates": { "early": { "start": { "year": 57, "month": 4, "label": "After Passover" }, "confidence": "approx" } },
     "dateNote": "They sailed from Philippi after the days of Unleavened Bread and reached Troas five days later (Acts 20:6).",
     "people": ["paul"], "locations": ["troas"],
     "scripture": [{ "book": "Acts", "chapter": 20, "verse": 7, "endVerse": 12 }]

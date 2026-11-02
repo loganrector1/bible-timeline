@@ -25,20 +25,20 @@
     "id": "egypt-exodus",
     "name": "Egypt & Exodus",
     "color": "#a8442a",
-    "summary": "Israel grows into a nation in Egypt, is enslaved, and is brought out by God through Moses (Exodus 1–15).",
+    "summary": "Israel grows into a nation in Egypt, is enslaved, and is brought out by God through Moses and led to Mount Sinai (Exodus 1–18).",
     "dates": {
-      "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
-      "late": { "start": { "year": -1689 }, "end": { "year": -1259, "month": 4, "label": "1st month" }, "confidence": "approx" }
+      "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 5, "label": "2nd month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1689 }, "end": { "year": -1259, "month": 5, "label": "2nd month" }, "confidence": "approx" }
     }
   },
   {
     "id": "wilderness",
     "name": "Wilderness",
     "color": "#c49a3a",
-    "summary": "The covenant at Sinai, the tabernacle, and forty years in the wilderness before entering Canaan (Exodus 16 – Deuteronomy).",
+    "summary": "The covenant at Sinai, the tabernacle, and forty years in the wilderness before entering Canaan (Exodus 19 – Deuteronomy).",
     "dates": {
-      "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "end": { "year": -1405, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" },
-      "late": { "start": { "year": -1259, "month": 5, "label": "2nd month" }, "end": { "year": -1219, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" }
+      "early": { "start": { "year": -1445, "month": 6, "label": "3rd month" }, "end": { "year": -1405, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 6, "label": "3rd month" }, "end": { "year": -1219, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" }
     }
   },
   {
