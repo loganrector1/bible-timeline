@@ -20,6 +20,8 @@ const MAX_SCALE = 2;
 const TURN = 40;
 /** Moves shorter than this are taps, not drags. */
 const DRAG_PX = 5;
+/** How far above and below the cursor's row Center looks for the generations to center on. */
+const ROWS_NEAR = 100;
 
 type View = { x: number; y: number; k: number };
 
@@ -72,8 +74,7 @@ export default function FamilyTree() {
     redraw();
   };
   /**
-   * The cursor's row in the box: level with the timeline's cursor, which sits at the middle of
-   * the view (the tree's header pushes the box's own middle lower).
+   * The cursor's row in the box: level with the timeline's cursor, at the middle of the view.
    */
   const cursorY = () => {
     const el = box.current;
@@ -114,7 +115,10 @@ export default function FamilyTree() {
     const offY = always || sy < margin || sy > el.clientHeight - margin;
     if (offY && time) useStore.getState().goTo(time.yearAt(card.y));
     if (!offX && (!offY || time)) return;
-    const to = { x: offX ? el.clientWidth / 2 - card.x * k : x, y: offY && !time ? el.clientHeight / 2 - card.y * k : y };
+    glideTo({ x: offX ? el.clientWidth / 2 - card.x * k : x, y: offY && !time ? el.clientHeight / 2 - card.y * k : y });
+  };
+  const glideTo = (to: { x: number; y: number }) => {
+    const { k } = view.current;
     const from = view.current;
     const t0 = performance.now();
     cancelAnimationFrame(glide.current);
@@ -126,6 +130,26 @@ export default function FamilyTree() {
       if (t < 1) glide.current = requestAnimationFrame(step);
     };
     glide.current = requestAnimationFrame(step);
+  };
+
+  /**
+   * Center: on the person selected, else sideways on the generations at the cursor, which sit
+   * in a different part of the tree in each age (Jacob's sons wide, Jesus' line narrow); an
+   * untimed family centers as a whole.
+   */
+  const center = () => {
+    const el = box.current;
+    if (!layout || !el) return;
+    const kin = selection?.kind === "person" || selection?.kind === "name";
+    if (kin && layout.cards.has(selection.id)) return reveal(selection.id, true);
+    const { y, k } = view.current;
+    const cards = [...layout.cards.values()];
+    const rowY = (cursorY() - y) / k;
+    const near = cards.filter((c) => Math.abs(c.y - rowY) <= ROWS_NEAR);
+    const row = !time ? cards : near.length ? near : [cards.reduce((a, b) => (Math.abs(a.y - rowY) < Math.abs(b.y - rowY) ? a : b))];
+    const left = Math.min(...row.map((c) => c.x - c.w / 2));
+    const right = Math.max(...row.map((c) => c.x + c.w / 2));
+    glideTo({ x: el.clientWidth / 2 - ((left + right) / 2) * k, y });
   };
 
   // Opening the tree (or a family it wasn't showing) centers the focus sideways at the cursor's
@@ -288,8 +312,9 @@ export default function FamilyTree() {
       <p aria-live="polite" className="pointer-events-none absolute bottom-3 left-3 max-w-[calc(100%-14rem)] rounded-md bg-paper/85 px-2 py-1 text-xs text-ink-muted max-sm:hidden">
         {litKin ? `${litKin.name}’s line in color` : "Select anyone to see their line"}; dashed names are known only from the genealogies.
       </p>
-      <div data-sheet-floor className="absolute right-3 bottom-3 flex gap-1 text-sm">
-        <button onClick={() => reveal(lit ?? focus, true)} className="rounded-md border border-line bg-paper px-2 py-1 shadow-sm hover:bg-paper-2">Center</button>
+      {/* Under the phone's details sheet, which covers them rather than standing higher. */}
+      <div className="absolute right-3 bottom-3 flex gap-1 text-sm">
+        <button onClick={center} className="rounded-md border border-line bg-paper px-2 py-1 shadow-sm hover:bg-paper-2">Center</button>
         <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">−</button>
         <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">+</button>
         <button onClick={() => setFocus(null)} aria-label="Close family tree" className="w-8 rounded-md border border-line bg-paper py-1 shadow-sm hover:bg-paper-2">✕</button>
