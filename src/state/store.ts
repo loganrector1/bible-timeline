@@ -165,7 +165,7 @@ type State = {
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
   /**
-   * The family tree, while it's open: the person or genealogy name it's centred on, whose line
+   * The family tree, while it's open: the person or genealogy name it's centered on, whose line
    * it highlights. It takes the map's place (the view switcher reads Timeline · Both · Tree), and
    * follows the timeline's year. Selecting a genealogy name opens it, and closing it clears one:
    * names live only in the tree.

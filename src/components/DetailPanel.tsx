@@ -76,7 +76,7 @@ function ShareButton({ title }: { title: string }) {
       try {
         await navigator.share({ title, url });
       } catch {
-        // Cancelled.
+        // Canceled.
       }
       return;
     }

@@ -70,11 +70,11 @@ The great powers and Israel's own states drawn on the map as they stood at the c
 
 Decided: outlines change in steps at each dated snapshot with a quick cross-fade (no morphing, which would invent borders); an Empires toggle beside Modern borders, on by default; the great powers from [Cliopatria](https://github.com/Seshat-Global-History-Databank/cliopatria) (CC BY 4.0), cut to the dates in `empires.json`; Israel drawn by hand (Cliopatria's Israel and Judah end in 701 BC): the tribal allotments, Saul's kingdom, David and Solomon's with the lands subject to them, Israel and Judah, Yehud, Herod's kingdom and his sons' tetrarchies, and Roman Judea. Selecting an empire shows its extent strongly and frames it. Takes over Milestone 2's "Region outlines" step.
 
-Also built: Israel's neighbours (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, the Nabataeans), opening their lands as places; "Ruled by" on every place, listing the empires and Israel's own states over it; the map shows rule, not overlordship (Egypt's in Canaan is told in words); Egypt's and Canaan's regions redrawn to follow the Nile and Scripture's borders; unused places hidden when zoomed out.
+Also built: Israel's neighbors (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, the Nabataeans), opening their lands as places; "Ruled by" on every place, listing the empires and Israel's own states over it; the map shows rule, not overlordship (Egypt's in Canaan is told in words); Egypt's and Canaan's regions redrawn to follow the Nile and Scripture's borders; unused places hidden when zoomed out.
 
 ## Family tree (in progress)
 
-Branch `feature/family-tree`. A view of its own, from Adam to Jesus, centred on whoever you open it from, with their line highlighted. The genealogies' names that have no events (115 of them: Seth to Lamech, Jacob's other sons, Perez to Obed, Matthew's and Luke's lines after David) are tree-only names, not people. Both Gospels' lines from David to Joseph are drawn, meeting at Shealtiel and Joseph.
+Branch `feature/family-tree`. A view of its own, from Adam to Jesus, centered on whoever you open it from, with their line highlighted. The genealogies' names that have no events (115 of them: Seth to Lamech, Jacob's other sons, Perez to Obed, Matthew's and Luke's lines after David) are tree-only names, not people. Both Gospels' lines from David to Joseph are drawn, meeting at Shealtiel and Joseph.
 
 ## Next candidates
 

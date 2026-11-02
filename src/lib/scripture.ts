@@ -15,7 +15,7 @@ export function formatRef(ref: ScriptureRef): string {
 }
 
 // The app shows the Berean Standard Bible; the link out offers the ESV, which many readers'
-// churches use (its licence doesn't allow bundling it).
+// churches use (its license doesn't allow bundling it).
 const VERSION = "ESV";
 
 export function refUrl(ref: ScriptureRef): string {

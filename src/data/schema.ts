@@ -79,7 +79,7 @@ export const Event = z.object({
 export const Lane = z.enum(["people", "kings", "prophets", "church", "world"]);
 export type Lane = z.infer<typeof Lane>;
 
-/** The throne a king of God's people sat on, which sets his column and colour in the Kings lane. */
+/** The throne a king of God's people sat on, which sets his column and color in the Kings lane. */
 export const Kingdom = z.enum(["united", "judah", "israel"]);
 
 export const Person = z.object({
@@ -235,8 +235,8 @@ export const BorderFeature = z.object({
     label: Coords,
     /** How sure the outline is, and what it shows; drawn outlines always say. */
     note: z.string().optional(),
-    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbours share one. */
-    tint: z.enum(["judah", "israel", "united", "neighbour"]).optional(),
+    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbors share one. */
+    tint: z.enum(["judah", "israel", "united", "neighbor"]).optional(),
     /** Lands that paid tribute rather than being ruled: drawn fainter, dashed. */
     subject: z.boolean().optional(),
     /** A smaller label, for tribes and provinces. */

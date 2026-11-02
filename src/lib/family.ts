@@ -28,7 +28,7 @@ export type FamilyGraph = {
   unions: Map<string, Union>;
   /** Alternate fathers' links, parent to child. */
   alt: [string, string][];
-  /** Each id's neighbours, for finding its family. */
+  /** Each id's neighbors, for finding its family. */
   links: Map<string, Set<string>>;
 };
 

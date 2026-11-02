@@ -11,7 +11,7 @@ import { formatPassageParam, parsePassage, type Passage } from "./passages";
  * or `?passage=Exod.12-14` (OSIS, comma-separated; the reading-plans app links this way), and
  * `chron=late` when it isn't the default chronology (the one its year was written in), and
  * `tour=exodus&step=3` (counting from 1) for a guided tour, and `tree=obed` for the family tree,
- * open and centred on a person or genealogy name.
+ * open and centered on a person or genealogy name.
  * Every part is optional. Keep these names stable once published: links get pasted into lesson notes.
  */
 export type LinkState = {

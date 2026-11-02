@@ -92,7 +92,7 @@ export default function NowPanel({
   };
 
   // `touch-none` should stop the browser panning or scrolling the page under a drag, but not
-  // every mobile browser honours it, so touch moves are cancelled here too. (React's touch
+  // every mobile browser honors it, so touch moves are canceled here too. (React's touch
   // listeners are passive, so this has to be a native one.)
   useEffect(() => {
     const el = panelRef.current;

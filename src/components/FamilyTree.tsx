@@ -23,7 +23,7 @@ type View = { x: number; y: number; k: number };
 
 /**
  * The family tree, in the map's place while it's open: everyone related to the person or genealogy
- * name it's centred on, top to bottom like the timeline, with that one's line (parents, theirs,
+ * name it's centered on, top to bottom like the timeline, with that one's line (parents, theirs,
  * back to Adam) drawn strongly. It keeps in step with the timeline: the row at its middle is the
  * generation alive at the cursor's year (`treeTime`), so scrubbing slides the tree and dragging
  * the tree moves the cursor; sideways it's free. Clicking anyone, person or genealogy name,
@@ -43,7 +43,7 @@ export default function FamilyTree() {
   const [, redraw] = useReducer((n: number) => n + 1, 0);
   const glide = useRef(0);
 
-  // Choosing someone with family elsewhere (the details panel, Browse) centres the tree on them.
+  // Choosing someone with family elsewhere (the details panel, Browse) centers the tree on them.
   useEffect(() => {
     const kin = selection?.kind === "person" || selection?.kind === "name";
     if (focus && kin && selection.id !== focus && hasFamily(selection.id)) setFocus(selection.id);
@@ -121,7 +121,7 @@ export default function FamilyTree() {
     glide.current = requestAnimationFrame(step);
   };
 
-  // Opening the tree (or a family it wasn't showing) centres the focus sideways at the cursor's
+  // Opening the tree (or a family it wasn't showing) centers the focus sideways at the cursor's
   // year; then, as for any new focus, the view moves only if its card is out of sight.
   const shownFamily = useRef<FamilyLayout>(undefined);
   useLayoutEffect(() => {
@@ -206,14 +206,14 @@ export default function FamilyTree() {
         <div className="min-w-0">
           <h2 className="font-serif text-lg leading-tight font-semibold">Family tree</h2>
           <p className="truncate text-xs text-ink-muted">
-            {focusKin?.name}’s line in colour<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
+            {focusKin?.name}’s line in color<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
           <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">−</button>
           <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">+</button>
           <button onClick={() => reveal(focus, true)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
-            Centre
+            Center
           </button>
           <button onClick={() => setFocus(null)} aria-label="Close family tree" className="rounded p-1.5 text-ink-muted hover:bg-paper hover:text-ink">✕</button>
         </div>

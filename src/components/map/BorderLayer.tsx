@@ -16,9 +16,9 @@ const FADE_MS = 350;
 
 /**
  * Each line of powers keeps one hue, so Egypt reads as Egypt from kingdom to kingdom and
- * neighbours (Ptolemies and Seleucids) differ. Israel's own states take the Kings lane's tints:
- * Judah warm, Israel cool, the united kingdom plain. Israel's neighbours (Moab, Philistia…) share
- * one slate, so they read as the neighbours rather than as powers.
+ * neighbors (Ptolemies and Seleucids) differ. Israel's own states take the Kings lane's tints:
+ * Judah warm, Israel cool, the united kingdom plain. Israel's neighbors (Moab, Philistia…) share
+ * one slate, so they read as the neighbors rather than as powers.
  */
 const HUES: Record<string, string> = {
   "egypt-middle": "#b07d1a", hyksos: "#8c6a3c", "egypt-new": "#b07d1a", "egypt-divided": "#b07d1a",
@@ -28,7 +28,7 @@ const HUES: Record<string, string> = {
   "alexander-empire": "#4c8a44", seleucids: "#2f8a8a",
   "roman-republic": "#a23a5f", rome: "#a23a5f",
   hasmoneans: "#c47f17", judah: "#c47f17", israel: "#2b7bb9", united: "#7a6a55",
-  neighbour: "#6b7686",
+  neighbor: "#6b7686",
 };
 const FALLBACK = "#7a6a55";
 

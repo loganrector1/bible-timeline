@@ -41,7 +41,7 @@ const REPORT_OVERLAP = 0.5;
  * `coast` adds a strip Cliopatria's coastline misses (Tyre's island).
  * `takes` adds a drawn outline's land from a conquest, where Cliopatria's snapshots come late.
  * `beyond` is land cut out of a power's outline altogether: Egypt's kings were overlords in
- * Canaan, not its rulers, so that's told in words. `tint` colours Israel's own states as the
+ * Canaan, not its rulers, so that's told in words. `tint` colors Israel's own states as the
  * Kings lane does (Judah warm).
  */
 
@@ -102,25 +102,25 @@ const POWERS = [
   { empire: "rome", name: "Rome", rows: ["Roman Empire"], to: 200, yieldTo: ["nabataeans"] },
   // Herod's kingdom, a Roman client, from the year after he took Jerusalem (37 BC), when the
   // Hasmoneans end, to his death (4 BC).
-  // Israel's neighbours, each opening its land (Ammon, Moab, Edom and Aram are drawn by hand).
+  // Israel's neighbors, each opening its land (Ammon, Moab, Edom and Aram are drawn by hand).
   // Philistia kept its kings under Assyria, as Judah did, until Nebuchadnezzar took Ashkelon
   // (604 BC); Phoenicia's cities kept theirs until Persia.
   {
-    id: "philistia", name: "Philistia", rows: ["Philistia"], from: -1150, to: -603, links: [{ kind: "location", id: "philistia" }], tint: "neighbour",
+    id: "philistia", name: "Philistia", rows: ["Philistia"], from: -1150, to: -603, links: [{ kind: "location", id: "philistia" }], tint: "neighbor",
     // The coastal plain of the five cities, from south of Gaza to the Yarkon.
     within: [[[[34.1, 31.15], [34.45, 31.15], [34.7, 31.4], [34.9, 31.62], [34.97, 31.85], [34.95, 32.12], [34.7, 32.15], [34.35, 31.6], [34.1, 31.15]]]],
     yieldTo: ["saul", "united-kingdom", "israel", "israel-after-732", "judah"],
   },
   {
-    id: "phoenicia", name: "Phoenicia", rows: ["Phoenicia"], from: -1150, to: -537, links: [{ kind: "location", id: "phoenicia" }], tint: "neighbour",
+    id: "phoenicia", name: "Phoenicia", rows: ["Phoenicia"], from: -1150, to: -537, links: [{ kind: "location", id: "phoenicia" }], tint: "neighbor",
     // The coast north of Carmel, from Acco to Arvad, without the colonies overseas (Cyprus).
     within: [[[[34.8, 32.85], [35.3, 32.85], [35.5, 33.3], [35.85, 33.9], [36.1, 34.6], [36.15, 35.2], [35.95, 35.5], [35.5, 35.3], [35.2, 34.6], [34.6, 33.6], [34.8, 32.85]]]],
-    // Cliopatria's coastline stops short of Tyre's island and the harbours: a strip along it.
+    // Cliopatria's coastline stops short of Tyre's island and the harbors: a strip along it.
     coast: [[[[34.95, 32.85], [35.05, 33.27], [35.25, 33.58], [35.4, 33.92], [35.55, 34.15], [35.72, 34.47], [35.75, 34.9], [35.92, 34.9], [35.9, 34.45], [35.72, 34.12], [35.58, 33.88], [35.45, 33.55], [35.28, 33.25], [35.12, 32.88], [34.95, 32.85]]]],
     yieldTo: ["united-kingdom", "united-kingdom-subjects", "israel", "aram"],
   },
   // The Nabataeans, until Rome made their kingdom the province of Arabia (AD 106).
-  { id: "nabataeans", name: "Nabataeans", rows: ["Nabataeans"], from: -164, to: 106, links: [{ kind: "location", id: "arabia" }], tint: "neighbour", yieldTo: ["hasmoneans", "herod"] },
+  { id: "nabataeans", name: "Nabataeans", rows: ["Nabataeans"], from: -164, to: 106, links: [{ kind: "location", id: "arabia" }], tint: "neighbor", yieldTo: ["hasmoneans", "herod"] },
   { id: "herod", name: "Herod's kingdom", rows: ["Judea"], from: -35, to: -3, links: [{ kind: "person", id: "herod-the-great" }], tint: "judah" },
 ];
 
