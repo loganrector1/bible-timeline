@@ -9,6 +9,8 @@ import Timeline from "./timeline/Timeline";
 
 // The map library is large; load it only when the map is first shown.
 const MapView = lazy(() => import("./map/MapView"));
+// So is the family tree's layout library.
+const FamilyTree = lazy(() => import("./FamilyTree"));
 
 const MODES: { id: ViewMode; label: string }[] = [
   { id: "timeline", label: "Timeline" },
@@ -21,6 +23,7 @@ export default function AppShell() {
   const setMode = useStore((s) => s.setMode);
   const hasSelection = useStore((s) => s.selection !== null);
   const browseOpen = useStore((s) => s.browseOpen);
+  const treeOpen = useStore((s) => s.familyTree !== null);
   const timeStripPx = useStore((s) => s.timeStripPx);
   const setBrowseOpen = useStore((s) => s.setBrowseOpen);
 
@@ -83,7 +86,7 @@ export default function AppShell() {
             visible: not counting the map's time strip, or the details peek that covers the
             bottom of the map while something is selected. */}
         <main
-          className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
+          className="relative flex min-h-0 min-w-0 flex-1 flex-col md:flex-row"
           style={{ "--below-map": `calc(${timeStripPx}px + ${hasSelection ? PEEK_HEIGHT : "0px"})` } as CSSProperties}
         >
           {showTimeline && (
@@ -100,6 +103,11 @@ export default function AppShell() {
                 <MapView />
               </Suspense>
             </section>
+          )}
+          {treeOpen && (
+            <Suspense fallback={null}>
+              <FamilyTree />
+            </Suspense>
           )}
         </main>
         {hasSelection && <DetailPanel />}

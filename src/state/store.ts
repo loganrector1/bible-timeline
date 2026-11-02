@@ -165,6 +165,12 @@ type State = {
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
   /**
+   * The family tree, while it's open: the person or genealogy name it's centred on, whose line
+   * it highlights. It covers the timeline and map; the details panel stays beside it.
+   */
+  familyTree: string | null;
+  setFamilyTree: (id: string | null) => void;
+  /**
    * The guided tour under way, and its step (from 0). Each step selects its event; selecting
    * something else pauses the tour (the details panel offers the way back), and clearing the
    * selection ends it, though `tourProgress` remembers the step for Browse's "Continue".
@@ -178,7 +184,7 @@ type State = {
   endTour: (opts?: { finished?: boolean }) => void;
   /** Bumped when Escape reaches the bottom layer, with nothing else to close: the map hides its popup. */
   escapeNonce: number;
-  /** Escape from anywhere closes the topmost layer: Browse, then the selection, then the map's popup. */
+  /** Escape from anywhere closes the topmost layer: Browse, the family tree, the selection, then the map's popup. */
   escape: () => void;
 };
 
@@ -268,6 +274,8 @@ export const useStore = create<State>()((set, get) => {
     browseOpen: false,
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
+    familyTree: null,
+    setFamilyTree: (familyTree) => set({ familyTree }),
     tour: null,
     tourProgress: loadTourProgress(),
     startTour: (id, step = 0, opts) => {
@@ -291,8 +299,9 @@ export const useStore = create<State>()((set, get) => {
     escapeNonce: 0,
     escape: () => {
       // Menus (Filter, Settings) catch Escape themselves before it gets here.
-      const { browseOpen, selection } = get();
+      const { browseOpen, familyTree, selection } = get();
       if (browseOpen) set({ browseOpen: false });
+      else if (familyTree) set({ familyTree: null });
       else if (selection) get().select(null);
       else set({ escapeNonce: get().escapeNonce + 1 });
     },

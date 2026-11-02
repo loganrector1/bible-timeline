@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { data, datesFor, type EntityKind, type EntityRef } from "../data";
 import { formatDateSpec } from "../lib/dates";
 import { eventsInOrder } from "../lib/entities";
+import { hasFamily } from "../lib/family";
 import { eventShown, FILTER_TYPES } from "../lib/filters";
 import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
@@ -23,7 +24,7 @@ const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", empire: "Empires"
  * `hidden`: an event the filters hide, or world history while its lane is off. It's still listed
  * (dimmed), and picking it shows it.
  */
-type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: string };
+type Item = { ref: EntityRef; name: string; detail: string; search: string; hidden?: string; tree?: string };
 
 type Suggestion = { label: string; apply: () => void };
 
@@ -132,8 +133,15 @@ export default function BrowsePanel() {
     // Empires sit with the eras: both are spans of time.
     const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "location"]
       : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : [tab];
+    // Names from the genealogies have no entry, so only a search finds them; they open the tree.
+    const names: Item[] = q.length < 2 ? [] : data.genealogy
+      .filter((n) => n.name.toLowerCase().includes(q))
+      .map((n) => ({ ref: { kind: "person", id: n.id }, name: n.name, detail: "Family tree", search: n.name, tree: n.id }));
     return kinds
-      .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
+      .map((kind) => ({
+        kind,
+        items: [...all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)), ...(kind === "person" ? names : [])],
+      }))
       .filter((g) => g.items.length > 0);
   }, [query, tab, chron, eraStyle, filters]);
 
@@ -145,11 +153,16 @@ export default function BrowsePanel() {
     ? data.tours.filter((t) => !q || (tab === "tour" ? `${t.title} ${t.summary}` : t.title).toLowerCase().includes(q))
     : [];
   const activeTour = useStore((s) => s.tour?.id);
+  const showTreeRow = (tab === "person" && !q) || (q.length >= 3 && ["family tree", "genealogy", "genealogies"].some((t) => t.includes(q)));
   const progress = useStore((s) => s.tourProgress);
 
   if (!open) return null;
 
   const closeOnPhone = () => window.innerWidth < 768 && setOpen(false);
+  const openTree = (id: string) => {
+    useStore.getState().setFamilyTree(id);
+    closeOnPhone();
+  };
   const pick = (ref: EntityRef) => {
     select(ref);
     closeOnPhone(); // On phones the panel covers everything.
@@ -241,7 +254,13 @@ export default function BrowsePanel() {
             </ul>
           </section>
         )}
-        {groups.length === 0 && tours.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
+        {showTreeRow && (
+          <button onClick={() => openTree(selection?.kind === "person" && hasFamily(selection.id) ? selection.id : "jesus")} className="mb-3 w-full rounded px-2 py-1.5 text-left text-sm hover:bg-paper-2">
+            <span className="font-medium">Family tree</span>
+            <span className="mt-0.5 block text-xs leading-snug text-ink-muted">From Adam to Jesus: the patriarchs, Jacob’s sons, David’s line through Matthew and Luke.</span>
+          </button>
+        )}
+        {groups.length === 0 && tours.length === 0 && !showTreeRow && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
         {groups.map((g) => (
           <section key={g.kind} className="mb-3">
             {tab === "all" && (
@@ -255,7 +274,7 @@ export default function BrowsePanel() {
                 return (
                   <li key={item.ref.id}>
                     <button
-                      onClick={() => pick(item.ref)}
+                      onClick={() => (item.tree ? openTree(item.tree) : pick(item.ref))}
                       aria-pressed={selected}
                       className={`flex w-full items-baseline justify-between gap-3 rounded px-2 py-1 text-left text-sm ${
                         selected ? "bg-accent text-paper" : "hover:bg-paper-2"

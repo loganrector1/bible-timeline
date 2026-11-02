@@ -21,6 +21,7 @@ export function currentLink(): string {
     // A paused tour (something else selected) isn't part of what's shown.
     tour: s.tour && toursById.get(s.tour.id)?.steps[s.tour.step]?.event === (s.selection?.kind === "event" ? s.selection.id : undefined)
       ? s.tour : null,
+    tree: s.familyTree,
   });
   return `${location.origin}${location.pathname}?${query}`;
 }
@@ -43,6 +44,7 @@ export function startUrlSync() {
   else if (link.selection) store.select(link.selection, { instant: true });
   // After the selection, so filtering doesn't glide away from it; any glide is overridden below.
   if (link.filters) store.setFilters(link.filters);
+  if (link.tree) store.setFamilyTree(link.tree);
   // A link's own year wins over where selecting would put the cursor. A filtered link with
   // neither (a reading plan's `?passage=Exod.12-14`) starts at the first event it shows.
   if (link.year !== undefined) store.setYear(link.year);
@@ -55,7 +57,7 @@ export function startUrlSync() {
   useStore.subscribe((s, prev) => {
     const same = s.mode === prev.mode && s.selection === prev.selection && s.currentYear === prev.currentYear
       && s.pxPerYear === prev.pxPerYear && s.viewportPx === prev.viewportPx && s.filters === prev.filters
-      && s.chronologyId === prev.chronologyId && s.tour === prev.tour;
+      && s.chronologyId === prev.chronologyId && s.tour === prev.tour && s.familyTree === prev.familyTree;
     if (same) return;
     // Only once things settle: gliding and dragging change the year every frame.
     clearTimeout(timer);

@@ -105,9 +105,28 @@ export const Person = z.object({
   kingdom: Kingdom.optional(),
   /** For rulers in the World history lane: the empire they ruled, or ruled for (Pilate, Rome). */
   empire: id.optional(),
+  /** Person or genealogy-name ids (`genealogy.json`), here and in `altParents` and `spouses`. */
   parents: ids,
+  /** The other Gospel's line, where Matthew and Luke name different fathers (Joseph: Jacob or Heli). */
+  altParents: ids,
+  spouses: ids,
+  /** How Scripture relates them, where it needs saying (Jesus and Joseph, Jesus' brothers). */
+  familyNote: z.string().optional(),
+  scripture: z.array(ScriptureRef).default([]),
+});
+
+/**
+ * A name from the genealogies (Seth, Obed, Luke's Heli) that links the family tree but gets no
+ * person entry: no bar, no Browse row, no panel. Shown only in the family tree.
+ */
+export const GenealogyName = z.object({
+  id,
+  name: z.string(),
+  parents: ids,
+  altParents: ids,
   spouses: ids,
   scripture: z.array(ScriptureRef).default([]),
+  note: z.string().optional(),
 });
 
 /**
@@ -238,6 +257,7 @@ export type Empire = z.infer<typeof Empire>;
 export type EventType = z.infer<typeof EventType>;
 export type Event = z.infer<typeof Event>;
 export type Person = z.infer<typeof Person>;
+export type GenealogyName = z.infer<typeof GenealogyName>;
 export type Location = z.infer<typeof Location>;
 export type Tour = z.infer<typeof Tour>;
 export type Journey = z.infer<typeof Journey>;
