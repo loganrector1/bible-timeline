@@ -19,56 +19,89 @@ export type FamilyLayout = {
   height: number;
 };
 
+/** Space between cards side by side, in a household or between neighbors in a row. */
+const GAP = 14;
+
 /**
  * Lays out the family `id` belongs to, top to bottom like the timeline: parents above their
  * union, children below it. Dagre ranks by edges, so a generation isn't a row: Luke's longer line
  * from David to Joseph stretches Matthew's beside it.
+ *
+ * Dagre doesn't know spouses belong together, and left to itself put Jochebed far from Amram,
+ * across Judah's line, with lines crossing both ways. So each household (a couple, or Jacob with his
+ * four wives: everyone joined by having children together) is one node, its cards side by side,
+ * and families can't interleave. Within one, each person stands toward their parents and children.
  */
 export function layoutFamily(id: string, g: FamilyGraph = familyGraph): FamilyLayout {
   const members = familyOf(id, g);
   const graph = new dagre.graphlib.Graph();
-  graph.setGraph({ rankdir: "TB", nodesep: 14, ranksep: 18, marginx: 24, marginy: 24 });
+  graph.setGraph({ rankdir: "TB", nodesep: GAP, ranksep: 18, marginx: 24, marginy: 24 });
   graph.setDefaultEdgeLabel(() => ({}));
 
+  const unions = [...g.unions.values()].filter((u) => u.parents.every((p) => members.has(p)));
+  // Households: people joined by a union's parents.
+  const home = new Map<string, string>([...members].map((m) => [m, m]));
+  const find = (m: string): string => (home.get(m) === m ? m : find(home.get(m)!));
+  for (const u of unions) for (const p of u.parents.slice(1)) home.set(find(p), find(u.parents[0]));
   // In the data's order, whoever the tree was opened from: dagre's result depends on it.
   const order = [...data.people, ...data.genealogy].map((e) => e.id).filter((m) => members.has(m));
-  for (const m of order) {
+  const households = new Map<string, string[]>();
+  for (const m of order) households.set(`h:${find(m)}`, [...(households.get(`h:${find(m)}`) ?? []), m]);
+  const householdOf = (m: string) => `h:${find(m)}`;
+
+  const width = new Map(order.map((m) => {
     const kin = kinById(m);
-    graph.setNode(m, { width: cardWidth(kin?.name ?? m, !!kin?.female), height: CARD_H });
+    return [m, cardWidth(kin?.name ?? m, !!kin?.female)];
+  }));
+  for (const [h, people] of households) {
+    graph.setNode(h, { width: people.reduce((w, m) => w + width.get(m)!, 0) + GAP * (people.length - 1), height: CARD_H });
   }
-  const unions = [...g.unions.values()].filter((u) => u.parents.every((p) => members.has(p)));
   for (const u of unions) {
     graph.setNode(u.id, { width: 4, height: 4 });
-    for (const p of u.parents) graph.setEdge(p, u.id, { weight: 4 });
-    for (const c of u.children) graph.setEdge(u.id, c, { weight: 2 });
+    graph.setEdge(householdOf(u.parents[0]), u.id, { weight: 4 });
+    for (const c of u.children) graph.setEdge(u.id, householdOf(c), { weight: 2 });
   }
   const alt = g.alt.filter(([p, c]) => members.has(p) && members.has(c));
-  for (const [p, c] of alt) graph.setEdge(p, c, { weight: 1 });
+  for (const [p, c] of alt) graph.setEdge(householdOf(p), householdOf(c), { weight: 1 });
 
   dagre.layout(graph);
 
-  const cards = new Map<string, LaidCard>();
-  for (const m of members) {
-    const n = graph.node(m);
-    cards.set(m, { id: m, x: n.x, y: n.y, w: n.width, h: n.height });
-  }
   const laidUnions = unions.map((u) => ({ ...u, x: graph.node(u.id).x, y: graph.node(u.id).y }));
-  const edges: LaidEdge[] = graph.edges().map((e) => ({
-    from: e.v,
-    to: e.w,
-    points: graph.edge(e).points ?? [],
-    alt: !e.v.startsWith("u:") && !e.w.startsWith("u:"),
-  }));
+  const unionX = new Map(laidUnions.map((u) => [u.id, u.x]));
+  // Each person's pull: where their parents' union and their own unions sit.
+  const pull = (m: string) => {
+    const xs = laidUnions.filter((u) => u.children.includes(m) || u.parents.includes(m)).map((u) => unionX.get(u.id)!);
+    return xs.reduce((a, b) => a + b, 0) / xs.length;
+  };
+  const cards = new Map<string, LaidCard>();
+  for (const [h, people] of households) {
+    const n = graph.node(h);
+    let x = n.x - n.width / 2;
+    for (const m of [...people].sort((a, b) => pull(a) - pull(b))) {
+      cards.set(m, { id: m, x: x + width.get(m)! / 2, y: n.y, w: width.get(m)!, h: CARD_H });
+      x += width.get(m)! + GAP;
+    }
+  }
+
+  // The lines drawn: each parent's card to its union, the union to each child's card, and the
+  // other Gospel's fathers straight to the child. A long one keeps dagre's bends for its household.
+  const bends = (v: string, w: string) => graph.edge(v, w)?.points ?? [];
+  const edges: LaidEdge[] = [
+    ...unions.flatMap((u) => [
+      ...u.parents.map((p) => ({ from: p, to: u.id, points: bends(householdOf(p), u.id) })),
+      ...u.children.map((c) => ({ from: u.id, to: c, points: bends(u.id, householdOf(c)) })),
+    ]),
+    ...alt.map(([p, c]) => ({ from: p, to: c, points: bends(householdOf(p), householdOf(c)), alt: true })),
+  ];
   // A link to the next row is drawn without dagre's bend (`edgePath`), card edge to card edge, so
-  // the untangling below measures it that way.
+  // the untangling below measures it that way; a longer one runs from its own card's edge.
   const end = (id: string, side: 1 | -1) => {
     const c = cards.get(id);
-    return c ? { x: c.x, y: c.y + (side * c.h) / 2 } : laidUnions.find((u) => u.id === id)!;
+    return c ? { x: c.x, y: c.y + (side * c.h) / 2 } : { x: unionX.get(id)!, y: graph.node(id).y };
   };
   for (const e of edges) {
-    if (e.points.length <= 3) e.points = [end(e.from, 1), end(e.to, -1)].map(({ x, y }) => ({ x, y }));
+    e.points = e.points.length <= 3 ? [end(e.from, 1), end(e.to, -1)] : [end(e.from, 1), ...e.points.slice(1, -1), end(e.to, -1)];
   }
-  untangleSpouses(cards, laidUnions, edges);
   untangleLeaves(cards, laidUnions, edges);
   const size = graph.graph();
   const right = Math.max(size.width ?? 0, ...[...cards.values()].map((c) => c.x + c.w / 2 + 24));
@@ -102,62 +135,6 @@ function untangleLeaves(cards: Map<string, LaidCard>, unions: LaidUnion[], edges
       if (!free || x - card.w / 2 < 0 || tangled(x)) continue;
       card.x = x;
       edge.points = [{ x: u.x, y: u.y }, { x, y: card.y - card.h / 2 }];
-    }
-  }
-}
-
-/**
- * The same for a spouse who is only that (no parents here, no other marriage: Hagar) with a union
- * whose children have no line below them (Ishmael): the group moves to the other side of the other
- * parent (Abraham), mirrored and then drawn in beside them, when the spots are free and it crosses
- * fewer lines there.
- */
-function untangleSpouses(cards: Map<string, LaidCard>, unions: LaidUnion[], edges: LaidEdge[]) {
-  const hasLineBelow = new Set(edges.filter((e) => cards.has(e.from)).map((e) => e.from));
-  const hasLineAbove = new Set(edges.filter((e) => cards.has(e.to) || e.alt).map((e) => e.to));
-  for (const u of unions) {
-    if (u.parents.length !== 2 || u.children.some((c) => hasLineBelow.has(c))) continue;
-    for (const [spouse, other] of [u.parents, [...u.parents].reverse()]) {
-      const marriages = unions.filter((v) => v.parents.includes(spouse)).length;
-      if (hasLineAbove.has(spouse) || marriages !== 1) continue;
-      const axis = cards.get(other)!.x;
-      const group = [spouse, u.id, ...u.children];
-      // Mirrored across the other parent, then shifted in so the spouse stands right beside them.
-      const near = (cards.get(other)!.w + cards.get(spouse)!.w) / 2 + 14;
-      const side = Math.sign(axis - cards.get(spouse)!.x);
-      const shift = 2 * axis - cards.get(spouse)!.x - (axis + side * near);
-      const flipX = (x: number) => 2 * axis - x - shift;
-      const mine = edges.filter((e) => group.includes(e.from) || group.includes(e.to));
-      const rest = edges.filter((e) => !mine.includes(e)).flatMap((e) => segments(e.points));
-      const tangles = (es: P[][]) => es.flatMap(segments).filter((s) => rest.some((o) => crosses(s, o))).length;
-      // Each moved card and the union, mirrored; the lines between them redrawn straight.
-      // A card's line leaves its bottom edge and arrives at its top.
-      const at = (id: string, flip: boolean, side: 1 | -1) => {
-        const card = cards.get(id);
-        const c = card ?? unions.find((v) => v.id === id)!;
-        return { x: flip && group.includes(id) ? flipX(c.x) : c.x, y: c.y + (card ? (side * card.h) / 2 : 0) };
-      };
-      const lines = (flip: boolean) => mine.map((e) => {
-        const a = at(e.from, flip, 1);
-        const b = at(e.to, flip, -1);
-        return [a, b];
-      });
-      const before = tangles(mine.map((e) => e.points));
-      if (before === 0 || tangles(lines(true)) >= before) continue;
-      const free = group.filter((id) => cards.has(id)).every((id) => {
-        const card = cards.get(id)!;
-        const x = flipX(card.x);
-        return x - card.w / 2 >= 0 && [...cards.values()].every((c) =>
-          group.includes(c.id) || Math.abs(c.y - card.y) > 1 || Math.abs(c.x - x) >= (c.w + card.w) / 2 + 14 - 0.5);
-      });
-      if (!free) continue;
-      const moved = lines(true);
-      mine.forEach((e, i) => (e.points = moved[i]));
-      for (const id of group) {
-        const c = cards.get(id) ?? u;
-        c.x = flipX(c.x);
-      }
-      break;
     }
   }
 }
