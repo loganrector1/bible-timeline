@@ -3,7 +3,7 @@ import { useStore, type ViewMode } from "../state/store";
 import BrowsePanel from "./BrowsePanel";
 import DetailPanel, { PEEK_HEIGHT } from "./DetailPanel";
 import { FilterBar, FilterButton } from "./Filters";
-import Onboarding from "./Onboarding";
+import Dialogs from "./Dialogs";
 import SettingsMenu from "./SettingsMenu";
 import Timeline from "./timeline/Timeline";
 
@@ -121,7 +121,7 @@ export default function AppShell() {
         </main>
         {hasSelection && <DetailPanel />}
       </div>
-      <Onboarding />
+      <Dialogs />
     </div>
   );
 }

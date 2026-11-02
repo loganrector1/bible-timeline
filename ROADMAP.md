@@ -88,7 +88,7 @@ None planned. A theme filter (covenants, prophecy fulfilled…, with tags on eve
 - ~~**A favicon** in place of the placeholder cross.~~ An open Bible with a road between two places (`public/icon.svg`).
 - ~~**The header's styling**, finished.~~ The title was plain; the icon now stands beside it.
 - ~~**An icon beside "Bible Timeline"**, or the name alone.~~ From 412px wide; narrower phones have no room.
-- **Credits and a link to the GitHub repo** in the app, not just the map's attribution and the README.
+- ~~**Credits and a link to the GitHub repo** in the app, not just the map's attribution and the README.~~ Settings → About: the credits, the GitHub link and the welcome tips again.
 
 ## Later: reading plans (separate app)
 

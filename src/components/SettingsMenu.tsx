@@ -110,6 +110,15 @@ export default function SettingsMenu() {
             onChange={setChronology}
             note={`${current?.summary ?? ""} Moves every date from Creation to Deborah, the patriarchs included; from Gideon on, both agree.`}
           />
+          <button
+            onClick={() => {
+              setOpen(false);
+              useStore.getState().setDialog("about");
+            }}
+            className="-mx-3 -mb-3 block w-[calc(100%+1.5rem)] rounded-b-xl border-t border-line px-3 py-2.5 text-left text-sm text-ink-muted hover:bg-paper-2 hover:text-ink"
+          >
+            About Bible Timeline · credits
+          </button>
         </div>
       )}
     </div>

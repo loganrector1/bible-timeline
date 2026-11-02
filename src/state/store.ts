@@ -36,6 +36,17 @@ function saveLanes(lanes: Lane[]) {
   }
 }
 
+/** The card over the app: the first-run welcome (shown once per browser) or About (from Settings). */
+export type Dialog = "welcome" | "about";
+const WELCOME_KEY = "bible-timeline:onboarded";
+function welcomeSeen(): boolean {
+  try {
+    return localStorage.getItem(WELCOME_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 /** "system" follows the OS; the others override it. Remembered per browser. */
 export type Theme = "system" | "light" | "dark";
 const THEME_KEY = "bible-timeline:theme";
@@ -164,6 +175,9 @@ type State = {
   showOnTimeline: (ref: EntityRef) => void;
   browseOpen: boolean;
   setBrowseOpen: (open: boolean) => void;
+  dialog: Dialog | null;
+  /** Closing the welcome card remembers it was seen. */
+  setDialog: (dialog: Dialog | null) => void;
   /**
    * The family tree, while it's open: the person or genealogy name it's centered on. It takes the map's place (the view switcher reads Timeline · Both · Tree), and
    * follows the timeline's year. Selecting a genealogy name opens it, and closing it clears one:
@@ -282,6 +296,17 @@ export const useStore = create<State>()((set, get) => {
     browseOpen: false,
 
     setBrowseOpen: (browseOpen) => set({ browseOpen }),
+    dialog: welcomeSeen() ? null : "welcome",
+    setDialog: (dialog) => {
+      if (get().dialog === "welcome" && dialog !== "welcome") {
+        try {
+          localStorage.setItem(WELCOME_KEY, "1");
+        } catch {
+          // Private browsing or blocked storage: the card will simply show again next time.
+        }
+      }
+      set({ dialog });
+    },
     familyTree: null,
     setFamilyTree: (familyTree) => {
       // Opening it colors the selected person's line (if they're in the family shown), whatever
@@ -319,8 +344,9 @@ export const useStore = create<State>()((set, get) => {
     escapeNonce: 0,
     escape: () => {
       // Menus (Filter, Settings) catch Escape themselves before it gets here.
-      const { browseOpen, familyTree, familyLine, selection } = get();
-      if (browseOpen) set({ browseOpen: false });
+      const { dialog, browseOpen, familyTree, familyLine, selection } = get();
+      if (dialog) get().setDialog(null);
+      else if (browseOpen) set({ browseOpen: false });
       else if (selection) get().select(null);
       else if (familyTree && familyLine) set({ familyLine: null });
       else if (familyTree) get().setFamilyTree(null);
