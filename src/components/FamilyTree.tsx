@@ -29,7 +29,8 @@ type View = { x: number; y: number; k: number };
  * back to Adam) drawn strongly. It keeps in step with the timeline: the row at its middle is the
  * generation alive at the cursor's year (`treeTime`), so scrubbing slides the tree and dragging
  * the tree moves the cursor; sideways it's free. Clicking anyone, person or genealogy name,
- * selects them, so both open in the details panel.
+ * selects them, so both open in the details panel, and colors their line; clicking them again
+ * deselects them, leaving no line in color.
  */
 export default function FamilyTree() {
   const focus = useStore((s) => s.familyTree);
@@ -54,7 +55,9 @@ export default function FamilyTree() {
 
   const layout = focus ? layoutFor(focus) : undefined;
   const time = useMemo(() => layout && treeTime(layout, chron), [layout, chron]);
-  const line = useMemo(() => (focus ? lineOf(focus) : new Set<string>()), [focus]);
+  // The line in color is the selection's, so selecting someone again (deselecting) clears it.
+  const lit = (selection?.kind === "person" || selection?.kind === "name") && layout?.cards.has(selection.id) ? selection.id : undefined;
+  const line = useMemo(() => (lit ? lineOf(lit) : new Set<string>()), [lit]);
 
   /** Sets the view, kept so the tree always reaches the middle of the box both ways. */
   const show = (to: View) => {
@@ -196,11 +199,13 @@ export default function FamilyTree() {
   const zoomBy = (factor: number) => zoomAt(box.current!.clientWidth / 2, factor);
 
   if (!focus || !layout) return null;
-  const focusKin = kinById(focus);
+  const litKin = lit ? kinById(lit) : undefined;
   const { x, y, k } = view.current;
 
   const pick = (id: string) => {
     if (moved.current > DRAG_PX) return; // The end of a drag, not a tap.
+    // Like a filter chip: tapping the selected card again deselects it.
+    if (id === lit) return select(null);
     setFocus(id);
     select({ kind: kinById(id)?.person ? "person" : "name", id });
   };
@@ -220,13 +225,13 @@ export default function FamilyTree() {
         <div className="min-w-0">
           <h2 className="font-serif text-lg leading-tight font-semibold">Family tree</h2>
           <p className="truncate text-xs text-ink-muted">
-            {focusKin?.name}’s line in color<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
+            {litKin ? `${litKin.name}’s line in color` : "Select anyone to see their line"}<span className="max-sm:hidden">; dashed names are known only from the genealogies</span>.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
           <button onClick={() => zoomBy(1 / 1.3)} aria-label="Zoom the tree out" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">−</button>
           <button onClick={() => zoomBy(1.3)} aria-label="Zoom the tree in" className="rounded border border-line bg-paper px-2 text-lg leading-7 hover:bg-paper-2">+</button>
-          <button onClick={() => reveal(focus, true)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
+          <button onClick={() => reveal(lit ?? focus, true)} className="rounded border border-line bg-paper px-2 text-sm leading-7 hover:bg-paper-2 max-sm:hidden">
             Center
           </button>
           <button onClick={() => setFocus(null)} aria-label="Close family tree" className="rounded p-1.5 text-ink-muted hover:bg-paper hover:text-ink">✕</button>
@@ -265,7 +270,7 @@ export default function FamilyTree() {
           </svg>
           {[...layout.cards.values()].map((c) => {
             const kin = kinById(c.id)!;
-            const isFocus = c.id === focus;
+            const isFocus = c.id === lit;
             const isPerson = !!kin.person;
             const onTheLine = line.has(c.id);
             // Women are tinted rose and marked ♀, so a mother's line reads apart from a father's.
@@ -278,7 +283,7 @@ export default function FamilyTree() {
               <button
                 key={c.id}
                 onClick={() => pick(c.id)}
-                aria-current={isFocus || undefined}
+                aria-pressed={isFocus}
                 className={`absolute flex items-center justify-center gap-1 rounded-full border px-2 text-sm whitespace-nowrap hover:border-accent ${isPerson ? "font-medium" : "border-dashed"} ${fill} ${border}`}
                 style={{ left: c.x - c.w / 2, top: c.y - c.h / 2, width: c.w, height: CARD_H }}
               >
