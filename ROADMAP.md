@@ -85,9 +85,9 @@ All of the data reviewed in one pass, era by era from Genesis to Revelation, the
 None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part. Finishing touches:
 
 - **Install as an app** (a PWA: manifest, icons, offline cache), so it opens from a phone's home screen.
-- **A favicon** in place of the placeholder cross.
-- **The header's styling**, finished.
-- **An icon beside "Bible Timeline"**, or the name alone.
+- ~~**A favicon** in place of the placeholder cross.~~ An open Bible with a road between two places (`public/icon.svg`).
+- ~~**The header's styling**, finished.~~ The title was plain; the icon now stands beside it.
+- ~~**An icon beside "Bible Timeline"**, or the name alone.~~ From 412px wide; narrower phones have no room.
 - **Credits and a link to the GitHub repo** in the app, not just the map's attribution and the README.
 
 ## Later: reading plans (separate app)

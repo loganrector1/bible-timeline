@@ -41,7 +41,11 @@ export default function AppShell() {
     <div className="relative flex h-full flex-col">
       <header className="relative flex items-center justify-between gap-1 border-b border-line bg-paper-2 px-3 py-2 min-[400px]:gap-1.5 sm:gap-3 sm:px-4">
         <div className="flex items-center gap-1 min-[400px]:gap-1.5 sm:gap-3">
-          <h1 className="font-serif text-base leading-tight font-semibold tracking-tight min-[400px]:text-lg sm:text-xl">Bible Timeline</h1>
+          <h1 className="flex items-center gap-1.5 font-serif text-base leading-tight font-semibold tracking-tight min-[400px]:text-lg sm:gap-2 sm:text-xl">
+            {/* Narrower than 412px the header has no room for it. */}
+            <img src="/icon.svg" alt="" className="hidden size-6 shrink-0 min-[412px]:block sm:size-7" />
+            Bible Timeline
+          </h1>
           <button
             onClick={() => setBrowseOpen(!browseOpen)}
             aria-pressed={browseOpen}
