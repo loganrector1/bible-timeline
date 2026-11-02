@@ -1198,12 +1198,12 @@
   },
   {
     "id": "first-return", "title": "The first exiles return", "type": "journey",
-    "summary": "About fifty thousand exiles return with Zerubbabel, rebuild the altar, and lay the foundation of the new temple amid shouts and weeping.",
+    "summary": "About fifty thousand exiles return with Zerubbabel, rebuild the altar, and lay the foundation of the new temple amid shouts and weeping. When they turn away the people of the land who offer to help, their neighbors frighten the builders and hire counselors against them, and the work stops until Darius's day.",
     "dates": { "early": { "start": { "year": -536 }, "confidence": "approx" } },
     "dateNote": "The temple's foundation was laid in the second month of the second year after their return (Ezra 3:8).",
     "people": ["zerubbabel"], "locations": ["babel", "jerusalem"],
     "journeyId": "zerubbabel-return",
-    "scripture": [{ "book": "Ezra", "chapter": 2, "endChapter": 3 }]
+    "scripture": [{ "book": "Ezra", "chapter": 2, "endChapter": 4 }]
   },
   {
     "id": "temple-rebuilt", "title": "The second temple completed", "type": "worship", "major": true,
@@ -1212,6 +1212,14 @@
     "dateNote": "Work resumed in Darius's second year, 520 BC (Haggai 1:15), and the temple was finished on 3 Adar in his sixth year, March 515 BC (Ezra 6:15).",
     "people": ["zerubbabel", "haggai", "zechariah", "darius"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
+  },
+  {
+    "id": "zechariah-visions", "title": "Zechariah's visions", "type": "ministry",
+    "summary": "While the temple is being rebuilt, Zechariah sees eight visions in one night: horsemen among the myrtles, a lampstand fed by two olive trees, a flying scroll. To Zerubbabel he says, \"Not by might nor by power, but by My Spirit, says the LORD of Hosts.\" Later oracles look ahead to Zion's King, \"humble and riding on a donkey,\" and to the day when the LORD will be king over all the earth.",
+    "dates": { "early": { "start": { "year": -519, "month": 11, "label": "8th month" }, "end": { "year": -517, "month": 12, "label": "4th of 9th month" }, "confidence": "approx" } },
+    "dateNote": "From the eighth month of Darius's second year, 520 BC (Zechariah 1:1), to the fourth of the ninth month of his fourth year, December 518 BC (Zechariah 7:1). Chapters 9–14 aren't dated; some place them later in Zechariah's life.",
+    "people": ["zechariah", "zerubbabel"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Zechariah", "chapter": 1, "endChapter": 14 }]
   },
   {
     "id": "marathon", "title": "The battle of Marathon", "type": "battle", "world": true,
@@ -1223,20 +1231,20 @@
   },
   {
     "id": "esther", "title": "Esther saves her people", "type": "other", "major": true,
-    "summary": "Haman plots to destroy the Jews of the Persian Empire. Queen Esther risks her life to plead with the king, and the day set for their destruction becomes a day of deliverance, remembered at Purim.",
+    "summary": "When Queen Vashti refuses King Ahasuerus, the young Jewish woman Esther is made queen in her place. Haman plots to destroy the Jews of the Persian Empire, and Esther's cousin Mordecai urges her: \"who knows if perhaps you have come to the kingdom for such a time as this?\" She risks her life to plead with the king, and the day set for their destruction becomes a day of deliverance, remembered at Purim.",
     "dates": { "early": { "start": { "year": -472, "month": 3, "label": "13 Adar" }, "confidence": "approx" } },
     "dateNote": "The lots were cast in Ahasuerus's twelfth year (Esther 3:7). He is usually identified with Xerxes I, which places the day in March 473 BC.",
     "people": ["esther", "mordecai", "xerxes"], "locations": ["susa"],
-    "scripture": [{ "book": "Esther", "chapter": 3, "endChapter": 9 }]
+    "scripture": [{ "book": "Esther", "chapter": 1, "endChapter": 10 }]
   },
   {
     "id": "ezra-return", "title": "Ezra returns to Jerusalem", "type": "journey",
-    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah.",
+    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah. Finding that many, leaders among them, have married women of the surrounding peoples, he weeps and confesses before the house of God, and the people agree to send the foreign wives away.",
     "dates": { "early": { "start": { "year": -457, "month": 4, "label": "1st of 1st month" }, "end": { "year": -457, "month": 8, "label": "1st of 5th month" }, "confidence": "approx" } },
     "dateNote": "In Artaxerxes's seventh year, 458 BC (Ezra 7:7–9).",
     "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
     "journeyId": "ezra-return",
-    "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
+    "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 10 }]
   },
   {
     "id": "psalms-gathered", "title": "The book of Psalms gathered", "type": "writing",
@@ -1256,19 +1264,19 @@
   },
   {
     "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",
-    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law.",
-    "dates": { "early": { "start": { "year": -444, "month": 8 }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
+    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law: \"the joy of the LORD is your strength.\" They confess their sins, sign a covenant to keep the Law, and dedicate the walls with two great choirs.",
+    "dates": { "early": { "start": { "year": -444, "month": 8, "label": "5th month" }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
     "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
     "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"], "journeyId": "nehemiah-to-jerusalem",
-    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 8 }]
+    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 12 }]
   },
   {
     "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "ministry",
-    "summary": "Malachi rebukes careless worship and broken marriages, and promises that the Lord will send Elijah before he comes. Then Scripture falls silent for four hundred years.",
+    "summary": "Back in Jerusalem for a second term, Nehemiah finds the temple neglected, the Sabbath broken and marriages to foreign women again. Malachi rebukes the same careless worship and broken marriages, and promises that the Lord will send Elijah before he comes. Then Scripture falls silent for four hundred years.",
     "dates": { "early": { "start": { "year": -429 }, "confidence": "approx" } },
-    "dateNote": "Not dated. Malachi faces the same problems Nehemiah did (Nehemiah 13), so he is usually placed about 430 BC.",
-    "people": ["malachi"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "Malachi", "chapter": 1, "endChapter": 4 }]
+    "dateNote": "Not dated. Malachi faces the same problems Nehemiah did on his return after Artaxerxes's thirty-second year, 433 BC (Nehemiah 13:6), so he is usually placed about 430 BC.",
+    "people": ["malachi", "nehemiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Malachi", "chapter": 1, "endChapter": 4 }, { "book": "Nehemiah", "chapter": 13 }]
   },
   {
     "id": "alexander", "title": "Alexander the Great conquers Persia", "type": "battle", "world": true,
