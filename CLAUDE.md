@@ -78,7 +78,6 @@ node scripts/cliopatria.mjs [--refresh]   # rebuild src/data/borders/cliopatria.
 
 ## Open questions and known issues
 
-- On the map, a child event's stop label can nearly repeat the place name ("Crossing the Red Sea" beside "Red Sea crossing (Yam Suph)?").
 - Nine events have no places, so they get no map popup or dots: Creation, the Fall and Cain and Abel (Eden and Nod can't be located), Job's trials (nor can Uz), the battle of Qarqar (a world event; Qarqar isn't among our places), John the Baptist's beheading (only Josephus names Machaerus, which OpenBible lacks), and the writing of Matthew's Gospel, Hebrews and Jude (where they were written isn't known).
 - With the World history lane on, phones have little room left for the event lane (as with the Kings lane): the lanes' widths are fixed by their busiest stretch.
 - At the map's closest framing (zoom 7.5), places a few hundred meters apart in Jerusalem (Golgotha, Gethsemane, Moriah) hide each other's labels.
