@@ -73,7 +73,7 @@
     "chronology": "early",
     "stops": [
       { "locationId": "sinai", "at": { "year": -1444, "month": 5, "day": 20, "label": "20th of 2nd month, 2nd year" } },
-      { "locationId": "kadesh-barnea", "at": { "year": -1444, "month": 7 } }
+      { "locationId": "kadesh-barnea", "at": { "year": -1444, "month": 7, "label": "Season of first grapes" } }
     ]
   },
   {
@@ -82,9 +82,10 @@
     "summary": "In the fortieth year Israel leaves Kadesh, goes around Edom, and camps opposite Jericho.",
     "chronology": "early",
     "stops": [
-      { "locationId": "kadesh-barnea", "at": { "year": -1406, "month": 4 } },
-      { "locationId": "mount-hor", "at": { "year": -1406, "month": 8, "day": 1 }, "note": "Aaron dies." },
-      { "locationId": "plains-of-moab", "at": { "year": -1406, "month": 11 } }
+      { "locationId": "kadesh-barnea", "at": { "year": -1406, "month": 4, "label": "1st month, 40th year" } },
+      { "locationId": "mount-hor", "at": { "year": -1406, "month": 8, "day": 1, "label": "1st of 5th month, 40th year" }, "note": "Aaron dies." },
+      { "locationId": "punon", "note": "Listed among the camps after Mount Hor (Numbers 33:42)." },
+      { "locationId": "plains-of-moab", "via": [[35.62, 30.95], [35.95, 30.97], [36.18, 31.2], [36.15, 31.5], [35.85, 31.75]], "at": { "year": -1406, "month": 11, "label": "Before the 11th month" }, "note": "Around Edom and Moab on the desert side, across the Arnon, and through Sihon's land (Numbers 21:4–35); the exact route is uncertain." }
     ]
   },
   {

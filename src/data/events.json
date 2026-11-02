@@ -283,6 +283,7 @@
       "early": { "start": { "year": -1525 }, "confidence": "approx" },
       "late": { "start": { "year": -1339 }, "confidence": "approx" }
     },
+    "dateNote": "Moses was 80 when he and Aaron spoke to Pharaoh (Exodus 7:7).",
     "people": ["moses", "miriam"], "locations": ["goshen"], "regions": ["egypt"],
     "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 1, "endVerse": 10 }]
   },
@@ -304,6 +305,7 @@
       "early": { "start": { "year": -1446 }, "confidence": "approx" },
       "late": { "start": { "year": -1260 }, "confidence": "approx" }
     },
+    "dateNote": "Forty years after Moses fled to Midian (Acts 7:30), shortly before the Exodus.",
     "people": ["moses", "aaron", "jethro"], "locations": ["sinai", "midian"],
     "scripture": [{ "book": "Exodus", "chapter": 3, "endChapter": 4 }]
   },
@@ -314,6 +316,7 @@
       "early": { "start": { "year": -1446 }, "end": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
       "late": { "start": { "year": -1260 }, "end": { "year": -1259, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" }
     },
+    "dateNote": "Scripture doesn't say how long the plagues lasted; they end with the Passover on the 14th of the first month (Exodus 12:6).",
     "people": ["moses", "aaron", "pharaoh-exodus"], "locations": ["egypt", "rameses"], "regions": ["egypt", "goshen"],
     "scripture": [{ "book": "Exodus", "chapter": 7, "endChapter": 11 }]
   },
@@ -349,6 +352,7 @@
       "early": { "start": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 4, "label": "1st month" }, "confidence": "approx" }
     },
+    "dateNote": "A few days after Israel left Rameses on the 15th of the first month (Numbers 33:3–8); Scripture doesn't give the day.",
     "people": ["moses", "miriam", "aaron", "pharaoh-exodus"], "locations": ["red-sea"],
     "scripture": [{ "book": "Exodus", "chapter": 14, "endChapter": 15, "endVerse": 21 }]
   },
@@ -359,6 +363,7 @@
       "early": { "start": { "year": -1445, "month": 5, "day": 15, "label": "15th of 2nd month" }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 5, "day": 15, "label": "15th of 2nd month" }, "confidence": "approx" }
     },
+    "dateNote": "Exodus 16:1.",
     "people": ["moses", "aaron"], "locations": ["wilderness-of-sin"],
     "scripture": [{ "book": "Exodus", "chapter": 16 }]
   },
@@ -369,11 +374,12 @@
       "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 5, "label": "2nd month" }, "confidence": "approx" }
     },
+    "dateNote": "At Rephidim, between the wilderness of Sin in the 2nd month and Sinai in the 3rd (Exodus 16:1; 17:1; 19:1).",
     "people": ["moses", "joshua", "aaron"], "locations": ["rephidim"],
     "scripture": [{ "book": "Exodus", "chapter": 17 }]
   },
   {
-    "id": "sinai-covenant", "title": "The covenant at Sinai", "type": "covenant", "major": true,
+    "id": "sinai-covenant", "title": "The Ten Commandments", "type": "covenant", "major": true,
     "summary": "At Mount Sinai God gives the Ten Commandments and makes his covenant with Israel as his treasured people.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 6, "label": "3rd month" }, "confidence": "approx" },
@@ -446,8 +452,20 @@
       "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
       "late": { "start": { "year": -1220, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" }
     },
+    "dateNote": "\"In the first month\" (Numbers 20:1); the 40th year, since Aaron died later that year (Numbers 33:38).",
     "people": ["miriam"], "locations": ["kadesh-barnea"],
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 1 }]
+  },
+  {
+    "id": "waters-of-meribah", "title": "Moses strikes the rock", "type": "judgment", "partOf": "to-moab",
+    "summary": "At Kadesh the people have no water. God tells Moses to speak to the rock, but Moses strikes it twice. Water gushes out, but the LORD tells Moses and Aaron: \"Because you did not trust Me to show My holiness in the sight of the Israelites, you will not bring this assembly into the land that I have given them.\"",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "At Kadesh after Miriam's death (Numbers 20:1–2).",
+    "people": ["moses", "aaron"], "locations": ["kadesh-barnea"],
+    "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 2, "endVerse": 13 }]
   },
   {
     "id": "aaron-dies", "title": "Death of Aaron", "type": "death", "partOf": "to-moab",
@@ -461,15 +479,38 @@
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endVerse": 29 }]
   },
   {
+    "id": "bronze-serpent", "title": "The bronze serpent", "type": "miracle", "partOf": "to-moab",
+    "summary": "On the long way around Edom the people speak against God and Moses, and venomous snakes bite them. Moses makes a bronze snake and mounts it on a pole: anyone bitten who looks at it lives. Jesus says, \"Just as Moses lifted up the snake in the wilderness, so the Son of Man must be lifted up\" (John 3:14).",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 9, "label": "40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 9, "label": "40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "After Aaron's death in the 5th month and before Israel reached the plains of Moab (Numbers 21:4; 22:1); Scripture gives no date.",
+    "people": ["moses"], "locations": ["punon"],
+    "scripture": [{ "book": "Numbers", "chapter": 21, "verse": 4, "endVerse": 9 }, { "book": "John", "chapter": 3, "verse": 14, "endVerse": 15 }]
+  },
+  {
     "id": "to-moab", "title": "Journey to the Plains of Moab", "type": "journey",
     "summary": "Israel travels around Edom, defeats Sihon and Og, and camps on the plains of Moab across from Jericho.",
     "dates": {
-      "early": { "start": { "year": -1406, "month": 4 }, "end": { "year": -1406, "month": 11 }, "confidence": "approx" },
-      "late": { "start": { "year": -1220, "month": 4 }, "end": { "year": -1220, "month": 11 }, "confidence": "approx" }
+      "early": { "start": { "year": -1406, "month": 4, "label": "1st month" }, "end": { "year": -1406, "month": 11, "label": "before the 11th month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 4, "label": "1st month" }, "end": { "year": -1220, "month": 11, "label": "before the 11th month" }, "confidence": "approx" }
     },
-    "people": ["moses", "joshua"], "locations": ["kadesh-barnea", "mount-hor", "plains-of-moab"],
+    "dateNote": "From Kadesh in the first month of the 40th year (Numbers 20:1) to the plains of Moab, where Moses spoke in the 11th month (Deuteronomy 1:3–5).",
+    "people": ["moses", "joshua"], "locations": ["kadesh-barnea", "mount-hor", "punon", "plains-of-moab"],
     "journeyId": "kadesh-to-moab",
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endChapter": 22, "endVerse": 1 }]
+  },
+  {
+    "id": "balaam", "title": "Balaam and his donkey", "type": "prophecy",
+    "summary": "Balak king of Moab hires the seer Balaam to curse Israel. On the way an angel blocks the road and Balaam's donkey speaks. From the heights over Israel's camp Balaam can only bless: \"How can I curse those whom God has not cursed?\" He sees a star that \"will come forth from Jacob.\"",
+    "dates": {
+      "early": { "start": { "year": -1406, "month": 12, "label": "40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1220, "month": 12, "label": "40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "While Israel camped on the plains of Moab (Numbers 22:1), before Moses' last words in the 11th month of the 40th year (Deuteronomy 1:3).",
+    "people": ["balaam"], "locations": ["plains-of-moab"],
+    "scripture": [{ "book": "Numbers", "chapter": 22, "verse": 2, "endChapter": 24, "endVerse": 25 }]
   },
   {
     "id": "moses-dies", "title": "Death of Moses", "type": "death", "major": true,
@@ -486,19 +527,30 @@
     "id": "conquest", "title": "Conquest of Canaan", "type": "battle", "major": true,
     "summary": "Joshua leads Israel across the Jordan and through campaigns in the center, south and north of Canaan, breaking the power of its kings.",
     "dates": {
-      "early": { "start": { "year": -1405, "month": 4 }, "end": { "year": -1399 }, "confidence": "approx" },
-      "late": { "start": { "year": -1219, "month": 4 }, "end": { "year": -1213 }, "confidence": "approx" }
+      "early": { "start": { "year": -1405, "month": 4, "day": 1, "label": "1st month" }, "end": { "year": -1399 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "day": 1, "label": "1st month" }, "end": { "year": -1213 }, "confidence": "approx" }
     },
     "dateNote": "About seven years: Caleb was 40 when sent as a spy and 85 when the land was divided (Joshua 14:7–10).",
     "people": ["joshua", "caleb"], "locations": ["jericho", "gibeon"], "regions": ["canaan"],
     "scripture": [{ "book": "Joshua", "chapter": 1, "endChapter": 12 }]
   },
   {
+    "id": "rahab-spies", "title": "Rahab hides the spies", "type": "other", "partOf": "conquest",
+    "summary": "Joshua sends two spies to Jericho. Rahab hides them on her roof, telling them \"the LORD your God is God in the heavens above and on the earth below,\" and lets them down by a rope through her window. They swear to spare her family when the city falls.",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 4, "day": 4, "label": "1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "day": 4, "label": "1st month" }, "confidence": "approx" }
+    },
+    "dateNote": "A few days before the crossing on the 10th of the first month (Joshua 2:22; 3:2; 4:19).",
+    "people": ["rahab", "joshua"], "locations": ["jericho"],
+    "scripture": [{ "book": "Joshua", "chapter": 2 }]
+  },
+  {
     "id": "cross-jordan", "title": "Crossing the Jordan", "type": "miracle", "partOf": "conquest",
     "summary": "The Jordan stops flowing when the priests carrying the ark step into it, and Israel crosses into the Promised Land on dry ground.",
     "dates": {
-      "early": { "start": { "year": -1405, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" },
-      "late": { "start": { "year": -1219, "month": 4, "label": "10th of 1st month" }, "confidence": "approx" }
+      "early": { "start": { "year": -1405, "month": 4, "day": 10, "label": "10th of 1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "day": 10, "label": "10th of 1st month" }, "confidence": "approx" }
     },
     "dateNote": "Joshua 4:19, forty years after the Exodus.",
     "people": ["joshua"], "locations": ["jordan-river", "gilgal"],
@@ -508,9 +560,10 @@
     "id": "fall-of-jericho", "title": "The fall of Jericho", "type": "battle", "major": true, "partOf": "conquest",
     "summary": "Israel marches around Jericho for seven days; at the trumpet blast and shout its walls fall. Rahab and her family are spared.",
     "dates": {
-      "early": { "start": { "year": -1405, "month": 4 }, "confidence": "approx" },
-      "late": { "start": { "year": -1219, "month": 4 }, "confidence": "approx" }
+      "early": { "start": { "year": -1405, "month": 4, "label": "1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "label": "1st month" }, "confidence": "approx" }
     },
+    "dateNote": "After the Passover at Gilgal on the 14th of the first month (Joshua 5:10) and seven days of marching around the city.",
     "people": ["joshua", "rahab"], "locations": ["jericho"],
     "scripture": [{ "book": "Joshua", "chapter": 6 }]
   },
@@ -521,6 +574,7 @@
       "early": { "start": { "year": -1405 }, "confidence": "approx" },
       "late": { "start": { "year": -1219 }, "confidence": "approx" }
     },
+    "dateNote": "In the southern campaign, early in the conquest; Scripture gives no date.",
     "people": ["joshua"], "locations": ["gibeon"],
     "scripture": [{ "book": "Joshua", "chapter": 10, "verse": 1, "endVerse": 15 }]
   },
@@ -542,6 +596,7 @@
       "early": { "start": { "year": -1390 }, "confidence": "approx" },
       "late": { "start": { "year": -1204 }, "confidence": "approx" }
     },
+    "dateNote": "Near the end of Joshua's life, \"a long time\" after the conquest (Joshua 23:1); he died at 110 (Joshua 24:29). His birth year is estimated, so this date is too.",
     "people": ["joshua"], "locations": ["shechem"],
     "scripture": [{ "book": "Joshua", "chapter": 23, "endChapter": 24 }]
   },

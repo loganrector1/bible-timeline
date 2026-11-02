@@ -27,8 +27,8 @@
     "color": "#a8442a",
     "summary": "Israel grows into a nation in Egypt, is enslaved, and is brought out by God through Moses (Exodus 1–15).",
     "dates": {
-      "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 4 }, "confidence": "approx" },
-      "late": { "start": { "year": -1689 }, "end": { "year": -1259, "month": 4 }, "confidence": "approx" }
+      "early": { "start": { "year": -1875 }, "end": { "year": -1445, "month": 4, "label": "1st month" }, "confidence": "approx" },
+      "late": { "start": { "year": -1689 }, "end": { "year": -1259, "month": 4, "label": "1st month" }, "confidence": "approx" }
     }
   },
   {
@@ -37,8 +37,8 @@
     "color": "#c49a3a",
     "summary": "The covenant at Sinai, the tabernacle, and forty years in the wilderness before entering Canaan (Exodus 16 – Deuteronomy).",
     "dates": {
-      "early": { "start": { "year": -1445, "month": 5 }, "end": { "year": -1405, "month": 3 }, "confidence": "approx" },
-      "late": { "start": { "year": -1259, "month": 5 }, "end": { "year": -1219, "month": 3 }, "confidence": "approx" }
+      "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "end": { "year": -1405, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 5, "label": "2nd month" }, "end": { "year": -1219, "month": 3, "label": "12th month, 40th year" }, "confidence": "approx" }
     }
   },
   {
@@ -47,8 +47,8 @@
     "color": "#6f8a3c",
     "summary": "Under Joshua, Israel crosses the Jordan, takes Jericho and settles the land promised to Abraham (Joshua).",
     "dates": {
-      "early": { "start": { "year": -1405, "month": 4 }, "end": { "year": -1389 }, "confidence": "approx" },
-      "late": { "start": { "year": -1219, "month": 4 }, "end": { "year": -1203 }, "confidence": "approx" }
+      "early": { "start": { "year": -1405, "month": 4, "label": "1st month" }, "end": { "year": -1389 }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 4, "label": "1st month" }, "end": { "year": -1203 }, "confidence": "approx" }
     },
     "dateNote": "From the Jordan crossing, forty years after the Exodus (Joshua 5:6), to Joshua's death at 110 (Joshua 24:29)."
   },
