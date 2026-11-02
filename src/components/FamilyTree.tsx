@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useReducer, useRef, type PointerEvent, type WheelEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useReducer, useRef, type PointerEvent } from "react";
 import { formatYear } from "../lib/dates";
 import { familyOf, hasFamily, kinById, lineOf } from "../lib/family";
 import { CARD_H, layoutFamily, treeTime, type FamilyLayout, type LaidEdge } from "../lib/familyLayout";
@@ -176,9 +176,21 @@ export default function FamilyTree() {
     show({ k, x: px - ((px - v.x) * k) / v.k, y: py - ((py - v.y) * k) / v.k });
   };
   const onWheel = (e: WheelEvent) => {
+    e.preventDefault(); // Or Ctrl+wheel zooms the page too.
     if (e.ctrlKey) zoomAt(e.clientX - box.current!.getBoundingClientRect().left, Math.exp(-e.deltaY / 200));
     else move({ ...view.current, x: view.current.x - e.deltaX, y: view.current.y - e.deltaY });
   };
+  // React's wheel listeners are passive, so they can't stop the browser's zoom: a native one can.
+  const wheel = useRef(onWheel);
+  wheel.current = onWheel;
+  const treeShown = !!(focus && layout);
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const listen = (e: WheelEvent) => wheel.current(e);
+    el.addEventListener("wheel", listen, { passive: false });
+    return () => el.removeEventListener("wheel", listen);
+  }, [treeShown]);
   const zoomBy = (factor: number) => zoomAt(box.current!.clientWidth / 2, factor);
 
   if (!focus || !layout) return null;
@@ -226,7 +238,6 @@ export default function FamilyTree() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        onWheel={onWheel}
       >
         {time && (
           // The cursor's row: the generation alive at the timeline's year.

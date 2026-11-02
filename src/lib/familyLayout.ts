@@ -103,6 +103,7 @@ export function layoutFamily(id: string, g: FamilyGraph = familyGraph): FamilyLa
     e.points = e.points.length <= 3 ? [end(e.from, 1), end(e.to, -1)] : [end(e.from, 1), ...e.points.slice(1, -1), end(e.to, -1)];
   }
   untangleLeaves(cards, laidUnions, edges);
+  shiftIn(cards, laidUnions, edges);
   const size = graph.graph();
   const right = Math.max(size.width ?? 0, ...[...cards.values()].map((c) => c.x + c.w / 2 + 24));
   return { cards, unions: laidUnions, edges, width: right, height: size.height ?? 0 };
@@ -116,9 +117,10 @@ const crosses = ([p1, p2]: [P, P], [p3, p4]: [P, P]) => {
 const segments = (pts: P[]) => pts.slice(1).map((p, i) => [pts[i], p] as [P, P]);
 
 /**
- * Dagre's ordering is a heuristic, and sometimes leaves a child with no line below it on the side
- * where its link crosses another line (Josiah's son Jehoahaz across Luke's line). Such a child
- * moves to the mirror spot across its parents' union when that's free and crosses nothing.
+ * Dagre's ordering is a heuristic, and sometimes leaves a child with no line below it where its
+ * link crosses another line (Josiah's son Jehoahaz across Luke's line, Lot across Nahor's). Such a
+ * child moves to the nearest free spot in its row where it crosses nothing: the mirror side of its
+ * union, or beside any card in the row (past the tree's edge, if need be: `shiftIn` makes room).
  */
 function untangleLeaves(cards: Map<string, LaidCard>, unions: LaidUnion[], edges: LaidEdge[]) {
   const hasLineBelow = new Set(edges.filter((e) => cards.has(e.from)).map((e) => e.from));
@@ -126,17 +128,31 @@ function untangleLeaves(cards: Map<string, LaidCard>, unions: LaidUnion[], edges
     for (const id of u.children) {
       const card = cards.get(id)!;
       const edge = edges.find((e) => e.from === u.id && e.to === id);
-      if (hasLineBelow.has(id) || !edge || edge.points.length > 3) continue;
+      if (hasLineBelow.has(id) || !edge || edge.points.length > 2) continue;
       const others = edges.filter((e) => e !== edge).flatMap((e) => segments(e.points));
       const tangled = (x: number) => segments([{ x: u.x, y: u.y }, { x, y: card.y - card.h / 2 }]).some((s) => others.some((o) => crosses(s, o)));
       if (!tangled(card.x)) continue;
-      const x = 2 * u.x - card.x;
-      const free = [...cards.values()].every((c) => c === card || Math.abs(c.y - card.y) > 1 || Math.abs(c.x - x) > (c.w + card.w) / 2 + 14);
-      if (!free || x - card.w / 2 < 0 || tangled(x)) continue;
+      const row = [...cards.values()].filter((c) => c !== card && Math.abs(c.y - card.y) < 1);
+      const beside = (c: LaidCard) => (c.w + card.w) / 2 + GAP;
+      const free = (x: number) => row.every((c) => Math.abs(c.x - x) >= beside(c) - 0.5);
+      const x = [2 * u.x - card.x, ...row.flatMap((c) => [c.x - beside(c), c.x + beside(c)])]
+        .sort((a, b) => Math.abs(a - u.x) - Math.abs(b - u.x))
+        .find((x) => free(x) && !tangled(x));
+      if (x === undefined) continue;
       card.x = x;
       edge.points = [{ x: u.x, y: u.y }, { x, y: card.y - card.h / 2 }];
     }
   }
+}
+
+/** Moves everything right if a card was moved past the tree's left edge. */
+function shiftIn(cards: Map<string, LaidCard>, unions: LaidUnion[], edges: LaidEdge[]) {
+  const left = Math.min(...[...cards.values()].map((c) => c.x - c.w / 2));
+  const dx = 24 - left;
+  if (dx <= 0) return;
+  for (const c of cards.values()) c.x += dx;
+  for (const u of unions) u.x += dx;
+  for (const e of edges) e.points = e.points.map((p) => ({ x: p.x + dx, y: p.y }));
 }
 
 export type TreeTime = { yearAt: (y: number) => number; yAt: (year: number) => number };
