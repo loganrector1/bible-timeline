@@ -9,6 +9,8 @@ import Timeline from "./timeline/Timeline";
 
 // The map library is large; load it only when the map is first shown.
 const MapView = lazy(() => import("./map/MapView"));
+// So is the family tree's layout library.
+const FamilyTree = lazy(() => import("./FamilyTree"));
 
 const MODES: { id: ViewMode; label: string }[] = [
   { id: "timeline", label: "Timeline" },
@@ -21,6 +23,7 @@ export default function AppShell() {
   const setMode = useStore((s) => s.setMode);
   const hasSelection = useStore((s) => s.selection !== null);
   const browseOpen = useStore((s) => s.browseOpen);
+  const treeOpen = useStore((s) => s.familyTree !== null);
   const timeStripPx = useStore((s) => s.timeStripPx);
   const setBrowseOpen = useStore((s) => s.setBrowseOpen);
 
@@ -68,7 +71,8 @@ export default function AppShell() {
                   mode === m.id ? "bg-accent text-paper" : "text-ink-muted hover:text-ink"
                 }`}
               >
-                {m.label}
+                {/* The family tree takes the map's place while it's open. */}
+                {m.id === "map" && treeOpen ? "Tree" : m.label}
               </button>
             ))}
           </div>
@@ -95,10 +99,16 @@ export default function AppShell() {
             </section>
           )}
           {showMap && (
-            <section aria-label="Map" className="min-h-0 min-w-0 flex-1">
+            <section aria-label={treeOpen ? "Family tree" : "Map"} className="relative min-h-0 min-w-0 flex-1">
               <Suspense fallback={<div className="flex h-full items-center justify-center text-ink-muted">Loading map…</div>}>
                 <MapView />
               </Suspense>
+              {/* Over the map, which stays loaded beneath it for when the tree closes. */}
+              {treeOpen && (
+                <Suspense fallback={null}>
+                  <FamilyTree />
+                </Suspense>
+              )}
             </section>
           )}
         </main>

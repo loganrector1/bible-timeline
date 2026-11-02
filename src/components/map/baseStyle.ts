@@ -58,7 +58,7 @@ export async function loadBaseStyle(dark: boolean): Promise<StyleSpecification> 
     .filter((l) => KEEP.test(l.id) || BORDER_LAYER.test(l.id))
     .map((l): LayerSpecification => {
       if (BORDER_LAYER.test(l.id)) return { ...l, layout: { ...l.layout, visibility: "none" } } as LayerSpecification;
-      // The style hides the relief image past zoom 7. Keep it as a faint colour wash
+      // The style hides the relief image past zoom 7. Keep it as a faint color wash
       // (desert vs. green) under the sharp hillshade instead.
       if (l.type === "raster") {
         l = { ...l, maxzoom: 24, paint: { ...l.paint, "raster-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.6, 7, 0.3] } };

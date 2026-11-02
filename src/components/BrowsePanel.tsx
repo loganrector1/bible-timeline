@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { data, datesFor, type EntityKind, type EntityRef } from "../data";
 import { formatDateSpec } from "../lib/dates";
 import { eventsInOrder } from "../lib/entities";
+import { hasFamily } from "../lib/family";
 import { eventShown, FILTER_TYPES } from "../lib/filters";
 import { formatPassage, formatPassageParam, parsePassage } from "../lib/passages";
 import { useStore } from "../state/store";
@@ -17,7 +18,9 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "tour", label: "Tours" },
 ];
 
-const GROUP_TITLE: Record<EntityKind, string> = { era: "Eras", empire: "Empires", event: "Events", person: "People", location: "Places" };
+const GROUP_TITLE: Record<EntityKind, string> = {
+  era: "Eras", empire: "Empires", event: "Events", person: "People", location: "Places", name: "In the family tree",
+};
 
 /**
  * `hidden`: an event the filters hide, or world history while its lane is off. It's still listed
@@ -98,6 +101,7 @@ export default function BrowsePanel() {
   }, [setOpen]);
 
   const groups = useMemo(() => {
+    const q = query.trim().toLowerCase();
     const dateOf = (e: { dates?: Parameters<typeof datesFor>[0]["dates"] }) => {
       const spec = datesFor(e, chron);
       return spec ? formatDateSpec(spec, eraStyle) : "";
@@ -121,6 +125,10 @@ export default function BrowsePanel() {
         detail: [p.roles[0], dateOf(p)].filter(Boolean).join(" · "),
         search: [p.name, ...p.altNames].join(" "),
       })).sort(byName),
+      // Names from the genealogies have no entry beyond the tree, so only a search finds them.
+      name: q.length < 2 ? [] : data.genealogy.map((n) => ({
+        ref: { kind: "name", id: n.id } as EntityRef, name: n.name, detail: "Genealogy", search: n.name,
+      })).sort(byName),
       location: data.locations.map((l) => ({
         ref: { kind: "location", id: l.id } as EntityRef,
         name: l.name,
@@ -128,10 +136,9 @@ export default function BrowsePanel() {
         search: [l.name, l.modernName ?? ""].join(" "),
       })).sort(byName),
     };
-    const q = query.trim().toLowerCase();
-    // Empires sit with the eras: both are spans of time.
-    const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "location"]
-      : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : [tab];
+    // Empires sit with the eras: both are spans of time; genealogy names with the people.
+    const kinds: EntityKind[] = tab === "all" ? ["era", "empire", "event", "person", "name", "location"]
+      : tab === "tour" ? [] : tab === "era" ? ["era", "empire"] : tab === "person" ? ["person", "name"] : [tab];
     return kinds
       .map((kind) => ({ kind, items: all[kind].filter((i) => !q || i.search.toLowerCase().includes(q)) }))
       .filter((g) => g.items.length > 0);
@@ -145,11 +152,16 @@ export default function BrowsePanel() {
     ? data.tours.filter((t) => !q || (tab === "tour" ? `${t.title} ${t.summary}` : t.title).toLowerCase().includes(q))
     : [];
   const activeTour = useStore((s) => s.tour?.id);
+  const showTreeRow = (tab === "person" && !q) || (q.length >= 3 && ["family tree", "genealogy", "genealogies"].some((t) => t.includes(q)));
   const progress = useStore((s) => s.tourProgress);
 
   if (!open) return null;
 
   const closeOnPhone = () => window.innerWidth < 768 && setOpen(false);
+  const openTree = (id: string) => {
+    useStore.getState().setFamilyTree(id);
+    closeOnPhone();
+  };
   const pick = (ref: EntityRef) => {
     select(ref);
     closeOnPhone(); // On phones the panel covers everything.
@@ -241,7 +253,13 @@ export default function BrowsePanel() {
             </ul>
           </section>
         )}
-        {groups.length === 0 && tours.length === 0 && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
+        {showTreeRow && (
+          <button onClick={() => openTree(selection?.kind === "person" && hasFamily(selection.id) ? selection.id : "jesus")} className="mb-3 w-full rounded px-2 py-1.5 text-left text-sm hover:bg-paper-2">
+            <span className="font-medium">Family tree</span>
+            <span className="mt-0.5 block text-xs leading-snug text-ink-muted">From Adam to Jesus: the patriarchs, Jacob’s sons, David’s line through Matthew and Luke.</span>
+          </button>
+        )}
+        {groups.length === 0 && tours.length === 0 && !showTreeRow && <p className="px-2 py-4 text-sm text-ink-muted">Nothing matches “{query}”.</p>}
         {groups.map((g) => (
           <section key={g.kind} className="mb-3">
             {tab === "all" && (

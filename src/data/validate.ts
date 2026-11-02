@@ -14,6 +14,7 @@ export function findProblems(d: Dataset): string[] {
     empire: idSet(d.empires, "empire", problems),
     event: idSet(d.events, "event", problems),
     person: idSet(d.people, "person", problems),
+    kin: idSet([...d.people, ...d.genealogy], "person or genealogy name", problems),
     location: idSet(d.locations, "location", problems),
     journey: idSet(d.journeys, "journey", problems),
     region: idSet(d.regions.features.map((f) => f.properties), "region", problems),
@@ -66,10 +67,12 @@ export function findProblems(d: Dataset): string[] {
   for (const p of d.people) {
     const owner = `person ${p.id}`;
     needsDefault(owner, p.dates);
-    check(owner, "person", [...p.parents, ...p.spouses]);
+    check(owner, "kin", [...p.parents, ...p.altParents, ...p.spouses]);
     if (p.empire) check(owner, "empire", [p.empire]);
     if ((p.lane === "world") !== !!p.empire) problems.push(`${owner}: rulers in the world lane, and only they, name their empire`);
   }
+
+  for (const n of d.genealogy) check(`genealogy name ${n.id}`, "kin", [...n.parents, ...n.altParents, ...n.spouses]);
 
   // Region outlines are the shapes of places, so each must share its id with a location.
   for (const f of d.regions.features) {

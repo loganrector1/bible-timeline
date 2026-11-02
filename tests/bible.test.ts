@@ -3,7 +3,7 @@ import { data } from "../src/data";
 import { loadBook, refBookId, versesOf } from "../src/lib/bible";
 import { formatRef } from "../src/lib/scripture";
 
-const refs = [...data.events, ...data.people].flatMap((e) => e.scripture.map((r) => ({ owner: e.id, ref: r })));
+const refs = [...data.events, ...data.people, ...data.genealogy].flatMap((e) => e.scripture.map((r) => ({ owner: e.id, ref: r })));
 
 describe("Bible text", () => {
   test("every reference in the data is a real passage in the BSB", async () => {

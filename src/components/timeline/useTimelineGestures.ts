@@ -25,7 +25,7 @@ export function useTimelineGestures(ref: RefObject<HTMLElement | null>) {
 
     const pointers = new Map<number, number>(); // pointerId -> clientY
     let pinchDistance = 0;
-    let travelled = 0;
+    let traveled = 0;
     let dragged = false;
     let velocity = 0; // px per ms
     let lastMoveTime = 0;
@@ -51,7 +51,7 @@ export function useTimelineGestures(ref: RefObject<HTMLElement | null>) {
       if ((e.target as Element).closest("[data-no-pan]")) return;
       pointers.set(e.pointerId, e.clientY);
       if (pointers.size === 1) {
-        travelled = 0;
+        traveled = 0;
         dragged = false;
         velocity = 0;
         lastMoveTime = e.timeStamp;
@@ -76,8 +76,8 @@ export function useTimelineGestures(ref: RefObject<HTMLElement | null>) {
 
       const dy = e.clientY - prevY;
       pointers.set(e.pointerId, e.clientY);
-      travelled += Math.abs(dy);
-      if (!dragged && travelled > DRAG_THRESHOLD_PX) {
+      traveled += Math.abs(dy);
+      if (!dragged && traveled > DRAG_THRESHOLD_PX) {
         dragged = true;
         el.setPointerCapture(e.pointerId);
       }

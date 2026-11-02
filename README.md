@@ -38,6 +38,7 @@ Cloudflare Workers serves the built `dist` folder as static files (`wrangler.jso
 | `src/data/eras.json` | Eras with colors and date ranges |
 | `src/data/events.json` | Events with dates, people, places, regions, journey and Scripture |
 | `src/data/people.json` | People with lifespans and family links |
+| `src/data/genealogy.json` | Names from the genealogies (Seth, Obed, Luke's Heli) that link the family tree but get no person entry |
 | `src/data/locations.json` | Places with coordinates, modern names and alternate sites |
 | `src/data/journeys.json` | Ordered routes between places, with optional stop dates |
 | `src/data/regions.json` | GeoJSON outlines (approximate) |

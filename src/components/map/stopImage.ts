@@ -5,7 +5,7 @@ const RATIO = 2;
 
 /**
  * The image name for a journey stop's marker: its number(s), whether it's the stop an event
- * along the way happened at (a thicker ring), and the theme's colours. The name says
+ * along the way happened at (a thicker ring), and the theme's colors. The name says
  * everything needed to draw it, so a missing image (first use, or after the style reloads)
  * can always be drawn on demand.
  */

@@ -1462,7 +1462,7 @@
   },
   {
     "id": "letter-of-jude", "title": "The letter of Jude", "type": "writing",
-    "summary": "Jude, brother of James, urges believers to contend for the faith against false teachers who turn grace into a licence for immorality, and closes with a doxology to the one able to keep them from stumbling.",
+    "summary": "Jude, brother of James, urges believers to contend for the faith against false teachers who turn grace into a license for immorality, and closes with a doxology to the one able to keep them from stumbling.",
     "dates": { "early": { "start": { "year": 65 }, "confidence": "approx" } },
     "dateNote": "Not dated; usually placed AD 60–80. Much of it is shared with 2 Peter 2. Where it was written isn't known.",
     "people": ["jude"],

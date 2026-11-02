@@ -15,6 +15,9 @@
   --color-accent-soft: #f3d9c9;
   /* Jesus' words in Scripture passages (Settings → red letters). */
   --color-jesus: #b3161b;
+  /* Women in the family tree. */
+  --color-woman: #a3405f;
+  --color-woman-soft: #f7e1e7;
 
   /* "Show <name>" chips: appear only after a beat, so they don't flash while the view
      is still animating toward a new selection. */
@@ -37,6 +40,8 @@
     --color-accent: #e08a5f;
     --color-accent-soft: #4a2d20;
     --color-jesus: #f07a72;
+    --color-woman: #e08ea8;
+    --color-woman-soft: #3f232c;
   }
 }
 :root[data-theme="dark"] {
@@ -49,6 +54,8 @@
   --color-accent: #e08a5f;
   --color-accent-soft: #4a2d20;
   --color-jesus: #f07a72;
+  --color-woman: #e08ea8;
+  --color-woman-soft: #3f232c;
 }
 
 html,

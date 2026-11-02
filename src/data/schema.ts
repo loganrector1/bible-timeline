@@ -79,13 +79,15 @@ export const Event = z.object({
 export const Lane = z.enum(["people", "kings", "prophets", "church", "world"]);
 export type Lane = z.infer<typeof Lane>;
 
-/** The throne a king of God's people sat on, which sets his column and colour in the Kings lane. */
+/** The throne a king of God's people sat on, which sets his column and color in the Kings lane. */
 export const Kingdom = z.enum(["united", "judah", "israel"]);
 
 export const Person = z.object({
   id,
   name: z.string(),
   altNames: z.array(z.string()).default([]),
+  /** Women are marked in the family tree, so a mother's line reads apart from a father's. */
+  female: z.boolean().default(false),
   roles: z.array(z.string()).default([]),
   lane: Lane.default("people"),
   /** Other lanes they belong to (Peter is also church). They show once, in the first lane that's on. */
@@ -105,9 +107,29 @@ export const Person = z.object({
   kingdom: Kingdom.optional(),
   /** For rulers in the World history lane: the empire they ruled, or ruled for (Pilate, Rome). */
   empire: id.optional(),
+  /** Person or genealogy-name ids (`genealogy.json`), here and in `altParents` and `spouses`. */
   parents: ids,
+  /** The other Gospel's line, where Matthew and Luke name different fathers (Joseph: Jacob or Heli). */
+  altParents: ids,
+  spouses: ids,
+  /** How Scripture relates them, where it needs saying (Jesus and Joseph, Jesus' brothers). */
+  familyNote: z.string().optional(),
+  scripture: z.array(ScriptureRef).default([]),
+});
+
+/**
+ * A name from the genealogies (Seth, Obed, Luke's Heli) that links the family tree but gets no
+ * person entry: no bar, no Browse row, no panel. Shown only in the family tree.
+ */
+export const GenealogyName = z.object({
+  id,
+  name: z.string(),
+  female: z.boolean().default(false),
+  parents: ids,
+  altParents: ids,
   spouses: ids,
   scripture: z.array(ScriptureRef).default([]),
+  note: z.string().optional(),
 });
 
 /**
@@ -213,8 +235,8 @@ export const BorderFeature = z.object({
     label: Coords,
     /** How sure the outline is, and what it shows; drawn outlines always say. */
     note: z.string().optional(),
-    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbours share one. */
-    tint: z.enum(["judah", "israel", "united", "neighbour"]).optional(),
+    /** Israel's own states take the Kings lane's tints: Judah warm, Israel cool, the united kingdom plain; its neighbors share one. */
+    tint: z.enum(["judah", "israel", "united", "neighbor"]).optional(),
     /** Lands that paid tribute rather than being ruled: drawn fainter, dashed. */
     subject: z.boolean().optional(),
     /** A smaller label, for tribes and provinces. */
@@ -238,6 +260,7 @@ export type Empire = z.infer<typeof Empire>;
 export type EventType = z.infer<typeof EventType>;
 export type Event = z.infer<typeof Event>;
 export type Person = z.infer<typeof Person>;
+export type GenealogyName = z.infer<typeof GenealogyName>;
 export type Location = z.infer<typeof Location>;
 export type Tour = z.infer<typeof Tour>;
 export type Journey = z.infer<typeof Journey>;

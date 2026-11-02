@@ -1,4 +1,4 @@
-import { empiresById, erasById, eventsById, locationsById, peopleById, toursById, type EntityKind, type EntityRef } from "../data";
+import { empiresById, erasById, eventsById, genealogyById, locationsById, peopleById, toursById, type EntityKind, type EntityRef } from "../data";
 import { CHRONOLOGIES, DEFAULT_CHRONOLOGY } from "../data/chronologies";
 import { EventType } from "../data/schema";
 import type { ViewMode } from "../state/store";
@@ -10,7 +10,8 @@ import { formatPassageParam, parsePassage, type Passage } from "./passages";
  * What a link restores: `?event=exodus&year=1446.5BC&zoom=12&view=map&types=battle,miracle&people=david`,
  * or `?passage=Exod.12-14` (OSIS, comma-separated; the reading-plans app links this way), and
  * `chron=late` when it isn't the default chronology (the one its year was written in), and
- * `tour=exodus&step=3` (counting from 1) for a guided tour.
+ * `tour=exodus&step=3` (counting from 1) for a guided tour, and `tree=obed` for the family tree,
+ * open and centered on a person or genealogy name.
  * Every part is optional. Keep these names stable once published: links get pasted into lesson notes.
  */
 export type LinkState = {
@@ -22,12 +23,15 @@ export type LinkState = {
   chronology?: string;
   /** Step counts from 0 here, from 1 in the link. */
   tour?: { id: string; step: number };
+  tree?: string;
 };
 
 /** The URL parameter for each kind of selection. */
-const KIND_PARAM: Record<EntityKind, string> = { event: "event", person: "person", location: "place", era: "era", empire: "empire" };
+const KIND_PARAM: Record<EntityKind, string> = {
+  event: "event", person: "person", location: "place", era: "era", empire: "empire", name: "name",
+};
 const BY_ID: Record<EntityKind, Map<string, unknown>> = {
-  event: eventsById, person: peopleById, location: locationsById, era: erasById, empire: empiresById,
+  event: eventsById, person: peopleById, location: locationsById, era: erasById, empire: empiresById, name: genealogyById,
 };
 const VIEWS: ViewMode[] = ["timeline", "split", "map"];
 
@@ -77,6 +81,8 @@ export function parseLink(search: string): LinkState {
   if (zoom > 0) out.pxPerYear = zoom;
   const tour = p.get("tour");
   if (tour && toursById.has(tour)) out.tour = { id: tour, step: Math.max(1, Math.floor(Number(p.get("step")) || 1)) - 1 };
+  const tree = p.get("tree");
+  if (tree && (peopleById.has(tree) || genealogyById.has(tree))) out.tree = tree;
   const chron = p.get("chron");
   if (chron && CHRONOLOGIES.some((c) => c.id === chron)) out.chronology = chron;
   const list = (name: string) => (p.get(name) ?? "").split(",").filter(Boolean);
@@ -98,7 +104,7 @@ export function parseLink(search: string): LinkState {
 export function formatLink(
   s: Required<Pick<LinkState, "mode" | "pxPerYear">> & {
     selection: EntityRef | null; year?: number; filters?: Filters; chronology?: string;
-    tour?: { id: string; step: number } | null;
+    tour?: { id: string; step: number } | null; tree?: string | null;
   },
 ): string {
   const p = new URLSearchParams();
@@ -113,6 +119,7 @@ export function formatLink(
     p.set("tour", s.tour.id);
     p.set("step", String(s.tour.step + 1));
   }
+  if (s.tree) p.set("tree", s.tree);
   if (s.filters?.types.length) p.set("types", s.filters.types.join(","));
   if (s.filters?.people.length) p.set("people", s.filters.people.join(","));
   if (s.filters?.passages.length) p.set("passage", s.filters.passages.map(formatPassageParam).join(","));

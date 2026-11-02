@@ -1,5 +1,5 @@
 import {
-  data, datesFor, empiresById, erasById, eventsById, journeysById, locationsById, peopleById,
+  data, datesFor, empiresById, erasById, eventsById, genealogyById, journeysById, locationsById, peopleById,
   type EntityRef,
 } from "../data";
 import type { Era, Event, EventType, Lane, Location, Person } from "../data/schema";
@@ -230,6 +230,8 @@ export function entityBounds(ref: EntityRef, chron: string): Bounds | undefined 
     }
     case "location":
       return unionBounds(eventsAtLocation(ref.id, chron).map((ev) => eventBounds(ev, chron)));
+    case "name":
+      return undefined;
   }
 }
 
@@ -257,6 +259,8 @@ export function entityLocations(ref: EntityRef, chron: string): Location[] {
       return [...new Set(eventsInEra(ref.id, chron).flatMap(eventLocations))];
     case "empire":
       return (empiresById.get(ref.id)?.capitals ?? []).map((id) => locationsById.get(id)!);
+    case "name":
+      return [];
   }
 }
 
@@ -267,6 +271,7 @@ export function entityTitle(ref: EntityRef): string {
     case "location": return locationsById.get(ref.id)?.name ?? ref.id;
     case "era": return erasById.get(ref.id)?.name ?? ref.id;
     case "empire": return empiresById.get(ref.id)?.name ?? ref.id;
+    case "name": return genealogyById.get(ref.id)?.name ?? ref.id;
   }
 }
 

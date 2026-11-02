@@ -8,6 +8,8 @@ import { DEFAULT_CHRONOLOGY } from "../src/data/chronologies";
 import { findProblems } from "../src/data/validate";
 import { specBounds, specMidpoint } from "../src/lib/dates";
 import { eventOrderKey, eventsForEmpire, personSpan, rulersOf, shownLane, shownLanes } from "../src/lib/entities";
+import { familyOf, hasFamily, lineOf } from "../src/lib/family";
+import { layoutFamily, treeTime } from "../src/lib/familyLayout";
 
 describe("seed data", () => {
   test("parses and every link resolves", () => {
@@ -108,6 +110,38 @@ describe("people's bars", () => {
         .sort((a, b) => a[0] - b[0]);
       for (let i = 1; i < reigns.length; i++) expect(reigns[i][0]).toBeGreaterThanOrEqual(reigns[i - 1][1]);
     }
+  });
+});
+
+describe("the family tree", () => {
+  test("runs from Adam to Jesus through both Gospels' lines", () => {
+    const line = lineOf("jesus");
+    for (const id of ["adam", "noah", "abraham", "judah", "boaz", "david", "solomon", "josiah", "nathan-son-of-david", "matt-jacob", "luke-heli-23"]) {
+      expect(line, id).toContain(id);
+    }
+  });
+
+  test("no one is their own ancestor", () => {
+    for (const e of [...data.people, ...data.genealogy]) {
+      const above = [...e.parents, ...e.altParents].flatMap((p) => [...lineOf(p)]);
+      expect(above, e.id).not.toContain(e.id);
+    }
+  });
+
+  test("follows the timeline: later rows are later years, and a dated person's row is their start", () => {
+    const layout = layoutFamily("jesus");
+    const time = treeTime(layout, DEFAULT_CHRONOLOGY)!;
+    const rows = [...new Set([...layout.cards.values()].map((c) => c.y))].sort((a, b) => a - b);
+    const years = rows.map(time.yearAt);
+    expect(years.every((y, i) => i === 0 || y > years[i - 1])).toBe(true);
+    const david = layout.cards.get("david")!;
+    expect(time.yearAt(david.y)).toBeCloseTo(specBounds(datesFor(peopleById.get("david")!, DEFAULT_CHRONOLOGY)!)[0]);
+    expect(time.yAt(time.yearAt(1234))).toBeCloseTo(1234);
+  });
+
+  test("every name from the genealogies belongs to a family", () => {
+    for (const n of data.genealogy) expect(hasFamily(n.id), n.id).toBe(true);
+    expect(familyOf("adam")).toContain("jesus");
   });
 });
 

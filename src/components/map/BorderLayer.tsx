@@ -16,9 +16,9 @@ const FADE_MS = 350;
 
 /**
  * Each line of powers keeps one hue, so Egypt reads as Egypt from kingdom to kingdom and
- * neighbours (Ptolemies and Seleucids) differ. Israel's own states take the Kings lane's tints:
- * Judah warm, Israel cool, the united kingdom plain. Israel's neighbours (Moab, Philistia…) share
- * one slate, so they read as the neighbours rather than as powers.
+ * neighbors (Ptolemies and Seleucids) differ. Israel's own states take the Kings lane's tints:
+ * Judah warm, Israel cool, the united kingdom plain. Israel's neighbors (Moab, Philistia…) share
+ * one slate, so they read as the neighbors rather than as powers.
  */
 const HUES: Record<string, string> = {
   "egypt-middle": "#b07d1a", hyksos: "#8c6a3c", "egypt-new": "#b07d1a", "egypt-divided": "#b07d1a",
@@ -28,7 +28,7 @@ const HUES: Record<string, string> = {
   "alexander-empire": "#4c8a44", seleucids: "#2f8a8a",
   "roman-republic": "#a23a5f", rome: "#a23a5f",
   hasmoneans: "#c47f17", judah: "#c47f17", israel: "#2b7bb9", united: "#7a6a55",
-  neighbour: "#6b7686",
+  neighbor: "#6b7686",
 };
 const FALLBACK = "#7a6a55";
 
@@ -103,6 +103,20 @@ export default function BorderLayer({
       live = false;
     };
   }, []);
+  // The labels go beneath the regions' anchor, so they wait for it. Layers add themselves on the
+  // first render after the style loads, so with the year changing while the map loaded (the family
+  // tree gliding the cursor) this one could come first, and MapLibre threw.
+  const [anchored, setAnchored] = useState(false);
+  useEffect(() => {
+    const map = mapRef?.getMap();
+    if (!map || anchored) return;
+    const check = () => map.getLayer(REGION_ANCHOR) && setAnchored(true);
+    check();
+    map.on("styledata", check);
+    return () => {
+      map.off("styledata", check);
+    };
+  }, [mapRef, anchored]);
 
   const isSelected = (f: BorderFeature) => !!selection && borderOf(f, selection);
   const now = useMemo(() => (all ? bordersAt(all, year, chron) : []), [all, year, chron]);
@@ -275,35 +289,37 @@ export default function BorderLayer({
           paint={{ "fill-opacity": 0 }}
         />
       </Source>
-      <Source id="border-labels" type="geojson" data={labels} promoteId="id">
-        {/* Beneath every other label the app draws, so places, regions and journeys win. */}
-        <Layer
-          id={BORDER_LABEL_LAYER}
-          type="symbol"
-          beforeId={REGION_ANCHOR}
-          layout={{
-            // Small labels (tribes, provinces) only once there's room, unless selected.
-            "text-field": ["step", ["zoom"],
-              ["case", ["get", "small"], ["case", ["get", "strong"], ["get", "name"], ""], ["upcase", ["get", "name"]]],
-              6, ["case", ["get", "small"], ["get", "name"], ["upcase", ["get", "name"]]],
-            ] as never,
-            "text-font": ["case", ["get", "small"], ["literal", ["Noto Sans Italic"]], ["literal", ["Noto Sans Regular"]]] as never,
-            "text-size": ["interpolate", ["linear"], ["zoom"], 3, ["case", ["get", "small"], 9, 10], 7, ["case", ["get", "small"], 12, 14]] as never,
-            "text-letter-spacing": ["case", ["get", "small"], 0.02, 0.2] as never,
-            "text-max-width": 7,
-            // Moved off its point rather than hidden when a place (often the capital) is there.
-            "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
-            "text-radial-offset": 1.6,
-            "symbol-sort-key": ["case", ["get", "strong"], 0, ["get", "small"], 2, 1] as never,
-          }}
-          paint={{
-            "text-color": ["get", "color"],
-            "text-halo-color": dark ? "#1c1915" : "#faf6ee",
-            "text-halo-width": 1.5,
-            "text-opacity": faded,
-          }}
-        />
-      </Source>
+      {anchored && (
+        <Source id="border-labels" type="geojson" data={labels} promoteId="id">
+          {/* Beneath every other label the app draws, so places, regions and journeys win. */}
+          <Layer
+            id={BORDER_LABEL_LAYER}
+            type="symbol"
+            beforeId={REGION_ANCHOR}
+            layout={{
+              // Small labels (tribes, provinces) only once there's room, unless selected.
+              "text-field": ["step", ["zoom"],
+                ["case", ["get", "small"], ["case", ["get", "strong"], ["get", "name"], ""], ["upcase", ["get", "name"]]],
+                6, ["case", ["get", "small"], ["get", "name"], ["upcase", ["get", "name"]]],
+              ] as never,
+              "text-font": ["case", ["get", "small"], ["literal", ["Noto Sans Italic"]], ["literal", ["Noto Sans Regular"]]] as never,
+              "text-size": ["interpolate", ["linear"], ["zoom"], 3, ["case", ["get", "small"], 9, 10], 7, ["case", ["get", "small"], 12, 14]] as never,
+              "text-letter-spacing": ["case", ["get", "small"], 0.02, 0.2] as never,
+              "text-max-width": 7,
+              // Moved off its point rather than hidden when a place (often the capital) is there.
+              "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
+              "text-radial-offset": 1.6,
+              "symbol-sort-key": ["case", ["get", "strong"], 0, ["get", "small"], 2, 1] as never,
+            }}
+            paint={{
+              "text-color": ["get", "color"],
+              "text-halo-color": dark ? "#1c1915" : "#faf6ee",
+              "text-halo-width": 1.5,
+              "text-opacity": faded,
+            }}
+          />
+        </Source>
+      )}
     </>
   );
 }

@@ -17,7 +17,7 @@ import { dirname, join } from "node:path";
 const URL = "https://raw.githubusercontent.com/openbibleinfo/Bible-Geocoding-Data/main/data/ancient.jsonl";
 const CACHE = join("node_modules", ".cache", "openbible", "ancient.jsonl");
 const LOCATIONS = join("src", "data", "locations.json");
-/** Metres a point may drift from OpenBible's before it's reported. */
+/** Meters a point may drift from OpenBible's before it's reported. */
 const DRIFT_M = 1500;
 /** Candidates this close together count as one site when judging certainty. */
 const SAME_SITE_M = 3000;
@@ -60,7 +60,7 @@ function check(write) {
       continue;
     }
     const notes = [];
-    const drift = metres(loc.coords, site.lonlat);
+    const drift = meters(loc.coords, site.lonlat);
     if (drift > DRIFT_M && !AREA_TYPES.has(loc.type)) {
       notes.push(`${(drift / 1000).toFixed(1)} km from ${site.desc} [${site.lonlat}]`);
       if (write) {
@@ -68,8 +68,8 @@ function check(write) {
         moved++;
       }
     }
-    // Neighbouring candidates (Qantir and Tell el-Daba for Rameses) are one site for us.
-    const near = (s) => s.lonlat && metres(s.lonlat, site.lonlat) <= SAME_SITE_M;
+    // Neighboring candidates (Qantir and Tell el-Daba for Rameses) are one site for us.
+    const near = (s) => s.lonlat && meters(s.lonlat, site.lonlat) <= SAME_SITE_M;
     const score = sites.filter(near).reduce((sum, s) => sum + s.score, 0);
     const unsure = score < SURE_SCORE || sites.some((s) => !near(s) && s.score > score);
     if (unsure && !loc.uncertain) notes.push(`OpenBible is unsure (score ${score}); consider uncertain: true`);
@@ -122,7 +122,7 @@ function describe(s) {
   return s ? `${s.desc} [${s.lonlat ?? "no point"}] score ${s.score}` : "no identification";
 }
 
-function metres([lon1, lat1], [lon2, lat2]) {
+function meters([lon1, lat1], [lon2, lat2]) {
   const r = Math.PI / 180;
   const x = (lon2 - lon1) * r * Math.cos(((lat1 + lat2) / 2) * r);
   const y = (lat2 - lat1) * r;
