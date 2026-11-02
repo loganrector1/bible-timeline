@@ -1334,48 +1334,67 @@
     "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 1, "endVerse": 19 }]
   },
   {
+    "id": "annunciation", "title": "The angel comes to Mary", "type": "prophecy",
+    "summary": "Gabriel tells Mary, a virgin engaged to Joseph, that she will bear the Son of God. \"May it happen to me according to your word.\" She visits her relative Elizabeth, who is expecting John.",
+    "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
+    "dateNote": "About nine months before Jesus' birth, probably about 6–5 BC.",
+    "people": ["mary"], "locations": ["nazareth"],
+    "scripture": [{ "book": "Luke", "chapter": 1, "verse": 26, "endVerse": 56 }]
+  },
+  {
+    "id": "john-baptist-born", "title": "John the Baptist is born", "type": "birth",
+    "summary": "While the priest Zechariah burns incense in the temple, the angel Gabriel tells him that his wife Elizabeth, old and childless, will bear a son who will prepare the people for the Lord. Doubting, Zechariah is struck mute until the child is born. When he writes, \"His name is John,\" he speaks again and praises God: \"Blessed be the Lord, the God of Israel, because He has visited and redeemed His people.\"",
+    "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
+    "dateNote": "About six months before Jesus (Luke 1:26, 36), \"in the time of Herod king of Judea\" (Luke 1:5), probably about 6–5 BC. Zechariah and Elizabeth lived in \"a town in the hill country of Judah\" (Luke 1:39), by tradition Ein Karem, west of Jerusalem.",
+    "people": ["john-the-baptist"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Luke", "chapter": 1, "verse": 5, "endVerse": 25 }, { "book": "Luke", "chapter": 1, "verse": 57, "endVerse": 80 }]
+  },
+  {
     "id": "jesus-born", "title": "Birth of Jesus", "type": "birth", "major": true,
-    "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there. Angels announce him to shepherds, and magi from the east come to worship.",
+    "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there: \"The Word became flesh and made His dwelling among us.\" Angels announce him to shepherds. When he is presented in the temple, old Simeon takes him in his arms and praises God: \"my eyes have seen Your salvation.\" Magi from the east come to worship.",
     "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
     "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
     "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great", "augustus"], "locations": ["bethlehem", "nazareth"],
     "journeyId": "to-bethlehem",
-    "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 20 }]
+    "scripture": [{ "book": "Matthew", "chapter": 1, "verse": 18, "endChapter": 2, "endVerse": 12 }, { "book": "Luke", "chapter": 2, "verse": 1, "endVerse": 40 }, { "book": "John", "chapter": 1, "verse": 1, "endVerse": 18 }]
   },
   {
     "id": "boy-jesus-temple", "title": "The boy Jesus in the temple", "type": "worship",
     "summary": "At twelve, Jesus stays behind in Jerusalem after Passover, listening to the teachers and asking them questions: \"Did you not know that I had to be in My Father's house?\"",
     "dates": { "early": { "start": { "year": 8 }, "confidence": "approx" } },
+    "dateNote": "When Jesus was twelve (Luke 2:42), about AD 8 if he was born about 4 BC.",
     "people": ["jesus", "mary", "joseph-of-nazareth"], "locations": ["jerusalem", "nazareth"],
     "scripture": [{ "book": "Luke", "chapter": 2, "verse": 41, "endVerse": 52 }]
   },
   {
     "id": "jesus-ministry", "title": "Jesus' ministry", "type": "ministry", "major": true,
-    "summary": "Jesus calls disciples, preaches the kingdom of God, heals the sick and forgives sinners, mostly around the Sea of Galilee, going up to Jerusalem for the feasts.",
+    "summary": "Jesus calls disciples, preaches the kingdom of God, heals the sick and forgives sinners, mostly around the Sea of Galilee, going up to Jerusalem for the feasts. In the synagogue of Nazareth, his hometown, he reads from Isaiah, \"The Spirit of the Lord is on Me,\" and says, \"Today this Scripture is fulfilled in your hearing,\" but they drive him out of town.",
     "dates": { "early": { "start": { "year": 27 }, "end": { "year": 30, "month": 4 }, "confidence": "approx" } },
     "dateNote": "John's Gospel names at least three Passovers (John 2:13; 6:4; 11:55), so about three years. The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus", "peter"], "locations": ["capernaum", "sea-of-galilee", "jerusalem"],
-    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }]
+    "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 12, "endVerse": 17 }, { "book": "Matthew", "chapter": 4, "verse": 23, "endVerse": 25 }, { "book": "Matthew", "chapter": 8, "verse": 1, "endVerse": 22 }, { "book": "Matthew", "chapter": 9, "verse": 27, "endVerse": 38 }, { "book": "Matthew", "chapter": 11, "endChapter": 12 }, { "book": "Matthew", "chapter": 13, "verse": 54, "endVerse": 58 }, { "book": "Matthew", "chapter": 15, "endChapter": 16, "endVerse": 12 }, { "book": "Matthew", "chapter": 17, "verse": 14, "endChapter": 18, "endVerse": 35 }, { "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 15 }, { "book": "Mark", "chapter": 1, "verse": 21, "endVerse": 45 }, { "book": "Mark", "chapter": 2, "verse": 23, "endChapter": 3, "endVerse": 12 }, { "book": "Mark", "chapter": 3, "verse": 20, "endVerse": 35 }, { "book": "Mark", "chapter": 6, "verse": 1, "endVerse": 6 }, { "book": "Mark", "chapter": 7, "endChapter": 8, "endVerse": 26 }, { "book": "Mark", "chapter": 9, "verse": 14, "endVerse": 50 }, { "book": "Luke", "chapter": 4, "verse": 14, "endVerse": 44 }, { "book": "Luke", "chapter": 5, "verse": 12, "endVerse": 16 }, { "book": "Luke", "chapter": 6, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 7, "endChapter": 8, "endVerse": 3 }, { "book": "Luke", "chapter": 8, "verse": 19, "endVerse": 21 }, { "book": "Luke", "chapter": 9, "verse": 37, "endVerse": 50 }, { "book": "John", "chapter": 3, "verse": 22, "endVerse": 36 }, { "book": "John", "chapter": 4, "verse": 43, "endVerse": 54 }]
   },
   {
     "id": "jesus-baptized", "title": "Jesus is baptized", "type": "covenant", "partOf": "jesus-ministry",
-    "summary": "John baptizes Jesus in the Jordan. The Spirit descends like a dove and a voice from heaven says, \"You are My beloved Son.\"",
+    "summary": "John the Baptist preaches in the wilderness of Judea, \"Repent, for the kingdom of heaven is near,\" and baptizes crowds in the Jordan. When Jesus is baptized, the Spirit descends like a dove and a voice from heaven says, \"You are My beloved Son.\" Afterward John points him out: \"Look, the Lamb of God, who takes away the sin of the world!\"",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
     "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
     "people": ["jesus", "john-the-baptist", "tiberius"], "locations": ["jordan-river"],
-    "scripture": [{ "book": "Matthew", "chapter": 3, "verse": 13, "endVerse": 17 }, { "book": "Luke", "chapter": 3, "verse": 21, "endVerse": 23 }]
+    "scripture": [{ "book": "Matthew", "chapter": 3 }, { "book": "Mark", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 3, "verse": 1, "endVerse": 23 }, { "book": "John", "chapter": 1, "verse": 19, "endVerse": 34 }]
   },
   {
     "id": "temptation", "title": "Jesus is tempted in the wilderness", "type": "other", "partOf": "jesus-ministry",
     "summary": "The Spirit leads Jesus into the wilderness for forty days, where he answers each of the devil's temptations with Scripture.",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "dateNote": "Right after his baptism, for forty days (Mark 1:12–13).",
     "people": ["jesus"], "locations": ["judean-wilderness"],
-    "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 4, "verse": 1, "endVerse": 13 }]
+    "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 4, "verse": 1, "endVerse": 13 }, { "book": "Mark", "chapter": 1, "verse": 12, "endVerse": 13 }]
   },
   {
     "id": "cana", "title": "Water into wine at Cana", "type": "miracle", "partOf": "jesus-ministry",
     "summary": "At a wedding, when the wine runs out, Jesus turns water into wine, the first of his signs, and his disciples believe in him.",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
+    "dateNote": "Three days after Jesus met his first disciples by the Jordan (John 1:43; 2:1), before his first Passover in Jerusalem (John 2:13).",
     "people": ["jesus", "mary"], "locations": ["cana"],
     "scripture": [{ "book": "John", "chapter": 2, "verse": 1, "endVerse": 11 }]
   },
@@ -1391,53 +1410,105 @@
     "id": "woman-at-the-well", "title": "The woman at the well", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "Passing through Samaria, Jesus offers a Samaritan woman living water and tells her he is the Messiah. Many in her town believe.",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "On the way back from Judea to Galilee after that first Passover (John 4:3–4).",
     "people": ["jesus"], "locations": ["sychar"],
     "scripture": [{ "book": "John", "chapter": 4, "verse": 1, "endVerse": 42 }]
+  },
+  {
+    "id": "bethesda", "title": "Healing at the pool of Bethesda", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "At a feast in Jerusalem Jesus finds a man who has been disabled for thirty-eight years lying by the pool of Bethesda and tells him, \"Get up, pick up your mat, and walk.\" Because it is the Sabbath, the leaders begin to persecute Jesus, and he answers, \"To this very day My Father is at His work, and I too am working.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "John calls it only \"a feast of the Jews\" (John 5:1); if it was a Passover, the ministry lasted a year longer. The pool, by the Sheep Gate north of the temple, has been excavated.",
+    "people": ["jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 5 }]
   },
   {
     "id": "calling-disciples", "title": "Jesus calls fishermen", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Come, follow Me,\" he says, \"and I will make you fishers of men.\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
-    "dateNote": "After John the Baptist was arrested, when Jesus began preaching in Galilee (Mark 1:14).",
+    "dateNote": "After John the Baptist was arrested, when Jesus began preaching in Galilee (Mark 1:14). John tells how some of them first met Jesus earlier, by the Jordan (John 1:35–51).",
     "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle"], "locations": ["sea-of-galilee", "capernaum"],
-    "scripture": [{ "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }, { "book": "Luke", "chapter": 5, "verse": 1, "endVerse": 11 }]
+    "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 18, "endVerse": 22 }, { "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 20 }, { "book": "Luke", "chapter": 5, "verse": 1, "endVerse": 11 }, { "book": "John", "chapter": 1, "verse": 35, "endVerse": 51 }]
+  },
+  {
+    "id": "paralytic-healed", "title": "Jesus heals a paralyzed man", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "In Capernaum four men lower a paralyzed man through the roof to Jesus, who tells him, \"Son, your sins are forgiven,\" and then, to show he has authority to forgive, \"get up, pick up your mat, and go home.\" Soon after, Jesus calls Levi, also called Matthew, from his tax booth and eats with tax collectors and sinners: \"I have not come to call the righteous, but sinners.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; early in the Galilean ministry, back in Capernaum after a tour of Galilee (Mark 1:39; 2:1).",
+    "people": ["jesus", "matthew"], "locations": ["capernaum"],
+    "scripture": [{ "book": "Matthew", "chapter": 9, "verse": 1, "endVerse": 17 }, { "book": "Mark", "chapter": 2, "verse": 1, "endVerse": 22 }, { "book": "Luke", "chapter": 5, "verse": 17, "endVerse": 39 }]
+  },
+  {
+    "id": "twelve-apostles", "title": "Jesus chooses the Twelve", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "After a night of prayer on a mountain, Jesus appoints twelve of his disciples as apostles, \"to accompany Him, to be sent out to preach.\" Later he sends them out two by two through the villages of Galilee to preach repentance, drive out demons and heal the sick.",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; in Luke, just before the Sermon on the Plain (Luke 6:12–20). The sending out comes later (Mark 6:7).",
+    "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle", "matthew", "judas-iscariot"], "locations": ["sea-of-galilee"],
+    "scripture": [{ "book": "Matthew", "chapter": 10 }, { "book": "Mark", "chapter": 3, "verse": 13, "endVerse": 19 }, { "book": "Mark", "chapter": 6, "verse": 7, "endVerse": 13 }, { "book": "Luke", "chapter": 6, "verse": 12, "endVerse": 16 }, { "book": "Luke", "chapter": 9, "verse": 1, "endVerse": 6 }]
   },
   {
     "id": "sermon-on-the-mount", "title": "The Sermon on the Mount", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "On a hillside in Galilee Jesus teaches the Beatitudes, the Lord's Prayer, and what life in God's kingdom looks like.",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
-    "dateNote": "Not dated; early in the Galilean ministry. Tradition places it on a hill above Capernaum.",
+    "dateNote": "Not dated; early in the Galilean ministry. Tradition places it on a hill above Capernaum. Luke gives a shorter sermon Jesus preached \"on a level place\" (Luke 6:17), which many take to be the same teaching.",
     "people": ["jesus"], "locations": ["capernaum"],
-    "scripture": [{ "book": "Matthew", "chapter": 5, "endChapter": 7 }]
+    "scripture": [{ "book": "Matthew", "chapter": 5, "endChapter": 7 }, { "book": "Luke", "chapter": 6, "verse": 17, "endVerse": 49 }]
+  },
+  {
+    "id": "parables-of-the-kingdom", "title": "Parables of the kingdom", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "From a boat on the Sea of Galilee Jesus teaches the crowd in parables: \"A farmer went out to sow his seed.\" The kingdom is like a mustard seed, like yeast in dough, like treasure hidden in a field and a precious pearl. \"He who has ears to hear, let him hear.\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; that evening Jesus crossed the sea and calmed the storm (Mark 4:35).",
+    "people": ["jesus"], "locations": ["sea-of-galilee"],
+    "scripture": [{ "book": "Matthew", "chapter": 13, "verse": 1, "endVerse": 53 }, { "book": "Mark", "chapter": 4, "verse": 1, "endVerse": 34 }, { "book": "Luke", "chapter": 8, "verse": 4, "endVerse": 18 }]
   },
   {
     "id": "storm-calmed", "title": "Jesus calms the storm", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "A storm swamps the disciples' boat while Jesus sleeps. He rebukes the wind, and the sea becomes calm: \"Who is this, that even the wind and the sea obey Him?\"",
+    "summary": "A storm swamps the disciples' boat while Jesus sleeps. He rebukes the wind, and the sea becomes calm: \"Who is this, that even the wind and the sea obey Him?\" On the far shore, in the region of the Gerasenes, he frees a man who lives among the tombs: \"My name is Legion,\" the man says, \"for we are many.\" The demons go into a herd of pigs, which rush into the sea.",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
-    "people": ["jesus", "peter"], "locations": ["sea-of-galilee"],
-    "scripture": [{ "book": "Mark", "chapter": 4, "verse": 35, "endVerse": 41 }]
+    "dateNote": "Not dated; the evening of the day Jesus taught in parables (Mark 4:35).",
+    "people": ["jesus", "peter"], "locations": ["sea-of-galilee", "gergesa"],
+    "scripture": [{ "book": "Matthew", "chapter": 8, "verse": 23, "endVerse": 34 }, { "book": "Mark", "chapter": 4, "verse": 35, "endChapter": 5, "endVerse": 20 }, { "book": "Luke", "chapter": 8, "verse": 22, "endVerse": 39 }]
+  },
+  {
+    "id": "jairus-daughter", "title": "Jairus' daughter", "type": "miracle", "partOf": "jesus-ministry",
+    "summary": "Jairus, a synagogue leader, begs Jesus to heal his dying daughter. On the way a woman who has been bleeding for twelve years touches his cloak and is healed. Word comes that the girl has died, but Jesus tells Jairus, \"Do not be afraid; just believe.\" Taking her by the hand, he says, \"Talitha koum!\" which means, \"Little girl, I say to you, get up!\"",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Not dated; when Jesus came back across the sea from the Gerasenes (Mark 5:21). The town isn't named; Matthew places it in Capernaum, \"His own town\" (Matthew 9:1, 18).",
+    "people": ["jesus", "peter", "james-son-of-zebedee", "john-apostle"], "locations": ["capernaum"],
+    "scripture": [{ "book": "Matthew", "chapter": 9, "verse": 18, "endVerse": 26 }, { "book": "Mark", "chapter": 5, "verse": 21, "endVerse": 43 }, { "book": "Luke", "chapter": 8, "verse": 40, "endVerse": 56 }]
+  },
+  {
+    "id": "john-baptist-beheaded", "title": "John the Baptist beheaded", "type": "death", "partOf": "jesus-ministry",
+    "summary": "John has told Herod Antipas that it is unlawful for him to marry his brother's wife, Herodias, and lies in Herod's prison. At Herod's birthday banquet Herodias's daughter dances, and Herod promises her anything she asks. Prompted by her mother, she asks for \"the head of John the Baptist on a platter.\" Herod is grieved but has John beheaded.",
+    "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
+    "dateNote": "Before the feeding of the five thousand (Matthew 14:12–13). Josephus says Herod imprisoned and killed John at his fortress of Machaerus, east of the Dead Sea (Antiquities 18.5.2); Scripture doesn't name the place.",
+    "people": ["john-the-baptist", "herod-antipas"],
+    "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 1, "endVerse": 12 }, { "book": "Mark", "chapter": 6, "verse": 14, "endVerse": 29 }, { "book": "Luke", "chapter": 9, "verse": 7, "endVerse": 9 }]
   },
   {
     "id": "feeding-five-thousand", "title": "Feeding the five thousand", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "Jesus feeds a crowd of five thousand men, besides women and children, with five loaves and two fish. The only miracle all four Gospels record.",
-    "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
+    "summary": "Jesus feeds a crowd of five thousand men, besides women and children, with five loaves and two fish, the only miracle all four Gospels record. The next day in Capernaum he tells the crowd, \"I am the bread of life,\" and many of his disciples turn back.",
+    "dates": { "early": { "start": { "year": 29, "month": 4, "label": "Near Passover" }, "confidence": "approx" } },
     "dateNote": "\"Now the Jewish Feast of the Passover was near\" (John 6:4).",
     "people": ["jesus", "peter"], "locations": ["bethsaida"],
-    "scripture": [{ "book": "John", "chapter": 6, "verse": 1, "endVerse": 14 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }]
+    "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 13, "endVerse": 21 }, { "book": "Mark", "chapter": 6, "verse": 30, "endVerse": 44 }, { "book": "Luke", "chapter": 9, "verse": 10, "endVerse": 17 }, { "book": "John", "chapter": 6, "verse": 1, "endVerse": 15 }, { "book": "John", "chapter": 6, "verse": 22, "endVerse": 71 }]
   },
   {
     "id": "walking-on-water", "title": "Jesus walks on the water", "type": "miracle", "partOf": "jesus-ministry",
     "summary": "The night after feeding the crowd, Jesus comes to his disciples walking on the sea. Peter steps out to meet him, and begins to sink.",
-    "dates": { "early": { "start": { "year": 29, "month": 4 }, "confidence": "approx" } },
+    "dates": { "early": { "start": { "year": 29, "month": 4, "label": "Near Passover" }, "confidence": "approx" } },
+    "dateNote": "The night after the feeding of the five thousand (Matthew 14:22–25).",
     "people": ["jesus", "peter"], "locations": ["sea-of-galilee"],
-    "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 22, "endVerse": 33 }, { "book": "John", "chapter": 6, "verse": 16, "endVerse": 21 }]
+    "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 22, "endVerse": 36 }, { "book": "Mark", "chapter": 6, "verse": 45, "endVerse": 56 }, { "book": "John", "chapter": 6, "verse": 16, "endVerse": 21 }]
   },
   {
     "id": "peter-confession", "title": "Peter's confession", "type": "covenant", "partOf": "jesus-ministry",
     "summary": "\"Who do you say I am?\" Peter answers, \"You are the Christ, the Son of the living God.\" From then on Jesus tells them he must suffer, die and rise.",
     "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
+    "dateNote": "Not dated; after the feeding of the five thousand, near one Passover, and before the last journey to Jerusalem.",
     "people": ["jesus", "peter"], "locations": ["caesarea-philippi"],
-    "scripture": [{ "book": "Matthew", "chapter": 16, "verse": 13, "endVerse": 28 }]
+    "scripture": [{ "book": "Matthew", "chapter": 16, "verse": 13, "endVerse": 28 }, { "book": "Mark", "chapter": 8, "verse": 27, "endChapter": 9, "endVerse": 1 }, { "book": "Luke", "chapter": 9, "verse": 18, "endVerse": 27 }]
   },
   {
     "id": "transfiguration", "title": "The transfiguration", "type": "miracle", "partOf": "jesus-ministry",
@@ -1445,54 +1516,95 @@
     "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
     "dateNote": "Six days after Peter's confession (Matthew 17:1). Tradition places it on Mount Tabor; many prefer Mount Hermon, near Caesarea Philippi.",
     "people": ["jesus", "peter", "james-son-of-zebedee", "john-apostle"], "locations": ["mount-tabor"],
-    "scripture": [{ "book": "Matthew", "chapter": 17, "verse": 1, "endVerse": 13 }]
+    "scripture": [{ "book": "Matthew", "chapter": 17, "verse": 1, "endVerse": 13 }, { "book": "Mark", "chapter": 9, "verse": 2, "endVerse": 13 }, { "book": "Luke", "chapter": 9, "verse": 28, "endVerse": 36 }]
+  },
+  {
+    "id": "feast-of-tabernacles", "title": "Jesus at the Feast of Tabernacles", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "Jesus goes up to Jerusalem for the Feast of Tabernacles and teaches in the temple courts while the crowds argue whether he is the Christ: \"I am the light of the world.\" He heals a man born blind, who tells the Pharisees, \"I was blind, but now I see!\" and calls himself the good shepherd, who \"lays down His life for the sheep.\" At the Feast of Dedication, in winter, his hearers take up stones when he says, \"I and the Father are one.\"",
+    "dates": { "early": { "start": { "year": 29, "month": 10, "label": "Feast of Tabernacles" }, "end": { "year": 29, "month": 12, "label": "Feast of Dedication" }, "confidence": "approx" } },
+    "dateNote": "The Feast of Tabernacles (John 7:2) fell in the autumn and the Feast of Dedication (John 10:22), Hanukkah, in winter, some months before the crucifixion.",
+    "people": ["jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "John", "chapter": 7, "endChapter": 10 }]
+  },
+  {
+    "id": "journey-to-jerusalem", "title": "The last journey to Jerusalem", "type": "ministry", "partOf": "jesus-ministry",
+    "summary": "\"Jesus resolutely set out for Jerusalem.\" On the way he sends out seventy-two disciples, teaches the Lord's Prayer, visits Martha and Mary, and tells the parables of the good Samaritan (\"Go and do likewise\"), the lost sheep, the prodigal son (\"He was lost and is found!\") and the rich man and Lazarus. He heals ten lepers, blesses little children, tells a rich ruler to sell everything he has, and at Jericho gives blind Bartimaeus his sight.",
+    "dates": { "early": { "start": { "year": 29, "month": 10, "label": "Autumn" }, "end": { "year": 30, "month": 3, "label": "Before Passover" }, "confidence": "approx" } },
+    "dateNote": "Luke gathers Jesus' teaching on the way into one long journey (Luke 9:51–19:27), from Galilee through Samaria and Perea, beyond the Jordan, to Jericho; it isn't told day by day. Probably from the autumn of AD 29 to the last Passover; John has Jesus in Jerusalem at the feasts in these months.",
+    "people": ["jesus", "martha", "mary-of-bethany"], "locations": ["bethany", "jericho"],
+    "scripture": [{ "book": "Luke", "chapter": 9, "verse": 51, "endChapter": 19, "endVerse": 27 }, { "book": "Matthew", "chapter": 19, "endChapter": 20 }, { "book": "Mark", "chapter": 10 }]
   },
   {
     "id": "lazarus-raised", "title": "Jesus raises Lazarus", "type": "miracle", "partOf": "jesus-ministry",
-    "summary": "Four days after Lazarus is buried, Jesus calls him out of the tomb: \"I am the resurrection and the life.\" The leaders resolve to kill Jesus.",
-    "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
+    "summary": "Four days after their brother Lazarus is buried, Jesus comes to Martha and Mary in Bethany: \"I am the resurrection and the life.\" Jesus weeps, then calls Lazarus out of the tomb. The leaders resolve to kill Jesus.",
+    "dates": { "early": { "start": { "year": 30, "month": 3, "label": "Before Passover" }, "confidence": "approx" } },
     "dateNote": "Shortly before Jesus' last Passover (John 11:55).",
-    "people": ["jesus", "lazarus"], "locations": ["bethany"],
+    "people": ["jesus", "lazarus", "martha", "mary-of-bethany"], "locations": ["bethany"],
     "scripture": [{ "book": "John", "chapter": 11 }]
   },
   {
     "id": "zacchaeus", "title": "Zacchaeus", "type": "ministry", "partOf": "jesus-ministry",
     "summary": "On his last journey to Jerusalem, Jesus calls a chief tax collector down from a sycamore tree in Jericho and goes to his house. \"Today salvation has come to this house.\"",
-    "dates": { "early": { "start": { "year": 30, "month": 3 }, "confidence": "approx" } },
+    "dates": { "early": { "start": { "year": 30, "month": 3, "label": "Before Passover" }, "confidence": "approx" } },
+    "dateNote": "On the way up to Jerusalem for the last Passover (Luke 19:1, 28).",
     "people": ["jesus"], "locations": ["jericho"],
     "scripture": [{ "book": "Luke", "chapter": 19, "verse": 1, "endVerse": 10 }]
   },
   {
+    "id": "anointing-at-bethany", "title": "Mary anoints Jesus at Bethany", "type": "worship",
+    "summary": "At a dinner in Bethany, Mary pours a pint of expensive perfume on Jesus and wipes his feet with her hair. Judas objects that it could have been sold for the poor, but Jesus says, \"Leave her alone\": she has anointed him for his burial, and \"wherever the gospel is preached in all the world, what she has done will also be told in memory of her.\" Judas goes to the chief priests and agrees to hand Jesus over for thirty pieces of silver.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 1, "label": "Six days before Passover" }, "confidence": "approx" } },
+    "dateNote": "John dates the dinner six days before the Passover (John 12:1). Matthew and Mark tell it two days before, beside the plot against Jesus (Mark 14:1–3), perhaps for that reason rather than in order. Luke tells of another woman who anointed Jesus, in Galilee (Luke 7:36–50).",
+    "people": ["jesus", "mary-of-bethany", "martha", "lazarus", "judas-iscariot"], "locations": ["bethany"],
+    "scripture": [{ "book": "John", "chapter": 12, "verse": 1, "endVerse": 11 }, { "book": "Matthew", "chapter": 26, "verse": 1, "endVerse": 16 }, { "book": "Mark", "chapter": 14, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 22, "verse": 1, "endVerse": 6 }]
+  },
+  {
     "id": "triumphal-entry", "title": "Jesus enters Jerusalem", "type": "other",
-    "summary": "Jesus rides into Jerusalem on a donkey as crowds wave palm branches and shout \"Hosanna!\"",
+    "summary": "Jesus rides into Jerusalem on a donkey as crowds wave palm branches and shout \"Hosanna!\" As he approaches and sees the city, he weeps over it.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 2, "label": "Sunday before Passover" }, "confidence": "approx" } },
     "dateNote": "The day after he came to Bethany, six days before Passover (John 12:1, 12). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus"], "locations": ["bethany", "mount-of-olives", "jerusalem"],
-    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
+    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "Mark", "chapter": 11, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 19, "verse": 28, "endVerse": 44 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
   },
   {
     "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment",
-    "summary": "Jesus drives out the money-changers and sellers: \"My house will be called a house of prayer. But you are making it 'a den of robbers.'\"",
+    "summary": "On the way into the city Jesus curses a fig tree with no fruit. In the temple courts he drives out the money-changers and those selling: \"Is it not written: 'My house will be called a house of prayer for all the nations'? But you have made it 'a den of robbers.'\"",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 3, "label": "Monday" }, "confidence": "approx" } },
-    "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing early in the ministry (John 2:13–17).",
+    "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing at Jesus' first Passover (John 2:13–22); some think Jesus cleared the temple twice, others that John tells it first for its meaning.",
     "people": ["jesus"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "Mark", "chapter": 11, "verse": 15, "endVerse": 19 }]
+    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 12, "endVerse": 17 }, { "book": "Mark", "chapter": 11, "verse": 12, "endVerse": 19 }, { "book": "Luke", "chapter": 19, "verse": 45, "endVerse": 48 }, { "book": "John", "chapter": 2, "verse": 12, "endVerse": 25 }]
+  },
+  {
+    "id": "questions-in-the-temple", "title": "Questions in the temple", "type": "ministry",
+    "summary": "Teaching in the temple courts, Jesus is questioned by chief priests, Pharisees, Herodians and Sadducees. Asked about taxes, he says, \"Give to Caesar what is Caesar's, and to God what is God's.\" Asked which commandment is greatest, he answers, \"Love the Lord your God with all your heart and with all your soul and with all your mind and with all your strength,\" and \"Love your neighbor as yourself.\" He warns against the scribes and Pharisees, and praises a poor widow who gives two small copper coins.",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 4, "label": "Tuesday" }, "confidence": "approx" } },
+    "dateNote": "The day after the temple was cleared, when the disciples saw the fig tree withered (Mark 11:20, 27).",
+    "people": ["jesus"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 18, "endChapter": 23, "endVerse": 39 }, { "book": "Mark", "chapter": 11, "verse": 20, "endChapter": 12, "endVerse": 44 }, { "book": "Luke", "chapter": 20, "endChapter": 21, "endVerse": 4 }, { "book": "John", "chapter": 12, "verse": 20, "endVerse": 50 }]
+  },
+  {
+    "id": "olivet-discourse", "title": "The Olivet discourse", "type": "prophecy",
+    "summary": "Leaving the temple, Jesus tells his disciples that not one stone of it will be left on another. On the Mount of Olives he warns of wars, persecution and Jerusalem's desolation, and of his coming in glory: \"Heaven and earth will pass away, but My words will never pass away.\" In parables of ten virgins, the talents, and the sheep and the goats he tells them to be ready: \"whatever you did for one of the least of these brothers of Mine, you did for Me.\"",
+    "dates": { "early": { "start": { "year": 30, "month": 4, "day": 4, "label": "Tuesday" }, "confidence": "approx" } },
+    "dateNote": "The same day as the questions in the temple (Mark 13:1–3). The Romans destroyed the temple in AD 70.",
+    "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle"], "locations": ["mount-of-olives"],
+    "scripture": [{ "book": "Matthew", "chapter": 24, "endChapter": 25 }, { "book": "Mark", "chapter": 13 }, { "book": "Luke", "chapter": 21, "verse": 5, "endVerse": 38 }]
   },
   {
     "id": "last-supper", "title": "The Last Supper", "type": "covenant",
     "summary": "Jesus shares a final meal with his disciples, gives them bread and wine as his body and blood of the new covenant, then prays in Gethsemane, where he is arrested.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 6, "label": "Thursday evening" }, "confidence": "approx" } },
     "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
-    "people": ["jesus", "peter"], "locations": ["jerusalem", "gethsemane"],
-    "scripture": [{ "book": "Luke", "chapter": 22, "verse": 7, "endVerse": 53 }, { "book": "John", "chapter": 13, "endChapter": 17 }]
+    "people": ["jesus", "peter", "judas-iscariot"], "locations": ["jerusalem", "gethsemane"],
+    "scripture": [{ "book": "Matthew", "chapter": 26, "verse": 17, "endVerse": 56 }, { "book": "Mark", "chapter": 14, "verse": 12, "endVerse": 52 }, { "book": "Luke", "chapter": 22, "verse": 7, "endVerse": 53 }, { "book": "John", "chapter": 13, "endChapter": 17 }]
   },
   {
     "id": "crucifixion", "title": "The crucifixion", "type": "death", "major": true,
-    "summary": "After trials before the high priest and Pilate, Jesus is crucified at Golgotha between two criminals, and dies. He is buried in a nearby tomb.",
+    "summary": "Through the night Jesus is tried before the high priest and the council, while Peter three times denies knowing him. In the morning Pilate, after sending him to Herod, hands him over to be crucified. He is crucified at Golgotha between two criminals, and dies. He is buried in a nearby tomb.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 7, "label": "14 Nisan" }, "confidence": "approx" } },
     "dateNote": "On the day of Preparation for the Passover (John 19:14, 31). The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
-    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate", "herod-antipas"], "locations": ["golgotha", "jerusalem"],
-    "scripture": [{ "book": "Matthew", "chapter": 27 }, { "book": "John", "chapter": 18, "endChapter": 19 }]
+    "people": ["jesus", "mary", "mary-magdalene", "pontius-pilate", "herod-antipas", "nicodemus"], "locations": ["golgotha", "jerusalem"],
+    "scripture": [{ "book": "Matthew", "chapter": 26, "verse": 57, "endChapter": 27, "endVerse": 66 }, { "book": "Mark", "chapter": 14, "verse": 53, "endChapter": 15, "endVerse": 47 }, { "book": "Luke", "chapter": 22, "verse": 54, "endChapter": 23, "endVerse": 56 }, { "book": "John", "chapter": 18, "endChapter": 19 }]
   },
   {
     "id": "resurrection", "title": "The resurrection", "type": "miracle", "major": true,
@@ -1500,12 +1612,13 @@
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 9, "label": "Sunday" }, "confidence": "approx" } },
     "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus", "mary-magdalene", "peter"], "locations": ["golgotha", "jerusalem"],
-    "scripture": [{ "book": "Matthew", "chapter": 28 }, { "book": "Luke", "chapter": 24 }, { "book": "John", "chapter": 20, "endChapter": 21 }, { "book": "1 Corinthians", "chapter": 15, "verse": 3, "endVerse": 8 }]
+    "scripture": [{ "book": "Matthew", "chapter": 28 }, { "book": "Mark", "chapter": 16 }, { "book": "Luke", "chapter": 24 }, { "book": "John", "chapter": 20, "endChapter": 21 }, { "book": "1 Corinthians", "chapter": 15, "verse": 3, "endVerse": 8 }]
   },
   {
     "id": "emmaus-road", "title": "The road to Emmaus", "type": "miracle",
     "summary": "The risen Jesus walks with two disciples, explaining from the Scriptures why the Christ had to suffer; they recognize him as he breaks the bread.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 9, "label": "Sunday evening" }, "confidence": "approx" } },
+    "dateNote": "The evening of the resurrection, \"that same day\" (Luke 24:13).",
     "people": ["jesus"], "locations": ["emmaus", "jerusalem"],
     "scripture": [{ "book": "Luke", "chapter": 24, "verse": 13, "endVerse": 35 }]
   },
@@ -1721,14 +1834,6 @@
     "people": ["jesus", "mary", "joseph-of-nazareth", "herod-the-great"], "locations": ["bethlehem", "egypt", "nazareth"],
     "journeyId": "flight-to-egypt",
     "scripture": [{ "book": "Matthew", "chapter": 2, "verse": 13, "endVerse": 23 }]
-  },
-  {
-    "id": "annunciation", "title": "The angel comes to Mary", "type": "prophecy",
-    "summary": "Gabriel tells Mary, a virgin engaged to Joseph, that she will bear the Son of God. \"May it happen to me according to your word.\" She visits her relative Elizabeth, who is expecting John.",
-    "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
-    "dateNote": "About nine months before Jesus' birth, probably about 6–5 BC.",
-    "people": ["mary"], "locations": ["nazareth"],
-    "scripture": [{ "book": "Luke", "chapter": 1, "verse": 26, "endVerse": 56 }]
   },
   {
     "id": "antioch-church", "title": "Believers first called Christians", "type": "other",
