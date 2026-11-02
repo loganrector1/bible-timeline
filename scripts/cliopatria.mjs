@@ -39,7 +39,8 @@ const REPORT_OVERLAP = 0.5;
  * `within` keeps only a power's homeland (Cliopatria's Philistia spreads over half of Canaan,
  * the Philistines' dominance in Saul's day, not their land).
  * `coast` adds a strip Cliopatria's coastline misses (Tyre's island).
- * `takes` adds a drawn outline's land from a conquest, where Cliopatria's snapshots come late.
+ * `takes` adds a conquered outline's land (drawn.json's or another power's, as it stood the year
+ * before `from`) from a conquest, where Cliopatria's snapshots come late.
  * `beyond` is land cut out of a power's outline altogether: Egypt's kings were overlords in
  * Canaan, not its rulers, so that's told in words. `tint` colors Israel's own states as the
  * Kings lane does (Judah warm).
@@ -83,7 +84,7 @@ const POWERS = [
     empire: "assyria", name: "Assyria", rows: ["Neo-Assyrian Empire"],
     yieldTo: ["egypt-divided", "egypt-late", "babylon", "judah", "israel-after-732", "philistia", "phoenicia", "ammon", "moab", "edom", "aram"],
     // Galilee and Gilead in 732 BC (2 Kings 15:29), Samaria in 720 (it yields to what's left till then).
-    takes: [{ drawn: "israel", from: -731, to: -700 }],
+    takes: [{ outline: "israel", from: -731, to: -700 }],
   },
   // The 26th dynasty fell to Cambyses in 525 BC; the 30th to Artaxerxes III in 343 BC.
   {
@@ -91,7 +92,8 @@ const POWERS = [
     rows: ["Twenty-sixth Dynasty of Egypt", "Thirtieth Dynasty of Egypt"], until: { "Twenty-sixth Dynasty of Egypt": -524 },
   },
   { empire: "babylon", name: "Babylon", rows: ["Babylonia", "Neo-Babylonian Empire"], until: { Babylonia: -599 }, yieldTo: ["judah", "phoenicia", "ammon", "moab", "edom"] },
-  { empire: "persia", name: "Persia", rows: ["Achaemenid Empire"] },
+  // Cyrus took Babylon, and with it the west, in 539 BC; Cliopatria's Persia holds it from 530.
+  { empire: "persia", name: "Persia", rows: ["Achaemenid Empire"], takes: [{ outline: "babylon", from: -537, to: -530 }] },
   { empire: "alexander-empire", name: "Alexander's empire", rows: ["Macedonian Empire"] },
   // Rome took Syria in 64–63 BC and Egypt in 30 BC.
   { empire: "seleucids", name: "Seleucids", rows: ["Seleucid Empire"], yieldTo: ["roman-republic"] },
@@ -186,8 +188,10 @@ const drawn = JSON.parse(readFileSync(DRAWN, "utf8")).features.map((f) => ({
   key: f.properties.id.split("@")[0], from: f.properties.from, to: f.properties.to, coordinates: multi(f.geometry),
 }));
 
-// A power takes a drawn outline's land from a conquest until its own snapshots show it
-// (Assyria takes Israel's in 732 BC; Cliopatria's Assyria holds it only from 700).
+// A power takes the land of the outline that stood the year before a conquest, drawn or
+// Cliopatria's, until its own snapshots show it (Assyria takes Israel's in 732 BC; Cliopatria's
+// Assyria holds it only from 700).
+const conquered = (t) => [...drawn, ...features].filter((d) => d.key === t.outline && d.from <= t.from - 1 && d.to > t.from - 1);
 const taken = features.flatMap((f) => {
   const takes = (f.power.takes ?? []).filter((t) => t.from < f.to && t.to > f.from);
   if (takes.length === 0) return [f];
@@ -196,7 +200,7 @@ const taken = features.flatMap((f) => {
     .sort((a, b) => a - b);
   return cuts.slice(0, -1).map((a, i) => {
     const b = cuts[i + 1];
-    const lands = takes.filter((t) => t.from < b && t.to > a).flatMap((t) => drawn.filter((d) => d.key === t.drawn).map((d) => d.coordinates));
+    const lands = takes.filter((t) => t.from < b && t.to > a).flatMap((t) => conquered(t).map((d) => d.coordinates));
     return { ...f, from: a, to: b, coordinates: lands.length ? polygonClipping.union(f.coordinates, ...lands) : f.coordinates };
   });
 });
@@ -279,9 +283,15 @@ function reportOverlaps(fs) {
       let shared;
       try {
         shared = polygonClipping.intersection(a.coordinates, b.coordinates);
-      } catch (e) {
-        console.log(`couldn't compare ${a.key}@${a.from} and ${b.key}@${b.from}: ${e.message}`);
-        continue;
+      } catch {
+        // polygon-clipping can loop on near-coincident edges (Assyria's and Philistia's in
+        // 700 BC); rounding to about 10 cm settles them.
+        try {
+          shared = polygonClipping.intersection(rounded(a.coordinates), rounded(b.coordinates));
+        } catch (e) {
+          console.log(`couldn't compare ${a.key}@${a.from} and ${b.key}@${b.from}: ${e.message}`);
+          continue;
+        }
       }
       const area = shared
         .reduce((s, poly) => s + Math.abs(ringArea(poly[0])) - poly.slice(1).reduce((h, r) => h + Math.abs(ringArea(r)), 0), 0);
@@ -290,6 +300,11 @@ function reportOverlaps(fs) {
       }
     }
   }
+}
+
+/** MultiPolygon coordinates rounded to 6 decimal places. */
+function rounded(m) {
+  return m.map((poly) => poly.map((ring) => ring.map(([x, y]) => [+x.toFixed(6), +y.toFixed(6)])));
 }
 
 function sameRows(a, b) {

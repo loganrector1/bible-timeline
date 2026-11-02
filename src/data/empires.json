@@ -27,7 +27,7 @@
   },
   {
     "id": "hittites", "name": "The Hittite Empire",
-    "summary": "A great power of Anatolia that rivalled Egypt for Syria, until it collapsed with the end of the Bronze Age. Scripture's Hittites in Canaan (Ephron, Uriah) are a related people.",
+    "summary": "A great power of Anatolia that rivaled Egypt for Syria, until it collapsed with the end of the Bronze Age. Scripture's Hittites in Canaan (Ephron, Uriah) are a related people.",
     "dates": { "early": { "start": { "year": -1649 }, "end": { "year": -1179 }, "confidence": "approx" } },
     "dateNote": "About 1650–1180 BC, ruled from Hattusa in central Turkey."
   },
@@ -39,7 +39,7 @@
   },
   {
     "id": "egypt-divided", "name": "Egypt divided", "column": 0,
-    "summary": "Egypt split between rival dynasties, Libyan and then Kushite, and no longer a power in Canaan except in raids like Shishak's, and as an ally Israel and Judah hoped in.",
+    "summary": "Egypt split between rival dynasties, Libyan and then Kushite, and no longer a power in Canaan except in raids like Shishak's, and as an ally Israel and Judah looked to.",
     "dates": { "early": { "start": { "year": -1069 }, "end": { "year": -663 }, "confidence": "approx" } },
     "dateNote": "About 1070–664 BC, Egypt's Third Intermediate Period. Shishak (Shoshenq I) and Tirhakah are its pharaohs in Scripture."
   },

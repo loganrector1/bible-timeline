@@ -1322,7 +1322,7 @@
     "id": "caesar-killed", "title": "Julius Caesar assassinated", "type": "death", "world": true,
     "summary": "Senators kill Julius Caesar in Rome. The civil wars that follow end with his heir Octavian as Augustus, Rome's first emperor.",
     "dates": { "early": { "start": { "year": -43 }, "confidence": "approx" } },
-    "dateNote": "The Ides of March, 44 BC.",
+    "dateNote": "The Ides of March (March 15), 44 BC, told by the Roman historian Suetonius and by Plutarch.",
     "locations": ["rome"]
   },
   {
@@ -1755,10 +1755,10 @@
   },
   {
     "id": "paul-arrested", "title": "Paul arrested in Jerusalem", "type": "other",
-    "summary": "In Jerusalem Paul reports to James and the elders, and to show he still keeps the Law he joins four men in a vow at the temple. There a riot breaks out against him. Roman soldiers take him into custody, and he is held at Caesarea for two years.",
+    "summary": "In Jerusalem Paul reports to James and the elders, and to show he still keeps the Law he joins four men in a vow at the temple. There a riot breaks out against him. Roman soldiers take him into custody, and he is held at Caesarea for two years, where he makes his defense before the governors Felix and Festus and King Agrippa.",
     "dates": { "early": { "start": { "year": 57, "month": 6, "label": "After Pentecost" }, "confidence": "approx" } },
     "dateNote": "Paul hurried to reach Jerusalem by Pentecost (Acts 20:16).",
-    "people": ["paul", "james-brother-of-jesus", "felix", "festus"], "locations": ["jerusalem", "caesarea"],
+    "people": ["paul", "james-brother-of-jesus", "felix", "festus", "agrippa-ii"], "locations": ["jerusalem", "caesarea"],
     "scripture": [{ "book": "Acts", "chapter": 21, "verse": 17, "endChapter": 26, "endVerse": 32 }]
   },
   {
