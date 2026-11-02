@@ -16,6 +16,8 @@ function layoutFor(id: string) {
 
 const MIN_SCALE = 0.25;
 const MAX_SCALE = 2;
+/** The height a line takes to move sideways: most of a row. */
+const TURN = 40;
 /** Moves shorter than this are taps, not drags. */
 const DRAG_PX = 5;
 
@@ -307,13 +309,24 @@ function edgePath(e: LaidEdge, layout: FamilyLayout) {
   // A link to the next row needs no bends: dagre's midpoint there can sit off to one side, so
   // the curve swung out and back. Longer links keep theirs, which steer round the cards between.
   const bends = e.points.length > 3 ? e.points.slice(1, -1).filter((p) => p.y > start.y + 6 && p.y < end.y - 6) : [];
-  const pts = [start, ...bends, end];
+  // Dagre's bends can sit just below the start or just above the end, far to one side, which drew
+  // a flat dash and a sharp corner (David to Solomon, Terah to Nahor). A sideways move gets room:
+  // the bend after it is pushed down, or before the end, the bend before it pulled up, so each is
+  // a gentle S and the runs between are straight.
+  const pts = [start, ...bends.map((p) => ({ ...p })), end];
+  const last = pts.length - 1;
+  for (let i = 1; i < last; i++) {
+    if (Math.abs(pts[i].x - pts[i - 1].x) > 1) pts[i].y = Math.min(Math.max(pts[i].y, pts[i - 1].y + TURN), pts[i + 1].y);
+  }
+  if (last > 1 && Math.abs(pts[last].x - pts[last - 1].x) > 1) {
+    pts[last - 1].y = Math.max(Math.min(pts[last - 1].y, pts[last].y - TURN), pts[last - 2].y);
+  }
   let d = `M${pts[0].x},${pts[0].y}`;
   for (let i = 1; i < pts.length; i++) {
     const a = pts[i - 1];
     const b = pts[i];
     const dy = (b.y - a.y) / 2;
-    d += ` C${a.x},${a.y + dy} ${b.x},${b.y - dy} ${b.x},${b.y}`;
+    d += Math.abs(b.x - a.x) <= 1 ? ` L${b.x},${b.y}` : ` C${a.x},${a.y + dy} ${b.x},${b.y - dy} ${b.x},${b.y}`;
   }
   return d;
 }
