@@ -72,9 +72,9 @@ Decided: outlines change in steps at each dated snapshot with a quick cross-fade
 
 Also built: Israel's neighbors (Philistia, Phoenicia, Aram, Ammon, Moab, Edom, the Nabataeans), opening their lands as places; "Ruled by" on every place, listing the empires and Israel's own states over it; the map shows rule, not overlordship (Egypt's in Canaan is told in words); Egypt's and Canaan's regions redrawn to follow the Nile and Scripture's borders; unused places hidden when zoomed out.
 
-## Family tree (in progress)
+## Family tree (done)
 
-Branch `feature/family-tree`. A view of its own, from Adam to Jesus, centered on whoever you open it from, with their line highlighted. The genealogies' names that have no events (115 of them: Seth to Lamech, Jacob's other sons, Perez to Obed, Matthew's and Luke's lines after David) are tree-only names, not people. Both Gospels' lines from David to Joseph are drawn, meeting at Shealtiel and Joseph.
+A view that takes the map's place (Timeline · Both · Tree), from Adam to Jesus, kept in step with the timeline both ways, with the selected person's line highlighted (selecting them again clears it); women tinted rose and marked ♀. The genealogies' names that have no events (115 of them: Seth to Lamech, Jacob's other sons, Perez to Obed, Matthew's and Luke's lines after David) are tree-only names, not people. Both Gospels' lines from David to Joseph are drawn, meeting at Shealtiel and Joseph.
 
 ## Next candidates
 
