@@ -18,10 +18,11 @@ export default function EventDetail({ ev }: { ev: Event }) {
 
   const era = mid === undefined ? undefined : eraAt(mid, chron);
 
-  // The other chronologies' dates, where they differ (from Saul on, they agree).
+  // The other chronologies' dates, where they read differently (from Saul on they agree, and an
+  // unknown date is "Date unknown" in both, though it's placed apart).
   const alternates = CHRONOLOGIES.flatMap((c) => {
     const other = c.id !== chron ? datesFor(ev, c.id) : undefined;
-    return other && JSON.stringify(other) !== JSON.stringify(spec) ? [{ ...c, spec: other }] : [];
+    return other && spec && formatDateSpec(other, eraStyle) !== formatDateSpec(spec, eraStyle) ? [{ ...c, spec: other }] : [];
   });
   const setChronology = useStore((s) => s.setChronology);
   // Before and after skip what the filters hide, as the step buttons do.

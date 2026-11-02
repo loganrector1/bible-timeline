@@ -8,6 +8,22 @@
     "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2, "endVerse": 3 }]
   },
   {
+    "id": "fall", "title": "The Fall", "type": "judgment", "major": true,
+    "summary": "Tempted by the serpent, Adam and Eve eat from the tree God forbade them. Sin and death enter the world, and God sends them out of Eden, with the first promise of the serpent's defeat (Genesis 3:15).",
+    "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" }, "late": { "start": { "year": -3927 }, "confidence": "unknown" } },
+    "dateNote": "Scripture doesn't say how long after Creation; placed with it.",
+    "people": ["adam"],
+    "scripture": [{ "book": "Genesis", "chapter": 3 }]
+  },
+  {
+    "id": "cain-abel", "title": "Cain and Abel", "type": "judgment",
+    "summary": "God accepts Abel's offering and not Cain's; Cain kills his brother in anger, and God sends him out to wander, marked so that no one will kill him.",
+    "dates": { "early": { "start": { "year": -3984 }, "confidence": "unknown" }, "late": { "start": { "year": -3798 }, "confidence": "unknown" } },
+    "dateNote": "Before Seth's birth, when Adam was 130 (Genesis 4:25; 5:3); how long before isn't told.",
+    "people": ["adam"],
+    "scripture": [{ "book": "Genesis", "chapter": 4, "verse": 1, "endVerse": 16 }]
+  },
+  {
     "id": "flood", "title": "The Flood", "type": "judgment", "major": true,
     "summary": "God judges a corrupt world by a flood and saves Noah, his family and the animals in the ark, then makes a covenant never to flood the earth again.",
     "dates": { "early": { "start": { "year": -2457 }, "confidence": "unknown" }, "late": { "start": { "year": -2271 }, "confidence": "unknown" } },
@@ -57,6 +73,14 @@
     "scripture": [{ "book": "Genesis", "chapter": 13 }]
   },
   {
+    "id": "melchizedek", "title": "Abram and Melchizedek", "type": "worship",
+    "summary": "Abram rescues Lot from four invading kings, pursuing them as far as Dan. On his return Melchizedek, king of Salem and priest of God Most High, blesses him, and Abram gives him a tenth of everything.",
+    "dates": { "early": { "start": { "year": -2082 }, "confidence": "approx" }, "late": { "start": { "year": -1896 }, "confidence": "approx" } },
+    "dateNote": "After Lot moved to Sodom and before God's covenant with Abram, which came \"after these events\" (Genesis 15:1); the year is an estimate. Salem is usually taken to be Jerusalem (Psalm 76:2).",
+    "people": ["abraham", "lot"], "locations": ["hebron", "sodom", "dan", "jerusalem"],
+    "scripture": [{ "book": "Genesis", "chapter": 14 }, { "book": "Hebrews", "chapter": 7, "verse": 1, "endVerse": 10 }]
+  },
+  {
     "id": "covenant-pieces", "title": "God's covenant with Abram", "type": "covenant", "major": true,
     "summary": "God promises Abram offspring as many as the stars and confirms the promise of the land with a covenant ceremony.",
     "dates": { "early": { "start": { "year": -2080 }, "confidence": "approx" }, "late": { "start": { "year": -1894 }, "confidence": "approx" } },
@@ -69,7 +93,7 @@
     "summary": "Hagar bears Abram a son, Ishmael, after God meets her in the wilderness.",
     "dates": { "early": { "start": { "year": -2079 }, "confidence": "approx" }, "late": { "start": { "year": -1893 }, "confidence": "approx" } },
     "dateNote": "Abram was 86 (Genesis 16:16).",
-    "people": ["ishmael", "hagar", "abraham"],
+    "people": ["ishmael", "hagar", "abraham"], "locations": ["hebron"],
     "scripture": [{ "book": "Genesis", "chapter": 16 }]
   },
   {
@@ -125,7 +149,7 @@
     "summary": "Rebekah bears twins; God says the older will serve the younger.",
     "dates": { "early": { "start": { "year": -2005 }, "confidence": "approx" }, "late": { "start": { "year": -1819 }, "confidence": "approx" } },
     "dateNote": "Isaac was 60 (Genesis 25:26).",
-    "people": ["jacob", "esau", "isaac", "rebekah"],
+    "people": ["jacob", "esau", "isaac", "rebekah"], "locations": ["beer-lahai-roi"],
     "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 19, "endVerse": 26 }]
   },
   {
