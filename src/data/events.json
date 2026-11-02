@@ -236,7 +236,7 @@
   },
   {
     "id": "brothers-in-egypt", "title": "Joseph's brothers come to Egypt", "type": "family",
-    "summary": "Famine drives Jacob's sons to Egypt for grain, and they bow before Joseph without knowing him. He tests them, keeping Simeon and demanding Benjamin, until Judah offers himself in Benjamin's place. Then Joseph tells them, \"I am Joseph, your brother, the one you sold into Egypt!\" and \"it was to save lives that God sent me before you.\"",
+    "summary": "Famine drives Jacob's sons to Egypt for grain, and they bow before Joseph without knowing him. He tests them, keeping Simeon and demanding Benjamin, until Judah offers himself in Benjamin's place. Then Joseph tells them, \"I am Joseph! Is my father still alive?\" and \"it was to save lives that God sent me before you.\"",
     "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
     "dateNote": "Two years into the famine (Genesis 45:6), the year Jacob moved to Egypt; the brothers' first trip may have been a year earlier.",
     "people": ["joseph", "judah", "jacob"], "locations": ["egypt", "hebron"],
@@ -559,7 +559,7 @@
     },
     "dateNote": "Deuteronomy 1:3–5.",
     "people": ["moses", "joshua"], "locations": ["plains-of-moab"],
-    "scripture": [{ "book": "Numbers", "chapter": 27, "verse": 12, "endVerse": 23 }, { "book": "Deuteronomy", "chapter": 1, "endChapter": 33 }]
+    "scripture": [{ "book": "Numbers", "chapter": 27, "verse": 12, "endVerse": 23 }, { "book": "Deuteronomy", "chapter": 1, "endChapter": 33 }, { "book": "Psalm", "chapter": 90 }]
   },
   {
     "id": "moses-dies", "title": "Death of Moses", "type": "death", "major": true,
@@ -650,6 +650,22 @@
     "scripture": [{ "book": "Joshua", "chapter": 23, "endChapter": 24 }]
   },
   {
+    "id": "israel-no-king", "title": "Israel without a king", "type": "judgment",
+    "summary": "Micah of Ephraim sets up a shrine with an idol, and the tribe of Dan carries it off when it seizes a new home in the north. A Levite's concubine is abused and killed at Gibeah, and the tribes nearly wipe out Benjamin in the war that follows. \"In those days there was no king in Israel; everyone did what was right in his own eyes.\"",
+    "dates": { "early": { "start": { "year": -1375 }, "confidence": "approx" }, "late": { "start": { "year": -1198 }, "confidence": "approx" } },
+    "dateNote": "Told at the end of Judges but set early in it: Phinehas, Aaron's grandson, is still priest (Judges 20:28), and Moses' grandson Jonathan serves Dan's idols (Judges 18:30). Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": [], "locations": ["dan", "gibeah"],
+    "scripture": [{ "book": "Judges", "chapter": 17, "endChapter": 21 }]
+  },
+  {
+    "id": "othniel-ehud", "title": "Othniel and Ehud", "type": "battle",
+    "summary": "After Joshua's generation, \"another generation rose up who did not know the LORD.\" Israel serves the Baals and falls to its enemies, then cries out, and God raises up judges: first Othniel, Caleb's nephew, then Ehud, \"a left-handed Benjamite,\" who kills Eglon king of Moab and sets Israel free.",
+    "dates": { "early": { "start": { "year": -1322 }, "confidence": "approx" }, "late": { "start": { "year": -1195 }, "confidence": "approx" } },
+    "dateNote": "Eight years under Cushan-rishathaim and forty of rest under Othniel come before Moab's eighteen (Judges 3:8–14). Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["ehud", "othniel"], "locations": ["jericho", "moab"],
+    "scripture": [{ "book": "Judges", "chapter": 1, "endChapter": 3 }]
+  },
+  {
     "id": "deborah-barak", "title": "Deborah and Barak defeat Sisera", "type": "battle",
     "summary": "At Deborah's word Barak leads ten thousand men from Mount Tabor; the Kishon sweeps away Sisera's chariots, and Jael kills Sisera.",
     "dates": {
@@ -669,11 +685,11 @@
   },
   {
     "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle",
-    "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches.",
+    "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches. After his death his son Abimelech kills his brothers and makes himself king at Shechem, until a woman drops a millstone on his head.",
     "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
     "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
     "people": ["gideon"], "locations": ["harod"],
-    "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 8 }]
+    "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 9 }]
   },
   {
     "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family",
@@ -687,8 +703,25 @@
     "id": "samuel-born", "title": "Birth of Samuel", "type": "birth",
     "summary": "Hannah prays at Shiloh for a son; when Samuel is born she gives him to serve the Lord under Eli.",
     "dates": { "early": { "start": { "year": -1104 }, "confidence": "approx" } },
+    "dateNote": "Estimated: Samuel was old by the time Israel asked for a king (1 Samuel 8:1).",
     "people": ["samuel", "hannah", "eli"], "locations": ["ramah", "shiloh"],
     "scripture": [{ "book": "1 Samuel", "chapter": 1, "verse": 1, "endChapter": 2, "endVerse": 11 }]
+  },
+  {
+    "id": "samuel-called", "title": "God calls Samuel", "type": "prophecy",
+    "summary": "At Shiloh, when \"the word of the LORD was rare,\" God calls the boy Samuel by name in the night. Samuel answers, \"Speak, for Your servant is listening,\" and hears of the judgment coming on Eli's house. All Israel comes to know him as a prophet.",
+    "dates": { "early": { "start": { "year": -1092 }, "confidence": "approx" } },
+    "dateNote": "Samuel is still a boy (1 Samuel 3:1); Josephus says he was twelve.",
+    "people": ["samuel", "eli"], "locations": ["shiloh"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 2, "verse": 12, "endChapter": 3 }]
+  },
+  {
+    "id": "jephthah", "title": "Jephthah's vow", "type": "battle",
+    "summary": "Driven out by his brothers, Jephthah of Gilead is called back to lead Israel against the Ammonites. He vows that \"whatever comes out the door of my house to greet me\" on his return will be the LORD's, as a burnt offering, and his only daughter comes out to meet him.",
+    "dates": { "early": { "start": { "year": -1105 }, "confidence": "approx" } },
+    "dateNote": "Jephthah tells the Ammonites Israel has held the land east of the Jordan for \"three hundred years\" (Judges 11:26), which fits the early date of the Exodus; late-daters take it as a round number. Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
+    "people": ["jephthah"], "locations": ["mizpah-gilead", "ammon"],
+    "scripture": [{ "book": "Judges", "chapter": 10, "verse": 6, "endChapter": 12, "endVerse": 7 }]
   },
   {
     "id": "samson-judges", "title": "Samson fights the Philistines", "type": "battle", "major": true,
@@ -700,11 +733,11 @@
   },
   {
     "id": "ark-captured", "title": "The ark captured", "type": "judgment",
-    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news.",
+    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news. Twenty years later Samuel gathers Israel at Mizpah, the Philistines are routed, and he sets up a stone, Ebenezer: \"Thus far the LORD has helped us.\"",
     "dates": { "early": { "start": { "year": -1079 }, "confidence": "approx" } },
     "dateNote": "The ark then stays twenty years at Kiriath-jearim before Samuel gathers Israel at Mizpah (1 Samuel 7:2).",
     "people": ["eli", "samuel"], "locations": ["aphek", "shiloh"],
-    "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 6 }]
+    "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 7 }]
   },
   {
     "id": "saul-king", "title": "Saul becomes king", "type": "reign", "major": true,
@@ -712,7 +745,15 @@
     "dates": { "early": { "start": { "year": -1049 }, "confidence": "approx" } },
     "dateNote": "Acts 13:21 gives Saul forty years; the numbers in 1 Samuel 13:1 are damaged in the Hebrew text.",
     "people": ["saul", "samuel"], "locations": ["ramah", "gibeah"],
-    "scripture": [{ "book": "1 Samuel", "chapter": 8, "endChapter": 11 }]
+    "scripture": [{ "book": "1 Samuel", "chapter": 8, "endChapter": 12 }]
+  },
+  {
+    "id": "saul-rejected", "title": "Saul is rejected", "type": "judgment",
+    "summary": "Saul offers the sacrifice at Gilgal rather than wait for Samuel. At Michmash Jonathan and his armor-bearer rout a Philistine garrison. Later Saul spares Agag king of Amalek and the best of the plunder, and Samuel tells him, \"obedience is better than sacrifice\": the LORD has rejected him as king.",
+    "dates": { "early": { "start": { "year": -1026 }, "confidence": "approx" } },
+    "dateNote": "Not dated; before Samuel anoints David (1 Samuel 16:1).",
+    "people": ["saul", "samuel", "jonathan"], "locations": ["gilgal"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 13, "endChapter": 15 }]
   },
   {
     "id": "david-anointed", "title": "Samuel anoints David", "type": "other",
@@ -731,11 +772,20 @@
     "scripture": [{ "book": "1 Samuel", "chapter": 17 }]
   },
   {
+    "id": "david-flees", "title": "David flees from Saul", "type": "other",
+    "summary": "Jonathan loves David \"as himself,\" but Saul's jealousy turns murderous, and David flees. Hunted through the wilderness, he twice spares Saul's life: \"May I never lift my hand against him, since he is the LORD's anointed.\" He marries Abigail, and at last takes refuge among the Philistines at Ziklag.",
+    "dates": { "early": { "start": { "year": -1021 }, "end": { "year": -1009 }, "confidence": "approx" } },
+    "dateNote": "From soon after David killed Goliath until Saul's death, when David was 30 (2 Samuel 5:4); his last year and four months were spent in Philistine territory (1 Samuel 27:7).",
+    "people": ["david", "saul", "jonathan"], "locations": ["gibeah", "en-gedi"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 18, "endChapter": 30 }]
+  },
+  {
     "id": "saul-dies", "title": "Death of Saul and Jonathan", "type": "death",
-    "summary": "The Philistines defeat Israel on Mount Gilboa. Jonathan is killed and the wounded Saul falls on his own sword.",
+    "summary": "The night before the battle Saul consults a medium at Endor. The Philistines defeat Israel on Mount Gilboa. Jonathan is killed and the wounded Saul falls on his own sword.",
     "dates": { "early": { "start": { "year": -1009 }, "confidence": "approx" } },
+    "dateNote": "Counted back from the kingdom's division in 931 BC: David reigned forty years after Saul (2 Samuel 5:4).",
     "people": ["saul", "jonathan", "david"], "locations": ["mount-gilboa"],
-    "scripture": [{ "book": "1 Samuel", "chapter": 31 }, { "book": "2 Samuel", "chapter": 1 }]
+    "scripture": [{ "book": "1 Samuel", "chapter": 28 }, { "book": "1 Samuel", "chapter": 31 }, { "book": "2 Samuel", "chapter": 1 }, { "book": "1 Chronicles", "chapter": 10 }]
   },
   {
     "id": "david-reign", "title": "David's reign", "type": "reign", "major": true,
@@ -743,7 +793,7 @@
     "dates": { "early": { "start": { "year": -1009 }, "end": { "year": -969 }, "confidence": "approx" } },
     "dateNote": "Forty years in all (2 Samuel 5:4–5).",
     "people": ["david"], "locations": ["hebron", "jerusalem"],
-    "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }]
+    "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }, { "book": "1 Chronicles", "chapter": 11, "endChapter": 29 }]
   },
   {
     "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "partOf": "david-reign",
@@ -751,7 +801,7 @@
     "dates": { "early": { "start": { "year": -1002 }, "confidence": "approx" } },
     "dateNote": "After seven and a half years reigning in Hebron (2 Samuel 5:5).",
     "people": ["david"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "2 Samuel", "chapter": 5, "verse": 6, "endChapter": 6, "endVerse": 19 }]
+    "scripture": [{ "book": "2 Samuel", "chapter": 5, "verse": 6, "endChapter": 6, "endVerse": 19 }, { "book": "1 Chronicles", "chapter": 11, "verse": 4, "endVerse": 9 }, { "book": "1 Chronicles", "chapter": 13, "endChapter": 16 }]
   },
   {
     "id": "davidic-covenant", "title": "God's covenant with David", "type": "covenant", "major": true, "partOf": "david-reign",
@@ -759,7 +809,7 @@
     "dates": { "early": { "start": { "year": -999 }, "confidence": "approx" } },
     "dateNote": "Not dated; it comes once David is settled in his palace in Jerusalem (2 Samuel 7:1).",
     "people": ["david", "nathan"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "2 Samuel", "chapter": 7 }]
+    "scripture": [{ "book": "2 Samuel", "chapter": 7 }, { "book": "1 Chronicles", "chapter": 17 }]
   },
   {
     "id": "david-bathsheba", "title": "David and Bathsheba", "type": "judgment", "partOf": "david-reign",
@@ -770,12 +820,20 @@
     "scripture": [{ "book": "2 Samuel", "chapter": 11, "endChapter": 12 }]
   },
   {
+    "id": "absalom", "title": "Absalom's rebellion", "type": "battle", "partOf": "david-reign",
+    "summary": "Absalom kills his brother Amnon, who had raped their sister Tamar. Later he wins the people's hearts and has himself proclaimed king at Hebron, and David flees Jerusalem. In the battle that follows, Absalom's head is caught in an oak and he is killed. David weeps: \"O my son Absalom! My son, my son Absalom!\"",
+    "dates": { "early": { "start": { "year": -980 }, "confidence": "approx" } },
+    "dateNote": "Not dated; some years after David and Bathsheba (2 Samuel 13:23, 38; 14:28; 15:7).",
+    "people": ["absalom", "david"], "locations": ["hebron", "jerusalem"],
+    "scripture": [{ "book": "2 Samuel", "chapter": 13, "endChapter": 19 }]
+  },
+  {
     "id": "david-psalms", "title": "David's psalms", "type": "writing", "partOf": "david-reign",
     "summary": "David, \"the sweet psalmist of Israel,\" writes songs of lament, trust and praise. About half of the 150 psalms bear his name, among them Psalm 23 and his prayer of repentance, Psalm 51.",
     "dates": { "early": { "start": { "year": -1009 }, "end": { "year": -969 }, "confidence": "approx" } },
-    "dateNote": "Through his life; some, like Psalms 57 and 59, from before his reign, while he fled from Saul. The book grew over centuries, from Moses (Psalm 90) to the exile (Psalm 137), and was gathered into its five books after the return.",
+    "dateNote": "Through his life; some, like Psalms 57 and 59, from before his reign, while he fled from Saul. Most of Psalms 1–72 are his, ending \"Thus conclude the prayers of David son of Jesse\" (Psalm 72:20), though psalms of the sons of Korah and Asaph are among them; more of his are in the later books (Psalms 101–145). The whole book grew over centuries, from Moses (Psalm 90) to the exile (Psalm 137).",
     "people": ["david"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "2 Samuel", "chapter": 23, "verse": 1, "endVerse": 2 }, { "book": "Psalm", "chapter": 23 }, { "book": "Psalm", "chapter": 51 }]
+    "scripture": [{ "book": "2 Samuel", "chapter": 23, "verse": 1, "endVerse": 2 }, { "book": "Psalm", "chapter": 23 }, { "book": "Psalm", "chapter": 51 }, { "book": "Psalm", "chapter": 1, "endChapter": 72 }, { "book": "Psalm", "chapter": 86 }, { "book": "Psalm", "chapter": 101 }, { "book": "Psalm", "chapter": 103 }, { "book": "Psalm", "chapter": 108, "endChapter": 110 }, { "book": "Psalm", "chapter": 122 }, { "book": "Psalm", "chapter": 124 }, { "book": "Psalm", "chapter": 131 }, { "book": "Psalm", "chapter": 133 }, { "book": "Psalm", "chapter": 138, "endChapter": 145 }, { "book": "1 Chronicles", "chapter": 16, "verse": 7, "endVerse": 36 }]
   },
   {
     "id": "solomon-reign", "title": "Solomon's reign", "type": "reign", "major": true,
@@ -783,7 +841,15 @@
     "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
     "dateNote": "Forty years (1 Kings 11:42).",
     "people": ["solomon"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "1 Kings", "chapter": 1, "endChapter": 11 }]
+    "scripture": [{ "book": "1 Kings", "chapter": 1, "endChapter": 11 }, { "book": "2 Chronicles", "chapter": 1, "endChapter": 9 }]
+  },
+  {
+    "id": "solomon-asks-wisdom", "title": "Solomon asks for wisdom", "type": "other", "partOf": "solomon-reign",
+    "summary": "At Gibeon God appears to Solomon in a dream: \"Ask, and I will give it to you!\" Solomon asks for \"an understanding heart to judge Your people.\" Back in Jerusalem two women claim the same baby, and Solomon's order to cut it in two shows which is the mother.",
+    "dates": { "early": { "start": { "year": -968 }, "confidence": "approx" } },
+    "dateNote": "Early in his reign, before the temple was begun in his fourth year (1 Kings 3:1–4; 6:1).",
+    "people": ["solomon"], "locations": ["gibeon", "jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 3 }, { "book": "2 Chronicles", "chapter": 1, "verse": 1, "endVerse": 13 }]
   },
   {
     "id": "temple-built", "title": "Solomon builds the temple", "type": "worship", "major": true, "partOf": "solomon-reign",
@@ -791,22 +857,23 @@
     "dates": { "early": { "start": { "year": -965, "month": 5, "label": "Ziv, 2nd month" }, "end": { "year": -958, "month": 11, "label": "Bul, 8th month" }, "confidence": "approx" } },
     "dateNote": "Begun in Solomon's fourth year, 480 years after the Exodus (1 Kings 6:1), and finished seven years later (1 Kings 6:37–38).",
     "people": ["solomon"], "locations": ["jerusalem", "moriah"],
-    "scripture": [{ "book": "1 Kings", "chapter": 6, "endChapter": 8 }]
+    "scripture": [{ "book": "1 Kings", "chapter": 6, "endChapter": 8 }, { "book": "2 Chronicles", "chapter": 3, "endChapter": 7 }]
   },
   {
     "id": "solomon-wisdom", "title": "Solomon's wisdom", "type": "writing", "partOf": "solomon-reign",
-    "summary": "God gives Solomon wisdom beyond all others: he speaks three thousand proverbs and a thousand and five songs. Proverbs, Ecclesiastes and the Song of Songs bear his name.",
+    "summary": "God gives Solomon wisdom beyond all others: he speaks three thousand proverbs and a thousand and five songs. The queen of Sheba comes to test him with hard questions. Proverbs, Ecclesiastes and the Song of Songs bear his name.",
     "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
     "dateNote": "Through his reign (1 Kings 4:29–34). Proverbs also gathers sayings of others, and some of Solomon's were copied out by Hezekiah's men about 700 BC (Proverbs 25:1). Ecclesiastes is traditionally Solomon's, from late in life; many date it later.",
     "people": ["solomon"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "1 Kings", "chapter": 4, "verse": 29, "endVerse": 34 }, { "book": "Proverbs", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Ecclesiastes", "chapter": 1, "verse": 1, "endVerse": 11 }, { "book": "Song of Songs", "chapter": 1, "verse": 1 }]
+    "scripture": [{ "book": "1 Kings", "chapter": 4, "verse": 29, "endVerse": 34 }, { "book": "1 Kings", "chapter": 10, "verse": 1, "endVerse": 13 }, { "book": "Proverbs", "chapter": 1, "endChapter": 31 }, { "book": "Ecclesiastes", "chapter": 1, "endChapter": 12 }, { "book": "Song of Songs", "chapter": 1, "endChapter": 8 }]
   },
   {
     "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
     "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan.",
     "dates": { "early": { "start": { "year": -930 }, "confidence": "approx" } },
+    "dateNote": "931 BC in Thiele's chronology of the kings, counted from the reigns given in Kings.",
     "people": ["rehoboam", "jeroboam"], "locations": ["shechem", "bethel", "dan"],
-    "scripture": [{ "book": "1 Kings", "chapter": 12 }]
+    "scripture": [{ "book": "1 Kings", "chapter": 12 }, { "book": "2 Chronicles", "chapter": 10, "endChapter": 11 }]
   },
   {
     "id": "elijah-carmel", "title": "Elijah on Mount Carmel", "type": "miracle", "major": true,
@@ -967,7 +1034,7 @@
     "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
     "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "riblah", "babel"],
     "journeyId": "to-babylon",
-    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }]
+    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }, { "book": "Psalm", "chapter": 137 }]
   },
   {
     "id": "obadiah-edom", "title": "Obadiah against Edom", "type": "prophecy",
@@ -1050,6 +1117,14 @@
     "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
     "journeyId": "ezra-return",
     "scripture": [{ "book": "Ezra", "chapter": 7, "endChapter": 8 }]
+  },
+  {
+    "id": "psalms-gathered", "title": "The book of Psalms gathered", "type": "writing",
+    "summary": "Psalms written over nine centuries, by Moses, David, Asaph, the sons of Korah, Solomon and others, are gathered into one book in five parts: the Psalter Jesus and his first followers knew.",
+    "dates": { "early": { "start": { "year": -449 }, "confidence": "unknown" } },
+    "dateNote": "Not dated. The latest psalms come from the exile and the return (Psalms 126 and 137), so the book was completed after them; many link its final form with the time of Ezra.",
+    "people": [], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Psalm", "chapter": 1, "endChapter": 150 }]
   },
   {
     "id": "joel-ministry", "title": "Joel and the locusts", "type": "ministry",
