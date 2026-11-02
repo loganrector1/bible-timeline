@@ -1046,7 +1046,7 @@
   },
   {
     "id": "calling-disciples", "title": "Jesus calls fishermen", "type": "ministry", "partOf": "jesus-ministry",
-    "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Come, follow Me, and I will make you fishers of men.\"",
+    "summary": "By the Sea of Galilee Jesus calls Simon and Andrew, James and John from their nets: \"Come, follow Me,\" he says, \"and I will make you fishers of men.\"",
     "dates": { "early": { "start": { "year": 28 }, "confidence": "approx" } },
     "dateNote": "After John the Baptist was arrested, when Jesus began preaching in Galilee (Mark 1:14).",
     "people": ["jesus", "peter", "andrew", "james-son-of-zebedee", "john-apostle"], "locations": ["sea-of-galilee", "capernaum"],
@@ -1122,7 +1122,7 @@
   },
   {
     "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment",
-    "summary": "Jesus drives out the money-changers and sellers: \"My house will be called a house of prayer. But you are making it a den of robbers.\"",
+    "summary": "Jesus drives out the money-changers and sellers: \"My house will be called a house of prayer. But you are making it 'a den of robbers.'\"",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 3, "label": "Monday" }, "confidence": "approx" } },
     "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing early in the ministry (John 2:13–17).",
     "people": ["jesus"], "locations": ["jerusalem"],
