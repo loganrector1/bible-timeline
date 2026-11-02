@@ -869,19 +869,43 @@
   },
   {
     "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
-    "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan.",
+    "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan, and a man of God from Judah cries out against his altar. In Rehoboam's fifth year Shishak of Egypt plunders Jerusalem and carries off the temple's treasures.",
     "dates": { "early": { "start": { "year": -930 }, "confidence": "approx" } },
-    "dateNote": "931 BC in Thiele's chronology of the kings, counted from the reigns given in Kings.",
-    "people": ["rehoboam", "jeroboam"], "locations": ["shechem", "bethel", "dan"],
-    "scripture": [{ "book": "1 Kings", "chapter": 12 }, { "book": "2 Chronicles", "chapter": 10, "endChapter": 11 }]
+    "dateNote": "931 BC in Thiele's chronology of the kings, counted from the reigns given in Kings. Shishak's raid (1 Kings 14:25) is the campaign Pharaoh Shoshenq I listed on a temple wall at Karnak, about 925 BC.",
+    "people": ["rehoboam", "jeroboam", "shishak"], "locations": ["shechem", "bethel", "dan"],
+    "scripture": [{ "book": "1 Kings", "chapter": 12, "endChapter": 14 }, { "book": "2 Chronicles", "chapter": 10, "endChapter": 12 }]
+  },
+  {
+    "id": "omri-samaria", "title": "Omri builds Samaria", "type": "reign",
+    "summary": "For fifty years after the division, Israel and Judah are at war. In Judah, Asa removes the idols and trusts God against a vast army from Cush. In Israel, king after king is murdered, until the army commander Omri takes the throne and builds a new capital on the hill of Samaria.",
+    "dates": { "early": { "start": { "year": -879 }, "confidence": "approx" } },
+    "dateNote": "Omri reigned twelve years, the first six at Tirzah (1 Kings 16:23–24); in Thiele's chronology he moved to Samaria about 880 BC. Assyrian records long afterward called Israel \"the house of Omri.\"",
+    "people": ["omri", "asa"], "locations": ["samaria"],
+    "scripture": [{ "book": "1 Kings", "chapter": 15, "endChapter": 16, "endVerse": 28 }, { "book": "2 Chronicles", "chapter": 13, "endChapter": 16 }]
   },
   {
     "id": "elijah-carmel", "title": "Elijah on Mount Carmel", "type": "miracle", "major": true,
-    "summary": "After three years of drought Elijah challenges the prophets of Baal. God answers with fire from heaven, then sends rain.",
+    "summary": "Elijah tells King Ahab, who serves Baal with his queen Jezebel, that no rain will fall. Fed by ravens and then by a widow at Zarephath, whose son he raises from the dead, he waits out three years of drought. Then on Mount Carmel he challenges the prophets of Baal: \"How long will you waver between two opinions?\" God answers with fire from heaven, and the rain returns.",
     "dates": { "early": { "start": { "year": -859 }, "confidence": "approx" } },
     "dateNote": "During Ahab's reign (874–853 BC); the year isn't given.",
-    "people": ["elijah", "ahab", "jezebel"], "locations": ["mount-carmel", "kishon"],
-    "scripture": [{ "book": "1 Kings", "chapter": 18 }]
+    "people": ["elijah", "ahab", "jezebel"], "locations": ["zarephath", "mount-carmel", "kishon"],
+    "scripture": [{ "book": "1 Kings", "chapter": 16, "verse": 29, "endChapter": 18 }]
+  },
+  {
+    "id": "elijah-horeb", "title": "Elijah at Horeb", "type": "prophecy",
+    "summary": "When Jezebel vows to kill him, Elijah flees past Beersheba and asks to die. An angel feeds him, and he walks forty days to Horeb, the mountain of God. There the LORD is not in the wind, the earthquake or the fire: \"after the fire came a still, small voice.\" God sends him back to anoint Elisha as prophet in his place.",
+    "dates": { "early": { "start": { "year": -859 }, "confidence": "approx" } },
+    "dateNote": "Right after Carmel, when Jezebel hears what Elijah has done (1 Kings 19:1–3).",
+    "people": ["elijah", "jezebel", "elisha"], "locations": ["beersheba", "sinai"],
+    "scripture": [{ "book": "1 Kings", "chapter": 19 }]
+  },
+  {
+    "id": "naboth-vineyard", "title": "Naboth's vineyard", "type": "judgment",
+    "summary": "Naboth will not sell Ahab the vineyard beside his palace in Jezreel, his family's inheritance, so Jezebel has him falsely accused and stoned. Elijah meets Ahab in the vineyard: \"Have you not murdered a man and seized his land?\" Where the dogs licked Naboth's blood, they will lick his. Ahab humbles himself, and the disaster is put off to his son's days.",
+    "dates": { "early": { "start": { "year": -854 }, "confidence": "approx" } },
+    "dateNote": "Not dated; late in Ahab's reign (874–853 BC), before his death, which Elijah's word foretells (1 Kings 22:38).",
+    "people": ["ahab", "jezebel", "elijah"], "locations": ["jezreel"],
+    "scripture": [{ "book": "1 Kings", "chapter": 21 }]
   },
   {
     "id": "qarqar", "title": "The battle of Qarqar", "type": "battle", "world": true,
@@ -891,12 +915,44 @@
     "people": ["ahab"]
   },
   {
+    "id": "ahab-dies", "title": "Ahab dies at Ramoth-gilead", "type": "battle",
+    "summary": "Ahab twice defeats Ben-hadad of Aram, then lets him go. Three years later he and Jehoshaphat of Judah march on Ramoth-gilead. Four hundred prophets promise victory, but Micaiah says, \"I saw all Israel scattered on the hills like sheep without a shepherd.\" Ahab goes into battle in disguise, and an arrow shot at random kills him. In Judah, Jehoshaphat sends teachers of the Law through the land, and when Moab and Ammon invade, he is told, \"the battle does not belong to you, but to God.\"",
+    "dates": { "early": { "start": { "year": -852 }, "confidence": "approx" } },
+    "dateNote": "Ahab fought Assyria at Qarqar in 853 BC (Shalmaneser III's inscription names him) and died later that year, Thiele's date. Jehoshaphat's reforms and wars (2 Chronicles 17–20) aren't dated within his reign.",
+    "people": ["ahab", "jehoshaphat"], "locations": ["ramoth-gilead", "samaria"],
+    "scripture": [{ "book": "1 Kings", "chapter": 20 }, { "book": "1 Kings", "chapter": 22 }, { "book": "2 Chronicles", "chapter": 17, "endChapter": 20 }]
+  },
+  {
     "id": "elijah-taken", "title": "Elijah taken up to heaven", "type": "miracle",
-    "summary": "Elijah parts the Jordan and is taken up in a whirlwind as chariots of fire appear. Elisha takes up his cloak and his ministry.",
+    "summary": "When King Ahaziah of Israel sends to ask the god of Ekron whether he will recover, Elijah tells him he will die. Then Elijah parts the Jordan and is taken up in a whirlwind as chariots of fire appear. Elisha takes up his cloak and his ministry.",
     "dates": { "early": { "start": { "year": -849 }, "confidence": "approx" } },
     "dateNote": "Not dated; Elisha is already prophet while Jehoshaphat still reigns in Judah (2 Kings 3), before about 848 BC.",
-    "people": ["elijah", "elisha"], "locations": ["jericho", "jordan-river"],
-    "scripture": [{ "book": "2 Kings", "chapter": 2, "verse": 1, "endVerse": 18 }]
+    "people": ["elijah", "elisha", "ahaziah-of-israel"], "locations": ["jericho", "jordan-river"],
+    "scripture": [{ "book": "2 Kings", "chapter": 1, "endChapter": 2, "endVerse": 18 }]
+  },
+  {
+    "id": "elisha-ministry", "title": "Elisha's ministry", "type": "ministry",
+    "summary": "With a double portion of Elijah's spirit, Elisha heals Jericho's spring, fills a widow's jars with oil, raises the Shunammite woman's son, and feeds a hundred men with twenty loaves. Naaman, the Aramean commander, dips in the Jordan seven times and is healed of leprosy. When Aram's army surrounds Dothan, Elisha's servant sees that \"the hills were full of horses and chariots of fire.\" Even after his death, a dead man thrown into his tomb comes back to life.",
+    "dates": { "early": { "start": { "year": -849 }, "end": { "year": -797 }, "confidence": "approx" } },
+    "dateNote": "From Elijah's ascension, about 850 BC, to Elisha's death under Jehoash of Israel (2 Kings 13:14–20), who reigned 798–782 BC; the end is estimated.",
+    "people": ["elisha", "joram-of-israel", "jehoash-of-israel"], "locations": ["jericho", "shunem", "jordan-river", "dothan", "samaria"],
+    "scripture": [{ "book": "2 Kings", "chapter": 2, "verse": 19, "endChapter": 8, "endVerse": 15 }, { "book": "2 Kings", "chapter": 13 }]
+  },
+  {
+    "id": "jehu-revolt", "title": "Jehu's revolt", "type": "judgment",
+    "summary": "Elisha sends a young prophet to anoint the army commander Jehu king of Israel. Jehu races to Jezreel, \"driving like a madman,\" and kills both King Joram of Israel and King Ahaziah of Judah. Jezebel is thrown from a window, and Jehu wipes out Ahab's family and the worshipers of Baal, yet keeps Jeroboam's golden calves.",
+    "dates": { "early": { "start": { "year": -840 }, "confidence": "approx" } },
+    "dateNote": "841 BC in Thiele's chronology. Shalmaneser III's Black Obelisk shows Jehu bowing before him with tribute that year.",
+    "people": ["jehu", "jezebel", "joram-of-israel", "ahaziah-of-judah", "elisha"], "locations": ["ramoth-gilead", "jezreel", "samaria"],
+    "scripture": [{ "book": "2 Kings", "chapter": 8, "verse": 16, "endChapter": 10 }, { "book": "2 Chronicles", "chapter": 21, "endChapter": 22, "endVerse": 9 }]
+  },
+  {
+    "id": "joash-king", "title": "Joash, the boy king", "type": "reign",
+    "summary": "When Ahaziah dies, his mother Athaliah kills the royal family and seizes Judah's throne. Only the baby Joash is saved, hidden in the temple for six years. Then the priest Jehoiada crowns him and Athaliah is put to death. Joash repairs the temple, but after Jehoiada dies he turns from God and has Jehoiada's son Zechariah stoned in the temple courtyard.",
+    "dates": { "early": { "start": { "year": -834 }, "confidence": "approx" } },
+    "dateNote": "Joash was seven when he became king (2 Kings 11:21), in 835 BC in Thiele's chronology.",
+    "people": ["joash-of-judah", "athaliah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Kings", "chapter": 11, "endChapter": 12 }, { "book": "2 Chronicles", "chapter": 22, "verse": 10, "endChapter": 24 }]
   },
   {
     "id": "jonah-nineveh", "title": "Jonah preaches to Nineveh", "type": "prophecy",
@@ -904,7 +960,7 @@
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "Jonah prophesied under Jeroboam II of Israel (793–753 BC, 2 Kings 14:25); the year of his mission isn't given.",
     "people": ["jonah"], "locations": ["joppa", "nineveh"],
-    "scripture": [{ "book": "Jonah", "chapter": 1, "endChapter": 4 }]
+    "scripture": [{ "book": "Jonah", "chapter": 1, "endChapter": 4 }, { "book": "2 Kings", "chapter": 14, "verse": 25 }]
   },
   {
     "id": "amos-ministry", "title": "Amos warns Israel", "type": "ministry",
@@ -912,7 +968,7 @@
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
     "people": ["amos", "jeroboam-ii"], "locations": ["tekoa", "bethel"],
-    "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }]
+    "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }, { "book": "Amos", "chapter": 1, "endChapter": 9 }, { "book": "2 Kings", "chapter": 14, "endChapter": 15, "endVerse": 7 }, { "book": "2 Chronicles", "chapter": 25, "endChapter": 26 }]
   },
   {
     "id": "hosea-ministry", "title": "Hosea's ministry", "type": "ministry",
@@ -920,7 +976,7 @@
     "dates": { "early": { "start": { "year": -754 }, "end": { "year": -714 }, "confidence": "approx" } },
     "dateNote": "In the days of Uzziah, Jotham, Ahaz and Hezekiah of Judah and Jeroboam II of Israel (Hosea 1:1): from before 753 BC, when Jeroboam died, into Hezekiah's reign, from 715 BC.",
     "people": ["hosea", "jeroboam-ii", "uzziah", "jotham", "ahaz", "hezekiah"], "locations": ["samaria"],
-    "scripture": [{ "book": "Hosea", "chapter": 1, "verse": 1, "endVerse": 3 }, { "book": "Hosea", "chapter": 11, "verse": 1, "endVerse": 9 }]
+    "scripture": [{ "book": "Hosea", "chapter": 1, "verse": 1, "endVerse": 3 }, { "book": "Hosea", "chapter": 11, "verse": 1, "endVerse": 9 }, { "book": "Hosea", "chapter": 1, "endChapter": 14 }, { "book": "2 Kings", "chapter": 15, "verse": 8, "endVerse": 31 }]
   },
   {
     "id": "rome-founded", "title": "Rome founded, by tradition", "type": "other", "world": true,
@@ -933,9 +989,9 @@
     "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
     "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
     "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
-    "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38).",
+    "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38). Many scholars assign chapters 40–66, addressed to the exiles, to later prophets of Isaiah's school, during and after the exile.",
     "people": ["isaiah", "uzziah", "jotham", "ahaz", "hezekiah", "tiglath-pileser"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }]
+    "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }, { "book": "Isaiah", "chapter": 1, "endChapter": 66 }, { "book": "2 Kings", "chapter": 15, "verse": 32, "endVerse": 38 }, { "book": "2 Chronicles", "chapter": 27 }]
   },
   {
     "id": "micah-ministry", "title": "Micah's ministry", "type": "ministry",
@@ -943,7 +999,15 @@
     "dates": { "early": { "start": { "year": -734 }, "end": { "year": -699 }, "confidence": "approx" } },
     "dateNote": "In the days of Jotham, Ahaz and Hezekiah (Micah 1:1): before Samaria fell in 722 BC, which he foretells (Micah 1:6), and into Hezekiah's reign (Jeremiah 26:18). About 735–700 BC.",
     "people": ["micah", "jotham", "ahaz", "hezekiah"], "locations": ["moresheth", "jerusalem", "samaria"],
-    "scripture": [{ "book": "Micah", "chapter": 1, "verse": 1 }, { "book": "Micah", "chapter": 5, "verse": 2 }, { "book": "Micah", "chapter": 6, "verse": 8 }]
+    "scripture": [{ "book": "Micah", "chapter": 1, "verse": 1 }, { "book": "Micah", "chapter": 5, "verse": 2 }, { "book": "Micah", "chapter": 6, "verse": 8 }, { "book": "Micah", "chapter": 1, "endChapter": 7 }]
+  },
+  {
+    "id": "ahaz-immanuel", "title": "Ahaz and the sign of Immanuel", "type": "prophecy",
+    "summary": "Rezin of Aram and Pekah of Israel march on Jerusalem. Isaiah tells King Ahaz to stand firm and gives him a sign: \"Behold, the virgin will be with child and give birth to a son, and will call Him Immanuel.\" Ahaz instead pays Tiglath-pileser of Assyria, who takes Damascus and carries off Galilee's people, and copies an Assyrian altar for the temple.",
+    "dates": { "early": { "start": { "year": -733 }, "confidence": "approx" } },
+    "dateNote": "The war of Aram and Israel against Judah, about 735–732 BC; Tiglath-pileser III's own records list Ahaz among the kings paying him tribute, and his campaigns took Galilee and Damascus in 733–732 BC.",
+    "people": ["ahaz", "isaiah", "pekah", "tiglath-pileser"], "locations": ["jerusalem", "damascus", "samaria"],
+    "scripture": [{ "book": "2 Kings", "chapter": 16 }, { "book": "2 Chronicles", "chapter": 28 }, { "book": "Isaiah", "chapter": 7, "endChapter": 9, "endVerse": 7 }]
   },
   {
     "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "major": true,
@@ -956,12 +1020,36 @@
     "scripture": [{ "book": "2 Kings", "chapter": 17 }]
   },
   {
+    "id": "hezekiah-reform", "title": "Hezekiah's reform", "type": "worship",
+    "summary": "Hezekiah reopens and cleanses the temple, tears down the high places, and breaks up the bronze serpent Moses had made, to which Israel had been burning incense. He invites all Israel, even the remnant of the north, to keep the Passover in Jerusalem: \"nothing like this had happened there since the days of Solomon.\"",
+    "dates": { "early": { "start": { "year": -714, "month": 4, "label": "1st month" }, "confidence": "approx" } },
+    "dateNote": "In the first month of Hezekiah's first year (2 Chronicles 29:3), 715 BC in Thiele's chronology, which has him reigning alongside Ahaz from 729 BC.",
+    "people": ["hezekiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Kings", "chapter": 18, "endVerse": 12 }, { "book": "2 Chronicles", "chapter": 29, "endChapter": 31 }]
+  },
+  {
     "id": "sennacherib-siege", "title": "Sennacherib threatens Jerusalem", "type": "miracle",
     "summary": "Assyria's king takes Lachish and surrounds Jerusalem. Hezekiah prays, Isaiah promises deliverance, and the angel of the Lord strikes the Assyrian camp.",
     "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
     "dateNote": "Sennacherib's own annals and the reliefs of Lachish from his palace record this campaign of 701 BC.",
     "people": ["hezekiah", "isaiah", "sennacherib"], "locations": ["jerusalem", "lachish"],
-    "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }]
+    "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }, { "book": "2 Chronicles", "chapter": 32, "endVerse": 23 }]
+  },
+  {
+    "id": "hezekiah-illness", "title": "Hezekiah's illness", "type": "miracle",
+    "summary": "Hezekiah falls ill and Isaiah tells him he will die. He weeps and prays, and God answers, \"I have heard your prayer; I have seen your tears,\" adding fifteen years to his life; as a sign the shadow on Ahaz's stairway goes back ten steps. Afterward he shows envoys from Babylon all his treasures, and Isaiah foretells that everything will be carried off to Babylon.",
+    "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
+    "dateNote": "Hezekiah died in 686 BC, fifteen years later (2 Kings 20:6), so about 701 BC, around the time of Sennacherib's invasion.",
+    "people": ["hezekiah", "isaiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "2 Kings", "chapter": 20 }, { "book": "Isaiah", "chapter": 38, "endChapter": 39 }, { "book": "2 Chronicles", "chapter": 32, "verse": 24, "endVerse": 33 }]
+  },
+  {
+    "id": "manasseh-reign", "title": "Manasseh's reign", "type": "judgment",
+    "summary": "Hezekiah's son rebuilds the high places, sets up altars to the stars in the temple courts, sacrifices his son in the fire, and \"shed so much innocent blood that he filled Jerusalem from end to end.\" For his sins God declares that Jerusalem will fall. Chronicles adds that the Assyrians took him to Babylon in chains, where he humbled himself, and God brought him back.",
+    "dates": { "early": { "start": { "year": -696 }, "end": { "year": -642 }, "confidence": "approx" } },
+    "dateNote": "Fifty-five years (2 Kings 21:1), Judah's longest reign: 697–642 BC in Thiele's chronology, which counts ten years alongside Hezekiah. When he was taken to Babylon isn't known.",
+    "people": ["manasseh"], "locations": ["jerusalem", "babel"],
+    "scripture": [{ "book": "2 Kings", "chapter": 21 }, { "book": "2 Chronicles", "chapter": 33 }]
   },
   {
     "id": "zephaniah-ministry", "title": "Zephaniah's warning", "type": "ministry",
@@ -969,7 +1057,7 @@
     "dates": { "early": { "start": { "year": -629 }, "confidence": "approx" } },
     "dateNote": "In the days of Josiah (Zephaniah 1:1). The idol worship he condemns suggests before Josiah's reform of 622 BC, about 630 BC.",
     "people": ["zephaniah", "josiah"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "Zephaniah", "chapter": 1, "verse": 1, "endVerse": 18 }, { "book": "Zephaniah", "chapter": 3, "verse": 14, "endVerse": 20 }]
+    "scripture": [{ "book": "Zephaniah", "chapter": 1, "endChapter": 3 }]
   },
   {
     "id": "nahum-nineveh", "title": "Nahum foretells Nineveh's fall", "type": "prophecy",
@@ -977,7 +1065,7 @@
     "dates": { "early": { "start": { "year": -649 }, "confidence": "approx" } },
     "dateNote": "Nahum speaks of the fall of Thebes (663 BC) as past (Nahum 3:8) and Nineveh's (612 BC) as still to come; often placed about 650 BC.",
     "people": ["nahum"], "locations": ["nineveh"],
-    "scripture": [{ "book": "Nahum", "chapter": 1, "verse": 1, "endVerse": 15 }, { "book": "Nahum", "chapter": 3, "verse": 1, "endVerse": 19 }]
+    "scripture": [{ "book": "Nahum", "chapter": 1, "endChapter": 3 }]
   },
   {
     "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant",
@@ -985,7 +1073,7 @@
     "dates": { "early": { "start": { "year": -621 }, "confidence": "approx" } },
     "dateNote": "In Josiah's eighteenth year (2 Kings 22:3).",
     "people": ["josiah"], "locations": ["jerusalem", "bethel"],
-    "scripture": [{ "book": "2 Kings", "chapter": 22, "endChapter": 23 }]
+    "scripture": [{ "book": "2 Kings", "chapter": 22, "endChapter": 23 }, { "book": "2 Chronicles", "chapter": 34, "endChapter": 35 }]
   },
   {
     "id": "jeremiah-ministry", "title": "Jeremiah's ministry", "type": "ministry", "major": true,
@@ -993,7 +1081,7 @@
     "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
     "people": ["jeremiah", "josiah", "jehoiakim", "zedekiah", "neco"], "locations": ["anathoth", "jerusalem"],
-    "scripture": [{ "book": "Jeremiah", "chapter": 1 }]
+    "scripture": [{ "book": "Jeremiah", "chapter": 1, "endChapter": 52 }]
   },
   {
     "id": "nineveh-falls", "title": "Nineveh falls", "type": "battle", "world": true,
@@ -1013,11 +1101,27 @@
   },
   {
     "id": "daniel-taken", "title": "Daniel taken to Babylon", "type": "journey",
-    "summary": "Nebuchadnezzar takes young nobles from Jerusalem to serve in his court, among them Daniel, Hananiah, Mishael and Azariah.",
+    "summary": "Nebuchadnezzar takes young nobles from Jerusalem to serve in his court, among them Daniel, Hananiah, Mishael and Azariah, whom he renames Belteshazzar, Shadrach, Meshach and Abednego. They refuse the king's food and grow healthier than all the rest.",
     "dates": { "early": { "start": { "year": -604 }, "confidence": "approx" } },
     "dateNote": "In the third year of Jehoiakim (Daniel 1:1), when Nebuchadnezzar first took Jerusalem in 605 BC.",
-    "people": ["daniel", "nebuchadnezzar"], "locations": ["jerusalem", "babel"], "journeyId": "daniel-to-babylon",
+    "people": ["daniel", "nebuchadnezzar", "shadrach", "meshach", "abednego"], "locations": ["jerusalem", "babel"], "journeyId": "daniel-to-babylon",
     "scripture": [{ "book": "Daniel", "chapter": 1 }]
+  },
+  {
+    "id": "nebuchadnezzar-dream", "title": "Nebuchadnezzar's dream", "type": "prophecy",
+    "summary": "Nebuchadnezzar demands that his wise men tell him both his dream and its meaning. God reveals it to Daniel: a great statue of gold, silver, bronze and iron, smashed by a stone that becomes a mountain filling the earth. The kingdoms of the world will pass, and \"the God of heaven will set up a kingdom that will never be destroyed.\"",
+    "dates": { "early": { "start": { "year": -602 }, "confidence": "approx" } },
+    "dateNote": "In the second year of Nebuchadnezzar's reign (Daniel 2:1), about 603 BC.",
+    "people": ["daniel", "nebuchadnezzar", "shadrach", "meshach", "abednego"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 2 }]
+  },
+  {
+    "id": "fiery-furnace", "title": "The fiery furnace", "type": "miracle", "major": true,
+    "summary": "Shadrach, Meshach and Abednego refuse to bow to Nebuchadnezzar's golden statue: God can deliver them, \"But even if He does not,\" they will not worship it. They are thrown into the blazing furnace, and the king sees \"four men, unbound and unharmed, walking around in the fire.\"",
+    "dates": { "early": { "start": { "year": -601 }, "confidence": "unknown" } },
+    "dateNote": "Scripture doesn't date it; it's placed after the dream that comes before it in Daniel. The Greek Old Testament dates it to Nebuchadnezzar's eighteenth year, 587 BC.",
+    "people": ["shadrach", "meshach", "abednego", "nebuchadnezzar"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 3 }]
   },
   {
     "id": "jehoiachin-exiled", "title": "King Jehoiachin taken to Babylon", "type": "judgment",
@@ -1034,7 +1138,7 @@
     "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
     "people": ["zedekiah", "nebuchadnezzar", "jeremiah"], "locations": ["jerusalem", "riblah", "babel"],
     "journeyId": "to-babylon",
-    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Lamentations", "chapter": 1 }, { "book": "Psalm", "chapter": 137 }]
+    "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Jeremiah", "chapter": 52 }, { "book": "Lamentations", "chapter": 1, "endChapter": 5 }, { "book": "Psalm", "chapter": 137 }]
   },
   {
     "id": "obadiah-edom", "title": "Obadiah against Edom", "type": "prophecy",
@@ -1050,7 +1154,23 @@
     "dates": { "early": { "start": { "year": -592, "month": 7, "label": "5th of 4th month" }, "end": { "year": -570, "month": 4, "label": "1st of 1st month" }, "confidence": "approx" } },
     "dateNote": "From the fifth year of Jehoiachin's exile, 593 BC (Ezekiel 1:2), to his last dated message in the twenty-seventh year, 571 BC (Ezekiel 29:17).",
     "people": ["ezekiel"], "locations": ["chebar"],
-    "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 3 }]
+    "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 48 }]
+  },
+  {
+    "id": "nebuchadnezzar-humbled", "title": "Nebuchadnezzar humbled", "type": "judgment",
+    "summary": "Daniel warns Nebuchadnezzar that a dream of a great tree cut down is about him. A year later, boasting over Babylon, the king is driven out to live like an animal until he acknowledges that God rules. Restored, he praises \"the King of heaven\": \"He is able to humble those who walk in pride.\"",
+    "dates": { "early": { "start": { "year": -569 }, "confidence": "unknown" } },
+    "dateNote": "Scripture doesn't date it; it's placed late in his reign (605–562 BC), after his great building in Babylon (Daniel 4:30).",
+    "people": ["nebuchadnezzar", "daniel"], "locations": ["babel"],
+    "scripture": [{ "book": "Daniel", "chapter": 4 }]
+  },
+  {
+    "id": "daniel-visions", "title": "Daniel's visions", "type": "prophecy",
+    "summary": "Daniel sees four great beasts rise from the sea and \"One like the Son of Man coming with the clouds of heaven,\" given a kingdom \"that will never be destroyed\"; a ram and a goat; seventy weeks decreed for his people; and wars between the kings of the north and the south. He is told to \"seal the book until the time of the end.\"",
+    "dates": { "early": { "start": { "year": -552 }, "end": { "year": -535 }, "confidence": "approx" } },
+    "dateNote": "Dated by when Daniel saw them, not by what they foretell: from the first year of Belshazzar, about 553 BC (Daniel 7:1), to the third year of Cyrus, 536 BC (Daniel 10:1).",
+    "people": ["daniel", "belshazzar", "cyrus"], "locations": ["babel", "susa"],
+    "scripture": [{ "book": "Daniel", "chapter": 7, "endChapter": 12 }]
   },
   {
     "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment",
@@ -1132,7 +1252,7 @@
     "dates": { "early": { "start": { "year": -449 }, "end": { "year": -429 }, "confidence": "approx" } },
     "dateNote": "Joel names no king. Most now place him after the return, about 450–430 BC, before Malachi (some later still): the temple stands, elders and priests lead, and Judah's people have been scattered and sold to the Greeks (Joel 3:2, 6). Many others place him about 835 BC, while the priest Jehoiada ruled for the boy-king Joash, where his place among the early prophets suggests. Scripture doesn't say how long he prophesied.",
     "people": ["joel"], "locations": ["jerusalem"],
-    "scripture": [{ "book": "Joel", "chapter": 1, "verse": 1, "endVerse": 20 }, { "book": "Joel", "chapter": 2, "verse": 28, "endVerse": 32 }]
+    "scripture": [{ "book": "Joel", "chapter": 1, "verse": 1, "endVerse": 20 }, { "book": "Joel", "chapter": 2, "verse": 28, "endVerse": 32 }, { "book": "Joel", "chapter": 1, "endChapter": 3 }]
   },
   {
     "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",

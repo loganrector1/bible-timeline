@@ -216,7 +216,7 @@
     "summary": "After Jerusalem falls, its people are marched north to Nebuchadnezzar at Riblah and on down the Euphrates to Babylon.",
     "chronology": "early",
     "stops": [
-      { "locationId": "jerusalem", "at": { "year": -585, "month": 8 } },
+      { "locationId": "jerusalem", "at": { "year": -585, "month": 8, "label": "10th of 5th month" } },
       { "locationId": "riblah", "via": [[36.3, 33.51]], "note": "Zedekiah sees his sons killed, and is blinded (2 Kings 25:6–7)." },
       { "locationId": "babel", "via": [[36.75, 35.14], [37.16, 36.2], [38.1, 35.98], [39, 35.95], [40.15, 35.33], [40.89, 34.55], [41.98, 34.37], [42.82, 33.64]] }
     ]

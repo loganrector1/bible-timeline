@@ -79,7 +79,7 @@
     "color": "#8c4a6a",
     "summary": "The kingdom splits into Israel in the north and Judah in the south. Prophets call both back to God; Israel falls to Assyria in 722 BC and Judah to Babylon in 586 BC (1 Kings 12 – 2 Kings 25).",
     "dates": {
-      "early": { "start": { "year": -930 }, "end": { "year": -585, "month": 7 }, "confidence": "approx" }
+      "early": { "start": { "year": -930 }, "end": { "year": -585, "month": 7, "label": "5th month" }, "confidence": "approx" }
     },
     "dateNote": "Kings are dated by Edwin Thiele's chronology, the one most study Bibles use; others differ by a few years. Some date Jerusalem's fall to 587 BC."
   },
@@ -89,7 +89,7 @@
     "color": "#4f6b8a",
     "summary": "Judah lives in exile in Babylon, where Daniel and Ezekiel serve, until Persia conquers Babylon and Cyrus lets the exiles go home (Daniel, Ezekiel, Lamentations).",
     "dates": {
-      "early": { "start": { "year": -585, "month": 8 }, "end": { "year": -538 }, "confidence": "approx" }
+      "early": { "start": { "year": -585, "month": 8, "label": "10th of 5th month" }, "end": { "year": -538 }, "confidence": "approx" }
     }
   },
   {
