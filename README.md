@@ -2,7 +2,7 @@
 
 An interactive, visual Bible timeline for personal and church study. Explore the whole biblical story from Creation to Revelation: when things happened, who was involved, and where. Two linked views, a **Timeline** and a **Map**, share the same data and the same "current moment in time."
 
-See [key_features.md](key_features.md) for the full feature vision and [ROADMAP.md](ROADMAP.md) for what's built and what's next.
+See [ROADMAP.md](ROADMAP.md) for what's built and what's next.
 
 ## What's in it
 

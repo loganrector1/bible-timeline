@@ -1,6 +1,6 @@
 # Roadmap
 
-Where the build stands and what could come next. The full feature vision is in [key_features.md](key_features.md); the design decisions made while building are in [CLAUDE.md](CLAUDE.md).
+Where the build stands and what could come next. The design decisions made while building are in [CLAUDE.md](CLAUDE.md).
 
 ## Milestone 1: vertical slice (done)
 
@@ -82,7 +82,7 @@ All of the data reviewed in one pass, era by era from Genesis to Revelation, the
 
 ## Next candidates
 
-None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part. Finishing touches:
+None planned. A theme filter (covenants, prophecy fulfilled…, with tags on every event) was dropped; event types cover the useful part. Ideas from the original plan that were never built, if one is ever wanted: personal notes and bookmarks, printable timeline segments and maps for lessons, photos of sites, other languages, several candidate sites for uncertain places (as dates have alternates), and an editor for the content. Finishing touches:
 
 - ~~**Install as an app** (a PWA: manifest, icons, offline cache), so it opens from a phone's home screen.~~ Installable, and the app, data and Bible text work offline; map tiles already viewed do too.
 - ~~**A favicon** in place of the placeholder cross.~~ An open Bible with a road between two places (`public/icon.svg`).
