@@ -111,7 +111,7 @@ export default function TimeStrip() {
           const delta = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
           if (delta) setYear(currentYear + (delta * 20) / pxPerYear);
         }}
-        className="relative mx-1 h-7 min-w-32 flex-1 cursor-pointer touch-none"
+        className="relative mx-1 h-8 min-w-32 flex-1 cursor-pointer touch-none sm:h-7"
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           scrub(e);
@@ -131,12 +131,21 @@ export default function TimeStrip() {
           return (
             <div
               key={era.id}
-              className="absolute top-2.5 h-2 rounded-sm"
+              className="absolute top-1 h-2 rounded-sm sm:top-2.5"
               style={{ left: `${frac(a)}%`, width: `${frac(b) - frac(a)}%`, backgroundColor: era.color }}
             />
           );
         })}
-        <div className="absolute top-0 h-7 w-0.5 -translate-x-1/2 rounded bg-accent" style={{ left: `${frac(currentYear)}%` }} />
+        <div className="absolute top-0 h-4 w-0.5 -translate-x-1/2 rounded bg-accent sm:h-7" style={{ left: `${frac(currentYear)}%` }} />
+        {/* On phones the year sits under the cursor, so the strip is one row: shifted by its own
+            width times the cursor's fraction, it stays inside the bar at either end. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute top-[18px] text-[11px] leading-none font-semibold whitespace-nowrap tabular-nums sm:hidden"
+          style={{ left: `${frac(currentYear)}%`, transform: `translateX(-${frac(currentYear)}%)` }}
+        >
+          {label}
+        </span>
         {tip && (
           // Above the bar, kept from running off either end.
           <EraTip
@@ -146,7 +155,7 @@ export default function TimeStrip() {
         )}
       </div>
 
-      <span className="w-28 shrink-0 pr-1 text-right text-xs font-semibold tabular-nums">{label}</span>
+      <span className="hidden w-28 shrink-0 pr-1 text-right text-xs font-semibold tabular-nums sm:inline">{label}</span>
     </div>
   );
 }
