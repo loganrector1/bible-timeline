@@ -1,5 +1,4 @@
 [
-  { "id": "eve", "name": "Eve", "female": true, "spouses": ["adam"], "scripture": [{ "book": "Genesis", "chapter": 3, "verse": 20 }, { "book": "Genesis", "chapter": 4, "verse": 1, "endVerse": 2 }] },
   { "id": "cain", "name": "Cain", "parents": ["adam", "eve"], "scripture": [{ "book": "Genesis", "chapter": 4, "verse": 1, "endVerse": 16 }] },
   { "id": "abel", "name": "Abel", "parents": ["adam", "eve"], "scripture": [{ "book": "Genesis", "chapter": 4, "verse": 2, "endVerse": 8 }] },
   { "id": "seth", "name": "Seth", "parents": ["adam", "eve"], "scripture": [{ "book": "Genesis", "chapter": 4, "verse": 25 }, { "book": "Genesis", "chapter": 5, "verse": 3, "endVerse": 8 }] },

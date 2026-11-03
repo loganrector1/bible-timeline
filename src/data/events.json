@@ -4,7 +4,7 @@
     "summary": "God creates the heavens and the earth, and makes humanity in his image.",
     "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" }, "late": { "start": { "year": -3927 }, "confidence": "unknown" } },
     "dateNote": "Placed at the start of the Genesis 5 genealogy; Scripture gives no date.",
-    "people": ["adam"],
+    "people": ["adam", "eve"],
     "scripture": [{ "book": "Genesis", "chapter": 1, "endChapter": 2 }]
   },
   {
@@ -12,7 +12,7 @@
     "summary": "Tempted by the serpent, Adam and Eve eat from the tree God forbade them. Sin and death enter the world, and God sends them out of Eden, with the first promise of the serpent's defeat (Genesis 3:15).",
     "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" }, "late": { "start": { "year": -3927 }, "confidence": "unknown" } },
     "dateNote": "Scripture doesn't say how long after Creation; placed with it.",
-    "people": ["adam"],
+    "people": ["adam", "eve"],
     "scripture": [{ "book": "Genesis", "chapter": 3 }]
   },
   {
@@ -20,7 +20,7 @@
     "summary": "God accepts Abel's offering and not Cain's; Cain kills his brother in anger, and God sends him out to wander, marked so that no one will kill him.",
     "dates": { "early": { "start": { "year": -3984 }, "confidence": "unknown" }, "late": { "start": { "year": -3798 }, "confidence": "unknown" } },
     "dateNote": "Before Seth's birth, when Adam was 130 (Genesis 4:25; 5:3); how long before isn't told.",
-    "people": ["adam"],
+    "people": ["adam", "eve"],
     "scripture": [{ "book": "Genesis", "chapter": 4, "verse": 1, "endVerse": 16 }]
   },
   {
