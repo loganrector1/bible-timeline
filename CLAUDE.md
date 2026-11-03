@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for working in this repo. What's built and what could come next is in [ROADMAP.md](ROADMAP.md) (update it when a milestone finishes); setup and content conventions for humans are in [README.md](README.md).
+Guidance for working in this repo. What's built and what could come next is in [ROADMAP.md](ROADMAP.md), kept out of git (local only; update it when a milestone finishes); setup and content conventions for humans are in [README.md](README.md).
 
 ## Commands
 
