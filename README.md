@@ -6,7 +6,7 @@ See [key_features.md](key_features.md) for the full feature vision and [ROADMAP.
 
 ## What's in it
 
-The whole Bible, Genesis to Revelation, live at [bible.rector.app](https://bible.rector.app):
+The whole Bible, Genesis to Revelation, live at [timeline.rector.app](https://timeline.rector.app):
 
 - **236 events, 166 people, 142 places and 13 eras**, every chapter of Scripture cited by some event (bar a few genealogies and lists of laws), and 20 journeys drawn stop by stop.
 - A vertical timeline (earliest at the top) that zooms from millennia down to individual days, with lanes for the main figures, kings, prophets, the church and world history.
@@ -32,7 +32,7 @@ npm run build    # type-check and build static files into dist/
 
 ## Deployment
 
-Cloudflare Workers serves the built `dist` folder as static files (`wrangler.jsonc`), building from GitHub on every push: build command `npm test && npm run build`, deploy command `npx wrangler deploy`, Node version from `.node-version`. A failing test blocks the deploy. `main` is the public site at [bible.rector.app](https://bible.rector.app). Every other pushed branch gets its own preview URL, which Cloudflare Access keeps private (the account-wide Access switch for Workers).
+Cloudflare Workers serves the built `dist` folder as static files (`wrangler.jsonc`), building from GitHub on every push: build command `npm test && npm run build`, deploy command `npx wrangler deploy`, Node version from `.node-version`. A failing test blocks the deploy. `main` is the public site at [timeline.rector.app](https://timeline.rector.app). Every other pushed branch gets its own preview URL, which Cloudflare Access keeps private (the account-wide Access switch for Workers).
 
 ## Content
 

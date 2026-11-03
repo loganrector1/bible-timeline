@@ -19,7 +19,7 @@ What changed from the original plan, as it was built: the map shows a fixed numb
 
 ## Deployment (done)
 
-Live at [bible.rector.app](https://bible.rector.app): a Cloudflare Worker serving the static build (Cloudflare calls Pages legacy), built from GitHub on every push with `npm test` gating the deploy. `main` is the public site; every other pushed branch gets a preview URL behind Cloudflare Access (scope "Previews only"), for checking a feature on a phone. The repo is `loganrector1/bible-timeline`. Still to do: decide whether to revisit the branching rule in CLAUDE.md now that `main` deploys automatically; if the local folder is renamed to match, copy Claude Code's memory folder to the new path.
+Live at [timeline.rector.app](https://timeline.rector.app) (bible.rector.app until 2026-11-02, renamed to match the app): a Cloudflare Worker serving the static build (Cloudflare calls Pages legacy), built from GitHub on every push with `npm test` gating the deploy. `main` is the public site; every other pushed branch gets a preview URL behind Cloudflare Access (scope "Previews only"), for checking a feature on a phone. The repo is `loganrector1/bible-timeline`. Still to do: decide whether to revisit the branching rule in CLAUDE.md now that `main` deploys automatically; if the local folder is renamed to match, copy Claude Code's memory folder to the new path.
 
 ## Milestone 2: the whole Bible (done)
 
@@ -96,7 +96,7 @@ Customized daily Bible reading plans with accounts, saved progress and statistic
 
 - **Hosting:** a Home Assistant local add-on on the Raspberry Pi (HAOS), reached at `reading.rector.app` through the existing Cloudflare Tunnel. Cloudflare Access in front of it handles login (email, free for up to 50 users), and its authenticated-user header can identify the reader, so the app doesn't need its own passwords.
 - **Data:** SQLite in WAL mode, backed up by Home Assistant's backups.
-- **Link to the timeline:** each reading links to `bible.rector.app/?passage=…` (live; the format is in the timeline's CLAUDE.md). If the reading app wants to know which readings have events, the timeline can publish a small passage-to-event index as JSON.
+- **Link to the timeline:** each reading links to `timeline.rector.app/?passage=…` (live; the format is in the timeline's CLAUDE.md). If the reading app wants to know which readings have events, the timeline can publish a small passage-to-event index as JSON.
 - **Shared code:** copy the Scripture-reference parsing from this repo instead of writing a second one; make it a shared package only if keeping copies in sync becomes a chore.
 - **Working on both:** open each repo in its own VS Code window with its own Claude sessions. Use `/add-dir` when one session needs to read the other repo. Document the link format in both CLAUDE.md files.
 
