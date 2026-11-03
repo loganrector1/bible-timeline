@@ -92,6 +92,11 @@ export const Person = z.object({
   lane: Lane.default("people"),
   /** Other lanes they belong to (Peter is also church). They show once, in the first lane that's on. */
   alsoIn: z.array(Lane).default([]),
+  /**
+   * No "known c." bar, for supporting figures whose events crowd a busy stretch (Laban, Leah,
+   * Rachel, Esau around 1913 BC set the people lane's width everywhere). Only for people without `dates`.
+   */
+  noBar: z.boolean().default(false),
   summary: z.string(),
   /**
    * Lifespan where Scripture supports one; otherwise the years we can place them (a reign, a

@@ -43,7 +43,7 @@ export default function PeopleLane({ scale, onHover, lane }: { scale: TimeScale;
   const filters = useStore((s) => s.filters);
 
   const lives = useMemo(() => {
-    const items = data.people.filter((p) => shownLanes(p, shown).includes(lane)).flatMap((person) => {
+    const items = data.people.filter((p) => !p.noBar && shownLanes(p, shown).includes(lane)).flatMap((person) => {
       const span = personSpan(person, chron, lane === "kings" || lane === "world");
       return span ? [{ person, ...span }] : [];
     });

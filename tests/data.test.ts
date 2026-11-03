@@ -88,6 +88,10 @@ describe("people's bars", () => {
     expect(span("moses")?.derived).toBe(false);
   });
 
+  test("are left out only for people without dates", () => {
+    expect(data.people.filter((p) => p.noBar && p.dates).map((p) => p.id)).toEqual([]);
+  });
+
   test("someone in two lanes shows in the first that's on", () => {
     const peter = data.people.find((p) => p.id === "peter")!;
     expect(shownLane(peter, ["people", "church"])).toBe("people");
