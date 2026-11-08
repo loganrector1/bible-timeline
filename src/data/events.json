@@ -16,7 +16,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 3 }]
   },
   {
-    "id": "cain-abel", "title": "Cain and Abel", "type": "judgment",
+    "id": "cain-abel", "title": "Cain and Abel", "type": "judgment", "alsoTypes": ["death"],
     "summary": "God accepts Abel's offering and not Cain's; Cain kills his brother in anger, and God sends him out to wander, marked so that no one will kill him.",
     "dates": { "early": { "start": { "year": -3984 }, "confidence": "unknown" }, "late": { "start": { "year": -3798 }, "confidence": "unknown" } },
     "dateNote": "Before Seth's birth, when Adam was 130 (Genesis 4:25; 5:3); how long before isn't told.",
@@ -56,7 +56,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 11, "verse": 26, "endVerse": 31 }]
   },
   {
-    "id": "call-of-abram", "title": "The call of Abram", "type": "covenant", "major": true,
+    "id": "call-of-abram", "title": "The call of Abram", "type": "covenant", "alsoTypes": ["journey"], "major": true,
     "summary": "At 75, Abram obeys God's call to leave Haran for a land God will show him, with the promise that all nations will be blessed through him.",
     "dates": { "early": { "start": { "year": -2090 }, "confidence": "approx" }, "late": { "start": { "year": -1904 }, "confidence": "approx" } },
     "dateNote": "Abram was 75 (Genesis 12:4).",
@@ -73,15 +73,15 @@
     "scripture": [{ "book": "Genesis", "chapter": 12, "verse": 10, "endVerse": 20 }]
   },
   {
-    "id": "abram-lot-part", "title": "Abram and Lot part ways", "type": "family",
-    "summary": "Their herds grow too large to share the land; Lot chooses the Jordan plain near Sodom and Abram settles at Hebron.",
+    "id": "abram-lot-part", "title": "Abram and Lot part ways", "type": "family", "alsoTypes": ["covenant"],
+    "summary": "Their herds grow too large to share the land; Lot chooses the Jordan plain near Sodom. God promises Abram \"all the land that you see,\" and he settles at Hebron.",
     "dates": { "early": { "start": { "year": -2084 }, "confidence": "approx" }, "late": { "start": { "year": -1898 }, "confidence": "approx" } },
     "dateNote": "After the return from Egypt; the year is an estimate.",
     "people": ["abraham", "lot"], "locations": ["bethel", "hebron", "sodom"],
     "scripture": [{ "book": "Genesis", "chapter": 13 }]
   },
   {
-    "id": "melchizedek", "title": "Abram and Melchizedek", "type": "worship",
+    "id": "melchizedek", "title": "Abram and Melchizedek", "type": "worship", "alsoTypes": ["battle"],
     "summary": "Abram rescues Lot from four invading kings, pursuing them as far as Dan. On his return Melchizedek, king of Salem and priest of God Most High, blesses him, and Abram gives him a tenth of everything.",
     "dates": { "early": { "start": { "year": -2082 }, "confidence": "approx" }, "late": { "start": { "year": -1896 }, "confidence": "approx" } },
     "dateNote": "After Lot moved to Sodom and before God's covenant with Abram, which came \"after these events\" (Genesis 15:1); the year is an estimate. Salem is usually taken to be Jerusalem (Psalm 76:2).",
@@ -121,7 +121,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 18, "verse": 1, "endChapter": 19, "endVerse": 29 }]
   },
   {
-    "id": "isaac-born", "title": "Birth of Isaac", "type": "birth",
+    "id": "isaac-born", "title": "Birth of Isaac", "type": "birth", "alsoTypes": ["miracle"],
     "summary": "Sarah bears Isaac when Abraham is 100, just as God promised. When Isaac is weaned, Hagar and Ishmael are sent away, and in the wilderness God hears the boy's cry and saves them.",
     "dates": { "early": { "start": { "year": -2065 }, "confidence": "approx" }, "late": { "start": { "year": -1879 }, "confidence": "approx" } },
     "dateNote": "Abraham was 100 (Genesis 21:5).",
@@ -129,8 +129,8 @@
     "scripture": [{ "book": "Genesis", "chapter": 21, "verse": 1, "endVerse": 21 }]
   },
   {
-    "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship", "major": true,
-    "summary": "God tests Abraham by asking him to sacrifice Isaac on Mount Moriah, then provides a ram in his place.",
+    "id": "binding-of-isaac", "title": "Abraham offers Isaac", "type": "worship", "alsoTypes": ["covenant"], "major": true,
+    "summary": "God tests Abraham by asking him to sacrifice Isaac on Mount Moriah, then provides a ram in his place and swears by himself: \"through your offspring all nations of the earth will be blessed.\"",
     "dates": { "early": { "start": { "year": -2049 }, "confidence": "approx" }, "late": { "start": { "year": -1863 }, "confidence": "approx" } },
     "dateNote": "Isaac's age is not given; the date is an estimate.",
     "people": ["abraham", "isaac"], "locations": ["beersheba", "moriah"],
@@ -202,7 +202,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 28, "verse": 10, "endVerse": 22 }]
   },
   {
-    "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
+    "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family", "alsoTypes": ["birth"],
     "summary": "Jacob works fourteen years for Laban's daughters; his sons, the ancestors of Israel's tribes, are born in Haran.",
     "dates": { "early": { "start": { "year": -1921 }, "end": { "year": -1909 }, "confidence": "approx" }, "late": { "start": { "year": -1735 }, "end": { "year": -1723 }, "confidence": "approx" } },
     "dateNote": "Jacob served seven years for Rachel, was given Leah, and served seven more (Genesis 29:20–30); his sons were born in those years.",
@@ -219,12 +219,20 @@
     "scripture": [{ "book": "Genesis", "chapter": 31, "endChapter": 35 }]
   },
   {
-    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "covenant", "major": true, "partOf": "jacob-returns",
+    "id": "jacob-wrestles", "title": "Jacob wrestles with God", "type": "prophecy", "alsoTypes": ["family"], "major": true, "partOf": "jacob-returns",
     "summary": "Returning to Canaan, Jacob wrestles with God at Peniel, is renamed Israel, and is reconciled with Esau.",
     "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" }, "late": { "start": { "year": -1722 }, "confidence": "approx" } },
     "dateNote": "On the way home, twenty years after Jacob fled (Genesis 31:41).",
     "people": ["jacob", "esau"], "locations": ["peniel"],
     "scripture": [{ "book": "Genesis", "chapter": 32, "endChapter": 33 }]
+  },
+  {
+    "id": "jacob-bethel-return", "title": "God renews his covenant at Bethel", "type": "covenant", "partOf": "jacob-returns",
+    "summary": "Jacob's household puts away its foreign gods, and at Bethel God appears to him again and confirms his new name, Israel: \"I am God Almighty. Be fruitful and multiply,\" and \"The land that I gave to Abraham and Isaac I will give to you.\" Jacob sets up a stone pillar where God spoke with him.",
+    "dates": { "early": { "start": { "year": -1908 }, "confidence": "approx" }, "late": { "start": { "year": -1722 }, "confidence": "approx" } },
+    "dateNote": "On his way home from Haran; how long after he reached Canaan isn't told.",
+    "people": ["jacob"], "locations": ["bethel"],
+    "scripture": [{ "book": "Genesis", "chapter": 35, "verse": 1, "endVerse": 15 }]
   },
   {
     "id": "joseph-sold", "title": "Joseph sold into slavery", "type": "family", "major": true,
@@ -235,7 +243,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 37 }]
   },
   {
-    "id": "joseph-prison", "title": "Joseph in prison", "type": "other",
+    "id": "joseph-prison", "title": "Joseph in prison", "type": "other", "alsoTypes": ["prophecy"],
     "summary": "Joseph serves in Potiphar's house, and \"the LORD was with Joseph.\" He refuses the advances of Potiphar's wife, is falsely accused and thrown into prison, and there interprets the dreams of Pharaoh's cupbearer and baker: \"Don't interpretations belong to God?\"",
     "dates": { "early": { "start": { "year": -1897 }, "end": { "year": -1884 }, "confidence": "approx" }, "late": { "start": { "year": -1711 }, "end": { "year": -1698 }, "confidence": "approx" } },
     "dateNote": "From when he was sold, at 17 (Genesis 37:2), to when he stood before Pharaoh, at 30 (Genesis 41:46).",
@@ -243,7 +251,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 39, "endChapter": 40 }]
   },
   {
-    "id": "joseph-rules", "title": "Joseph rules in Egypt", "type": "reign",
+    "id": "joseph-rules", "title": "Joseph rules in Egypt", "type": "reign", "alsoTypes": ["prophecy"],
     "summary": "Joseph interprets Pharaoh's dreams and is made second in command to prepare Egypt for seven years of famine.",
     "dates": { "early": { "start": { "year": -1884 }, "confidence": "approx" }, "late": { "start": { "year": -1698 }, "confidence": "approx" } },
     "dateNote": "Joseph was 30 (Genesis 41:46).",
@@ -267,8 +275,8 @@
     "scripture": [{ "book": "Genesis", "chapter": 42, "endChapter": 45, "endVerse": 15 }]
   },
   {
-    "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey", "major": true,
-    "summary": "Pharaoh invites Joseph's family to Egypt. On the way God tells Jacob not to be afraid, and his household of seventy settles in Goshen.",
+    "id": "jacob-to-egypt", "title": "Jacob's family moves to Egypt", "type": "journey", "alsoTypes": ["family"], "major": true,
+    "summary": "Pharaoh invites Joseph's family to Egypt. On the way God tells Jacob not to be afraid, and his household of seventy settles in Goshen. Joseph goes to meet his father, and they embrace and weep.",
     "dates": { "early": { "start": { "year": -1875 }, "confidence": "approx" }, "late": { "start": { "year": -1689 }, "confidence": "approx" } },
     "dateNote": "Jacob was 130 (Genesis 47:9), 430 years before the Exodus (Exodus 12:40).",
     "people": ["jacob", "joseph", "judah"], "locations": ["hebron", "beersheba", "goshen"], "regions": ["goshen"],
@@ -276,7 +284,7 @@
     "scripture": [{ "book": "Genesis", "chapter": 45, "verse": 16, "endChapter": 47, "endVerse": 12 }]
   },
   {
-    "id": "jacob-dies", "title": "Death of Jacob", "type": "death",
+    "id": "jacob-dies", "title": "Death of Jacob", "type": "death", "alsoTypes": ["prophecy"],
     "summary": "Jacob blesses Joseph's sons Ephraim and Manasseh, then his own twelve sons, and dies at 147; Joseph carries him back to be buried at Machpelah.",
     "dates": { "early": { "start": { "year": -1858 }, "confidence": "approx" }, "late": { "start": { "year": -1672 }, "confidence": "approx" } },
     "dateNote": "Jacob was 147 (Genesis 47:28).",
@@ -339,7 +347,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 11, "endVerse": 25 }]
   },
   {
-    "id": "burning-bush", "title": "The burning bush", "type": "prophecy", "major": true,
+    "id": "burning-bush", "title": "The burning bush", "type": "prophecy", "alsoTypes": ["miracle"], "major": true,
     "summary": "God appears to Moses in a bush that does not burn up, reveals his name, and sends him to bring Israel out of Egypt.",
     "dates": {
       "early": { "start": { "year": -1446 }, "confidence": "approx" },
@@ -350,7 +358,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 3, "endChapter": 4 }]
   },
   {
-    "id": "plagues", "title": "The ten plagues", "type": "judgment",
+    "id": "plagues", "title": "The ten plagues", "type": "judgment", "alsoTypes": ["miracle"],
     "summary": "Pharaoh refuses to let Israel go and makes them gather their own straw for bricks. God strikes Egypt with ten plagues.",
     "dates": {
       "early": { "start": { "year": -1446 }, "end": { "year": -1445, "month": 4, "day": 14, "label": "14 Nisan" }, "confidence": "approx" },
@@ -408,7 +416,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 16 }]
   },
   {
-    "id": "amalek", "title": "Battle with Amalek", "type": "battle", "partOf": "exodus",
+    "id": "amalek", "title": "Battle with Amalek", "type": "battle", "alsoTypes": ["miracle"], "partOf": "exodus",
     "summary": "At Rephidim God gives water from the rock; Joshua defeats Amalek while Aaron and Hur hold up Moses' hands.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 5, "label": "2nd month" }, "confidence": "approx" },
@@ -431,14 +439,25 @@
   },
   {
     "id": "golden-calf", "title": "The golden calf", "type": "judgment",
-    "summary": "While Moses is on the mountain, the people make a golden calf; Moses intercedes and God renews the covenant.",
+    "summary": "While Moses is on the mountain, the people make a golden calf; Moses breaks the tablets, then intercedes for the people and asks to see God's glory.",
     "dates": {
       "early": { "start": { "year": -1445, "month": 7, "label": "Summer" }, "confidence": "approx" },
       "late": { "start": { "year": -1259, "month": 7, "label": "Summer" }, "confidence": "approx" }
     },
     "dateNote": "About forty days after Moses went up the mountain (Exodus 24:18).",
     "people": ["moses", "aaron", "joshua"], "locations": ["sinai"],
-    "scripture": [{ "book": "Exodus", "chapter": 32, "endChapter": 34 }]
+    "scripture": [{ "book": "Exodus", "chapter": 32, "endChapter": 33 }]
+  },
+  {
+    "id": "sinai-covenant-renewed", "title": "The covenant renewed at Sinai", "type": "covenant",
+    "summary": "Moses carves two new tablets and climbs the mountain again. The Lord passes before him, proclaiming \"The LORD, the LORD God, is compassionate and gracious, slow to anger, abounding in loving devotion and faithfulness,\" and says, \"Behold, I am making a covenant.\" Moses comes down with his face shining.",
+    "dates": {
+      "early": { "start": { "year": -1445, "month": 8, "label": "Late summer" }, "confidence": "approx" },
+      "late": { "start": { "year": -1259, "month": 8, "label": "Late summer" }, "confidence": "approx" }
+    },
+    "dateNote": "After Moses' second forty days on the mountain (Exodus 34:28), about forty days after the golden calf.",
+    "people": ["moses"], "locations": ["sinai"],
+    "scripture": [{ "book": "Exodus", "chapter": 34 }]
   },
   {
     "id": "tabernacle", "title": "The tabernacle is set up", "type": "worship",
@@ -519,7 +538,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 1 }]
   },
   {
-    "id": "waters-of-meribah", "title": "Moses strikes the rock", "type": "judgment", "partOf": "to-moab",
+    "id": "waters-of-meribah", "title": "Moses strikes the rock", "type": "judgment", "alsoTypes": ["miracle"], "partOf": "to-moab",
     "summary": "At Kadesh the people have no water. God tells Moses to speak to the rock, but Moses strikes it twice. Water gushes out, but the Lord tells Moses and Aaron: \"Because you did not trust Me to show My holiness in the sight of the Israelites, you will not bring this assembly into the land that I have given them.\"",
     "dates": {
       "early": { "start": { "year": -1406, "month": 4, "label": "1st month, 40th year" }, "confidence": "approx" },
@@ -564,7 +583,7 @@
     "scripture": [{ "book": "Numbers", "chapter": 20, "verse": 22, "endChapter": 22, "endVerse": 1 }]
   },
   {
-    "id": "balaam", "title": "Balaam and his donkey", "type": "prophecy",
+    "id": "balaam", "title": "Balaam and his donkey", "type": "prophecy", "alsoTypes": ["miracle"],
     "summary": "Balak king of Moab hires the seer Balaam to curse Israel. On the way an angel blocks the road and Balaam's donkey speaks. From the heights over Israel's camp Balaam can only bless: \"How can I curse those whom God has not cursed?\" He sees a star that \"will come forth from Jacob.\"",
     "dates": {
       "early": { "start": { "year": -1406, "month": 12, "label": "40th year" }, "confidence": "approx" },
@@ -641,7 +660,7 @@
     "scripture": [{ "book": "Joshua", "chapter": 3, "endChapter": 4 }]
   },
   {
-    "id": "fall-of-jericho", "title": "The fall of Jericho", "type": "battle", "major": true, "partOf": "conquest",
+    "id": "fall-of-jericho", "title": "The fall of Jericho", "type": "battle", "alsoTypes": ["miracle"], "major": true, "partOf": "conquest",
     "summary": "Israel marches around Jericho for seven days; at the trumpet blast and shout its walls fall. Rahab and her family are spared.",
     "dates": {
       "early": { "start": { "year": -1405, "month": 4, "label": "1st month" }, "confidence": "approx" },
@@ -652,7 +671,7 @@
     "scripture": [{ "book": "Joshua", "chapter": 6 }]
   },
   {
-    "id": "sun-stands-still", "title": "The sun stands still at Gibeon", "type": "miracle", "partOf": "conquest",
+    "id": "sun-stands-still", "title": "The sun stands still at Gibeon", "type": "miracle", "alsoTypes": ["battle"], "partOf": "conquest",
     "summary": "Joshua defends Gibeon against five Amorite kings, and the sun stands still until Israel has won.",
     "dates": {
       "early": { "start": { "year": -1405 }, "confidence": "approx" },
@@ -663,7 +682,7 @@
     "scripture": [{ "book": "Joshua", "chapter": 10, "verse": 1, "endVerse": 15 }]
   },
   {
-    "id": "land-divided", "title": "The land divided among the tribes", "type": "covenant",
+    "id": "land-divided", "title": "The land divided among the tribes", "type": "other", "alsoTypes": ["worship"],
     "summary": "Joshua divides the land among the tribes by lot, and the tabernacle is set up at Shiloh.",
     "dates": {
       "early": { "start": { "year": -1399 }, "confidence": "approx" },
@@ -674,7 +693,7 @@
     "scripture": [{ "book": "Joshua", "chapter": 13, "endChapter": 22 }]
   },
   {
-    "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant",
+    "id": "joshua-farewell", "title": "Joshua renews the covenant", "type": "covenant", "alsoTypes": ["death"],
     "summary": "Near the end of his life Joshua gathers Israel at Shechem: \"As for me and my house, we will serve the LORD!\" He dies at 110.",
     "dates": {
       "early": { "start": { "year": -1390 }, "confidence": "approx" },
@@ -685,7 +704,7 @@
     "scripture": [{ "book": "Joshua", "chapter": 23, "endChapter": 24 }]
   },
   {
-    "id": "israel-no-king", "title": "Israel without a king", "type": "judgment",
+    "id": "israel-no-king", "title": "Israel without a king", "type": "judgment", "alsoTypes": ["battle"],
     "summary": "Micah of Ephraim sets up a shrine with an idol, and the tribe of Dan carries it off when it seizes a new home in the north. A Levite's concubine is abused and killed at Gibeah, and the tribes nearly wipe out Benjamin in the war that follows. \"In those days there was no king in Israel; everyone did what was right in his own eyes.\"",
     "dates": { "early": { "start": { "year": -1375 }, "confidence": "approx" }, "late": { "start": { "year": -1198 }, "confidence": "approx" } },
     "dateNote": "Told at the end of Judges but set early in it: Phinehas, Aaron's grandson, is still priest (Judges 20:28), and Moses' grandson Jonathan serves Dan's idols (Judges 18:30). Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
@@ -719,15 +738,15 @@
     "locations": ["gaza"]
   },
   {
-    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle",
-    "summary": "God sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches. After his death his son Abimelech kills his brothers and makes himself king at Shechem, until a woman drops a millstone on his head.",
+    "id": "gideon-midian", "title": "Gideon defeats Midian", "type": "battle", "alsoTypes": ["miracle"],
+    "summary": "God confirms his call with fire from the rock and the sign of the fleece, then sends Gideon against the Midianite raiders with just three hundred men, armed with trumpets, jars and torches. After his death his son Abimelech kills his brothers and makes himself king at Shechem, until a woman drops a millstone on his head.",
     "dates": { "early": { "start": { "year": -1161 }, "confidence": "approx" } },
     "dateNote": "Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
     "people": ["gideon"], "locations": ["harod"],
     "scripture": [{ "book": "Judges", "chapter": 6, "endChapter": 9 }]
   },
   {
-    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family",
+    "id": "ruth-boaz", "title": "Ruth and Boaz", "type": "family", "alsoTypes": ["journey", "birth"],
     "summary": "Ruth the Moabite returns with Naomi to Bethlehem, gleans in Boaz's field, and marries him. Their son Obed is David's grandfather.",
     "dates": { "early": { "start": { "year": -1099 }, "confidence": "approx" } },
     "dateNote": "Set \"in the days when the judges ruled\" (Ruth 1:1). Boaz is David's great-grandfather, which points to the late 1100s BC.",
@@ -759,7 +778,7 @@
     "scripture": [{ "book": "Judges", "chapter": 10, "verse": 6, "endChapter": 12, "endVerse": 7 }]
   },
   {
-    "id": "samson-judges", "title": "Samson fights the Philistines", "type": "battle", "major": true,
+    "id": "samson-judges", "title": "Samson fights the Philistines", "type": "battle", "alsoTypes": ["miracle", "death"], "major": true,
     "summary": "Samson, set apart from birth, fights the Philistines alone for twenty years, until Delilah betrays him; he dies pulling down the temple of Dagon at Gaza.",
     "dates": { "early": { "start": { "year": -1074 }, "end": { "year": -1054 }, "confidence": "approx" } },
     "dateNote": "He judged Israel twenty years (Judges 16:31), during the Philistine oppression that runs into Samuel's day. Dates in Judges are approximate: the book's periods of oppression and rest add up to more than the time available, so some probably overlapped.",
@@ -767,23 +786,23 @@
     "scripture": [{ "book": "Judges", "chapter": 13, "endChapter": 16 }]
   },
   {
-    "id": "ark-captured", "title": "The ark captured", "type": "judgment",
-    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news. Twenty years later Samuel gathers Israel at Mizpah, the Philistines are routed, and he sets up a stone, Ebenezer: \"Thus far the LORD has helped us.\"",
+    "id": "ark-captured", "title": "The ark captured", "type": "judgment", "alsoTypes": ["miracle", "battle", "death"],
+    "summary": "The Philistines defeat Israel at Aphek and capture the ark of the covenant. Eli's sons die in battle and Eli dies at the news. In Philistia the idol Dagon falls before the ark and plagues strike city after city, until the Philistines send it back. Twenty years later Samuel gathers Israel at Mizpah, the Philistines are routed, and he sets up a stone, Ebenezer: \"Thus far the LORD has helped us.\"",
     "dates": { "early": { "start": { "year": -1079 }, "confidence": "approx" } },
     "dateNote": "The ark then stays twenty years at Kiriath-jearim before Samuel gathers Israel at Mizpah (1 Samuel 7:2).",
     "people": ["eli", "samuel"], "locations": ["aphek", "shiloh"],
     "scripture": [{ "book": "1 Samuel", "chapter": 4, "endChapter": 7 }]
   },
   {
-    "id": "saul-king", "title": "Saul becomes king", "type": "reign", "major": true,
-    "summary": "Israel asks Samuel for a king like the other nations. God gives them Saul, whom Samuel anoints and the people acclaim.",
+    "id": "saul-king", "title": "Saul becomes king", "type": "reign", "alsoTypes": ["battle"], "major": true,
+    "summary": "Israel asks Samuel for a king like the other nations. God gives them Saul, whom Samuel anoints and the people acclaim once he rescues Jabesh-gilead from the Ammonites.",
     "dates": { "early": { "start": { "year": -1049 }, "confidence": "approx" } },
     "dateNote": "Acts 13:21 gives Saul forty years; the numbers in 1 Samuel 13:1 are damaged in the Hebrew text.",
     "people": ["saul", "samuel"], "locations": ["ramah", "gibeah"],
     "scripture": [{ "book": "1 Samuel", "chapter": 8, "endChapter": 12 }]
   },
   {
-    "id": "saul-rejected", "title": "Saul is rejected", "type": "judgment",
+    "id": "saul-rejected", "title": "Saul is rejected", "type": "judgment", "alsoTypes": ["battle"],
     "summary": "Saul offers the sacrifice at Gilgal rather than wait for Samuel. At Michmash Jonathan and his armor-bearer rout a Philistine garrison. Later Saul spares Agag king of Amalek and the best of the plunder, and Samuel tells him, \"obedience is better than sacrifice\": the Lord has rejected him as king.",
     "dates": { "early": { "start": { "year": -1026 }, "confidence": "approx" } },
     "dateNote": "Not dated; before Samuel anoints David (1 Samuel 16:1).",
@@ -815,7 +834,15 @@
     "scripture": [{ "book": "1 Samuel", "chapter": 18, "endChapter": 30 }]
   },
   {
-    "id": "saul-dies", "title": "Death of Saul and Jonathan", "type": "death",
+    "id": "samuel-dies", "title": "Death of Samuel", "type": "death",
+    "summary": "Samuel dies, and all Israel gathers to mourn him; he is buried at his home in Ramah.",
+    "dates": { "early": { "start": { "year": -1014 }, "confidence": "approx" } },
+    "dateNote": "While David was hiding from Saul (1 Samuel 25:1). Scripture doesn't give his age.",
+    "people": ["samuel"], "locations": ["ramah"],
+    "scripture": [{ "book": "1 Samuel", "chapter": 25, "verse": 1 }]
+  },
+  {
+    "id": "saul-dies", "title": "Death of Saul and Jonathan", "type": "death", "alsoTypes": ["battle"],
     "summary": "The night before the battle Saul consults a medium at Endor. The Philistines defeat Israel on Mount Gilboa. Jonathan is killed and the wounded Saul falls on his own sword.",
     "dates": { "early": { "start": { "year": -1009 }, "confidence": "approx" } },
     "dateNote": "Counted back from the kingdom's division in 931 BC: David reigned forty years after Saul (2 Samuel 5:4).",
@@ -831,7 +858,7 @@
     "scripture": [{ "book": "2 Samuel", "chapter": 2, "endChapter": 24 }, { "book": "1 Kings", "chapter": 2, "verse": 10, "endVerse": 12 }, { "book": "1 Chronicles", "chapter": 11, "endChapter": 29 }]
   },
   {
-    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "partOf": "david-reign",
+    "id": "jerusalem-captured", "title": "David takes Jerusalem", "type": "battle", "alsoTypes": ["worship"], "partOf": "david-reign",
     "summary": "David captures the Jebusite stronghold of Zion and makes Jerusalem his capital, then brings the ark there.",
     "dates": { "early": { "start": { "year": -1002 }, "confidence": "approx" } },
     "dateNote": "After seven and a half years reigning in Hebron (2 Samuel 5:5).",
@@ -871,6 +898,14 @@
     "scripture": [{ "book": "2 Samuel", "chapter": 23, "verse": 1, "endVerse": 2 }, { "book": "Psalm", "chapter": 23 }, { "book": "Psalm", "chapter": 51 }, { "book": "Psalm", "chapter": 1, "endChapter": 72 }, { "book": "Psalm", "chapter": 86 }, { "book": "Psalm", "chapter": 101 }, { "book": "Psalm", "chapter": 103 }, { "book": "Psalm", "chapter": 108, "endChapter": 110 }, { "book": "Psalm", "chapter": 122 }, { "book": "Psalm", "chapter": 124 }, { "book": "Psalm", "chapter": 131 }, { "book": "Psalm", "chapter": 133 }, { "book": "Psalm", "chapter": 138, "endChapter": 145 }, { "book": "1 Chronicles", "chapter": 16, "verse": 7, "endVerse": 36 }]
   },
   {
+    "id": "david-dies", "title": "Death of David", "type": "death",
+    "summary": "As he nears death, David charges Solomon to \"keep the charge of the LORD your God,\" and he is buried in the City of David after reigning forty years.",
+    "dates": { "early": { "start": { "year": -969 }, "confidence": "approx" } },
+    "dateNote": "At 70: he was thirty when he became king and reigned forty years (2 Samuel 5:4).",
+    "people": ["david", "solomon"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 2, "verse": 1, "endVerse": 12 }, { "book": "1 Chronicles", "chapter": 29, "verse": 26, "endVerse": 30 }]
+  },
+  {
     "id": "solomon-reign", "title": "Solomon's reign", "type": "reign", "major": true,
     "summary": "Solomon asks God for wisdom, rules Israel at the height of its wealth and peace, and builds the temple, but his many foreign wives turn his heart to other gods.",
     "dates": { "early": { "start": { "year": -969 }, "end": { "year": -930 }, "confidence": "approx" } },
@@ -903,7 +938,15 @@
     "scripture": [{ "book": "1 Kings", "chapter": 4, "verse": 29, "endVerse": 34 }, { "book": "1 Kings", "chapter": 10, "verse": 1, "endVerse": 13 }, { "book": "Proverbs", "chapter": 1, "endChapter": 31 }, { "book": "Ecclesiastes", "chapter": 1, "endChapter": 12 }, { "book": "Song of Songs", "chapter": 1, "endChapter": 8 }]
   },
   {
-    "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "major": true,
+    "id": "solomon-second-vision", "title": "God appears to Solomon again", "type": "covenant", "partOf": "solomon-reign",
+    "summary": "With the temple and his palace finished, the Lord appears to Solomon a second time, as at Gibeon. If Solomon walks before him as David did, \"I will establish your royal throne over Israel forever\"; if Israel turns to other gods, the temple will become \"a heap of rubble.\"",
+    "dates": { "early": { "start": { "year": -945 }, "confidence": "approx" } },
+    "dateNote": "When the temple and the palace were finished, twenty years after the temple was begun (1 Kings 9:1, 10).",
+    "people": ["solomon"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "1 Kings", "chapter": 9, "verse": 1, "endVerse": 9 }, { "book": "2 Chronicles", "chapter": 7, "verse": 11, "endVerse": 22 }]
+  },
+  {
+    "id": "kingdom-divides", "title": "The kingdom divides", "type": "judgment", "alsoTypes": ["prophecy", "reign"], "major": true,
     "summary": "When Rehoboam refuses to lighten Solomon's heavy demands, the ten northern tribes make Jeroboam king. Jeroboam sets up golden calves at Bethel and Dan, and a man of God from Judah cries out against his altar. In Rehoboam's fifth year Shishak of Egypt plunders Jerusalem and carries off the temple's treasures.",
     "dates": { "early": { "start": { "year": -930 }, "confidence": "approx" } },
     "dateNote": "931 BC in Thiele's chronology of the kings, counted from the reigns given in Kings. Shishak's raid (1 Kings 14:25) is the campaign Pharaoh Shoshenq I listed on a temple wall at Karnak, about 925 BC.",
@@ -911,8 +954,8 @@
     "scripture": [{ "book": "1 Kings", "chapter": 12, "endChapter": 14 }, { "book": "2 Chronicles", "chapter": 10, "endChapter": 12 }]
   },
   {
-    "id": "omri-samaria", "title": "Omri builds Samaria", "type": "reign",
-    "summary": "For fifty years after the division, Israel and Judah are at war. In Judah, Asa removes the idols and trusts God against a vast army from Cush. In Israel, king after king is murdered, until the army commander Omri takes the throne and builds a new capital on the hill of Samaria.",
+    "id": "omri-samaria", "title": "Omri builds Samaria", "type": "reign", "alsoTypes": ["covenant", "battle"],
+    "summary": "For fifty years after the division, Israel and Judah are at war. In Judah, Asa removes the idols and trusts God against a vast army from Cush, and the people enter \"into a covenant to seek the LORD, the God of their fathers, with all their heart and soul.\" In Israel, king after king is murdered, until the army commander Omri takes the throne and builds a new capital on the hill of Samaria.",
     "dates": { "early": { "start": { "year": -879 }, "confidence": "approx" } },
     "dateNote": "Omri reigned twelve years, the first six at Tirzah (1 Kings 16:23–24); in Thiele's chronology he moved to Samaria about 880 BC. Assyrian records long afterward called Israel \"the house of Omri.\"",
     "people": ["omri", "asa"], "locations": ["samaria"],
@@ -950,7 +993,7 @@
     "people": ["ahab"]
   },
   {
-    "id": "ahab-dies", "title": "Ahab dies at Ramoth-gilead", "type": "battle",
+    "id": "ahab-dies", "title": "Ahab dies at Ramoth-gilead", "type": "battle", "alsoTypes": ["prophecy", "death"],
     "summary": "Ahab twice defeats Ben-hadad of Aram, then lets him go. Three years later he and Jehoshaphat of Judah march on Ramoth-gilead. Four hundred prophets promise victory, but Micaiah says, \"I saw all Israel scattered on the hills like sheep without a shepherd.\" Ahab goes into battle in disguise, and an arrow shot at random kills him. In Judah, Jehoshaphat sends teachers of the Law through the land, and when Moab and Ammon invade, he is told, \"the battle does not belong to you, but to God.\"",
     "dates": { "early": { "start": { "year": -852 }, "confidence": "approx" } },
     "dateNote": "Ahab fought Assyria at Qarqar in 853 BC (Shalmaneser III's inscription names him) and died later that year, Thiele's date. Jehoshaphat's reforms and wars (2 Chronicles 17–20) aren't dated within his reign.",
@@ -966,7 +1009,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 1, "endChapter": 2, "endVerse": 18 }]
   },
   {
-    "id": "elisha-ministry", "title": "Elisha's ministry", "type": "ministry",
+    "id": "elisha-ministry", "title": "Elisha's ministry", "type": "ministry", "alsoTypes": ["miracle", "prophecy"],
     "summary": "With a double portion of Elijah's spirit, Elisha heals Jericho's spring, fills a widow's jars with oil, raises the Shunammite woman's son, and feeds a hundred men with twenty loaves. Naaman, the Aramean commander, dips in the Jordan seven times and is healed of leprosy. When Aram's army surrounds Dothan, Elisha's servant sees that \"the hills were full of horses and chariots of fire.\" Even after his death, a dead man thrown into his tomb comes back to life.",
     "dates": { "early": { "start": { "year": -849 }, "end": { "year": -797 }, "confidence": "approx" } },
     "dateNote": "From Elijah's ascension, about 850 BC, to Elisha's death under Jehoash of Israel (2 Kings 13:14–20), who reigned 798–782 BC; the end is estimated.",
@@ -974,7 +1017,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 2, "verse": 19, "endChapter": 8, "endVerse": 15 }, { "book": "2 Kings", "chapter": 13 }]
   },
   {
-    "id": "jehu-revolt", "title": "Jehu's revolt", "type": "judgment",
+    "id": "jehu-revolt", "title": "Jehu's revolt", "type": "judgment", "alsoTypes": ["reign"],
     "summary": "Elisha sends a young prophet to anoint the army commander Jehu king of Israel. Jehu races to Jezreel, \"driving like a madman,\" and kills both King Joram of Israel and King Ahaziah of Judah. Jezebel is thrown from a window, and Jehu wipes out Ahab's family and the worshipers of Baal, yet keeps Jeroboam's golden calves.",
     "dates": { "early": { "start": { "year": -840 }, "confidence": "approx" } },
     "dateNote": "841 BC in Thiele's chronology. Shalmaneser III's Black Obelisk shows Jehu bowing before him with tribute that year.",
@@ -982,15 +1025,15 @@
     "scripture": [{ "book": "2 Kings", "chapter": 8, "verse": 16, "endChapter": 10 }, { "book": "2 Chronicles", "chapter": 21, "endChapter": 22, "endVerse": 9 }]
   },
   {
-    "id": "joash-king", "title": "Joash, the boy king", "type": "reign",
-    "summary": "When Ahaziah dies, his mother Athaliah kills the royal family and seizes Judah's throne. Only the baby Joash is saved, hidden in the temple for six years. Then the priest Jehoiada crowns him and Athaliah is put to death. Joash repairs the temple, but after Jehoiada dies he turns from God and has Jehoiada's son Zechariah stoned in the temple courtyard.",
+    "id": "joash-king", "title": "Joash, the boy king", "type": "reign", "alsoTypes": ["covenant"],
+    "summary": "When Ahaziah dies, his mother Athaliah kills the royal family and seizes Judah's throne. Only the baby Joash is saved, hidden in the temple for six years. Then the priest Jehoiada crowns him and makes a covenant \"that they would be the LORD's people,\" and Athaliah is put to death. Joash repairs the temple, but after Jehoiada dies he turns from God and has Jehoiada's son Zechariah stoned in the temple courtyard.",
     "dates": { "early": { "start": { "year": -834 }, "confidence": "approx" } },
     "dateNote": "Joash was seven when he became king (2 Kings 11:21), in 835 BC in Thiele's chronology.",
     "people": ["joash-of-judah", "athaliah"], "locations": ["jerusalem"],
     "scripture": [{ "book": "2 Kings", "chapter": 11, "endChapter": 12 }, { "book": "2 Chronicles", "chapter": 22, "verse": 10, "endChapter": 24 }]
   },
   {
-    "id": "jonah-nineveh", "title": "Jonah preaches to Nineveh", "type": "prophecy",
+    "id": "jonah-nineveh", "title": "Jonah preaches to Nineveh", "type": "prophecy", "alsoTypes": ["miracle", "journey", "ministry"],
     "summary": "Jonah runs from God's call, is swallowed by a great fish, and finally warns Nineveh, which repents and is spared.",
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "Jonah prophesied under Jeroboam II of Israel (793–753 BC, 2 Kings 14:25); the year of his mission isn't given.",
@@ -998,7 +1041,7 @@
     "scripture": [{ "book": "Jonah", "chapter": 1, "endChapter": 4 }, { "book": "2 Kings", "chapter": 14, "verse": 25 }]
   },
   {
-    "id": "amos-ministry", "title": "Amos warns Israel", "type": "ministry",
+    "id": "amos-ministry", "title": "Amos warns Israel", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "A shepherd from Judah denounces the northern kingdom's injustice and hollow worship at Bethel, and foretells its fall.",
     "dates": { "early": { "start": { "year": -759 }, "confidence": "approx" } },
     "dateNote": "\"Two years before the earthquake,\" under Uzziah and Jeroboam II (Amos 1:1), about 760 BC.",
@@ -1006,7 +1049,7 @@
     "scripture": [{ "book": "Amos", "chapter": 1, "verse": 1 }, { "book": "Amos", "chapter": 7, "verse": 10, "endVerse": 17 }, { "book": "Amos", "chapter": 1, "endChapter": 9 }, { "book": "2 Kings", "chapter": 14, "endChapter": 15, "endVerse": 7 }, { "book": "2 Chronicles", "chapter": 25, "endChapter": 26 }]
   },
   {
-    "id": "hosea-ministry", "title": "Hosea's ministry", "type": "ministry",
+    "id": "hosea-ministry", "title": "Hosea's ministry", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Hosea marries Gomer, who leaves him for other lovers, and takes her back: a living picture of Israel's unfaithfulness and God's love. He warns the northern kingdom of judgment in its last decades.",
     "dates": { "early": { "start": { "year": -754 }, "end": { "year": -714 }, "confidence": "approx" } },
     "dateNote": "In the days of Uzziah, Jotham, Ahaz and Hezekiah of Judah and Jeroboam II of Israel (Hosea 1:1): from before 753 BC, when Jeroboam died, into Hezekiah's reign, from 715 BC.",
@@ -1021,7 +1064,7 @@
     "locations": ["rome"]
   },
   {
-    "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "ministry", "major": true,
+    "id": "isaiah-ministry", "title": "Isaiah's ministry", "type": "prophecy", "alsoTypes": ["ministry"], "major": true,
     "summary": "Called in a vision of God's holiness, Isaiah counsels Judah's kings, warns of judgment and promises a coming king and a suffering servant.",
     "dates": { "early": { "start": { "year": -739 }, "end": { "year": -680 }, "confidence": "approx" } },
     "dateNote": "From the year King Uzziah died, about 740 BC (Isaiah 6:1), into Hezekiah's reign and perhaps beyond: Isaiah records Sennacherib's death in 681 BC (Isaiah 37:38). Many scholars assign chapters 40–66, addressed to the exiles, to later prophets of Isaiah's school, during and after the exile.",
@@ -1029,7 +1072,7 @@
     "scripture": [{ "book": "Isaiah", "chapter": 1, "verse": 1 }, { "book": "Isaiah", "chapter": 6 }, { "book": "Isaiah", "chapter": 1, "endChapter": 66 }, { "book": "2 Kings", "chapter": 15, "verse": 32, "endVerse": 38 }, { "book": "2 Chronicles", "chapter": 27 }]
   },
   {
-    "id": "micah-ministry", "title": "Micah's ministry", "type": "ministry",
+    "id": "micah-ministry", "title": "Micah's ministry", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "A prophet from the Judean countryside condemns the rich who seize fields and the leaders who sell justice, foretells the fall of Samaria and Jerusalem, and names Bethlehem as the birthplace of a coming ruler.",
     "dates": { "early": { "start": { "year": -734 }, "end": { "year": -699 }, "confidence": "approx" } },
     "dateNote": "In the days of Jotham, Ahaz and Hezekiah (Micah 1:1): before Samaria fell in 722 BC, which he foretells (Micah 1:6), and into Hezekiah's reign (Jeremiah 26:18). About 735–700 BC.",
@@ -1045,7 +1088,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 16 }, { "book": "2 Chronicles", "chapter": 28 }, { "book": "Isaiah", "chapter": 7, "endChapter": 9, "endVerse": 7 }]
   },
   {
-    "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "major": true,
+    "id": "fall-of-samaria", "title": "Fall of Samaria", "type": "judgment", "alsoTypes": ["battle", "journey"], "major": true,
     "summary": "After a three-year siege Assyria takes Samaria and deports the people of the northern kingdom. Israel's ten tribes are scattered.",
     "dates": { "early": { "start": { "year": -721 }, "confidence": "approx" } },
     "dateNote": "Assyrian records credit the conquest to Shalmaneser V and Sargon II; Thiele dates it 723/722 BC.",
@@ -1055,15 +1098,15 @@
     "scripture": [{ "book": "2 Kings", "chapter": 17 }]
   },
   {
-    "id": "hezekiah-reform", "title": "Hezekiah's reform", "type": "worship",
-    "summary": "Hezekiah reopens and cleanses the temple, tears down the high places, and breaks up the bronze serpent Moses had made, to which Israel had been burning incense. He invites all Israel, even the remnant of the north, to keep the Passover in Jerusalem: \"nothing like this had happened there since the days of Solomon.\"",
+    "id": "hezekiah-reform", "title": "Hezekiah's reform", "type": "worship", "alsoTypes": ["covenant"],
+    "summary": "Hezekiah reopens and cleanses the temple, resolved \"to make a covenant with the LORD, the God of Israel,\" tears down the high places, and breaks up the bronze serpent Moses had made, to which Israel had been burning incense. He invites all Israel, even the remnant of the north, to keep the Passover in Jerusalem: \"nothing like this had happened there since the days of Solomon.\"",
     "dates": { "early": { "start": { "year": -714, "month": 4, "label": "1st month" }, "confidence": "approx" } },
     "dateNote": "In the first month of Hezekiah's first year (2 Chronicles 29:3), 715 BC in Thiele's chronology, which has him reigning alongside Ahaz from 729 BC.",
     "people": ["hezekiah"], "locations": ["jerusalem"],
     "scripture": [{ "book": "2 Kings", "chapter": 18, "endVerse": 12 }, { "book": "2 Chronicles", "chapter": 29, "endChapter": 31 }]
   },
   {
-    "id": "sennacherib-siege", "title": "Sennacherib threatens Jerusalem", "type": "miracle",
+    "id": "sennacherib-siege", "title": "Sennacherib threatens Jerusalem", "type": "miracle", "alsoTypes": ["battle"],
     "summary": "Assyria's king takes Lachish and surrounds Jerusalem. Hezekiah prays, Isaiah promises deliverance, and the angel of the Lord strikes the Assyrian camp.",
     "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
     "dateNote": "Sennacherib's own annals and the reliefs of Lachish from his palace record this campaign of 701 BC.",
@@ -1071,7 +1114,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 18, "verse": 13, "endChapter": 19, "endVerse": 37 }, { "book": "Isaiah", "chapter": 36, "endChapter": 37 }, { "book": "2 Chronicles", "chapter": 32, "endVerse": 23 }]
   },
   {
-    "id": "hezekiah-illness", "title": "Hezekiah's illness", "type": "miracle",
+    "id": "hezekiah-illness", "title": "Hezekiah's illness", "type": "miracle", "alsoTypes": ["prophecy"],
     "summary": "Hezekiah falls ill and Isaiah tells him he will die. He weeps and prays, and God answers, \"I have heard your prayer; I have seen your tears,\" adding fifteen years to his life; as a sign the shadow on Ahaz's stairway goes back ten steps. Afterward he shows envoys from Babylon all his treasures, and Isaiah foretells that everything will be carried off to Babylon.",
     "dates": { "early": { "start": { "year": -700 }, "confidence": "approx" } },
     "dateNote": "Hezekiah died in 686 BC, fifteen years later (2 Kings 20:6), so about 701 BC, around the time of Sennacherib's invasion.",
@@ -1079,7 +1122,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 20 }, { "book": "Isaiah", "chapter": 38, "endChapter": 39 }, { "book": "2 Chronicles", "chapter": 32, "verse": 24, "endVerse": 33 }]
   },
   {
-    "id": "manasseh-reign", "title": "Manasseh's reign", "type": "judgment",
+    "id": "manasseh-reign", "title": "Manasseh's reign", "type": "reign", "alsoTypes": ["judgment"],
     "summary": "Hezekiah's son rebuilds the high places, sets up altars to the stars in the temple courts, sacrifices his son in the fire, and \"shed so much innocent blood that he filled Jerusalem from end to end.\" For his sins God declares that Jerusalem will fall. Chronicles adds that the Assyrians took him to Babylon in chains, where he humbled himself, and God brought him back.",
     "dates": { "early": { "start": { "year": -696 }, "end": { "year": -642 }, "confidence": "approx" } },
     "dateNote": "Fifty-five years (2 Kings 21:1), Judah's longest reign: 697–642 BC in Thiele's chronology, which counts ten years alongside Hezekiah. When he was taken to Babylon isn't known.",
@@ -1087,7 +1130,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 21 }, { "book": "2 Chronicles", "chapter": 33 }]
   },
   {
-    "id": "zephaniah-ministry", "title": "Zephaniah's warning", "type": "ministry",
+    "id": "zephaniah-ministry", "title": "Zephaniah's warning", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Zephaniah warns Judah and the nations of the coming day of the Lord, and promises a humble remnant that God will rejoice over with singing.",
     "dates": { "early": { "start": { "year": -629 }, "confidence": "approx" } },
     "dateNote": "In the days of Josiah (Zephaniah 1:1). The idol worship he condemns suggests before Josiah's reform of 622 BC, about 630 BC.",
@@ -1095,7 +1138,7 @@
     "scripture": [{ "book": "Zephaniah", "chapter": 1, "endChapter": 3 }]
   },
   {
-    "id": "nahum-nineveh", "title": "Nahum foretells Nineveh's fall", "type": "prophecy",
+    "id": "nahum-nineveh", "title": "Nahum foretells Nineveh's fall", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "A century after Jonah, Nahum announces that Nineveh, Assyria's capital, will fall for its cruelty: comfort for Judah, long under Assyria's yoke.",
     "dates": { "early": { "start": { "year": -649 }, "confidence": "approx" } },
     "dateNote": "Nahum speaks of the fall of Thebes (663 BC) as past (Nahum 3:8) and Nineveh's (612 BC) as still to come; often placed about 650 BC.",
@@ -1103,7 +1146,7 @@
     "scripture": [{ "book": "Nahum", "chapter": 1, "endChapter": 3 }]
   },
   {
-    "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant",
+    "id": "josiah-reform", "title": "Josiah's reform", "type": "covenant", "alsoTypes": ["worship"],
     "summary": "The Book of the Law is found in the temple. Josiah renews the covenant, destroys the idols and celebrates the Passover.",
     "dates": { "early": { "start": { "year": -621 }, "confidence": "approx" } },
     "dateNote": "In Josiah's eighteenth year (2 Kings 22:3).",
@@ -1111,7 +1154,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 22, "endChapter": 23 }, { "book": "2 Chronicles", "chapter": 34, "endChapter": 35 }]
   },
   {
-    "id": "jeremiah-ministry", "title": "Jeremiah's ministry", "type": "ministry", "major": true,
+    "id": "jeremiah-ministry", "title": "Jeremiah's ministry", "type": "prophecy", "alsoTypes": ["ministry"], "major": true,
     "summary": "For four decades Jeremiah warns Judah to repent and submit to Babylon, weeps over Jerusalem's fall, and promises a new covenant.",
     "dates": { "early": { "start": { "year": -626 }, "end": { "year": -579 }, "confidence": "approx" } },
     "dateNote": "From Josiah's thirteenth year (Jeremiah 1:2) until after Jerusalem fell, when he was taken to Egypt (Jeremiah 43). The end date is estimated.",
@@ -1127,7 +1170,7 @@
     "scripture": [{ "book": "Nahum", "chapter": 3, "verse": 1, "endVerse": 7 }]
   },
   {
-    "id": "habakkuk-ministry", "title": "Habakkuk questions God", "type": "ministry",
+    "id": "habakkuk-ministry", "title": "Habakkuk questions God", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Habakkuk asks why God lets injustice go unpunished, and is told that Babylon is coming. He learns that the righteous will live by faith, and ends in praise though the fig tree fails.",
     "dates": { "early": { "start": { "year": -606 }, "confidence": "approx" } },
     "dateNote": "Not dated. God is \"raising up the Chaldeans\" (Habakkuk 1:6), so usually placed just before Babylon's victory at Carchemish in 605 BC.",
@@ -1159,7 +1202,7 @@
     "scripture": [{ "book": "Daniel", "chapter": 3 }]
   },
   {
-    "id": "jehoiachin-exiled", "title": "King Jehoiachin taken to Babylon", "type": "judgment",
+    "id": "jehoiachin-exiled", "title": "King Jehoiachin taken to Babylon", "type": "judgment", "alsoTypes": ["battle", "journey"],
     "summary": "Nebuchadnezzar takes Jerusalem, carries King Jehoiachin and ten thousand leading citizens to Babylon, among them the priest Ezekiel, and makes Zedekiah king.",
     "dates": { "early": { "start": { "year": -596, "month": 3, "label": "2 Adar" }, "confidence": "approx" } },
     "dateNote": "The Babylonian Chronicle dates the city's capture to 2 Adar (16 March 597 BC).",
@@ -1175,7 +1218,7 @@
     "scripture": [{ "book": "Jeremiah", "chapter": 31, "verse": 31, "endVerse": 34 }, { "book": "Jeremiah", "chapter": 30, "endChapter": 33 }]
   },
   {
-    "id": "fall-of-jerusalem", "title": "Fall of Jerusalem", "type": "judgment", "major": true,
+    "id": "fall-of-jerusalem", "title": "Fall of Jerusalem", "type": "judgment", "alsoTypes": ["battle", "journey"], "major": true,
     "summary": "Babylon besieges Jerusalem for a year and a half, breaks through the walls, burns the temple and takes the people into exile.",
     "dates": { "early": { "start": { "year": -587, "month": 1, "label": "10th of 10th month" }, "end": { "year": -585, "month": 8, "label": "10th of 5th month" }, "confidence": "approx" } },
     "dateNote": "From the start of the siege (2 Kings 25:1) to the burning of the temple (Jeremiah 52:12). Thiele dates the fall to 586 BC; others to 587.",
@@ -1184,7 +1227,7 @@
     "scripture": [{ "book": "2 Kings", "chapter": 25, "verse": 1, "endVerse": 21 }, { "book": "Jeremiah", "chapter": 52 }, { "book": "Lamentations", "chapter": 1, "endChapter": 5 }, { "book": "Psalm", "chapter": 137 }]
   },
   {
-    "id": "obadiah-edom", "title": "Obadiah against Edom", "type": "prophecy",
+    "id": "obadiah-edom", "title": "Obadiah against Edom", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Obadiah condemns Edom, Jacob's brother nation, for gloating and looting as Jerusalem fell, and promises that the kingdom will be the Lord's.",
     "dates": { "early": { "start": { "year": -584 }, "confidence": "approx" } },
     "dateNote": "Not dated. Edom's part as Jerusalem was plundered (Obadiah 11–14) best fits Babylon's capture of the city in 586 BC (Psalm 137:7). Some link it to a raid under Jehoram of Judah, about 845 BC (2 Chronicles 21:16–17).",
@@ -1192,7 +1235,7 @@
     "scripture": [{ "book": "Obadiah", "chapter": 1, "verse": 1, "endVerse": 21 }]
   },
   {
-    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "ministry",
+    "id": "ezekiel-ministry", "title": "Ezekiel's ministry", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Among the exiles in Babylonia, Ezekiel sees God's glory, warns that Jerusalem will fall, and after it falls promises new hearts, dry bones brought to life, and a new temple.",
     "dates": { "early": { "start": { "year": -592, "month": 7, "label": "5th of 4th month" }, "end": { "year": -570, "month": 4, "label": "1st of 1st month" }, "confidence": "approx" } },
     "dateNote": "From the fifth year of Jehoiachin's exile, 593 BC (Ezekiel 1:2), to his last dated message in the twenty-seventh year, 571 BC (Ezekiel 29:17).",
@@ -1200,7 +1243,7 @@
     "scripture": [{ "book": "Ezekiel", "chapter": 1, "endChapter": 48 }]
   },
   {
-    "id": "nebuchadnezzar-humbled", "title": "Nebuchadnezzar humbled", "type": "judgment",
+    "id": "nebuchadnezzar-humbled", "title": "Nebuchadnezzar humbled", "type": "judgment", "alsoTypes": ["prophecy"],
     "summary": "Daniel warns Nebuchadnezzar that a dream of a great tree cut down is about him. A year later, boasting over Babylon, the king is driven out to live like an animal until he acknowledges that God rules. Restored, he praises \"the King of heaven\": \"He is able to humble those who walk in pride.\"",
     "dates": { "early": { "start": { "year": -569 }, "confidence": "unknown" } },
     "dateNote": "Scripture doesn't date it; it's placed late in his reign (605–562 BC), after his great building in Babylon (Daniel 4:30).",
@@ -1216,7 +1259,7 @@
     "scripture": [{ "book": "Daniel", "chapter": 7, "endChapter": 12 }]
   },
   {
-    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment",
+    "id": "fall-of-babylon", "title": "Babylon falls to Persia", "type": "judgment", "alsoTypes": ["battle", "prophecy"],
     "summary": "As Belshazzar feasts, a hand writes on the wall and Daniel reads its judgment. That night Babylon falls to the armies of Cyrus.",
     "dates": { "early": { "start": { "year": -538, "month": 10, "day": 12, "label": "16 Tashritu" }, "confidence": "exact" } },
     "dateNote": "The Nabonidus Chronicle records the city's fall on 16 Tashritu, 12 October 539 BC.",
@@ -1257,7 +1300,7 @@
     "scripture": [{ "book": "Ezra", "chapter": 5, "endChapter": 6 }, { "book": "Haggai", "chapter": 1, "endChapter": 2 }]
   },
   {
-    "id": "zechariah-visions", "title": "Zechariah's visions", "type": "ministry",
+    "id": "zechariah-visions", "title": "Zechariah's visions", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "While the temple is being rebuilt, Zechariah sees eight visions in one night: horsemen among the myrtles, a lampstand fed by two olive trees, a flying scroll. To Zerubbabel he says, \"Not by might nor by power, but by My Spirit, says the LORD of Hosts.\" Later oracles look ahead to Zion's King, \"humble and riding on a donkey,\" and to the day when the Lord will be king over all the earth.",
     "dates": { "early": { "start": { "year": -519, "month": 11, "label": "8th month" }, "end": { "year": -517, "month": 12, "label": "4th of 9th month" }, "confidence": "approx" } },
     "dateNote": "From the eighth month of Darius's second year, 520 BC (Zechariah 1:1), to the fourth of the ninth month of his fourth year, December 518 BC (Zechariah 7:1). Chapters 9–14 aren't dated; some place them later in Zechariah's life.",
@@ -1281,8 +1324,8 @@
     "scripture": [{ "book": "Esther", "chapter": 1, "endChapter": 10 }]
   },
   {
-    "id": "ezra-return", "title": "Ezra returns to Jerusalem", "type": "journey",
-    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah. Finding that many, leaders among them, have married women of the surrounding peoples, he weeps and confesses before the house of God, and the people agree to send the foreign wives away.",
+    "id": "ezra-return", "title": "Ezra returns to Jerusalem", "type": "journey", "alsoTypes": ["covenant"],
+    "summary": "Ezra the scribe leads a second group home with the king's blessing, to teach God's Law in Judah. Finding that many, leaders among them, have married women of the surrounding peoples, he weeps and confesses before the house of God, and the people \"make a covenant before our God\" to send the foreign wives away.",
     "dates": { "early": { "start": { "year": -457, "month": 4, "label": "1st of 1st month" }, "end": { "year": -457, "month": 8, "label": "1st of 5th month" }, "confidence": "approx" } },
     "dateNote": "In Artaxerxes's seventh year, 458 BC (Ezra 7:7–9).",
     "people": ["ezra", "artaxerxes"], "locations": ["babel", "jerusalem"],
@@ -1298,7 +1341,7 @@
     "scripture": [{ "book": "Psalm", "chapter": 1, "endChapter": 150 }]
   },
   {
-    "id": "joel-ministry", "title": "Joel and the locusts", "type": "ministry",
+    "id": "joel-ministry", "title": "Joel and the locusts", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "After a plague of locusts strips the land, Joel calls priests and people to fast and return to the Lord, warns of the day of the Lord, and promises that God will pour out his Spirit on all people, words Peter quotes at Pentecost.",
     "dates": { "early": { "start": { "year": -449 }, "end": { "year": -429 }, "confidence": "approx" } },
     "dateNote": "Joel names no king. Most now place him after the return, about 450–430 BC, before Malachi (some later still): the temple stands, elders and priests lead, and Judah's people have been scattered and sold to the Greeks (Joel 3:2, 6). Many others place him about 835 BC, while the priest Jehoiada ruled for the boy-king Joash, where his place among the early prophets suggests. Scripture doesn't say how long he prophesied.",
@@ -1306,7 +1349,7 @@
     "scripture": [{ "book": "Joel", "chapter": 1, "verse": 1, "endVerse": 20 }, { "book": "Joel", "chapter": 2, "verse": 28, "endVerse": 32 }, { "book": "Joel", "chapter": 1, "endChapter": 3 }]
   },
   {
-    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",
+    "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other", "alsoTypes": ["journey", "worship"],
     "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, and later dedicate them with two great choirs.",
     "dates": { "early": { "start": { "year": -444, "month": 8, "label": "5th month" }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
     "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
@@ -1314,7 +1357,7 @@
     "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 7 }, { "book": "Nehemiah", "chapter": 11, "endChapter": 12 }]
   },
   {
-    "id": "covenant-renewed", "title": "The people renew the covenant", "type": "covenant",
+    "id": "covenant-renewed", "title": "The people renew the covenant", "type": "covenant", "alsoTypes": ["worship"],
     "summary": "With the walls finished, the people gather and Ezra reads the Book of the Law aloud: \"the joy of the LORD is your strength.\" They keep the Feast of Tabernacles, confess their sins, and sign \"a binding agreement\" to follow the Law of God given through Moses.",
     "dates": { "early": { "start": { "year": -444, "month": 10, "label": "24th day, 7th month" }, "confidence": "approx" } },
     "dateNote": "The reading began on the first day of the seventh month (Nehemiah 8:2), and the confession and the agreement came on the 24th (Nehemiah 9:1), a month after the wall was finished.",
@@ -1322,7 +1365,7 @@
     "scripture": [{ "book": "Nehemiah", "chapter": 8, "endChapter": 10 }]
   },
   {
-    "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "ministry",
+    "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "prophecy", "alsoTypes": ["ministry"],
     "summary": "Back in Jerusalem for a second term, Nehemiah finds the temple neglected, the Sabbath broken and marriages to foreign women again. Malachi rebukes the same careless worship and broken marriages, and promises that the Lord will send Elijah before he comes. Then Scripture falls silent for four hundred years.",
     "dates": { "early": { "start": { "year": -429 }, "confidence": "approx" } },
     "dateNote": "Not dated. Malachi faces the same problems Nehemiah did on his return after Artaxerxes's thirty-second year, 433 BC (Nehemiah 13:6), so he is usually placed about 430 BC.",
@@ -1346,7 +1389,7 @@
     "locations": ["alexandria"]
   },
   {
-    "id": "antiochus-temple", "title": "Antiochus IV desecrates the temple", "type": "judgment", "world": true,
+    "id": "antiochus-temple", "title": "Antiochus IV desecrates the temple", "type": "other", "world": true,
     "summary": "Antiochus IV outlaws the Sabbath and circumcision and sets up an altar to Zeus in the temple, sacrificing on it. Faithful Jews resist, and the Maccabees take up arms.",
     "dates": { "early": { "start": { "year": -166 }, "confidence": "approx" } },
     "dateNote": "December 167 BC, told in 1 Maccabees 1. Many readers see it in Daniel's \"abomination of desolation\" (Daniel 11:31).",
@@ -1355,7 +1398,7 @@
     "scripture": [{ "book": "Daniel", "chapter": 11, "verse": 31, "endVerse": 32 }]
   },
   {
-    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship", "world": true,
+    "id": "maccabees", "title": "The Maccabees rededicate the temple", "type": "worship", "alsoTypes": ["battle"], "world": true,
     "summary": "After Antiochus IV defiles the temple and outlaws Judaism, Judas Maccabeus leads a revolt, retakes Jerusalem and rededicates the temple. Jews remember it at Hanukkah, the Feast of Dedication Jesus kept (John 10:22).",
     "dates": { "early": { "start": { "year": -163, "month": 12, "label": "25 Kislev" }, "confidence": "approx" } },
     "dateNote": "History, not Scripture (except as Catholic and Orthodox Christians count 1 Maccabees): told in 1 Maccabees 4 and by Josephus, in December 164 BC.",
@@ -1393,15 +1436,15 @@
     "scripture": [{ "book": "Luke", "chapter": 1, "verse": 26, "endVerse": 56 }]
   },
   {
-    "id": "john-baptist-born", "title": "John the Baptist is born", "type": "birth",
-    "summary": "While the priest Zechariah burns incense in the temple, the angel Gabriel tells him that his wife Elizabeth, old and childless, will bear a son who will prepare the people for the Lord. Doubting, Zechariah is struck mute until the child is born. When he writes, \"His name is John,\" he speaks again and praises God: \"Blessed be the Lord, the God of Israel, because He has visited and redeemed His people.\"",
+    "id": "john-baptist-born", "title": "John the Baptist is born", "type": "birth", "alsoTypes": ["miracle", "prophecy"],
+    "summary": "While the priest Zechariah burns incense in the temple, the angel Gabriel tells him that his wife Elizabeth, old and childless, will bear a son who will prepare the people for the Lord. Doubting, Zechariah is struck mute until the child is born. When he writes, \"His name is John,\" he speaks again and, filled with the Holy Spirit, prophesies: \"Blessed be the Lord, the God of Israel, because He has visited and redeemed His people.\"",
     "dates": { "early": { "start": { "year": -5 }, "confidence": "approx" } },
     "dateNote": "About six months before Jesus (Luke 1:26, 36), \"in the time of Herod king of Judea\" (Luke 1:5), probably about 6–5 BC. Zechariah and Elizabeth lived in \"a town in the hill country of Judah\" (Luke 1:39), by tradition Ein Karem, west of Jerusalem.",
     "people": ["john-the-baptist"], "locations": ["jerusalem"],
     "scripture": [{ "book": "Luke", "chapter": 1, "verse": 5, "endVerse": 25 }, { "book": "Luke", "chapter": 1, "verse": 57, "endVerse": 80 }]
   },
   {
-    "id": "jesus-born", "title": "Birth of Jesus", "type": "birth", "major": true,
+    "id": "jesus-born", "title": "Birth of Jesus", "type": "birth", "alsoTypes": ["miracle", "journey"], "major": true,
     "summary": "Joseph and Mary travel to Bethlehem for a Roman census, and Jesus is born there: \"The Word became flesh and made His dwelling among us.\" Angels announce him to shepherds. When he is presented in the temple, old Simeon takes him in his arms and praises God: \"my eyes have seen Your salvation.\" Magi from the east come to worship.",
     "dates": { "early": { "start": { "year": -4 }, "confidence": "approx" } },
     "dateNote": "Before Herod the Great died in 4 BC (Matthew 2:1, 19), probably about 6–4 BC. Scripture doesn't give the day.",
@@ -1418,7 +1461,7 @@
     "scripture": [{ "book": "Luke", "chapter": 2, "verse": 41, "endVerse": 52 }]
   },
   {
-    "id": "jesus-ministry", "title": "Jesus' ministry", "type": "ministry", "major": true,
+    "id": "jesus-ministry", "title": "Jesus' ministry", "type": "ministry", "alsoTypes": ["miracle"], "major": true,
     "summary": "Jesus calls disciples, preaches the kingdom of God, heals the sick and forgives sinners, mostly around the Sea of Galilee, going up to Jerusalem for the feasts. In the synagogue of Nazareth, his hometown, he reads from Isaiah, \"The Spirit of the Lord is on Me,\" and says, \"Today this Scripture is fulfilled in your hearing,\" but they drive him out of town.",
     "dates": { "early": { "start": { "year": 27 }, "end": { "year": 30, "month": 4 }, "confidence": "approx" } },
     "dateNote": "John's Gospel names at least three Passovers (John 2:13; 6:4; 11:55), so about three years. The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
@@ -1426,7 +1469,7 @@
     "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 12, "endVerse": 17 }, { "book": "Matthew", "chapter": 4, "verse": 23, "endVerse": 25 }, { "book": "Matthew", "chapter": 8, "verse": 1, "endVerse": 22 }, { "book": "Matthew", "chapter": 9, "verse": 27, "endVerse": 38 }, { "book": "Matthew", "chapter": 11, "endChapter": 12 }, { "book": "Matthew", "chapter": 13, "verse": 54, "endVerse": 58 }, { "book": "Matthew", "chapter": 15, "endChapter": 16, "endVerse": 12 }, { "book": "Matthew", "chapter": 17, "verse": 14, "endChapter": 18, "endVerse": 35 }, { "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 15 }, { "book": "Mark", "chapter": 1, "verse": 21, "endVerse": 45 }, { "book": "Mark", "chapter": 2, "verse": 23, "endChapter": 3, "endVerse": 12 }, { "book": "Mark", "chapter": 3, "verse": 20, "endVerse": 35 }, { "book": "Mark", "chapter": 6, "verse": 1, "endVerse": 6 }, { "book": "Mark", "chapter": 7, "endChapter": 8, "endVerse": 26 }, { "book": "Mark", "chapter": 9, "verse": 14, "endVerse": 50 }, { "book": "Luke", "chapter": 4, "verse": 14, "endVerse": 44 }, { "book": "Luke", "chapter": 5, "verse": 12, "endVerse": 16 }, { "book": "Luke", "chapter": 6, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 7, "endChapter": 8, "endVerse": 3 }, { "book": "Luke", "chapter": 8, "verse": 19, "endVerse": 21 }, { "book": "Luke", "chapter": 9, "verse": 37, "endVerse": 50 }, { "book": "John", "chapter": 3, "verse": 22, "endVerse": 36 }, { "book": "John", "chapter": 4, "verse": 43, "endVerse": 54 }]
   },
   {
-    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "miracle", "partOf": "jesus-ministry",
+    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "miracle", "alsoTypes": ["ministry"], "partOf": "jesus-ministry",
     "summary": "John the Baptist preaches in the wilderness of Judea, \"Repent, for the kingdom of heaven is near,\" and baptizes crowds in the Jordan. When Jesus is baptized, the Spirit descends like a dove and a voice from heaven says, \"You are My beloved Son.\" Afterward John points him out: \"Look, the Lamb of God, who takes away the sin of the world!\"",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
     "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
@@ -1578,7 +1621,7 @@
     "scripture": [{ "book": "John", "chapter": 7, "endChapter": 10 }]
   },
   {
-    "id": "journey-to-jerusalem", "title": "The last journey to Jerusalem", "type": "ministry", "partOf": "jesus-ministry",
+    "id": "journey-to-jerusalem", "title": "The last journey to Jerusalem", "type": "ministry", "alsoTypes": ["journey"], "partOf": "jesus-ministry",
     "summary": "\"Jesus resolutely set out for Jerusalem.\" On the way he sends out seventy-two disciples, teaches the Lord's Prayer, visits Martha and Mary, and tells the parables of the good Samaritan (\"Go and do likewise\"), the lost sheep, the prodigal son (\"He was lost and is found!\") and the rich man and Lazarus. He heals ten lepers, blesses little children, tells a rich ruler to sell everything he has, and at Jericho gives blind Bartimaeus his sight.",
     "dates": { "early": { "start": { "year": 29, "month": 10, "label": "Autumn" }, "end": { "year": 30, "month": 3, "label": "Before Passover" }, "confidence": "approx" } },
     "dateNote": "Luke gathers Jesus' teaching on the way into one long journey (Luke 9:51–19:27), from Galilee through Samaria and Perea, beyond the Jordan, to Jericho; it isn't told day by day. Probably from the autumn of AD 29 to the last Passover; John has Jesus in Jerusalem at the feasts in these months.",
@@ -1618,7 +1661,7 @@
     "scripture": [{ "book": "Matthew", "chapter": 21, "verse": 1, "endVerse": 11 }, { "book": "Mark", "chapter": 11, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 19, "verse": 28, "endVerse": 44 }, { "book": "John", "chapter": 12, "verse": 12, "endVerse": 19 }]
   },
   {
-    "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment",
+    "id": "temple-cleansing", "title": "Jesus clears the temple", "type": "judgment", "alsoTypes": ["miracle"],
     "summary": "On the way into the city Jesus curses a fig tree with no fruit. In the temple courts he drives out the money-changers and those selling: \"Is it not written: 'My house will be called a house of prayer for all the nations'? But you have made it 'a den of robbers.'\"",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 3, "label": "Monday" }, "confidence": "approx" } },
     "dateNote": "The day after the entry into Jerusalem (Mark 11:12–15). John tells of a temple cleansing at Jesus' first Passover (John 2:13–22); some think Jesus cleared the temple twice, others that John tells it first for its meaning.",
@@ -1642,8 +1685,8 @@
     "scripture": [{ "book": "Matthew", "chapter": 24, "endChapter": 25 }, { "book": "Mark", "chapter": 13 }, { "book": "Luke", "chapter": 21, "verse": 5, "endVerse": 38 }]
   },
   {
-    "id": "last-supper", "title": "The Last Supper", "type": "covenant",
-    "summary": "Jesus shares a final meal with his disciples, gives them bread and wine as his body and blood of the new covenant, then prays in Gethsemane, where he is arrested.",
+    "id": "last-supper", "title": "The Last Supper", "type": "covenant", "alsoTypes": ["worship"],
+    "summary": "Jesus shares a last Passover meal with his disciples, gives them bread and wine as his body and blood of the new covenant, then prays in Gethsemane, where he is arrested.",
     "dates": { "early": { "start": { "year": 30, "month": 4, "day": 6, "label": "Thursday evening" }, "confidence": "approx" } },
     "dateNote": "The crucifixion is dated AD 30 here, when 14 Nisan fell on Friday 7 April; AD 33 (3 April) is the main alternative.",
     "people": ["jesus", "peter", "judas-iscariot"], "locations": ["jerusalem", "gethsemane"],
@@ -1706,7 +1749,7 @@
     "scripture": [{ "book": "Acts", "chapter": 3, "verse": 1, "endChapter": 4, "endVerse": 31 }]
   },
   {
-    "id": "ananias-sapphira", "title": "Ananias and Sapphira", "type": "judgment",
+    "id": "ananias-sapphira", "title": "Ananias and Sapphira", "type": "judgment", "alsoTypes": ["death"],
     "summary": "The believers share everything they own, and Barnabas sells a field and brings the money to the apostles. Ananias and his wife Sapphira sell land too, but keep back part of the price while pretending to give it all. Peter tells Ananias, \"You have not lied to men, but to God!\" and he falls dead; three hours later so does Sapphira. \"And great fear came over the whole church.\"",
     "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
     "dateNote": "Not dated; in the church's first years in Jerusalem, before Stephen's death.",
@@ -1714,7 +1757,7 @@
     "scripture": [{ "book": "Acts", "chapter": 4, "verse": 32, "endChapter": 5, "endVerse": 11 }]
   },
   {
-    "id": "apostles-before-council", "title": "The apostles before the council", "type": "other",
+    "id": "apostles-before-council", "title": "The apostles before the council", "type": "other", "alsoTypes": ["miracle"],
     "summary": "As the apostles heal many in Jerusalem, the high priest has them jailed, but an angel opens the prison doors in the night. Brought before the council, Peter answers, \"We must obey God rather than men.\" The respected teacher Gamaliel warns that if this is from God, the council cannot stop it, so the apostles are flogged and released, \"rejoicing that they had been counted worthy of suffering disgrace for the Name.\"",
     "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
     "dateNote": "Not dated; in the church's first years in Jerusalem, before Stephen's death.",
@@ -1730,8 +1773,8 @@
     "scripture": [{ "book": "Acts", "chapter": 6, "endChapter": 8, "endVerse": 3 }]
   },
   {
-    "id": "philip-ethiopian", "title": "Philip and the Ethiopian", "type": "ministry",
-    "summary": "Scattered by persecution, Philip preaches in Samaria, then on the desert road to Gaza explains Isaiah to an Ethiopian official, who believes and is baptized.",
+    "id": "philip-ethiopian", "title": "Philip and the Ethiopian", "type": "ministry", "alsoTypes": ["miracle"],
+    "summary": "Scattered by persecution, Philip preaches in Samaria, where the crowds see the signs he performs, then on the desert road to Gaza explains Isaiah to an Ethiopian official, who believes and is baptized.",
     "dates": { "early": { "start": { "year": 31 }, "confidence": "approx" } },
     "dateNote": "Not dated; in the persecution after Stephen's death (Acts 8:1–4), before Paul's conversion.",
     "people": ["philip-evangelist"], "locations": ["samaria", "gaza"],
@@ -1771,7 +1814,7 @@
     "scripture": [{ "book": "Acts", "chapter": 13, "endChapter": 14 }]
   },
   {
-    "id": "jerusalem-council", "title": "The council at Jerusalem", "type": "covenant",
+    "id": "jerusalem-council", "title": "The council at Jerusalem", "type": "other",
     "summary": "The apostles and elders decide that Gentile believers don't need to be circumcised or keep the Law of Moses to be saved.",
     "dates": { "early": { "start": { "year": 49 }, "confidence": "approx" } },
     "dateNote": "Usually dated AD 48–50, between Paul's first and second journeys. If it is the visit Paul counts \"fourteen years\" after his first (Galatians 2:1), it fits AD 49.",
@@ -1838,7 +1881,7 @@
     "scripture": [{ "book": "2 Timothy", "chapter": 4, "verse": 6, "endVerse": 8 }, { "book": "2 Timothy", "chapter": 1, "endChapter": 4 }]
   },
   {
-    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "world": true, "major": true, "partOf": "jewish-revolt",
+    "id": "temple-destroyed", "title": "Jerusalem and the temple destroyed", "type": "judgment", "alsoTypes": ["battle"], "world": true, "major": true, "partOf": "jewish-revolt",
     "summary": "Rome crushes a Jewish revolt. Titus's army takes Jerusalem and burns the temple, as Jesus had foretold.",
     "dates": { "early": { "start": { "year": 70, "month": 8, "label": "10 Av" }, "confidence": "approx" } },
     "dateNote": "History, not narrated in Scripture: Josephus describes the siege and the burning of the temple in August AD 70. Jesus foretold it (Luke 21:20–24).",
@@ -1846,7 +1889,7 @@
     "scripture": [{ "book": "Matthew", "chapter": 24, "verse": 1, "endVerse": 2 }, { "book": "Luke", "chapter": 21, "verse": 20, "endVerse": 24 }]
   },
   {
-    "id": "revelation", "title": "John's vision on Patmos", "type": "prophecy", "major": true,
+    "id": "revelation", "title": "John's vision on Patmos", "type": "prophecy", "alsoTypes": ["writing"], "major": true,
     "summary": "Exiled on Patmos, John sees the risen Christ, receives letters for seven churches of Asia, and is shown the defeat of evil and the new heaven and new earth.",
     "dates": { "early": { "start": { "year": 95 }, "confidence": "approx" } },
     "dateNote": "Irenaeus (about AD 180) places John's vision late in Domitian's reign, about AD 95; some date it before AD 70, under Nero. The visions themselves aren't events in time and aren't placed on the timeline.",
@@ -1902,7 +1945,7 @@
     "scripture": [{ "book": "Acts", "chapter": 20, "verse": 17, "endVerse": 38 }]
   },
   {
-    "id": "shipwreck", "title": "Shipwreck on Malta", "type": "other", "partOf": "voyage-to-rome",
+    "id": "shipwreck", "title": "Shipwreck on Malta", "type": "other", "alsoTypes": ["miracle"], "partOf": "voyage-to-rome",
     "summary": "A storm drives the ship for fourteen days until it runs aground off Malta; all 276 aboard reach land. A viper bites Paul without harming him, and he heals the sick of the island.",
     "dates": { "early": { "start": { "year": 59, "month": 11 }, "confidence": "approx" } },
     "dateNote": "Some two weeks after leaving Crete late in the sailing season (Acts 27:9, 27).",
@@ -1927,7 +1970,7 @@
     "scripture": [{ "book": "Acts", "chapter": 11, "verse": 19, "endVerse": 30 }]
   },
   {
-    "id": "peter-freed", "title": "Peter freed from prison", "type": "miracle",
+    "id": "peter-freed", "title": "Peter freed from prison", "type": "miracle", "alsoTypes": ["death"],
     "summary": "Herod Agrippa kills James the brother of John and jails Peter. While the church prays, an angel leads Peter out past the guards. Soon after, Herod accepts a crowd's praise as a god, and \"an angel of the Lord struck him down.\"",
     "dates": { "early": { "start": { "year": 44 }, "confidence": "approx" } },
     "dateNote": "Shortly before Herod Agrippa I died in AD 44 (Acts 12:20–23), a death Josephus also records.",
@@ -2015,7 +2058,7 @@
     "scripture": [{ "book": "1 Timothy", "chapter": 1, "verse": 1, "endVerse": 7 }, { "book": "Titus", "chapter": 1, "verse": 1, "endVerse": 9 }, { "book": "1 Timothy", "chapter": 1, "endChapter": 6 }, { "book": "Titus", "chapter": 1, "endChapter": 3 }]
   },
   {
-    "id": "rome-fire", "title": "The great fire of Rome", "type": "judgment", "world": true,
+    "id": "rome-fire", "title": "The great fire of Rome", "type": "other", "world": true,
     "summary": "Fire destroys much of Rome. Nero blames the Christians and has many put to death, the first persecution by Rome; tradition places the deaths of Peter and Paul under Nero.",
     "dates": { "early": { "start": { "year": 64 }, "confidence": "approx" } },
     "dateNote": "July AD 64, told by the Roman historian Tacitus.",
