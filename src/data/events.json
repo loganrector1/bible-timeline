@@ -25,11 +25,19 @@
   },
   {
     "id": "flood", "title": "The Flood", "type": "judgment", "major": true,
-    "summary": "God judges a corrupt world by a flood and saves Noah, his family and the animals in the ark, then makes a covenant never to flood the earth again.",
+    "summary": "God judges a corrupt world by a flood and saves Noah, his family and the animals in the ark, until the waters recede and the ark comes to rest on the mountains of Ararat.",
     "dates": { "early": { "start": { "year": -2457 }, "confidence": "unknown" }, "late": { "start": { "year": -2271 }, "confidence": "unknown" } },
     "dateNote": "1,656 years after Creation by the Masoretic genealogies (Genesis 5; 7:6). The Septuagint and other readings give different totals.",
     "people": ["noah"], "locations": ["ararat"],
-    "scripture": [{ "book": "Genesis", "chapter": 6, "verse": 9, "endChapter": 9, "endVerse": 17 }]
+    "scripture": [{ "book": "Genesis", "chapter": 6, "verse": 9, "endChapter": 8, "endVerse": 19 }]
+  },
+  {
+    "id": "noah-covenant", "title": "God's covenant with Noah", "type": "covenant", "major": true, "partOf": "flood",
+    "summary": "Noah builds an altar and offers burnt offerings, and God makes a covenant with him and every living creature: \"never again will there be a flood to destroy the earth.\" The rainbow is its sign.",
+    "dates": { "early": { "start": { "year": -2457 }, "confidence": "unknown" }, "late": { "start": { "year": -2271 }, "confidence": "unknown" } },
+    "dateNote": "As Noah and his family leave the ark, a year and ten days after the Flood began (Genesis 7:11; 8:14–18).",
+    "people": ["noah"], "locations": ["ararat"],
+    "scripture": [{ "book": "Genesis", "chapter": 8, "verse": 20, "endChapter": 9, "endVerse": 17 }]
   },
   {
     "id": "babel", "title": "The Tower of Babel", "type": "judgment", "major": true,
