@@ -56,6 +56,14 @@ describe("events that are part of another", () => {
   });
 });
 
+describe("event types", () => {
+  test("second types don't repeat each other or the main type", () => {
+    for (const ev of data.events) {
+      expect(new Set([ev.type, ...ev.alsoTypes]).size, ev.id).toBe(ev.alsoTypes.length + 1);
+    }
+  });
+});
+
 describe("births and deaths", () => {
   // The event's dot (or its mark on the people lane) must sit at the end of the person's bar.
   test("match the lifespan of the person they're about", () => {

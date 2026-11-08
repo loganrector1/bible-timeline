@@ -298,6 +298,11 @@ const EVENT_TYPE_LABEL: Record<EventType, string> = {
   worship: "Worship", family: "Family", ministry: "Ministry", writing: "Writing", other: "Event",
 };
 
+/** Every type an event fits, its main type first: what the type filters match. */
+export function eventTypes(ev: Event): EventType[] {
+  return [ev.type, ...ev.alsoTypes];
+}
+
 /** What kind of event it is, as its kicker says: "Battle", "World history · Battle". */
 export function eventKind(ev: Event) {
   if (!ev.world) return EVENT_TYPE_LABEL[ev.type];

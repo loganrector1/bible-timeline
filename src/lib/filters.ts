@@ -1,6 +1,6 @@
 import { data, regionsById } from "../data";
 import type { Event, EventType } from "../data/schema";
-import { entityBounds, eventLocations, eventMidpoint } from "./entities";
+import { entityBounds, eventLocations, eventMidpoint, eventTypes } from "./entities";
 import { overlaps, type Passage } from "./passages";
 
 /**
@@ -85,7 +85,7 @@ function atPlace(ev: Event, placeId: string): boolean {
 
 export function eventShown(ev: Event, f: Filters, chron: string): boolean {
   return (!ev.world || !!f.world)
-    && (!f.types.length || f.types.includes(ev.type))
+    && (!f.types.length || eventTypes(ev).some((t) => f.types.includes(t)))
     && (!f.people.length || ev.people.some((p) => f.people.includes(p)))
     && (!f.passages.length || ev.scripture.some((r) => f.passages.some((p) => overlaps(r, p))))
     && (!f.eras.length || f.eras.some((e) => inEra(ev, e, chron)))
@@ -95,6 +95,7 @@ export function eventShown(ev: Event, f: Filters, chron: string): boolean {
 /**
  * Whether routine births and deaths of this type are drawn as marks on people's bars. Not while
  * they're filtered to: then they're what the reader asked to see, so they're ordinary event dots.
+ * Only the main type counts: a battle that is also a death (Ahab's) is never a mark.
  */
 export function drawnAsLifeMark(ev: Event, f: Filters): boolean {
   return !f.types.includes(ev.type);

@@ -41,7 +41,10 @@ export const Era = z.object({
 export const EventType = z.enum([
   "birth", "death", "battle", "covenant", "miracle", "journey",
   "reign", "prophecy", "judgment", "worship", "family",
-  /** A prophet's or Jesus' public ministry. */
+  /**
+   * A public ministry: Jesus', John the Baptist's, the apostles', Elisha's. The writing prophets'
+   * ministries are prophecy, with ministry as a second type.
+   */
   "ministry",
   /** A book written, dated by when and where it was written rather than what it describes. */
   "writing",
@@ -51,7 +54,13 @@ export const EventType = z.enum([
 export const Event = z.object({
   id,
   title: z.string(),
+  /** The main type: it names the event's kind (its kicker) and its "Show only" shortcut. */
   type: EventType,
+  /**
+   * Other types the event also fits, which the type filters match too (the ten plagues are a
+   * judgment and miracles). Only for what's central to the event as its summary tells it.
+   */
+  alsoTypes: z.array(EventType).default([]),
   /** Key events: their labels and dots win when the timeline is crowded. */
   major: z.boolean().default(false),
   summary: z.string(),
