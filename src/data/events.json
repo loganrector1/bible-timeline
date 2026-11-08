@@ -11,7 +11,7 @@
     "id": "fall", "title": "The Fall", "type": "judgment", "major": true,
     "summary": "Tempted by the serpent, Adam and Eve eat from the tree God forbade them. Sin and death enter the world, and God sends them out of Eden, with the first promise of the serpent's defeat (Genesis 3:15).",
     "dates": { "early": { "start": { "year": -4113 }, "confidence": "unknown" }, "late": { "start": { "year": -3927 }, "confidence": "unknown" } },
-    "dateNote": "Scripture doesn't say how long after Creation; placed with it.",
+    "dateNote": "Scripture doesn't say how long after Creation; placed with it. Genesis doesn't call God's dealings with Adam a covenant. Hosea 6:7 may (\"like Adam, they have transgressed the covenant\", though Adam may be the city of Joshua 3:16), and some traditions speak of a covenant with Adam, the \"covenant of works\" in Reformed theology.",
     "people": ["adam", "eve"],
     "scripture": [{ "book": "Genesis", "chapter": 3 }]
   },
@@ -177,6 +177,14 @@
     "scripture": [{ "book": "Genesis", "chapter": 25, "verse": 7, "endVerse": 11 }]
   },
   {
+    "id": "isaac-covenant", "title": "God's promise to Isaac", "type": "covenant",
+    "summary": "In a famine Isaac settles at Gerar, where God tells him not to go down to Egypt and promises \"I will confirm the oath that I swore to your father Abraham.\" Isaac reopens his father's wells, and at Beersheba God appears to him again: \"I am with you.\"",
+    "dates": { "early": { "start": { "year": -1978 }, "confidence": "approx" }, "late": { "start": { "year": -1792 }, "confidence": "approx" } },
+    "dateNote": "Not dated: after Abraham's death, since Isaac reopens the wells the Philistines had stopped up after it (Genesis 26:18), and before Esau marries at 40 (Genesis 26:34).",
+    "people": ["isaac", "rebekah"], "locations": ["gerar", "beersheba"],
+    "scripture": [{ "book": "Genesis", "chapter": 26 }]
+  },
+  {
     "id": "jacob-flees", "title": "Jacob flees to Haran", "type": "journey",
     "summary": "After taking Esau's blessing, Jacob flees to Laban and dreams of a stairway to heaven at Bethel.",
     "dates": { "early": { "start": { "year": -1928 }, "confidence": "approx" }, "late": { "start": { "year": -1742 }, "confidence": "approx" } },
@@ -184,6 +192,14 @@
     "people": ["jacob", "esau", "isaac", "rebekah", "laban"], "locations": ["beersheba", "bethel", "haran"],
     "journeyId": "jacob-flight",
     "scripture": [{ "book": "Genesis", "chapter": 27, "endChapter": 28 }]
+  },
+  {
+    "id": "jacob-bethel", "title": "Jacob's dream at Bethel", "type": "covenant", "partOf": "jacob-flees",
+    "summary": "On the way to Haran Jacob dreams of a stairway reaching to heaven, and God gives him the promise made to Abraham and Isaac: \"I will give you and your descendants the land on which you now lie.\" Jacob sets up his stone pillar and names the place Bethel.",
+    "dates": { "early": { "start": { "year": -1928 }, "confidence": "approx" }, "late": { "start": { "year": -1742 }, "confidence": "approx" } },
+    "dateNote": "On his flight from Esau (Genesis 28:10).",
+    "people": ["jacob"], "locations": ["bethel"],
+    "scripture": [{ "book": "Genesis", "chapter": 28, "verse": 10, "endVerse": 22 }]
   },
   {
     "id": "jacob-marries", "title": "Jacob marries Leah and Rachel", "type": "family",
@@ -323,7 +339,7 @@
     "scripture": [{ "book": "Exodus", "chapter": 2, "verse": 11, "endVerse": 25 }]
   },
   {
-    "id": "burning-bush", "title": "The burning bush", "type": "covenant", "major": true,
+    "id": "burning-bush", "title": "The burning bush", "type": "prophecy", "major": true,
     "summary": "God appears to Moses in a bush that does not burn up, reveals his name, and sends him to bring Israel out of Egypt.",
     "dates": {
       "early": { "start": { "year": -1446 }, "confidence": "approx" },
@@ -557,6 +573,17 @@
     "dateNote": "While Israel camped on the plains of Moab (Numbers 22:1), before Moses' last words in the 11th month of the 40th year (Deuteronomy 1:3).",
     "people": ["balaam"], "locations": ["plains-of-moab"],
     "scripture": [{ "book": "Numbers", "chapter": 22, "verse": 2, "endChapter": 24, "endVerse": 25 }]
+  },
+  {
+    "id": "phinehas-covenant", "title": "Phinehas and the covenant of peace", "type": "covenant",
+    "summary": "Camped at Shittim, Israel's men join Moab's women in worshiping Baal of Peor, and a plague breaks out. Aaron's grandson Phinehas stops it by killing an Israelite and the Midianite woman he brought into the camp, and God grants him \"My covenant of peace… a covenant of permanent priesthood for him and his descendants.\"",
+    "dates": {
+      "early": { "start": { "year": -1405, "month": 1, "label": "40th year" }, "confidence": "approx" },
+      "late": { "start": { "year": -1219, "month": 1, "label": "40th year" }, "confidence": "approx" }
+    },
+    "dateNote": "After Balaam's oracles, while Israel camped on the plains of Moab, and before Moses' last words in the 11th month of the 40th year (Deuteronomy 1:3). Balaam had advised Moab to lead Israel astray this way (Numbers 31:16).",
+    "people": ["moses"], "locations": ["plains-of-moab"],
+    "scripture": [{ "book": "Numbers", "chapter": 25 }]
   },
   {
     "id": "moses-farewell", "title": "Moses' farewell to Israel", "type": "covenant",
@@ -1197,7 +1224,7 @@
     "scripture": [{ "book": "Daniel", "chapter": 6 }]
   },
   {
-    "id": "cyrus-decree", "title": "Cyrus lets the exiles return", "type": "covenant", "major": true,
+    "id": "cyrus-decree", "title": "Cyrus lets the exiles return", "type": "other", "major": true,
     "summary": "In his first year Cyrus decrees that the Jews may go home and rebuild the temple, and returns its gold and silver vessels.",
     "dates": { "early": { "start": { "year": -537 }, "confidence": "approx" } },
     "dateNote": "Cyrus's first year in Babylon, 538 BC (Ezra 1:1). The Cyrus Cylinder records his policy of returning captive peoples and their gods to their homes.",
@@ -1272,11 +1299,19 @@
   },
   {
     "id": "nehemiah-walls", "title": "Nehemiah rebuilds the walls", "type": "other",
-    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, then hear Ezra read the Law: \"the joy of the LORD is your strength.\" They confess their sins, sign a covenant to keep the Law, and dedicate the walls with two great choirs.",
+    "summary": "Nehemiah, the king's cupbearer, returns as governor. Despite threats from enemies the people rebuild Jerusalem's walls in fifty-two days, and later dedicate them with two great choirs.",
     "dates": { "early": { "start": { "year": -444, "month": 8, "label": "5th month" }, "end": { "year": -444, "month": 9, "label": "25 Elul" }, "confidence": "approx" } },
     "dateNote": "Nehemiah went to the king in Artaxerxes's twentieth year, 445 BC (Nehemiah 2:1); the wall took fifty-two days (Nehemiah 6:15).",
     "people": ["nehemiah", "ezra", "artaxerxes"], "locations": ["susa", "jerusalem"], "journeyId": "nehemiah-to-jerusalem",
-    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 12 }]
+    "scripture": [{ "book": "Nehemiah", "chapter": 1, "endChapter": 7 }, { "book": "Nehemiah", "chapter": 11, "endChapter": 12 }]
+  },
+  {
+    "id": "covenant-renewed", "title": "The people renew the covenant", "type": "covenant",
+    "summary": "With the walls finished, the people gather and Ezra reads the Book of the Law aloud: \"the joy of the LORD is your strength.\" They keep the Feast of Tabernacles, confess their sins, and sign \"a binding agreement\" to follow the Law of God given through Moses.",
+    "dates": { "early": { "start": { "year": -444, "month": 10, "label": "24th day, 7th month" }, "confidence": "approx" } },
+    "dateNote": "The reading began on the first day of the seventh month (Nehemiah 8:2), and the confession and the agreement came on the 24th (Nehemiah 9:1), a month after the wall was finished.",
+    "people": ["ezra", "nehemiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Nehemiah", "chapter": 8, "endChapter": 10 }]
   },
   {
     "id": "malachi-ministry", "title": "Malachi, the last prophet", "type": "ministry",
@@ -1383,7 +1418,7 @@
     "scripture": [{ "book": "Matthew", "chapter": 4, "verse": 12, "endVerse": 17 }, { "book": "Matthew", "chapter": 4, "verse": 23, "endVerse": 25 }, { "book": "Matthew", "chapter": 8, "verse": 1, "endVerse": 22 }, { "book": "Matthew", "chapter": 9, "verse": 27, "endVerse": 38 }, { "book": "Matthew", "chapter": 11, "endChapter": 12 }, { "book": "Matthew", "chapter": 13, "verse": 54, "endVerse": 58 }, { "book": "Matthew", "chapter": 15, "endChapter": 16, "endVerse": 12 }, { "book": "Matthew", "chapter": 17, "verse": 14, "endChapter": 18, "endVerse": 35 }, { "book": "Mark", "chapter": 1, "verse": 14, "endVerse": 15 }, { "book": "Mark", "chapter": 1, "verse": 21, "endVerse": 45 }, { "book": "Mark", "chapter": 2, "verse": 23, "endChapter": 3, "endVerse": 12 }, { "book": "Mark", "chapter": 3, "verse": 20, "endVerse": 35 }, { "book": "Mark", "chapter": 6, "verse": 1, "endVerse": 6 }, { "book": "Mark", "chapter": 7, "endChapter": 8, "endVerse": 26 }, { "book": "Mark", "chapter": 9, "verse": 14, "endVerse": 50 }, { "book": "Luke", "chapter": 4, "verse": 14, "endVerse": 44 }, { "book": "Luke", "chapter": 5, "verse": 12, "endVerse": 16 }, { "book": "Luke", "chapter": 6, "verse": 1, "endVerse": 11 }, { "book": "Luke", "chapter": 7, "endChapter": 8, "endVerse": 3 }, { "book": "Luke", "chapter": 8, "verse": 19, "endVerse": 21 }, { "book": "Luke", "chapter": 9, "verse": 37, "endVerse": 50 }, { "book": "John", "chapter": 3, "verse": 22, "endVerse": 36 }, { "book": "John", "chapter": 4, "verse": 43, "endVerse": 54 }]
   },
   {
-    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "covenant", "partOf": "jesus-ministry",
+    "id": "jesus-baptized", "title": "Jesus is baptized", "type": "miracle", "partOf": "jesus-ministry",
     "summary": "John the Baptist preaches in the wilderness of Judea, \"Repent, for the kingdom of heaven is near,\" and baptizes crowds in the Jordan. When Jesus is baptized, the Spirit descends like a dove and a voice from heaven says, \"You are My beloved Son.\" Afterward John points him out: \"Look, the Lamb of God, who takes away the sin of the world!\"",
     "dates": { "early": { "start": { "year": 27 }, "confidence": "approx" } },
     "dateNote": "John began preaching in the fifteenth year of Tiberius (Luke 3:1), AD 26–29 depending on how his reign is counted; Jesus was \"about thirty\" (Luke 3:23).",
@@ -1511,7 +1546,7 @@
     "scripture": [{ "book": "Matthew", "chapter": 14, "verse": 22, "endVerse": 36 }, { "book": "Mark", "chapter": 6, "verse": 45, "endVerse": 56 }, { "book": "John", "chapter": 6, "verse": 16, "endVerse": 21 }]
   },
   {
-    "id": "peter-confession", "title": "Peter's confession", "type": "covenant", "partOf": "jesus-ministry",
+    "id": "peter-confession", "title": "Peter's confession", "type": "prophecy", "partOf": "jesus-ministry",
     "summary": "\"Who do you say I am?\" Peter answers, \"You are the Christ, the Son of the living God.\" From then on Jesus tells them he must suffer, die and rise.",
     "dates": { "early": { "start": { "year": 29 }, "confidence": "approx" } },
     "dateNote": "Not dated; after the feeding of the five thousand, near one Passover, and before the last journey to Jerusalem.",
@@ -1711,7 +1746,7 @@
     "scripture": [{ "book": "Acts", "chapter": 9, "verse": 32, "endVerse": 43 }]
   },
   {
-    "id": "cornelius", "title": "Peter and Cornelius", "type": "covenant",
+    "id": "cornelius", "title": "Peter and Cornelius", "type": "miracle",
     "summary": "A vision teaches Peter not to call any person unclean. He preaches to the Roman centurion Cornelius, and the Spirit falls on Gentiles for the first time.",
     "dates": { "early": { "start": { "year": 40 }, "confidence": "approx" } },
     "dateNote": "Not dated; between Paul's conversion and Herod Agrippa I's death in AD 44 (Acts 12).",
