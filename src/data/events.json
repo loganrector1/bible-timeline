@@ -1167,6 +1167,14 @@
     "scripture": [{ "book": "2 Kings", "chapter": 24, "verse": 10, "endVerse": 17 }]
   },
   {
+    "id": "new-covenant-promised", "title": "The new covenant promised", "type": "covenant", "major": true, "partOf": "jeremiah-ministry",
+    "summary": "As Jerusalem faces judgment, God promises through Jeremiah to bring his people home and make \"a new covenant with the house of Israel and with the house of Judah,\" not like the one they broke after the Exodus: \"I will put My law in their minds and inscribe it on their hearts… For I will forgive their iniquities and will remember their sins no more.\"",
+    "dates": { "early": { "start": { "year": -586 }, "confidence": "approx" } },
+    "dateNote": "Jeremiah 30–31 aren't dated; placed with chapters 32–33, which came in Zedekiah's tenth year, while Babylon besieged Jerusalem and Jeremiah was confined in the courtyard of the guard (Jeremiah 32:1–2). Jesus makes it at the Last Supper: \"This cup is the new covenant in My blood\" (Luke 22:20); Hebrews 8:8–12 quotes the promise in full.",
+    "people": ["jeremiah"], "locations": ["jerusalem"],
+    "scripture": [{ "book": "Jeremiah", "chapter": 31, "verse": 31, "endVerse": 34 }, { "book": "Jeremiah", "chapter": 30, "endChapter": 33 }]
+  },
+  {
     "id": "fall-of-jerusalem", "title": "Fall of Jerusalem", "type": "judgment", "major": true,
     "summary": "Babylon besieges Jerusalem for a year and a half, breaks through the walls, burns the temple and takes the people into exile.",
     "dates": { "early": { "start": { "year": -587, "month": 1, "label": "10th of 10th month" }, "end": { "year": -585, "month": 8, "label": "10th of 5th month" }, "confidence": "approx" } },
